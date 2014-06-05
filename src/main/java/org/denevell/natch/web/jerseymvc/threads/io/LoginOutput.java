@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class LoginReturn {
+public class LoginOutput {
         private String authKey = "";
         private boolean admin;
         private String errorMessage;

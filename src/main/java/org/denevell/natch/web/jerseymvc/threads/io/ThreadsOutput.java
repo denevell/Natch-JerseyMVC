@@ -9,18 +9,18 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class ListThreadsReturn {
+public class ThreadsOutput {
         
-	public ListThreadsReturn() {
+	public ThreadsOutput() {
 	}
         private long numOfThreads;
-        private List<ThreadReturn> threads = new ArrayList<ThreadReturn>();
+        private List<ThreadOutput> threads = new ArrayList<ThreadOutput>();
 
-        public List<ThreadReturn> getThreads() {
+        public List<ThreadOutput> getThreads() {
                 return threads;
         }
 
-        public void setThreads(List<ThreadReturn> posts) {
+        public void setThreads(List<ThreadOutput> posts) {
                 this.threads = posts;
         }
 

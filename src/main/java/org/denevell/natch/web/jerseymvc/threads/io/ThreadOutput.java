@@ -14,7 +14,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ThreadReturn {
+public class ThreadOutput {
 
 	private List<String> tags;
 	private String id;
@@ -27,7 +27,7 @@ public class ThreadReturn {
 	private long rootPostId;
 	private long latestPostId;
 
-	public ThreadReturn(ThreadReturn tr) {
+	public ThreadOutput(ThreadOutput tr) {
 		subject = tr.subject;
 		author = tr.author;
 		numPosts = tr.numPosts;
@@ -36,7 +36,7 @@ public class ThreadReturn {
 		latestPostId = tr.latestPostId;
 	}
 
-	public ThreadReturn(String subject, String author, long creation,
+	public ThreadOutput(String subject, String author, long creation,
 			long modification, List<String> tags) {
 		this.tags = tags;
 		this.subject = subject;
@@ -45,7 +45,7 @@ public class ThreadReturn {
 		this.modification = modification;
 	}
 
-	public ThreadReturn() {
+	public ThreadOutput() {
 	}
 
 	public String getSubject() {
