@@ -1,0 +1,39 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+    <display-name>PROJECT_NAME</display-name>
+
+    <servlet>
+       <servlet-name>YOUR_SERVLET_NAME</servlet-name>
+       <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name> <param-value>com.example.myproject.JerseyApplication</param-value>
+        </init-param>     
+        <init-param>
+           <param-name>jersey.config.server.provider.packages</param-name>
+           <param-value>com.example.myproject</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+       <servlet-name>YOUR_SERVLET_NAME</servlet-name>
+       <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+       <filter-name>Logging Filter</filter-name>
+       <filter-class>
+       com.example.myproject.ExceptionLogger
+       </filter-class>
+    </filter>
+    <filter-mapping>
+       <filter-name>Logging Filter</filter-name>
+       <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+    	<listener-class>com.example.myproject.listeners.ManifestVars</listener-class>
+    </listener>
+
+</web-app>

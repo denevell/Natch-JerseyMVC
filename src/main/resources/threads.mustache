@@ -1,0 +1,19 @@
+<html>
+        <form method="post" action="">
+                {{#login}}
+                        {{#errorMessage}}
+                                {{.}} ?<br />
+                        {{/errorMessage}}
+                {{/login}}
+                <input name="username" type="text" />
+                <input name="password" type="text" /> 
+                <input type="submit" value="login" />
+        </form>
+        <ul>
+                {{#threads}}
+                        {{#threads}}
+                 	       <li>{{subject}}</li>
+                        {{/threads}}
+                {{/threads}}
+        </ul>
+</html>
