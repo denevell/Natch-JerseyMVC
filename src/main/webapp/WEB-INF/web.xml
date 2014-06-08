@@ -8,11 +8,11 @@
        <servlet-name>YOUR_SERVLET_NAME</servlet-name>
        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
-            <param-name>javax.ws.rs.Application</param-name> <param-value>com.example.myproject.JerseyApplication</param-value>
+            <param-name>javax.ws.rs.Application</param-name> <param-value>org.denevell.natch.web.jerseymvc.JerseyApplication</param-value>
         </init-param>     
         <init-param>
            <param-name>jersey.config.server.provider.packages</param-name>
-           <param-value>com.example.myproject</param-value>
+           <param-value>org.denevell.natch.web.jerseymvc</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -24,7 +24,7 @@
     <filter>
        <filter-name>Logging Filter</filter-name>
        <filter-class>
-       com.example.myproject.ExceptionLogger
+       org.denevell.natch.web.jerseymvc.ExceptionLogger
        </filter-class>
     </filter>
     <filter-mapping>
@@ -33,7 +33,7 @@
     </filter-mapping>
 
     <listener>
-    	<listener-class>com.example.myproject.listeners.ManifestVars</listener-class>
+    	<listener-class>org.denevell.natch.web.jerseymvc.ManifestVars</listener-class>
     </listener>
 
 </web-app>
