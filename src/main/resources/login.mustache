@@ -1,0 +1,19 @@
+{{^loggedin}}
+        <form method="post" action="">
+                {{#login}}
+                        {{#errorMessage}}
+                                {{.}} ?<br />
+                        {{/errorMessage}}
+                {{/login}}
+                <input name="username" type="text" id="login_username_input" />
+                <input name="password" type="text" id="login_password_input" /> 
+                <input name="login_active" type="hidden" /> 
+                <input type="submit" id="login_form_submit" value="login" />
+        </form>
+{{/loggedin}}
+{{#loggedin}}
+        <form method="post" action="">
+                <input name="logout_active" value="yeah" type="hidden" /> 
+                <input type="submit" id="logout_form_submit" value="logout" />
+        </form>
+{{/loggedin}}

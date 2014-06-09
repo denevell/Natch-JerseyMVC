@@ -33,7 +33,7 @@
     </filter-mapping>
 
     <listener>
-    	<listener-class>org.denevell.natch.web.jerseymvc.ManifestVars</listener-class>
+    	<listener-class>org.denevell.natch.web.jerseymvc.ManifestVarsListener</listener-class>
     </listener>
 
 </web-app>

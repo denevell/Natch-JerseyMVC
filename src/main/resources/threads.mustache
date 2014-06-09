@@ -1,31 +1,7 @@
-<html>
-        <form method="post" action="">
-                {{#register}}
-                        {{#errorMessage}}
-                                {{.}} ?<br />
-                        {{/errorMessage}}
-                {{/register}}
-                <input name="username" type="text" id="register_username_input" />
-                <input name="password" type="text" id="register_password_input" /> 
-                <input name="register_active" type="hidden" /> 
-                <input type="submit" id="register_form_submit" value="register" />
-        </form>
-        <form method="post" action="">
-                {{#login}}
-                        {{#errorMessage}}
-                                {{.}} ?<br />
-                        {{/errorMessage}}
-                {{/login}}
-                <input name="username" type="text" id="login_username_input" />
-                <input name="password" type="text" id="login_password_input" /> 
-                <input name="login_active" type="hidden" /> 
-                <input type="submit" id="login_form_submit" value="login" />
-        </form>
-        <ul>
+<ul>
+        {{#threads}}
                 {{#threads}}
-                        {{#threads}}
-                 	       <li>{{subject}}</li>
-                        {{/threads}}
+                        <li>{{subject}}</li>
                 {{/threads}}
-        </ul>
-</html>
+        {{/threads}}
+</ul>

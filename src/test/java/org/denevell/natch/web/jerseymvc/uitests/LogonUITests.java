@@ -33,11 +33,12 @@ public class LogonUITests {
 	@Test
 	public void shouldLogonCorrectly() throws InterruptedException {
 		// Arrange / Act
+        assertTrue(driver.getPageSource().contains("login"));
         logonCorrectly(driver);
         
         // Assert
         assertTrue(driver.getCurrentUrl().equals(URLs.HOMEPAGE));
-        //assertFalse(driver.getPageSource().contains("Logon"));
+        assertFalse(driver.getPageSource().contains("login"));
         boolean source = driver.getPageSource().contains(Strings.getBlankUsernameOrPassword());
         assertFalse(source);
 	}

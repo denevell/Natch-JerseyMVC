@@ -78,8 +78,8 @@ task jettyStart(dependsOn: [jettyStop]) << {
         cmd.in.close()
         cmd.out.close()
         cmd.err.close()
-        println("Waiting 10 seconds to settle")
-        sleep(10000)
+        println("Waiting 7 seconds to settle")
+        sleep(7000)
         println("Finished waiting")
 }
 
