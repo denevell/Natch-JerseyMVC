@@ -22,45 +22,39 @@ public class LoginLogoutModule {
 	
 	private static DefaultMustacheFactory sFactory = new DefaultMustacheFactory();
 	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
+	private LoginOutput mLogin;
 
-	public static String template(
-			final HttpServletRequest request,
-			final Object loginActive,
-			final Object logoutActive,
-			final String username,
-			final String password) throws IOException {
+	@SuppressWarnings("unused")
+	public String template(final HttpServletRequest request) throws IOException {
 
 		Writer writer = new StringWriter();
-		
-		logout(logoutActive, request);
-		final LoginOutput login = login(loginActive, request, username, password);
 
    		sFactory
     		.compile("login.mustache")
     		.execute(writer, 
     				new Object() {
-    				@SuppressWarnings("unused")
 					LoginOutput login() {
-							return login;
+							return mLogin;
                     }
-    				@SuppressWarnings("unused")
 					boolean loggedin() {
                             return request.getSession(true).getAttribute("loggedin")!=null;
+                    }
+					boolean isadmin() {
+                            return request.getSession(true).getAttribute("admin")!=null;
                     }
     		});
 		writer.flush();
 		return writer.toString();
 	}
 
-	public static LoginOutput login(
+	public void login(
 			Object trueObject, 
 			HttpServletRequest request, 
 			String username, 
 			String password) {
-		if(trueObject==null) return null;
-		LoginOutput ret = new LoginOutput();
+		if(trueObject==null) return;
 		try {
-			ret = sService 
+			LoginOutput ret = sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
 				.path("rest") .path("user") .path("login")
 				.request()
@@ -69,22 +63,29 @@ public class LoginLogoutModule {
 			if(ret.getAuthKey()!=null && ret.getAuthKey().trim().length()>0) {
 				request.getSession(true).setAttribute("loggedin", true);
 			}
+			if(ret.isAdmin()) {
+				request.getSession(true).setAttribute("admin", true);
+			}
+			mLogin = ret;
 		} catch (WebApplicationException e) {
+			LoginOutput ret = new LoginOutput();
 			System.out.println(e.getResponse().getStatus());
 			if(e.getResponse().getStatus()==403) {
-				ret.setErrorMessage("Username or password incorrect");
+				ret.setErrorMessage(Strings.getLogonError());
 			} else if(e.getResponse().getStatus()==400) {
 				ret.setErrorMessage(Strings.getBlankUsernameOrPassword());
 			} else {
 				ret.setErrorMessage("Whoops... erm...");
 			}
+			mLogin = ret;
 		} catch (Exception e) {
+			LoginOutput ret = new LoginOutput();
 			ret.setErrorMessage("Whoops... erm...");
+			mLogin = ret;
 		}
-		return ret;
 	}
 
-	public static void logout(
+	public void logout(
 			Object trueObject, 
 			HttpServletRequest request
 			) {
@@ -96,6 +97,7 @@ public class LoginLogoutModule {
 				.request()
 				.delete();
 			request.getSession(true).setAttribute("loggedin", null);
+			request.getSession(true).setAttribute("admin", null);
 		} catch (Exception e) {
 			Logger.getLogger(LoginLogoutModule.class).error("Whoops... erm...", e);
 			request.getSession(true).setAttribute("loggedin", null);

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Entity;
 
+import org.denevell.natch.web.jerseymvc.Strings;
 import org.denevell.natch.web.jerseymvc.threads.io.RegisterInput;
 import org.denevell.natch.web.jerseymvc.threads.io.RegisterOutput;
 import org.glassfish.jersey.client.JerseyClient;
@@ -20,56 +21,60 @@ public class RegisterModule {
 	
 	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	private static DefaultMustacheFactory sFactory = new DefaultMustacheFactory();
+	private RegisterOutput mRegister;
 
 	@SuppressWarnings("unused")
-	public static String template(
-			final HttpServletRequest request,
-			final Object registerActive,
-			final String username,
-			final String password) throws IOException {
+	public String template(final HttpServletRequest request) throws IOException {
 
 		Writer writer = new StringWriter();
 		
-		final RegisterOutput register = register(registerActive, username, password);
-
     	sFactory
     		.compile("register.mustache")
     		.execute(writer, 
     				new Object() {
 						RegisterOutput register() {
-							return register;
+							return mRegister;
 						}
 						boolean loggedin() {
-                            return request.getSession(true).getAttribute("loggedin")!=null;
-						}
+							return request.getSession(true).getAttribute("loggedin")!=null;
+    					}
     				});
 		writer.flush();
 		return writer.toString();
 	}
 
-	public static RegisterOutput register(
+	public void register(
 			Object trueObject, 
+			HttpServletRequest serv,
 			String username, 
 			String password) {
-		if(trueObject==null) return null;
-		RegisterOutput ret = new RegisterOutput();
+		if(trueObject==null) return;
 		try {
-			ret = sService 
+			RegisterOutput ret = sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
 				.path("rest") .path("user") 
 				.request()
 				.put(Entity.json(new RegisterInput(username, password)),
 						RegisterOutput.class);
+			if(ret.getError()!=null && ret.getError().trim().length()>0) {
+				ret.setErrorMessage(ret.getError()); // Hack...
+			} else {
+				new LoginLogoutModule().login(new Object(), serv, username, password);
+			}
+			mRegister = ret;
 		} catch (WebApplicationException e) {
+			RegisterOutput ret = new RegisterOutput();
 			if(e.getResponse().getStatus()==403) {
 				ret.setErrorMessage("Username or password incorrect");
 			} else {
-				ret.setErrorMessage("Whoops... erm...");
+				ret.setErrorMessage(Strings.getBlankUsernameOrPassword());
 			}
+			mRegister = ret;
 		} catch (Exception e) {
+			RegisterOutput ret = new RegisterOutput();
 			ret.setErrorMessage("Whoops... erm...");
+			mRegister = ret;
 		}
-		return ret;
 	}
 
 

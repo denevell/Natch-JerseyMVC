@@ -16,4 +16,7 @@
                 <input name="logout_active" value="yeah" type="hidden" /> 
                 <input type="submit" id="logout_form_submit" value="logout" />
         </form>
+		{{#isadmin}}
+			<a href="admin" id="admin">admin</a>
+		{{/isadmin}}
 {{/loggedin}}

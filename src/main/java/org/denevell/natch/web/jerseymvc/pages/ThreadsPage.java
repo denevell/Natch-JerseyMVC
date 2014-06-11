@@ -1,7 +1,5 @@
 package org.denevell.natch.web.jerseymvc.pages;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -22,6 +20,8 @@ import org.glassfish.jersey.server.mvc.Viewable;
 public class ThreadsPage {
 	
 	@Context HttpServletRequest mRequest;
+	RegisterModule mRegister = new RegisterModule();
+	LoginLogoutModule mLogin = new LoginLogoutModule();
 
     @GET
     @Path("{start}/{limit}")
@@ -29,13 +29,9 @@ public class ThreadsPage {
     public Viewable index(
     		@PathParam("start") @DefaultValue("0") int start,
     		@PathParam("limit") @DefaultValue("10") int limit
-    		) throws IOException {
+    		) throws Exception {
 
-    	return new ThreadsView()
-    			.loginLogout(LoginLogoutModule.template(mRequest, null, null, null, null))
-    			.threads(ThreadsModule.template(mRequest, start, limit))
-    			.register(RegisterModule.template(mRequest, null, null, null))
-    			.create();
+    	return createView(start, limit); 
 	}
 
     @POST
@@ -50,12 +46,21 @@ public class ThreadsPage {
     		@FormParam("login_active") final String loginActive,
     		@FormParam("register_active") final String registerActive,
     		@FormParam("logout_active") final String logoutActive 
-    		) throws IOException {
+    		) throws Exception {
     	
+    	mLogin.logout(logoutActive, mRequest);
+    	mRegister.register(registerActive, mRequest, username, password);
+    	mLogin.login(loginActive, mRequest, username, password);
+
+    	return createView(start, limit);
+	}
+    
+    private Viewable createView(int start, int limit) throws Exception {
     	return new ThreadsView()
-    			.loginLogout(LoginLogoutModule.template(mRequest, loginActive, logoutActive, username, password))
+    			.register(mRegister.template(mRequest))
+    			.loginLogout(mLogin.template(mRequest))
     			.threads(ThreadsModule.template(mRequest, start, limit))
-    			.register(RegisterModule.template(mRequest, registerActive, username, password))
     			.create();
+
 	}
 }
