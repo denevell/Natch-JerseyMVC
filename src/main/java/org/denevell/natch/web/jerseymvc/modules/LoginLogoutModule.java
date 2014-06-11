@@ -10,8 +10,8 @@ import javax.ws.rs.client.Entity;
 
 import org.apache.log4j.Logger;
 import org.denevell.natch.web.jerseymvc.Strings;
-import org.denevell.natch.web.jerseymvc.threads.io.LoginInput;
-import org.denevell.natch.web.jerseymvc.threads.io.LoginOutput;
+import org.denevell.natch.web.jerseymvc.io.LoginInput;
+import org.denevell.natch.web.jerseymvc.io.LoginOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -62,6 +62,7 @@ public class LoginLogoutModule {
 						LoginOutput.class);
 			if(ret.getAuthKey()!=null && ret.getAuthKey().trim().length()>0) {
 				request.getSession(true).setAttribute("loggedin", true);
+				request.getSession(true).setAttribute("authkey", ret.getAuthKey());
 			}
 			if(ret.isAdmin()) {
 				request.getSession(true).setAttribute("admin", true);

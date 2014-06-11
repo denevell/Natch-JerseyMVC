@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.threads.io;
+package org.denevell.natch.web.jerseymvc.io;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

@@ -9,8 +9,8 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.web.jerseymvc.Strings;
-import org.denevell.natch.web.jerseymvc.threads.io.RegisterInput;
-import org.denevell.natch.web.jerseymvc.threads.io.RegisterOutput;
+import org.denevell.natch.web.jerseymvc.io.RegisterInput;
+import org.denevell.natch.web.jerseymvc.io.RegisterOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
