@@ -43,13 +43,14 @@ public class ThreadsPage {
     		@PathParam("limit") @DefaultValue("10") int limit,
     		@FormParam("username") final String username,
     		@FormParam("password") final String password,
+    		@FormParam("recovery_email") final String recoveryEmail,
     		@FormParam("login_active") final String loginActive,
     		@FormParam("register_active") final String registerActive,
     		@FormParam("logout_active") final String logoutActive 
     		) throws Exception {
     	
     	mLogin.logout(logoutActive, mRequest);
-    	mRegister.register(registerActive, mRequest, username, password);
+    	mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
     	mLogin.login(loginActive, mRequest, username, password);
 
     	return createView(start, limit);
@@ -59,7 +60,7 @@ public class ThreadsPage {
     	return new ThreadsView()
     			.register(mRegister.template(mRequest))
     			.loginLogout(mLogin.template(mRequest))
-    			.threads(ThreadsModule.template(mRequest, start, limit))
+    			.threads(new ThreadsModule().template(mRequest, start, limit))
     			.create();
 
 	}

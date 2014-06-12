@@ -1,8 +1,6 @@
 package org.denevell.natch.web.jerseymvc.modules;
 
 import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
@@ -12,39 +10,20 @@ import org.apache.log4j.Logger;
 import org.denevell.natch.web.jerseymvc.Strings;
 import org.denevell.natch.web.jerseymvc.io.LoginInput;
 import org.denevell.natch.web.jerseymvc.io.LoginOutput;
-import org.glassfish.jersey.client.JerseyClient;
-import org.glassfish.jersey.client.JerseyClientBuilder;
-import org.glassfish.jersey.jackson.JacksonFeature;
 
-import com.github.mustachejava.DefaultMustacheFactory;
-
-public class LoginLogoutModule {
+public class LoginLogoutModule extends Module {
 	
-	private static DefaultMustacheFactory sFactory = new DefaultMustacheFactory();
-	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
-	private LoginOutput mLogin;
-
+	private LoginOutput mLogin = new LoginOutput();
+	
 	@SuppressWarnings("unused")
 	public String template(final HttpServletRequest request) throws IOException {
-
-		Writer writer = new StringWriter();
-
-   		sFactory
-    		.compile("login.mustache")
-    		.execute(writer, 
-    				new Object() {
-					LoginOutput login() {
-							return mLogin;
-                    }
-					boolean loggedin() {
-                            return request.getSession(true).getAttribute("loggedin")!=null;
-                    }
-					boolean isadmin() {
-                            return request.getSession(true).getAttribute("admin")!=null;
-                    }
-    		});
-		writer.flush();
-		return writer.toString();
+		return createTemplate("login.mustache", 
+			new Object() {
+				LoginOutput login = mLogin;
+				boolean loggedin = request.getSession(true).getAttribute("loggedin")!=null;
+				boolean isadmin = request.getSession(true).getAttribute("admin")!=null;
+    		}
+		);
 	}
 
 	public void login(
@@ -54,35 +33,28 @@ public class LoginLogoutModule {
 			String password) {
 		if(trueObject==null) return;
 		try {
-			LoginOutput ret = sService 
+			mLogin = sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
 				.path("rest") .path("user") .path("login")
 				.request()
-				.post(Entity.json(new LoginInput(username, password)),
-						LoginOutput.class);
-			if(ret.getAuthKey()!=null && ret.getAuthKey().trim().length()>0) {
+				.post(Entity.json(new LoginInput(username, password)), LoginOutput.class);
+			if(mLogin.getAuthKey()!=null && mLogin.getAuthKey().trim().length()>0) {
 				request.getSession(true).setAttribute("loggedin", true);
-				request.getSession(true).setAttribute("authkey", ret.getAuthKey());
+				request.getSession(true).setAttribute("authkey", mLogin.getAuthKey());
 			}
-			if(ret.isAdmin()) {
+			if(mLogin.isAdmin()) {
 				request.getSession(true).setAttribute("admin", true);
 			}
-			mLogin = ret;
 		} catch (WebApplicationException e) {
-			LoginOutput ret = new LoginOutput();
-			System.out.println(e.getResponse().getStatus());
 			if(e.getResponse().getStatus()==403) {
-				ret.setErrorMessage(Strings.getLogonError());
+				mLogin.setErrorMessage(Strings.getLogonError());
 			} else if(e.getResponse().getStatus()==400) {
-				ret.setErrorMessage(Strings.getBlankUsernameOrPassword());
+				mLogin.setErrorMessage(Strings.getBlankUsernameOrPassword());
 			} else {
-				ret.setErrorMessage("Whoops... erm...");
+				mLogin.setErrorMessage("Whoops... erm...");
 			}
-			mLogin = ret;
 		} catch (Exception e) {
-			LoginOutput ret = new LoginOutput();
-			ret.setErrorMessage("Whoops... erm...");
-			mLogin = ret;
+			mLogin.setErrorMessage("Whoops... erm...");
 		}
 	}
 

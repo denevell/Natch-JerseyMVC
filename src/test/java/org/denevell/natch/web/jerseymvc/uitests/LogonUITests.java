@@ -24,7 +24,9 @@ public class LogonUITests {
 	
 	@After
 	public void destroy() {
-		loginPo.logout();
+		try {
+			loginPo.logout();
+		} catch(Exception e) {}
         driver.quit();
 	}
 	

@@ -9,10 +9,12 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* Move over login selenium tests
+* ~~Move over login selenium tests~~
+* ~~Move over register selenium tests~~
 * Look at what to unit test
 * ManifestVars for urls
 
 Backlog
 -------
 
+* Test if recovery email is invalid?

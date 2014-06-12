@@ -23,14 +23,16 @@ public class RegisterPo {
 	public RegisterPo register(String username, String password, String recoveryEmail) {
 		WebElement username_input = driver.findElement(By.id("register_username_input"));
         WebElement password_input = driver.findElement(By.id("register_password_input"));
+        WebElement recovery_input = driver.findElement(By.id("register_recovery_input"));
         WebElement submit_input = driver.findElement(By.id("register_form_submit"));
 		username_input.clear();
         username_input.sendKeys(username);
         password_input.clear();
         password_input.sendKeys(password);
+        recovery_input.clear();
+        recovery_input.sendKeys(recoveryEmail);
         submit_input.click();
         return this;
-        //WebElement optional_email = driver.findElement(By.id("recovery_email"));
 	}
 
 	public RegisterPo shouldBeOnHomepage() {

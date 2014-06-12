@@ -1,7 +1,14 @@
-<ul>
+<table border="1">
 {{#users}}
-        {{#users}}
-                        <li>{{username}}</li>
-        {{/users}}
+       	{{#users}}
+			<tr>
+            	<th>Username</th>
+            	<th>Recovery Email</th>
+			</tr>
+			<tr>
+            	<td>{{username}}</td>
+            	<td id="{{username}}_recoveryEmail">{{recoveryEmail}}</td>
+	        </tr>
+       	{{/users}}
 {{/users}}
-</ul>
+</table>
