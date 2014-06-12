@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
+import org.denevell.natch.web.jerseymvc.modules.AddThreadModule;
 import org.denevell.natch.web.jerseymvc.modules.LoginLogoutModule;
 import org.denevell.natch.web.jerseymvc.modules.RegisterModule;
 import org.denevell.natch.web.jerseymvc.modules.ThreadsModule;
@@ -22,6 +23,7 @@ public class ThreadsPage {
 	@Context HttpServletRequest mRequest;
 	RegisterModule mRegister = new RegisterModule();
 	LoginLogoutModule mLogin = new LoginLogoutModule();
+	AddThreadModule mAddThread = new AddThreadModule();
 
     @GET
     @Path("{start}/{limit}")
@@ -44,6 +46,10 @@ public class ThreadsPage {
     		@FormParam("username") final String username,
     		@FormParam("password") final String password,
     		@FormParam("recovery_email") final String recoveryEmail,
+    		@FormParam("subject") final String subject,
+    		@FormParam("content") final String content,
+    		@FormParam("tags") final String tags,
+    		@FormParam("addthread_active") final String addthreadActive,
     		@FormParam("login_active") final String loginActive,
     		@FormParam("register_active") final String registerActive,
     		@FormParam("logout_active") final String logoutActive 
@@ -52,7 +58,8 @@ public class ThreadsPage {
     	mLogin.logout(logoutActive, mRequest);
     	mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
     	mLogin.login(loginActive, mRequest, username, password);
-
+        mAddThread.add(addthreadActive, mRequest, subject, content, tags);
+    	
     	return createView(start, limit);
 	}
     
@@ -61,6 +68,7 @@ public class ThreadsPage {
     			.register(mRegister.template(mRequest))
     			.loginLogout(mLogin.template(mRequest))
     			.threads(new ThreadsModule().template(mRequest, start, limit))
+    			.addthread(mAddThread.template(mRequest))
     			.create();
 
 	}

@@ -22,6 +22,7 @@ public class Serv {
 	private Runnable _403;
 	private Runnable _400;
 	private Runnable _exception;
+	private Runnable _401;
 	public Serv(int i) {
 		errorCode = i;
 	}
@@ -33,6 +34,10 @@ public class Serv {
 	}
 	public Serv _403(Runnable r) {
 		_403 = r;
+		return this;
+	}
+	public Serv _401(Runnable r) {
+		_401 = r;
 		return this;
 	}
 	public Serv _400(Runnable r) {
@@ -53,6 +58,9 @@ public class Serv {
 				break;
 			case 400:
 				_400.run();
+				break;
+			case 401:
+				_401.run();
 				break;
 			case 403:
 				_403.run();

@@ -67,10 +67,12 @@ public class LoginLogoutModule extends TemplateModule {
 				.delete();
 			request.getSession(true).setAttribute("loggedin", null);
 			request.getSession(true).setAttribute("admin", null);
+			request.getSession(true).setAttribute("authkey", null);
 			}})
 		._exception(new Runnable() { @Override public void run() {
 			Logger.getLogger(LoginLogoutModule.class).error("Whoops... erm...");
 			request.getSession(true).setAttribute("loggedin", null);
+			request.getSession(true).setAttribute("authkey", null);
 			request.getSession(true).setAttribute("admin", null);
 			}
 		});

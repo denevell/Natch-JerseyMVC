@@ -7,6 +7,7 @@ public class ThreadsView {
 	private String login;
 	private String register;
 	private String logout;
+	private String addthread;
 	public ThreadsView threads(String t) {
 		this.threads = t;
 		return this;
@@ -23,23 +24,20 @@ public class ThreadsView {
 		this.register = t;
 		return this;
 	}
+	public ThreadsView addthread(String t) {
+		this.addthread = t;
+		return this;
+	}
 
 	@SuppressWarnings("unused")
 	public Viewable create() {
 		return new Viewable("/threads_index.mustache", 
 			new Object() {
-				String threads() {
-                        return threads;
-                }
-				String login() {
-                        return login;
-                }
-				String register() {
-                        return register;
-                }
-				String logout() {
-                        return logout;
-                }
+				String threads = ThreadsView.this.threads;
+				String login = ThreadsView.this.login;
+				String register = ThreadsView.this.register;
+				String logout = ThreadsView.this.logout;
+				String addthread = ThreadsView.this.addthread;
 			});
 	}
 
