@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.denevell.natch.web.jerseymvc.TemplateModule;
 import org.denevell.natch.web.jerseymvc.io.ThreadsOutput;
 
-public class ThreadsModule extends Module {
+public class ThreadsModule extends TemplateModule {
 	
    	@SuppressWarnings("unused")
 	public String template(

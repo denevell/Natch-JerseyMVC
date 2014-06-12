@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.denevell.natch.web.jerseymvc.TemplateModule;
 import org.denevell.natch.web.jerseymvc.io.UserList;
 
-public class AdminModule extends Module {
+public class AdminModule extends TemplateModule {
 	
    	@SuppressWarnings("unused")
 	public String template(final HttpServletRequest request) throws IOException { 

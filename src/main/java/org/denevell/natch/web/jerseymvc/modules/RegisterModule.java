@@ -6,10 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.web.jerseymvc.Strings;
+import org.denevell.natch.web.jerseymvc.TemplateModule;
 import org.denevell.natch.web.jerseymvc.io.RegisterInput;
 import org.denevell.natch.web.jerseymvc.io.RegisterOutput;
 
-public class RegisterModule extends Module {
+import static org.denevell.natch.web.jerseymvc.Serv.serv;
+
+public class RegisterModule extends TemplateModule {
 	
 	private RegisterOutput mRegister = new RegisterOutput();
 
