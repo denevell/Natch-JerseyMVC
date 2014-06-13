@@ -1,4 +1,6 @@
-package org.denevell.natch.web.jerseymvc.pages;
+package org.denevell.natch.web.jerseymvc.threads;
+
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DefaultValue;
@@ -10,10 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.web.jerseymvc.modules.AddThreadModule;
 import org.denevell.natch.web.jerseymvc.modules.LoginLogoutModule;
 import org.denevell.natch.web.jerseymvc.modules.RegisterModule;
-import org.denevell.natch.web.jerseymvc.modules.ThreadsModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -63,13 +63,15 @@ public class ThreadsPage {
     	return createView(start, limit);
 	}
     
-    private Viewable createView(int start, int limit) throws Exception {
-    	return new ThreadsView()
-    			.register(mRegister.template(mRequest))
-    			.loginLogout(mLogin.template(mRequest))
-    			.threads(new ThreadsModule().template(mRequest, start, limit))
-    			.addthread(mAddThread.template(mRequest))
-    			.create();
+    @SuppressWarnings("serial")
+	private Viewable createView(final int start, final int limit) throws Exception {
+		return new Viewable("/threads_index.mustache", 
+				new HashMap<String, String>() {{
+					put("login", mLogin.template(mRequest));
+					put("register", mRegister.template(mRequest));
+					put("addthread", mAddThread.template(mRequest));
+					put("threads", new ThreadsModule().template(mRequest, start, limit));
+				}});
 
 	}
 }

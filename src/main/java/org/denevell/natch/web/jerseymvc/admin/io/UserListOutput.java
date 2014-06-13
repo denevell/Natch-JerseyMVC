@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.io;
+package org.denevell.natch.web.jerseymvc.admin.io;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +9,16 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class UserList {
+public class UserListOutput {
 	
 	private long numUsers;
-	private List<User> users = new ArrayList<User>();
+	private List<UserOutput> users = new ArrayList<UserOutput>();
 
-	public List<User> getUsers() {
+	public List<UserOutput> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(List<UserOutput> users) {
 		this.users = users;
 	}
 

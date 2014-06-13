@@ -1,11 +1,11 @@
-package org.denevell.natch.web.jerseymvc.modules;
+package org.denevell.natch.web.jerseymvc.threads;
 
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.denevell.natch.web.jerseymvc.TemplateModule;
-import org.denevell.natch.web.jerseymvc.io.ThreadsOutput;
+import org.denevell.natch.web.jerseymvc.threads.io.ThreadsOutput;
 
 public class ThreadsModule extends TemplateModule {
 	

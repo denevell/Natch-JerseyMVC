@@ -1,7 +1,12 @@
 <ul>
         {{#threads}}
                 {{#threads}}
-                        <li>{{subject}}</li>
+                        <li id="thread_{{iterate}}">
+                        	<a id="thread_link" href="/thread/{{id}}">
+                        		<span id="thread_subject">{{subject}}</span> - 
+                        		<span id="thread_author">{{author}}</span>
+                        	<a>
+                        </li>
                 {{/threads}}
         {{/threads}}
 </ul>

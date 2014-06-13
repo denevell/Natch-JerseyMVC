@@ -54,7 +54,7 @@ public class LoginLogoutModule extends TemplateModule {
 			}})
 		._exception(new Runnable() { @Override public void run() {
 			mLogin.setErrorMessage("Whoops... erm...");
-			}});
+			}}).go();
 	}
 
 	public void logout( Object trueObject, final HttpServletRequest request) {
@@ -75,7 +75,7 @@ public class LoginLogoutModule extends TemplateModule {
 			request.getSession(true).setAttribute("authkey", null);
 			request.getSession(true).setAttribute("admin", null);
 			}
-		});
+		}).go();
 	}
 
 }

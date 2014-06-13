@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.modules;
+package org.denevell.natch.web.jerseymvc.threads;
 
 import static org.denevell.natch.web.jerseymvc.Serv.serv;
 
@@ -9,8 +9,8 @@ import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.web.jerseymvc.Strings;
 import org.denevell.natch.web.jerseymvc.TemplateModule;
-import org.denevell.natch.web.jerseymvc.io.AddThreadInput;
-import org.denevell.natch.web.jerseymvc.io.AddThreadOutput;
+import org.denevell.natch.web.jerseymvc.onethread.io.AddThreadInput;
+import org.denevell.natch.web.jerseymvc.onethread.io.AddThreadOutput;
 
 public class AddThreadModule extends TemplateModule {
 
@@ -46,12 +46,11 @@ public class AddThreadModule extends TemplateModule {
 			mAddThread.setErrorMessage("You're not logged in");
 			}})
 		._400(new Runnable() { @Override public void run() {
-			mAddThread.setErrorMessage(Strings.getAddThreadInputError());
+			mAddThread.setErrorMessage(Strings.getPostFieldsCannotBeBlank());
 			}})
 		._exception(new Runnable() { @Override public void run() {
 			mAddThread.setErrorMessage("Whoops... erm...");
-			}})
-		.go();;
+			}}).go();
 	}
 
 

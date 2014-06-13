@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.io;
+package org.denevell.natch.web.jerseymvc.onethread.io;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,7 +20,7 @@ public class ThreadOutput {
 	private String id;
 	private String subject;
 	private String author;
-	private List<Object> posts;
+	private List<PostOutput> posts;
 	private int numPosts;
 	private long creation;
 	private long modification;
@@ -144,11 +144,11 @@ public class ThreadOutput {
 		this.latestPostId = latestPostId;
 	}
 
-	public List<Object> getPosts() {
+	public List<PostOutput> getPosts() {
 		return posts;
 	}
 
-	public void setPosts(List<Object> posts) {
+	public void setPosts(List<PostOutput> posts) {
 		this.posts = posts;
 	}
 

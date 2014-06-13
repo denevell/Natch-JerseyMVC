@@ -1,31 +1,31 @@
-package org.denevell.natch.web.jerseymvc.modules;
+package org.denevell.natch.web.jerseymvc.admin;
 
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.denevell.natch.web.jerseymvc.TemplateModule;
-import org.denevell.natch.web.jerseymvc.io.UserList;
+import org.denevell.natch.web.jerseymvc.admin.io.UserListOutput;
 
 public class AdminModule extends TemplateModule {
 	
    	@SuppressWarnings("unused")
 	public String template(final HttpServletRequest request) throws IOException { 
-		final UserList usersList = getUsers((String) request.getSession(true).getAttribute("authkey"));
+		final UserListOutput usersList = getUsers((String) request.getSession(true).getAttribute("authkey"));
         return createTemplate("admin_users.mustache", 
         	new Object() {
-            	UserList users = usersList;
+            	UserListOutput users = usersList;
             }
         );
 	}
 	
-	private UserList getUsers(String authKey) {
+	private UserListOutput getUsers(String authKey) {
         return sService
                 .target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
                 .path("rest").path("user").path("list")
                 .request()
                 .header("AuthKey", authKey)
-                .get(UserList.class); 	
+                .get(UserListOutput.class); 	
 	}
 	
 

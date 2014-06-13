@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.io;
+package org.denevell.natch.web.jerseymvc.admin.io;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -9,17 +9,17 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class User {
+public class UserOutput {
 
     private String username;
 	private boolean admin;
 	private boolean resetPasswordRequest;
 	private String recoveryEmail;
 	
-	public User() {
+	public UserOutput() {
     }
 
-	public User(String username, boolean isAdmin) {
+	public UserOutput(String username, boolean isAdmin) {
         this.username = username;
         this.admin = isAdmin;
     }

@@ -11,10 +11,13 @@ Todo
 -----
 * ~~Move over login selenium tests~~
 * ~~Move over register selenium tests~~
-* Look at what to unit test
-* ManifestVars for urls
+* Move over register selenium tests
 
 Backlog
 -------
 
 * Test if recovery email is invalid?
+* Test go back to homepage from single thread page
+* Test content in single thread page
+* Look at what to unit test
+* ManifestVars for urls

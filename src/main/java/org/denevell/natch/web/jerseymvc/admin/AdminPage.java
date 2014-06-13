@@ -1,11 +1,12 @@
-package org.denevell.natch.web.jerseymvc.pages;
+package org.denevell.natch.web.jerseymvc.admin;
+
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 
-import org.denevell.natch.web.jerseymvc.modules.AdminModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -21,9 +22,11 @@ public class AdminPage {
     	return createView(); 
     }
 
-    private Viewable createView() throws Exception {
-    	return new AdminView()
-    			.users(mAdmin.template(mRequest))
-    			.create();
+    @SuppressWarnings("serial")
+	private Viewable createView() throws Exception {
+		return new Viewable("/admin_index", 
+				new HashMap<String, String>() {{
+					put("users", mAdmin.template(mRequest));
+				}});
 	}
 }
