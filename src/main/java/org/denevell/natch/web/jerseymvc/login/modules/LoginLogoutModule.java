@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.modules;
+package org.denevell.natch.web.jerseymvc.login.modules;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javax.ws.rs.client.Entity;
 import org.apache.log4j.Logger;
 import org.denevell.natch.web.jerseymvc.Strings;
 import org.denevell.natch.web.jerseymvc.TemplateModule;
-import org.denevell.natch.web.jerseymvc.io.LoginInput;
-import org.denevell.natch.web.jerseymvc.io.LoginOutput;
+import org.denevell.natch.web.jerseymvc.login.io.LoginInput;
+import org.denevell.natch.web.jerseymvc.login.io.LoginOutput;
 
 import static org.denevell.natch.web.jerseymvc.Serv.serv;
 

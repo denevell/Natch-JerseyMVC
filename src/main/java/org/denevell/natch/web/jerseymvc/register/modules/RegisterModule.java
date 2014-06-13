@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.modules;
+package org.denevell.natch.web.jerseymvc.register.modules;
 
 import java.io.IOException;
 
@@ -7,8 +7,9 @@ import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.web.jerseymvc.Strings;
 import org.denevell.natch.web.jerseymvc.TemplateModule;
-import org.denevell.natch.web.jerseymvc.io.RegisterInput;
-import org.denevell.natch.web.jerseymvc.io.RegisterOutput;
+import org.denevell.natch.web.jerseymvc.login.modules.LoginLogoutModule;
+import org.denevell.natch.web.jerseymvc.register.io.RegisterInput;
+import org.denevell.natch.web.jerseymvc.register.io.RegisterOutput;
 
 import static org.denevell.natch.web.jerseymvc.Serv.serv;
 

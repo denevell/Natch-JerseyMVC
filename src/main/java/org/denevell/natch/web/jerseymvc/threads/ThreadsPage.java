@@ -13,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.web.jerseymvc.modules.LoginLogoutModule;
-import org.denevell.natch.web.jerseymvc.modules.RegisterModule;
+import org.denevell.natch.web.jerseymvc.login.modules.LoginLogoutModule;
+import org.denevell.natch.web.jerseymvc.register.modules.RegisterModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.AddThreadModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.ThreadsModule;
 import org.glassfish.jersey.server.mvc.Template;
