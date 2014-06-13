@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.threads;
+package org.denevell.natch.web.jerseymvc.threads.modules;
 
 import java.io.IOException;
 

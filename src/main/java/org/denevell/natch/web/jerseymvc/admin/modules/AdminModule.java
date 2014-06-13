@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.admin;
+package org.denevell.natch.web.jerseymvc.admin.modules;
 
 import java.io.IOException;
 

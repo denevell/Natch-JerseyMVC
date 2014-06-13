@@ -15,6 +15,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.denevell.natch.web.jerseymvc.modules.LoginLogoutModule;
 import org.denevell.natch.web.jerseymvc.modules.RegisterModule;
+import org.denevell.natch.web.jerseymvc.threads.modules.AddThreadModule;
+import org.denevell.natch.web.jerseymvc.threads.modules.ThreadsModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 

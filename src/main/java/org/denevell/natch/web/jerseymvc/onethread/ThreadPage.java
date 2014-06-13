@@ -12,6 +12,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 
+import org.denevell.natch.web.jerseymvc.onethread.modules.AddPostModule;
+import org.denevell.natch.web.jerseymvc.onethread.modules.ThreadModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 

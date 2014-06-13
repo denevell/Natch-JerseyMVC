@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.onethread;
+package org.denevell.natch.web.jerseymvc.threads.modules;
 
 import static org.denevell.natch.web.jerseymvc.Serv.serv;
 
@@ -12,44 +12,44 @@ import org.denevell.natch.web.jerseymvc.TemplateModule;
 import org.denevell.natch.web.jerseymvc.onethread.io.AddThreadInput;
 import org.denevell.natch.web.jerseymvc.onethread.io.AddThreadOutput;
 
-public class AddPostModule extends TemplateModule {
+public class AddThreadModule extends TemplateModule {
 
-	private AddThreadOutput mAddPost = new AddThreadOutput();
+	private AddThreadOutput mAddThread = new AddThreadOutput();
 
 	@SuppressWarnings("unused")
 	public String template(final HttpServletRequest request) throws IOException {
-		return createTemplate("addpost.mustache", 
+		return createTemplate("addthread.mustache", 
     		new Object() {
 				boolean loggedin = request.getSession(true).getAttribute("loggedin")!=null;
-				AddThreadOutput addpost = mAddPost;
+				AddThreadOutput addthread = mAddThread;
     		});
 	}
 
 	public boolean add(Object trueObject, 
 			final HttpServletRequest serv,
+			final String subject, 
 			final String content,
-			final String threadId) {
+			final String tags) {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
-			AddThreadInput entity = new AddThreadInput("-", content);
-			entity.setThreadId(threadId);
-			mAddPost = sService
+			AddThreadInput entity = new AddThreadInput(subject, content);
+			mAddThread = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
-				.path("rest").path("post").path("add").request()
+				.path("rest").path("post").path("addthread").request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.put(Entity.json(entity), AddThreadOutput.class);
 			}})
 		._403(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage("You're not logged in");
+			mAddThread.setErrorMessage("You're not logged in");
 			}})
 		._401(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage("You're not logged in");
+			mAddThread.setErrorMessage("You're not logged in");
 			}})
 		._400(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage(Strings.getPostFieldsCannotBeBlank());
+			mAddThread.setErrorMessage(Strings.getPostFieldsCannotBeBlank());
 			}})
 		._exception(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage("Whoops... erm...");
+			mAddThread.setErrorMessage("Whoops... erm...");
 			}}).go();
 	}
 
