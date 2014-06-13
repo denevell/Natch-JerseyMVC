@@ -25,12 +25,12 @@ public class AddPostModule extends TemplateModule {
     		});
 	}
 
-	public void add(Object trueObject, 
+	public boolean add(Object trueObject, 
 			final HttpServletRequest serv,
 			final String content,
 			final String threadId) {
-		if (trueObject == null) return;
-		serv(new Runnable() { @Override public void run() {
+		if (trueObject == null) return true;
+		return serv(new Runnable() { @Override public void run() {
 			AddThreadInput entity = new AddThreadInput("-", content);
 			entity.setThreadId(threadId);
 			mAddPost = sService

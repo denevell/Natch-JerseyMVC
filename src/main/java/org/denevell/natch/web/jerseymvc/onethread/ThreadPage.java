@@ -46,8 +46,14 @@ public class ThreadPage {
     		@FormParam("addpost_active") final String addPostActive
     		) throws Exception {
     	
-    	mPostModule.add(addPostActive, mRequest, content, threadId);
-    	return createView(start, limit, threadId);
+    	boolean error = false;
+    	error = !(mPostModule.add(addPostActive, mRequest, content, threadId));
+    	if(error) {
+    		return createView(start, limit, threadId);
+    	} else {
+    		mResponse.sendRedirect(mRequest.getRequestURI());
+    		return null;
+    	}
 	}
 
     @SuppressWarnings("serial")

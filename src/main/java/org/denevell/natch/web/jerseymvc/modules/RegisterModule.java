@@ -25,13 +25,13 @@ public class RegisterModule extends TemplateModule {
     		});
 	}
 
-	public void register(Object trueObject, 
+	public boolean register(Object trueObject, 
 			final HttpServletRequest serv,
 			final String username, 
 			final String password,
 			final String recoveryEmail) {
-		if (trueObject == null) return;
-		serv(new Runnable() { @Override public void run() {
+		if (trueObject == null) return true;
+		return serv(new Runnable() { @Override public void run() {
 			RegisterInput entity;
 			if (recoveryEmail != null && recoveryEmail.trim().length() > 0) {
 				entity = new RegisterInput(username, password, recoveryEmail);
@@ -56,7 +56,7 @@ public class RegisterModule extends TemplateModule {
 		._exception(new Runnable() { @Override public void run() {
 			mRegister.setErrorMessage("Whoops... erm...");
 			}})
-		.go();;
+		.go();
 	}
 
 

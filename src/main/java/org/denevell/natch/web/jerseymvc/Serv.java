@@ -48,11 +48,11 @@ public class Serv {
 		_exception = r;
 		return this;
 	}
-	public void go() {
+	public boolean go() {
 		try {
 			switch (errorCode) {
 			case 0:
-				break;
+				return true;
 			case 500:
 				_500.run();
 				break;
@@ -69,8 +69,10 @@ public class Serv {
 				_exception.run();
 				break;
 			}
+			return false;
 		} catch (Exception e) {
 			_exception.run();
+			return false;
 		}
 	}
 

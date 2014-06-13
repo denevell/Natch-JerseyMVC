@@ -28,12 +28,12 @@ public class LoginLogoutModule extends TemplateModule {
 		);
 	}
 
-	public void login(final Object trueObject, 
+	public boolean login(final Object trueObject, 
 			final HttpServletRequest request, 
 			final String username, 
 			final String password) {
-		if(trueObject==null) return;
-		serv(new Runnable() { @Override public void run() {
+		if(trueObject==null) return true;
+		return serv(new Runnable() { @Override public void run() {
 			mLogin = sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
 				.path("rest") .path("user") .path("login")
@@ -57,9 +57,9 @@ public class LoginLogoutModule extends TemplateModule {
 			}}).go();
 	}
 
-	public void logout( Object trueObject, final HttpServletRequest request) {
-		if(trueObject==null) return;
-		serv(new Runnable() { @Override public void run() {
+	public boolean logout( Object trueObject, final HttpServletRequest request) {
+		if(trueObject==null) return false;
+		return serv(new Runnable() { @Override public void run() {
 			sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
 				.path("rest") .path("user") .path("logout")

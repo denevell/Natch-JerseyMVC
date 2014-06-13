@@ -3,6 +3,7 @@ package org.denevell.natch.web.jerseymvc.threads;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -21,6 +22,7 @@ import org.glassfish.jersey.server.mvc.Viewable;
 public class ThreadsPage {
 	
 	@Context HttpServletRequest mRequest;
+	@Context HttpServletResponse mResponse;
 	RegisterModule mRegister = new RegisterModule();
 	LoginLogoutModule mLogin = new LoginLogoutModule();
 	AddThreadModule mAddThread = new AddThreadModule();
@@ -55,12 +57,17 @@ public class ThreadsPage {
     		@FormParam("logout_active") final String logoutActive 
     		) throws Exception {
     	
-    	mLogin.logout(logoutActive, mRequest);
-    	mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
-    	mLogin.login(loginActive, mRequest, username, password);
-        mAddThread.add(addthreadActive, mRequest, subject, content, tags);
-    	
-    	return createView(start, limit);
+    	boolean error = false;
+    	error = !(mLogin.logout(logoutActive, mRequest));
+    	error = !(mRegister.register(registerActive, mRequest, username, password, recoveryEmail));
+    	error = !(mLogin.login(loginActive, mRequest, username, password));
+    	error = !(mAddThread.add(addthreadActive, mRequest, subject, content, tags));
+    	if(error) {
+    		return createView(start, limit);
+    	} else {
+    		mResponse.sendRedirect(mRequest.getRequestURI());
+    		return null;
+    	}
 	}
     
     @SuppressWarnings("serial")

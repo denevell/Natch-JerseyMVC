@@ -25,13 +25,13 @@ public class AddThreadModule extends TemplateModule {
     		});
 	}
 
-	public void add(Object trueObject, 
+	public boolean add(Object trueObject, 
 			final HttpServletRequest serv,
 			final String subject, 
 			final String content,
 			final String tags) {
-		if (trueObject == null) return;
-		serv(new Runnable() { @Override public void run() {
+		if (trueObject == null) return true;
+		return serv(new Runnable() { @Override public void run() {
 			AddThreadInput entity = new AddThreadInput(subject, content);
 			mAddThread = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
