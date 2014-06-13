@@ -49,7 +49,7 @@ public class ThreadPage {
     		) throws Exception {
     	
     	boolean error = false;
-    	error = !(mPostModule.add(addPostActive, mRequest, content, threadId));
+    	error = !mPostModule.add(addPostActive, mRequest, content, threadId);
     	if(error) {
     		return createView(start, limit, threadId);
     	} else {
