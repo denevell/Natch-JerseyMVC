@@ -103,14 +103,10 @@ public class AddPostToThreadUITests {
 			.gotoThread(0);
         String originalUrl = driver.getCurrentUrl();
         addpostPo
-        	.add("xxx")
-        	.add("xxx")
-        	.add("xxx")
-        	.add("xxx")
-        	.add("xxx")
-        	.add("second page");
+        	.addPagePlusOneOfPosts();
         String url = driver.getCurrentUrl();
         assertNotEquals("On new page", originalUrl, url);
+        driver.get(URLs.HOMEPAGE);
         addthreadPo
         	.gotoThread(0);
         addpostPo

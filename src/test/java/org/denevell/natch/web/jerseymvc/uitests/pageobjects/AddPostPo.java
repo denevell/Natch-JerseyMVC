@@ -57,4 +57,19 @@ public class AddPostPo {
         return this;
 	}
 
+	public AddPostPo addPagePlusOneOfPosts() {
+       	add("xxx");
+      	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("second page");
+       	return this;
+	}
+
 }

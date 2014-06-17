@@ -1,5 +1,7 @@
 package org.denevell.natch.web.jerseymvc.onethread;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +14,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.denevell.natch.web.jerseymvc.onethread.modules.AddPostModule;
 import org.denevell.natch.web.jerseymvc.onethread.modules.ThreadModule;
 import org.glassfish.jersey.server.mvc.Template;
@@ -23,6 +27,7 @@ public class ThreadPage {
 	
 	@Context HttpServletRequest mRequest;
 	@Context HttpServletResponse mResponse;
+	@Context UriInfo mUriInfo;
 	private ThreadModule mThreadModule = new ThreadModule();
 	private AddPostModule mPostModule = new AddPostModule();
 
@@ -31,8 +36,8 @@ public class ThreadPage {
     @Template
     public Viewable index(
     		@PathParam("threadId") String threadId,
-    		@PathParam("start") @DefaultValue("0") int start,
-    		@PathParam("limit") @DefaultValue("10") int limit
+    		@QueryParam("start") @DefaultValue("0") int start,
+    		@QueryParam("limit") @DefaultValue("10") int limit
     		) throws Exception {
 
     	return createView(start, limit, threadId); 
@@ -51,17 +56,24 @@ public class ThreadPage {
     	
     	boolean error = false;
     	error = !mPostModule.add(addPostActive, mRequest, content, threadId);
-    	int numPosts = mPostModule.mAddPost.getThread().getNumPosts();
     	if(error) { 
     		return createView(start, limit, threadId);
-    	} else if(numPosts > start+limit) {
-			System.out.println("hi");
-			start += limit;
-    		return createView(start, limit, threadId);
+    	} else if(mPostModule.mAddPost.getThread().getNumPosts()> start+limit) {
+			mResponse.sendRedirect(createUriForNextPagination(start, limit).toString());
+    		return null;
 		} else { 
-    		mResponse.sendRedirect(mRequest.getRequestURI());
+    		mResponse.sendRedirect(mUriInfo.getRequestUri().toString());
     		return null;
     	}
+	}
+
+	private URI createUriForNextPagination(int start, int limit)
+			throws URISyntaxException {
+		URI uri = new URIBuilder(mUriInfo.getRequestUri())
+			.setParameter("start", String.valueOf(start+limit))
+			.setParameter("limit", String.valueOf(limit))
+			.build();
+		return uri;
 	}
 
     @SuppressWarnings("serial")
