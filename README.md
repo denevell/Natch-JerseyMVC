@@ -9,9 +9,8 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* ~~Move over login selenium tests~~
-* ~~Move over register selenium tests~~
-* Move over register selenium tests
+* Library to change query parameter in string
+* Make add thread to new pagination page return a redirected GET
 
 Backlog
 -------

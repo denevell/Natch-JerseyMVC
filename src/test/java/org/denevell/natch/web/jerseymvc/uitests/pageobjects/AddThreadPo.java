@@ -52,7 +52,28 @@ public class AddThreadPo {
 		WebElement thread = driver.findElement(By.id("thread_" + i));
         WebElement link = thread.findElement(By.id("thread_subject"));
         link.click();
+	}
+
+	public AddThreadPo hasPost(int i, String string) {
+		return this;
+	}
+
+	public AddThreadPo addPagePlusOneOfThreads() {
+		add("suby0", "cont0", "tagx");
+		add("suby1", "cont1", "tagx");
+		add("suby2", "cont2", "tagx");
+		add("suby3", "cont3", "tagx");
+		add("suby4", "cont4", "tagx");
+		add("suby5", "cont5", "tagx");
+		return this;
 		
+	}
+
+	public AddThreadPo hasDate(int i, String dateString) {
+		WebElement thread = driver.findElement(By.id("thread_" + i));
+        WebElement date= thread.findElement(By.id("thread_date"));
+        org.junit.Assert.assertTrue("Should see date", date.getText().contains(dateString));
+        return this;
 	}
 
 }

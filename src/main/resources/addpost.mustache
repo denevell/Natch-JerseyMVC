@@ -7,5 +7,11 @@
         <input name="content" type="text" id="post_content_input" /> 
         <br />
         <input name="addpost_active" type="hidden" /> 
+{{#loggedin}}
         <input type="submit" id="addpost_form_submit" value="add post" />
+{{/loggedin}}
+{{^loggedin}}
+        <input type="submit" id="addpost_form_submit" value="add post" disabled="disabled" />
+		<div>please login to add post</div>
+{{/loggedin}}
 </form>

@@ -58,7 +58,7 @@ public class LoginLogoutModule extends TemplateModule {
 	}
 
 	public boolean logout( Object trueObject, final HttpServletRequest request) {
-		if(trueObject==null) return false;
+		if(trueObject==null) return true;
 		return serv(new Runnable() { @Override public void run() {
 			sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")

@@ -14,7 +14,7 @@ import org.denevell.natch.web.jerseymvc.onethread.io.AddThreadOutput;
 
 public class AddPostModule extends TemplateModule {
 
-	private AddThreadOutput mAddPost = new AddThreadOutput();
+	public AddThreadOutput mAddPost = new AddThreadOutput();
 
 	@SuppressWarnings("unused")
 	public String template(final HttpServletRequest request) throws IOException {

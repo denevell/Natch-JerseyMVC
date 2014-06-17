@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import org.denevell.natch.web.jerseymvc.onethread.modules.AddPostModule;
@@ -42,17 +43,22 @@ public class ThreadPage {
     @Template
     public Viewable indexPost(
     		@PathParam("threadId") String threadId,
-    		@PathParam("start") @DefaultValue("0") int start,
-    		@PathParam("limit") @DefaultValue("10") int limit,
+    		@QueryParam("start") @DefaultValue("0") int start,
+    		@QueryParam("limit") @DefaultValue("10") int limit,
     		@FormParam("content") final String content,
     		@FormParam("addpost_active") final String addPostActive
     		) throws Exception {
     	
     	boolean error = false;
     	error = !mPostModule.add(addPostActive, mRequest, content, threadId);
-    	if(error) {
+    	int numPosts = mPostModule.mAddPost.getThread().getNumPosts();
+    	if(error) { 
     		return createView(start, limit, threadId);
-    	} else {
+    	} else if(numPosts > start+limit) {
+			System.out.println("hi");
+			start += limit;
+    		return createView(start, limit, threadId);
+		} else { 
     		mResponse.sendRedirect(mRequest.getRequestURI());
     		return null;
     	}
@@ -67,7 +73,7 @@ public class ThreadPage {
 		return new Viewable("/thread_index.mustache", 
 				new HashMap<String, String>() {{
 					put("addpost", mPostModule.template(mRequest));
-					put("thread", mThreadModule.template(mRequest, 0, 10, threadId));
+					put("thread", mThreadModule.template(mRequest, start, limit, threadId));
 				}});
 
 	}

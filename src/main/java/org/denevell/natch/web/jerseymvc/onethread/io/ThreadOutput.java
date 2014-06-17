@@ -144,6 +144,7 @@ public class ThreadOutput {
 		this.latestPostId = latestPostId;
 	}
 
+	int i = 0; int iterate() { return i++; }
 	public List<PostOutput> getPosts() {
 		return posts;
 	}

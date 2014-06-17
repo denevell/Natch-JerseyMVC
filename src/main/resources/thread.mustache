@@ -2,7 +2,15 @@
 	{{subject}}!
 	<ul>
 		{{#posts}}
-			<li>{{content}}</li>
+			<li id="post_{{iterate}}">
+           		<span id="post_content">
+           			{{content}}
+           		</span>
+           		- 
+           		<span id="post_author">
+           			{{username}}
+           		</span>
+			</li>
 		{{/posts}}
 	<ul>
 {{/thread}}

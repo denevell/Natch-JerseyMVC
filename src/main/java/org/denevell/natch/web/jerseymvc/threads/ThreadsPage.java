@@ -2,6 +2,7 @@ package org.denevell.natch.web.jerseymvc.threads;
 
 import java.util.HashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DefaultValue;
@@ -9,7 +10,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -25,28 +26,27 @@ public class ThreadsPage {
 	
 	@Context HttpServletRequest mRequest;
 	@Context HttpServletResponse mResponse;
+	@Context ServletContext mContext;
 	RegisterModule mRegister = new RegisterModule();
 	LoginLogoutModule mLogin = new LoginLogoutModule();
 	AddThreadModule mAddThread = new AddThreadModule();
 
     @GET
-    @Path("{start}/{limit}")
     @Template
     public Viewable index(
-    		@PathParam("start") @DefaultValue("0") int start,
-    		@PathParam("limit") @DefaultValue("10") int limit
+    		@QueryParam("start") @DefaultValue("0") int start,
+    		@QueryParam("limit") @DefaultValue("10") int limit
     		) throws Exception {
 
     	return createView(start, limit); 
 	}
 
     @POST
-    @Path("{start}/{limit}")
     @Template
     public Viewable indexPost(
     		@Context UriInfo uriInfo,
-    		@PathParam("start") @DefaultValue("0") int start,
-    		@PathParam("limit") @DefaultValue("10") int limit,
+    		@QueryParam("start") @DefaultValue("0") int start,
+    		@QueryParam("limit") @DefaultValue("10") int limit,
     		@FormParam("username") final String username,
     		@FormParam("password") final String password,
     		@FormParam("recovery_email") final String recoveryEmail,
@@ -60,10 +60,10 @@ public class ThreadsPage {
     		) throws Exception {
     	
     	boolean error = false;
-    	error = !mLogin.logout(logoutActive, mRequest);
-    	error = !mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
-    	error = !mLogin.login(loginActive, mRequest, username, password);
-    	error = !mAddThread.add(addthreadActive, mRequest, subject, content, tags);
+    	error |= !mLogin.logout(logoutActive, mRequest);
+    	error |= !mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
+    	error |= !mLogin.login(loginActive, mRequest, username, password);
+    	error |= !mAddThread.add(addthreadActive, mRequest, subject, content, tags);
     	if(error) {
     		return createView(start, limit);
     	} else {
