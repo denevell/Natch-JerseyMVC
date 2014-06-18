@@ -2,9 +2,7 @@ package org.denevell.natch.web.jerseymvc.onethread;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -120,6 +118,5 @@ public class OneThreadPage {
 			.setParameter("limit", String.valueOf(limit))
 			.build();
 		return uri;
-
 	}
 }

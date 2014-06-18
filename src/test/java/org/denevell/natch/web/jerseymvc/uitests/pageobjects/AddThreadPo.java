@@ -68,6 +68,11 @@ public class AddThreadPo {
 		add("suby3", "cont3", "tagx");
 		add("suby4", "cont4", "tagx");
 		add("suby5", "cont5", "tagx");
+		add("suby6", "cont5", "tagx");
+		add("suby7", "cont5", "tagx");
+		add("suby8", "cont5", "tagx");
+		add("suby9", "cont5", "tagx");
+		add("suby10", "cont5", "tagx");
 		return this;
 		
 	}
@@ -93,18 +98,24 @@ public class AddThreadPo {
 	}
 
 	public AddThreadPo clickOnPrev() {
+        driver.findElement(By.id("prev")).click();;
 		return this;
 	}
 
 	public AddThreadPo clickOnNext() {
+        driver.findElement(By.id("next")).click();;
 		return this;
 	}
 
-	public AddThreadPo amOnPageByUrl(String string) {
+	public AddThreadPo amOnPageByUrl(int page) {
+		String uri = driver.getCurrentUrl();
+		page--;
+		org.junit.Assert.assertTrue("Url is for correct page", uri.contains("start="+(page*10)));
 		return this;
 	}
 
-	public AddThreadPo clickOnPage(String string) {
+	public AddThreadPo clickOnPage(int page) {
+        driver.findElement(By.id("page"+page)).click();
 		return this;
 	}
 

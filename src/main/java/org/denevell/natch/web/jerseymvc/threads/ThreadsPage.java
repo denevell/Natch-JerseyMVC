@@ -1,5 +1,7 @@
 package org.denevell.natch.web.jerseymvc.threads;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
@@ -14,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.denevell.natch.web.jerseymvc.login.modules.LoginLogoutModule;
 import org.denevell.natch.web.jerseymvc.register.modules.RegisterModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.AddThreadModule;
@@ -27,6 +30,7 @@ public class ThreadsPage {
 	@Context HttpServletRequest mRequest;
 	@Context HttpServletResponse mResponse;
 	@Context ServletContext mContext;
+	@Context UriInfo mUriInfo;
 	RegisterModule mRegister = new RegisterModule();
 	LoginLogoutModule mLogin = new LoginLogoutModule();
 	AddThreadModule mAddThread = new AddThreadModule();
@@ -76,14 +80,56 @@ public class ThreadsPage {
 	}
     
     @SuppressWarnings("serial")
-	private Viewable createView(final int start, final int limit) throws Exception {
+	private Viewable createView(
+			final int start, 
+			final int limit) throws Exception {
+
+		final ThreadsModule threadsModule = new ThreadsModule();
+		threadsModule.getThreads(start, limit);
+
+    	final int numOfThreads = (int) threadsModule.mThreads.getNumOfThreads();
+		int pages = (int) (numOfThreads/ limit);
+    	pages++;
+    	final StringBuffer numbers = new StringBuffer();
+    	for (int i = 0; i < pages; i++) {
+    		String s = createUriForPagination(i*(limit), limit).toString();
+    		String startP = "<a id=\"page"+(i+1)+"\" href=\""+s+"\">";
+    		String endP = "</a> | ";
+    		numbers.append(startP + String.valueOf(i+1) + endP);
+		}
+
 		return new Viewable("/threads_index.mustache", 
 				new HashMap<String, String>() {{
 					put("login", mLogin.template(mRequest));
 					put("register", mRegister.template(mRequest));
 					put("addthread", mAddThread.template(mRequest));
-					put("threads", new ThreadsModule().template(mRequest, start, limit));
+					put("threads", threadsModule.template(mRequest));
+					put("next", createUriForNextPagination(start, limit, numOfThreads).toString());
+					put("prev", createUriForPrevPagination(start, limit).toString());
+					put("pages", numbers.toString());
 				}});
+	}
 
+	private URI createUriForNextPagination(int start, int limit, int numPosts) throws URISyntaxException {
+		if(!(start+limit > numPosts)) {
+			start += limit;
+		}
+		return createUriForPagination(start, limit);
+	}
+
+	private URI createUriForPrevPagination(int start, int limit) throws URISyntaxException {
+		start -= limit;
+		if(start<0) {
+			start=0;
+		}
+		return createUriForPagination(start, limit);
+	}
+
+	private URI createUriForPagination(int start, int limit) throws URISyntaxException {
+		URI uri = new URIBuilder(mUriInfo.getRequestUri())
+			.setParameter("start", String.valueOf(start))
+			.setParameter("limit", String.valueOf(limit))
+			.build();
+		return uri;
 	}
 }

@@ -9,24 +9,24 @@ import org.denevell.natch.web.jerseymvc.threads.io.ThreadsOutput;
 
 public class ThreadsModule extends TemplateModule {
 	
-   	@SuppressWarnings("unused")
+   	public ThreadsOutput mThreads;
+
+	@SuppressWarnings("unused")
 	public String template(
-			final HttpServletRequest request,
-			final int start,
-			final int limit) throws IOException {
-		final ThreadsOutput threadsList = getThreads(start, limit);
+			final HttpServletRequest request) throws IOException {
 		return createTemplate("threads.mustache", 
 			new Object() {
-				ThreadsOutput threads = threadsList;
+				ThreadsOutput threads = mThreads;
         	});
 	}
 	
-	public static ThreadsOutput getThreads(int start, int limit) {
-        return sService
+	public ThreadsOutput getThreads(int start, int limit) {
+        mThreads = sService
                 .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
                 .path("rest").path("threads").path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	
+        return mThreads;
 	}
 	
 

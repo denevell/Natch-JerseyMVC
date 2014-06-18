@@ -50,11 +50,11 @@ public class ListThreadsUITests {
 		addthreadPo
 			.addPagePlusOneOfThreads()
 			.clickOnPrev()
-			.amOnPageByUrl("1")
+			.amOnPageByUrl(1)
 			.hasPost(0, "suby0")
 			.clickOnNext()
-			.amOnPageByUrl("2")
-			.hasPost(0, "suby5");
+			.amOnPageByUrl(2)
+			.hasPost(0, "suby10");
 	}
 	
 	@Test
@@ -63,11 +63,11 @@ public class ListThreadsUITests {
 		addthreadPo
 			.addPagePlusOneOfThreads()
 			.clickOnPrev()
-			.clickOnPage("2")
-			.amOnPageByUrl("2")
+			.clickOnPage(2)
+			.amOnPageByUrl(2)
 			.hasPost(0, "suby5")
-			.clickOnPage("1")
-			.amOnPageByUrl("1")
+			.clickOnPage(1)
+			.amOnPageByUrl(1)
 			.hasPost(0, "suby0");
 	}	
 	
