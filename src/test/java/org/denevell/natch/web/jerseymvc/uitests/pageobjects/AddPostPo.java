@@ -1,5 +1,8 @@
 package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.denevell.natch.web.jerseymvc.Strings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -26,7 +29,7 @@ public class AddPostPo {
 		WebElement thread = driver.findElement(By.id("post_" + i));
         WebElement title = thread.findElement(By.id("post_content"));
         String text = title.getText();
-		org.junit.Assert.assertTrue(text.contains(string));
+		org.junit.Assert.assertTrue("Should have post", text.contains(string));
 		return this;
 	}
 
@@ -58,7 +61,7 @@ public class AddPostPo {
 	}
 
 	public AddPostPo addPagePlusOneOfPosts() {
-       	add("xxx");
+       	add("c0");
       	add("xxx");
        	add("xxx");
        	add("xxx");
@@ -67,9 +70,54 @@ public class AddPostPo {
        	add("xxx");
        	add("xxx");
        	add("xxx");
-       	add("xxx");
-       	add("second page");
+       	add("c10");
        	return this;
+	}
+
+	public AddPostPo cantSeePost(String string) {
+		org.junit.Assert.assertFalse(driver.getPageSource().contains(string));
+		return this;
+	}
+
+	public AddPostPo hasCorrectPageTitle(String string) {
+        WebElement subject = driver.findElement(By.id("thread_subject"));
+        org.junit.Assert.assertEquals("Has title", string, subject.getText().trim()); 
+		return this;
+	}
+
+	public AddPostPo clickPrev() {
+        driver.findElement(By.id("prev")).click();;
+		return this;
+	}
+
+	public AddPostPo hasTodaysDate(int i) {
+        Calendar c = Calendar.getInstance();
+        int dom = c.get(Calendar.DAY_OF_MONTH);
+        String month = new SimpleDateFormat("MMM").format(c.getTime());
+        int year = c.get(Calendar.YEAR);
+        String dateString = dom + " " + month + " " + year;
+		WebElement thread = driver.findElement(By.id("post_" + i));
+        WebElement author = thread.findElement(By.id("post_date"));
+        String text = author.getText();
+        org.junit.Assert.assertTrue("Has today's date", text.contains(dateString)); 
+		return this;
+	}
+
+	public AddPostPo clickOnPageLink(String string) {
+        driver.findElement(By.id("page"+string)).click();;
+		return this;
+	}
+
+	public AddPostPo isOnPageViaUrl(int page) {
+		String uri = driver.getCurrentUrl();
+		page--;
+		org.junit.Assert.assertTrue("Url is for correct page", uri.contains("start="+(page*10)));
+		return this;
+	}
+
+	public AddPostPo clickNext() {
+        driver.findElement(By.id("next")).click();;
+		return this;
 	}
 
 }

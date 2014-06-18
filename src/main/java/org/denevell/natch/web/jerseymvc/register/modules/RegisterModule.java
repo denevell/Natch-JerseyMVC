@@ -15,7 +15,7 @@ import static org.denevell.natch.web.jerseymvc.Serv.serv;
 
 public class RegisterModule extends TemplateModule {
 	
-	private RegisterOutput mRegister = new RegisterOutput();
+	public RegisterOutput mRegister = new RegisterOutput();
 
 	@SuppressWarnings("unused")
 	public String template(final HttpServletRequest request) throws IOException {
@@ -47,7 +47,8 @@ public class RegisterModule extends TemplateModule {
 				mRegister.setErrorMessage(mRegister.getError()); // Hack...
 			} else {
 				new LoginLogoutModule().login(new Object(), serv, username, password);
-			}}})
+			}
+			}})
 		._403(new Runnable() { @Override public void run() {
 			mRegister.setErrorMessage("Username or password incorrect");
 			}})

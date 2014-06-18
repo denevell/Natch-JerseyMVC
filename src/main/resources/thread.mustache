@@ -1,5 +1,7 @@
 {{#thread}}
-	{{subject}}!
+ 	<h3 id="thread_subject">
+           {{subject}}
+	</h3>
 	<ul>
 		{{#posts}}
 			<li id="post_{{iterate}}">
@@ -10,7 +12,12 @@
            		<span id="post_author">
            			{{username}}
            		</span>
+           		- 
+           		<span id="post_date">
+           			{{lastModifiedDate}}
+           		</span>
+           		
 			</li>
 		{{/posts}}
-	<ul>
+	</ul>
 {{/thread}}

@@ -62,6 +62,9 @@ public class ThreadsPage {
     	boolean error = false;
     	error |= !mLogin.logout(logoutActive, mRequest);
     	error |= !mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
+    	if(mRegister.mRegister.getErrorMessage()!=null && !mRegister.mRegister.getErrorMessage().isEmpty()) {
+    		error = true; // Hack due to dodgy api
+    	}
     	error |= !mLogin.login(loginActive, mRequest, username, password);
     	error |= !mAddThread.add(addthreadActive, mRequest, subject, content, tags);
     	if(error) {

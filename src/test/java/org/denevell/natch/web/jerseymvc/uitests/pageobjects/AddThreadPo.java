@@ -1,5 +1,8 @@
 package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.denevell.natch.web.jerseymvc.Strings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -74,6 +77,40 @@ public class AddThreadPo {
         WebElement date= thread.findElement(By.id("thread_date"));
         org.junit.Assert.assertTrue("Should see date", date.getText().contains(dateString));
         return this;
+	}
+
+	public AddThreadPo hasTodaysDate(int i) {
+        Calendar c = Calendar.getInstance();
+        int dom = c.get(Calendar.DAY_OF_MONTH);
+        String month = new SimpleDateFormat("MMM").format(c.getTime());
+        int year = c.get(Calendar.YEAR);
+        String dateString = dom + " " + month + " " + year;
+		WebElement thread = driver.findElement(By.id("thread_" + i));
+        WebElement author = thread.findElement(By.id("thread_date"));
+        String text = author.getText();
+        org.junit.Assert.assertTrue("Has today's date", text.contains(dateString)); 
+        return this;
+	}
+
+	public AddThreadPo clickOnPrev() {
+		return this;
+	}
+
+	public AddThreadPo clickOnNext() {
+		return this;
+	}
+
+	public AddThreadPo amOnPageByUrl(String string) {
+		return this;
+	}
+
+	public AddThreadPo clickOnPage(String string) {
+		return this;
+	}
+
+	public void seeEmptyThreadsMessage() {
+        boolean emptyText = driver.getPageSource().contains("No content as yet!");
+        org.junit.Assert.assertTrue(emptyText);
 	}
 
 }

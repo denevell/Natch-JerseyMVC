@@ -37,7 +37,7 @@ public class RegisterPo {
 
 	public RegisterPo shouldBeOnHomepage() {
         String currentUrl = driver.getCurrentUrl();
-        org.junit.Assert.assertTrue(currentUrl.equals(URLs.HOMEPAGE));
+        org.junit.Assert.assertTrue(currentUrl.startsWith(URLs.HOMEPAGE));
 		return this;
 	}
 
