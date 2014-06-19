@@ -88,8 +88,11 @@ public class ThreadsPage {
 		threadsModule.getThreads(start, limit);
 
     	final int numOfThreads = (int) threadsModule.mThreads.getNumOfThreads();
-		int pages = (int) (numOfThreads/ limit);
-    	pages++;
+		float pagesFloat = (numOfThreads/ limit);
+		int pages = (int) pagesFloat;
+		if(pagesFloat!=0) {
+			pages++;
+		}
     	final StringBuffer numbers = new StringBuffer();
     	for (int i = 0; i < pages; i++) {
     		String s = createUriForPagination(i*(limit), limit).toString();

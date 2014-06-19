@@ -20,16 +20,22 @@ public class AdminPO {
 	    return this;
 	}
 	
-	public void changePassword(String username, String password) {
+	public AdminPO changePassword(String username, String password) {
 	    WebElement aaron2ChangePassword = driver.findElement(By.id(username+"_changePassword"));
 	    aaron2ChangePassword.sendKeys(password);
 	    WebElement changePasswordButton = driver.findElement(By.id(username+"_changePasswordButton"));
 	    changePasswordButton.click();
+	    return this;
 	}
 
-	public boolean isRequestPasswordReset(String username) {
+	public AdminPO isRequestPasswordReset(String username, boolean t) {
 	    WebElement resetPw = driver.findElement(By.id(username+"_requestingReset"));
-	    return resetPw.getText().equals("true");
+	    if(t) {
+	    	org.junit.Assert.assertTrue("Password reset is set", resetPw.getText().equals("true"));
+	    } else {
+	    	org.junit.Assert.assertFalse("Password reset is set", resetPw.getText().equals("true"));
+	    }
+	    return this;
 	}
 
 	public String getRecoveryEmail(String username) {

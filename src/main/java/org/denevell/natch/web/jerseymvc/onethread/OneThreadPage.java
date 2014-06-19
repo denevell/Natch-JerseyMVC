@@ -57,7 +57,12 @@ public class OneThreadPage {
     	
     	boolean error = false;
     	error = !mPostModule.add(addPostActive, mRequest, content, threadId);
-    	int numPosts = mPostModule.mAddPost.getThread().getNumPosts();
+    	int numPosts = 0;
+    	if(mPostModule.mAddPost.getThread()==null) {
+    		numPosts = mThreadModule.getThread(start, limit, threadId).getNumPosts();
+    	} else {
+    		numPosts = mPostModule.mAddPost.getThread().getNumPosts();
+    	}
 		if(error) { 
     		return createView(start, limit, numPosts, threadId);
     	} else if(numPosts> start+limit) {

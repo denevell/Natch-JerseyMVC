@@ -21,7 +21,7 @@ public class LoginoutPo {
 		return this;
 	}
 	
-	public void login(String user, String pass) {
+	public LoginoutPo login(String user, String pass) {
 		WebElement username_input = driver.findElement(By.id("login_username_input"));
         WebElement password_input = driver.findElement(By.id("login_password_input"));
         WebElement submit_input = driver.findElement(By.id("login_form_submit"));
@@ -30,6 +30,7 @@ public class LoginoutPo {
         password_input.clear();
         password_input.sendKeys(pass);
         submit_input.click();
+        return this;
 	}
 
 	public LoginoutPo loginFromHomepage(String user, String pass) {
@@ -71,17 +72,28 @@ public class LoginoutPo {
 		return this;
 	}
 
-	public boolean canSeeLogoutText() {
+	public LoginoutPo canSeeLogoutText() {
 		try {
-			driver.findElement(By.id("logout"));
+			driver.findElement(By.id("logout_form_submit"));
 		} catch (NoSuchElementException e) {
-			return false;
+			org.junit.Assert.assertTrue("Wanted to see logout", false);
 		}
-		return true;
+		return this;
 	}
 
 	public void pressForgottenPasswordLink() {
 		driver.findElement(By.linkText("Forgotten password?")).click();
+	}
+
+	public LoginoutPo cantSeeLogoutButton() {
+		try {
+			driver.findElement(By.id("logout_form_submit"));
+		} catch (NoSuchElementException e) {
+			// Goooood.
+			return this;
+		}
+		org.junit.Assert.assertTrue("Wanted logout to be invisible", false);
+		return this;
 	}
 
 }

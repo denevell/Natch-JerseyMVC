@@ -2,6 +2,9 @@ package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.denevell.natch.web.jerseymvc.Strings;
 import org.openqa.selenium.By;
@@ -118,6 +121,36 @@ public class AddPostPo {
 	public AddPostPo clickNext() {
         driver.findElement(By.id("next")).click();;
 		return this;
+	}
+
+	public AddPostPo clickOnSinglePost(int i) {
+		List<WebElement> singlePostLink = driver.findElements(By.linkText("link"));
+		singlePostLink.get(1).click();
+		return null;
+	}
+
+	public AddPostPo hasPostInSinglePage(String string) {
+        Pattern p = Pattern.compile("<em>.*cont1.*</em>", Pattern.DOTALL);
+        Matcher m = p.matcher(driver.getPageSource());
+        org.junit.Assert.assertTrue("Can see single post with markdown", m.find());		
+        return null;
+		
+	}
+
+	public AddPostPo clickOnParentThreadFromSinglePostPage() {
+        WebElement parentThreadLink = driver.findElement(By.id("parent-thread-link"));
+        parentThreadLink.click();
+		return null;
+	}
+
+	public AddPostPo hasPostWithMarkdown(int i, String string) {
+		WebElement thread = driver.findElement(By.id("post_" + i));
+        WebElement title = thread.findElement(By.id("post_content"));
+        String text = title.getText();
+        Pattern p = Pattern.compile("<em>.*cont1.*</em>", Pattern.DOTALL);
+        Matcher m = p.matcher(text);
+        org.junit.Assert.assertTrue("Can see single post in larger thread with markdown", m.find());		
+        return null;
 	}
 
 }
