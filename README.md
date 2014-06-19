@@ -9,8 +9,9 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* Library to change query parameter in string
-* Make add thread to new pagination page return a redirected GET
+* ~~Library to change query parameter in string~~
+* ~~Make add thread to new pagination page return a redirected GET~~
+* Pagination templates
 
 Backlog
 -------
