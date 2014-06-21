@@ -126,7 +126,7 @@ public class AddPostPo {
 	public AddPostPo clickOnSinglePost(int i) {
 		List<WebElement> singlePostLink = driver.findElements(By.linkText("link"));
 		singlePostLink.get(1).click();
-		return null;
+		return this;
 	}
 
 	public AddPostPo hasPostInSinglePage(String string) {

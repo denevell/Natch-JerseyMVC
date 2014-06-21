@@ -1,7 +1,5 @@
 package org.denevell.natch.web.jerseymvc.onethread;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-import org.apache.http.client.utils.URIBuilder;
 import org.denevell.natch.web.jerseymvc.onethread.modules.AddPostModule;
+import org.denevell.natch.web.jerseymvc.onethread.modules.OneThreadPaginationModule;
 import org.denevell.natch.web.jerseymvc.onethread.modules.ThreadModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -28,8 +26,10 @@ public class OneThreadPage {
 	@Context HttpServletRequest mRequest;
 	@Context HttpServletResponse mResponse;
 	@Context UriInfo mUriInfo;
-	private ThreadModule mThreadModule = new ThreadModule();
-	private AddPostModule mPostModule = new AddPostModule();
+	ThreadModule mThreadModule = new ThreadModule();
+	AddPostModule mPostModule = new AddPostModule();
+	OneThreadPaginationModule mPaginationModule = new OneThreadPaginationModule();
+   	boolean mError = false;
 
     @GET
     @Path("{threadId}")
@@ -41,7 +41,7 @@ public class OneThreadPage {
     		) throws Exception {
 
     	mThreadModule.getThread(start, limit, threadId);
-    	return createView(start, limit, mThreadModule.mThreadsList.getNumPosts(), threadId); 
+    	return createView(mUriInfo.getRequestUri().toString(), start, limit, mThreadModule.mThreadsList.getNumPosts(), threadId); 
 	}
 
     @POST
@@ -55,18 +55,17 @@ public class OneThreadPage {
     		@FormParam("addpost_active") final String addPostActive
     		) throws Exception {
     	
-    	boolean error = false;
-    	error = !mPostModule.add(addPostActive, mRequest, content, threadId);
+    	mError = !mPostModule.add(addPostActive, mRequest, content, threadId);
     	int numPosts = 0;
     	if(mPostModule.mAddPost.getThread()==null) {
     		numPosts = mThreadModule.getThread(start, limit, threadId).getNumPosts();
     	} else {
     		numPosts = mPostModule.mAddPost.getThread().getNumPosts();
     	}
-		if(error) { 
-    		return createView(start, limit, numPosts, threadId);
+		if(mError) { 
+    		return createView(mUriInfo.getRequestUri().toString(), start, limit, numPosts, threadId);
     	} else if(numPosts> start+limit) {
-			mResponse.sendRedirect(createUriForNextPagination(start, limit, numPosts).toString());
+			mResponse.sendRedirect(mPaginationModule.createUriForNextPagination(mUriInfo.getRequestUri().toString(), start, limit, numPosts));
     		return null;
 		} else { 
     		mResponse.sendRedirect(mUriInfo.getRequestUri().toString());
@@ -76,52 +75,21 @@ public class OneThreadPage {
 
     @SuppressWarnings("serial")
 	private Viewable createView(
+			final String requestUri,
 			final int start, 
 			final int limit,
 			final int numPosts, 
 			final String threadId
 			) throws Exception {
-    	
-    	int pages = numPosts / limit;
-    	pages++;
-    	final StringBuffer numbers = new StringBuffer();
-    	for (int i = 0; i < pages; i++) {
-    		String s = createUriForPagination(i*(limit), limit).toString();
-    		String startP = "<a id=\"page"+(i+1)+"\" href=\""+s+"\">";
-    		String endP = "</a> | ";
-    		numbers.append(startP + String.valueOf(i+1) + endP);
-		}
 
 		return new Viewable("/thread_index.mustache", 
 				new HashMap<String, String>() {{
 					put("addpost", mPostModule.template(mRequest));
 					put("thread", mThreadModule.template(mRequest, start, limit, threadId));
-					put("next", createUriForNextPagination(start, limit, numPosts).toString());
-					put("prev", createUriForPrevPagination(start, limit).toString());
-					put("pages", numbers.toString());
+					put("next", mPaginationModule.createUriForNextPagination(requestUri, start, limit, numPosts).toString());
+					put("prev", mPaginationModule.createUriForPrevPagination(requestUri, start, limit).toString());
+					put("pages", mPaginationModule.createPagintionNumbers(requestUri, limit, numPosts));
 				}});
 	}
 
-	private URI createUriForNextPagination(int start, int limit, int numPosts) throws URISyntaxException {
-		if(!(start+limit > numPosts)) {
-			start += limit;
-		}
-		return createUriForPagination(start, limit);
-	}
-
-	private URI createUriForPrevPagination(int start, int limit) throws URISyntaxException {
-		start -= limit;
-		if(start<0) {
-			start=0;
-		}
-		return createUriForPagination(start, limit);
-	}
-
-	private URI createUriForPagination(int start, int limit) throws URISyntaxException {
-		URI uri = new URIBuilder(mUriInfo.getRequestUri())
-			.setParameter("start", String.valueOf(start))
-			.setParameter("limit", String.valueOf(limit))
-			.build();
-		return uri;
-	}
 }

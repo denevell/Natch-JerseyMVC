@@ -1,7 +1,5 @@
 package org.denevell.natch.web.jerseymvc.threads;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
@@ -16,11 +14,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-import org.apache.http.client.utils.URIBuilder;
 import org.denevell.natch.web.jerseymvc.login.modules.LoginLogoutModule;
 import org.denevell.natch.web.jerseymvc.register.modules.RegisterModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.AddThreadModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.ThreadsModule;
+import org.denevell.natch.web.jerseymvc.threads.modules.ThreadsPaginationModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -31,9 +29,12 @@ public class ThreadsPage {
 	@Context HttpServletResponse mResponse;
 	@Context ServletContext mContext;
 	@Context UriInfo mUriInfo;
+   	boolean mFormError = false;
 	RegisterModule mRegister = new RegisterModule();
 	LoginLogoutModule mLogin = new LoginLogoutModule();
 	AddThreadModule mAddThread = new AddThreadModule();
+    ThreadsPaginationModule mPaginationModule = new ThreadsPaginationModule();
+	ThreadsModule mThreadsModule = new ThreadsModule();
 
     @GET
     @Template
@@ -42,7 +43,7 @@ public class ThreadsPage {
     		@QueryParam("limit") @DefaultValue("10") int limit
     		) throws Exception {
 
-    	return createView(start, limit); 
+    	return createView(mUriInfo.getRequestUri().toString(), start, limit); 
 	}
 
     @POST
@@ -63,16 +64,15 @@ public class ThreadsPage {
     		@FormParam("logout_active") final String logoutActive 
     		) throws Exception {
     	
-    	boolean error = false;
-    	error |= !mLogin.logout(logoutActive, mRequest);
-    	error |= !mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
+    	mFormError |= !mLogin.logout(logoutActive, mRequest);
+    	mFormError |= !mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
     	if(mRegister.mRegister.getErrorMessage()!=null && !mRegister.mRegister.getErrorMessage().isEmpty()) {
-    		error = true; // Hack due to dodgy api
+    		mFormError = true; // Hack due to dodgy api
     	}
-    	error |= !mLogin.login(loginActive, mRequest, username, password);
-    	error |= !mAddThread.add(addthreadActive, mRequest, subject, content, tags);
-    	if(error) {
-    		return createView(start, limit);
+    	mFormError |= !mLogin.login(loginActive, mRequest, username, password);
+    	mFormError |= !mAddThread.add(addthreadActive, mRequest, subject, content, tags);
+    	if(mFormError) {
+    		return createView(mUriInfo.getRequestUri().toString(), start, limit);
     	} else {
     		mResponse.sendRedirect(mRequest.getRequestURI());
     		return null;
@@ -81,58 +81,22 @@ public class ThreadsPage {
     
     @SuppressWarnings("serial")
 	private Viewable createView(
+			final String requestUri,
 			final int start, 
 			final int limit) throws Exception {
 
-		final ThreadsModule threadsModule = new ThreadsModule();
-		threadsModule.getThreads(start, limit);
-
-    	final int numOfThreads = (int) threadsModule.mThreads.getNumOfThreads();
-		float pagesFloat = (numOfThreads/ limit);
-		int pages = (int) pagesFloat;
-		if(pagesFloat!=0) {
-			pages++;
-		}
-    	final StringBuffer numbers = new StringBuffer();
-    	for (int i = 0; i < pages; i++) {
-    		String s = createUriForPagination(i*(limit), limit).toString();
-    		String startP = "<a id=\"page"+(i+1)+"\" href=\""+s+"\">";
-    		String endP = "</a> | ";
-    		numbers.append(startP + String.valueOf(i+1) + endP);
-		}
+		mThreadsModule.getThreads(start, limit);
+    	final int numOfThreads = (int) mThreadsModule.mThreads.getNumOfThreads();
 
 		return new Viewable("/threads_index.mustache", 
 				new HashMap<String, String>() {{
 					put("login", mLogin.template(mRequest));
 					put("register", mRegister.template(mRequest));
 					put("addthread", mAddThread.template(mRequest));
-					put("threads", threadsModule.template(mRequest));
-					put("next", createUriForNextPagination(start, limit, numOfThreads).toString());
-					put("prev", createUriForPrevPagination(start, limit).toString());
-					put("pages", numbers.toString());
+					put("threads", mThreadsModule.template(mRequest));
+					put("next", mPaginationModule.createUriForNextPagination(requestUri, start, limit, numOfThreads).toString());
+					put("prev", mPaginationModule.createUriForPrevPagination(requestUri, start, limit).toString());
+					put("pages", mPaginationModule.createPagintionNumbers(requestUri, limit, numOfThreads));
 				}});
-	}
-
-	private URI createUriForNextPagination(int start, int limit, int numPosts) throws URISyntaxException {
-		if(!(start+limit > numPosts)) {
-			start += limit;
-		}
-		return createUriForPagination(start, limit);
-	}
-
-	private URI createUriForPrevPagination(int start, int limit) throws URISyntaxException {
-		start -= limit;
-		if(start<0) {
-			start=0;
-		}
-		return createUriForPagination(start, limit);
-	}
-
-	private URI createUriForPagination(int start, int limit) throws URISyntaxException {
-		URI uri = new URIBuilder(mUriInfo.getRequestUri())
-			.setParameter("start", String.valueOf(start))
-			.setParameter("limit", String.valueOf(limit))
-			.build();
-		return uri;
 	}
 }
