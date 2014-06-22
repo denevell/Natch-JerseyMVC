@@ -133,24 +133,23 @@ public class AddPostPo {
         Pattern p = Pattern.compile("<em>.*cont1.*</em>", Pattern.DOTALL);
         Matcher m = p.matcher(driver.getPageSource());
         org.junit.Assert.assertTrue("Can see single post with markdown", m.find());		
-        return null;
-		
+        return this;
 	}
 
 	public AddPostPo clickOnParentThreadFromSinglePostPage() {
         WebElement parentThreadLink = driver.findElement(By.id("parent-thread-link"));
         parentThreadLink.click();
-		return null;
+		return this;
 	}
 
 	public AddPostPo hasPostWithMarkdown(int i, String string) {
 		WebElement thread = driver.findElement(By.id("post_" + i));
         WebElement title = thread.findElement(By.id("post_content"));
-        String text = title.getText();
+        String text = title.getAttribute("innerHTML");
         Pattern p = Pattern.compile("<em>.*cont1.*</em>", Pattern.DOTALL);
         Matcher m = p.matcher(text);
         org.junit.Assert.assertTrue("Can see single post in larger thread with markdown", m.find());		
-        return null;
+        return this;
 	}
 
 }

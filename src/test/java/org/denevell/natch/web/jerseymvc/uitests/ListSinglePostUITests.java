@@ -46,7 +46,7 @@ public class ListSinglePostUITests {
 		addpostPo
 			.add("*cont1*")
 			.clickOnSinglePost(1)
-			.hasPostInSinglePage("")
+			.hasPostInSinglePage("<em>.*cont1.*</em>")
 			.clickOnParentThreadFromSinglePostPage()
 			.hasPostWithMarkdown(1, "<em>.*cont1.*</em>");
 	}

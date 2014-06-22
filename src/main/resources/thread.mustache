@@ -6,7 +6,7 @@
 		{{#posts}}
 			<li id="post_{{iterate}}">
            		<span id="post_content">
-           			{{content}}
+           			{{{htmlContent}}}
            		</span>
            		- 
            		<span id="post_author">
@@ -16,7 +16,7 @@
            		<span id="post_date">
            			{{lastModifiedDate}}
            		</span>
-           		<a id="link" href="/single/{{id}}">
+           		<a id="link" href="/post/{{id}}">
            			link
            		</a>
            		

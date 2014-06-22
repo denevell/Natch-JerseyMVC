@@ -3,7 +3,7 @@ package org.denevell.natch.web.jerseymvc.post.modules;
 import java.io.IOException;
 
 import org.denevell.natch.web.jerseymvc.TemplateModule;
-import org.denevell.natch.web.jerseymvc.onethread.io.PostOutput;
+import org.denevell.natch.web.jerseymvc.post.io.PostOutput;
 
 public class PostModule extends TemplateModule {
 	

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.denevell.natch.web.jerseymvc.post.io.PostOutput;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)
