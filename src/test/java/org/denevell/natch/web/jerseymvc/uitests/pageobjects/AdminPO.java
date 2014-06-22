@@ -29,7 +29,7 @@ public class AdminPO {
 	}
 
 	public AdminPO isRequestPasswordReset(String username, boolean t) {
-	    WebElement resetPw = driver.findElement(By.id(username+"_requestingReset"));
+	    WebElement resetPw = driver.findElement(By.id(username+"_passwordResetRequest"));
 	    if(t) {
 	    	org.junit.Assert.assertTrue("Password reset is set", resetPw.getText().equals("true"));
 	    } else {

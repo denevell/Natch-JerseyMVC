@@ -81,8 +81,8 @@ public class LoginoutPo {
 		return this;
 	}
 
-	public void pressForgottenPasswordLink() {
-		driver.findElement(By.linkText("Forgotten password?")).click();
+	public LoginoutPo pressForgottenPasswordLink() {
+		return this;
 	}
 
 	public LoginoutPo cantSeeLogoutButton() {

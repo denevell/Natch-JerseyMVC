@@ -11,11 +11,20 @@ Todo
 -----
 * ~~Library to change query parameter in string~~
 * ~~Make add thread to new pagination page return a redirected GET~~
-* Pagination templates
+* ~~Pagination templates~~
+* Change pw module
+* Reset pw module 
+* Reset pw test 
+* Delete thread 
+* Delete thread tests
+* Delete post 
+* Delete post tests
 
 Backlog
 -------
 
+* Save data from POST to redirect, so we can so success text in the templates etc.
+* What if one template needs data from another template, login showing forgotten password box is forgotten password template returns false?
 * Test if recovery email is invalid?
 * Test go back to homepage from single thread page
 * Test content in single thread page

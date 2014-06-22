@@ -16,6 +16,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.denevell.natch.web.jerseymvc.login.modules.LoginLogoutModule;
 import org.denevell.natch.web.jerseymvc.register.modules.RegisterModule;
+import org.denevell.natch.web.jerseymvc.resetpw.modules.ResetPwModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.AddThreadModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.ThreadsModule;
 import org.denevell.natch.web.jerseymvc.threads.modules.ThreadsPaginationModule;
@@ -35,6 +36,7 @@ public class ThreadsPage {
 	AddThreadModule mAddThread = new AddThreadModule();
     ThreadsPaginationModule mPaginationModule = new ThreadsPaginationModule();
 	ThreadsModule mThreadsModule = new ThreadsModule();
+	ResetPwModule mResetPwModule = new ResetPwModule();
 
     @GET
     @Template
@@ -61,7 +63,9 @@ public class ThreadsPage {
     		@FormParam("addthread_active") final String addthreadActive,
     		@FormParam("login_active") final String loginActive,
     		@FormParam("register_active") final String registerActive,
-    		@FormParam("logout_active") final String logoutActive 
+    		@FormParam("logout_active") final String logoutActive,
+    		@FormParam("resetpw_active") final String resetPwActive,
+    		@FormParam("resetpw_email") final String resetPwEmail
     		) throws Exception {
     	
     	mFormError |= !mLogin.logout(logoutActive, mRequest);
@@ -71,6 +75,7 @@ public class ThreadsPage {
     	}
     	mFormError |= !mLogin.login(loginActive, mRequest, username, password);
     	mFormError |= !mAddThread.add(addthreadActive, mRequest, subject, content, tags);
+    	mFormError |= !mResetPwModule.reset(resetPwActive, mRequest, resetPwEmail);
     	if(mFormError) {
     		return createView(mUriInfo.getRequestUri().toString(), start, limit);
     	} else {
@@ -91,6 +96,7 @@ public class ThreadsPage {
 		return new Viewable("/threads_index.mustache", 
 				new HashMap<String, String>() {{
 					put("login", mLogin.template(mRequest));
+					put("pwreset", mResetPwModule.template(mRequest));
 					put("register", mRegister.template(mRequest));
 					put("addthread", mAddThread.template(mRequest));
 					put("threads", mThreadsModule.template(mRequest));

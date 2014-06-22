@@ -1,10 +1,14 @@
 package org.denevell.natch.web.jerseymvc;
 
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
 public class Serv {
+	public static interface ResponseRunnable {
+		Response run();
+	}
 	public static Serv serv(Runnable r) {
 		try {
 			r.run();
@@ -12,6 +16,22 @@ public class Serv {
 		} catch (WebApplicationException e) {
 			Logger.getLogger(Serv.class).error("Error during fetch", e);
 			return new Serv(e.getResponse().getStatus());
+		} catch (Exception e) {
+			Logger.getLogger(Serv.class).error("Error during fetch", e);
+			return new Serv(-1);
+		}
+	}
+
+	public static Serv serv(ResponseRunnable r) {
+		try {
+			Response resp = r.run();
+			if(resp==null) {
+				throw new NullPointerException();
+			} else if(resp.getStatus()>=300 || resp.getStatus()<200) {
+				return new Serv(resp.getStatus());
+			} else {
+				return new Serv();
+			}
 		} catch (Exception e) {
 			Logger.getLogger(Serv.class).error("Error during fetch", e);
 			return new Serv(-1);

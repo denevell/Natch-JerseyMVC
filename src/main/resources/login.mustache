@@ -1,10 +1,16 @@
 {{^loggedin}}
-        <form method="post" action="">
                 {{#login}}
                         {{#errorMessage}}
                                 {{.}} ?<br />
+                                Reset password? 
+        						<form method="post" action="">
+					                <input name="resetpw_active" type="hidden" /> 
+					                <input name="resetpw_email" type="text" id="resetpw_input" /> 
+					                <input type="submit" id="resetpw_form_submit" value="reset" />
+                                </form>
                         {{/errorMessage}}
                 {{/login}}
+        <form method="post" action="">
                 <input name="username" type="text" id="login_username_input" />
                 <input name="password" type="text" id="login_password_input" /> 
                 <input name="login_active" type="hidden" /> 

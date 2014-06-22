@@ -27,7 +27,10 @@ public class ResetPasswordRequestTests {
 		loginoutPo = new LoginoutPo(driver);
 		forgottenPwPo = new ForgottenPasswordPo(driver);
 		loginPo = new LoginoutPo(driver);
+        driver.get(URLs.HOMEPAGE);
 		registerPo.register("aaron", "aaron", "");
+		loginPo.logout();
+		registerPo.register("aaron2", "aaron2", "a@b.com");
 		loginPo.logout();
         driver.get(URLs.HOMEPAGE);
 	}
@@ -49,12 +52,11 @@ public class ResetPasswordRequestTests {
 			.isRequestPasswordReset("aaron2", false);
         driver.get(URLs.HOMEPAGE);
 		loginoutPo
-			.logout()
-			.login("aaron2", "incorrect")
-			.pressForgottenPasswordLink();
+			.logout();
 		forgottenPwPo
+			.requestReset("aaron2", "incorrect", "incorrect@b.com")
 			.hasRequestedSuccessfully(false)
-			.requestReset("aaron2@recover.com")
+			.requestReset("aaron2", "incorrect", "a@b.com")
 			.hasRequestedSuccessfully(true);
         driver.get(URLs.HOMEPAGE);
 		loginoutPo.login("aaron", "aaron");

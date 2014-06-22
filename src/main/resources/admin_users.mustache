@@ -1,13 +1,22 @@
 <table border="1">
 {{#users}}
+		<tr>
+           	<th>Username</th>
+           	<th>Recovery Email</th>
+           	<th>Password reset request</th>
+           	<th>Change password</th>
+		</tr>
        	{{#users}}
-			<tr>
-            	<th>Username</th>
-            	<th>Recovery Email</th>
-			</tr>
 			<tr>
             	<td>{{username}}</td>
             	<td id="{{username}}_recoveryEmail">{{recoveryEmail}}</td>
+            	<td id="{{username}}_passwordResetRequest">{{resetPasswordRequest}}</td>
+            	<td id="{{username}}_changepw">
+            		<form id="admin_change_pw">
+            			<input type="text" name="admin_change_pw" />
+            			<input type="hidden" name="changepw_active" />
+            		</form>
+            	</td>
 	        </tr>
        	{{/users}}
 {{/users}}
