@@ -68,9 +68,12 @@ public class ThreadsPage {
     	
     	mLogin.logout(logoutActive, mRequest);
     	mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
-    	mLogin.login(loginActive, mRequest, username, password);
     	mAddThread.add(addthreadActive, mRequest, subject, content, tags);
     	mResetPwModule.reset(resetPwActive, mRequest, resetPwEmail);
+    	mLogin.login(loginActive, mRequest, username, password);
+    	if(mResetPwModule.hasError()) {
+    		mLogin.resetPwError();
+    	}
 
     	createTemplate(mUriInfo.getRequestUri().toString(), start, limit);
     	return Response.seeOther(mUriInfo.getRequestUri()).build();

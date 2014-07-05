@@ -39,5 +39,9 @@ public class ResetPwModule extends TemplateModule {
 			mError = true;
 			}}).go();
 	}
+	
+	public boolean hasError() {
+		return mProcessed && mError; 
+	}
 
 }

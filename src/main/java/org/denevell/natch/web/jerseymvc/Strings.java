@@ -56,6 +56,10 @@ public class Strings {
 	
 	public static String getBlankUsernameOrPassword() {
 		return "Username or password cannot be blank";
+	}
+
+	public static String EmailForResetAddressCorrect() {
+		return "Unable to reset the password for that email";
 	}	
 
 }
