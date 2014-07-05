@@ -12,9 +12,11 @@
             	<td id="{{username}}_recoveryEmail">{{recoveryEmail}}</td>
             	<td id="{{username}}_passwordResetRequest">{{resetPasswordRequest}}</td>
             	<td id="{{username}}_changepw">
-            		<form id="admin_change_pw">
-            			<input type="text" name="admin_change_pw" />
+            		<form id="admin_change_pw" method="post">
+            			<input type="text" name="changepw_password" />
+            			<input type="hidden" name="changepw_username" value="{{username}}"/>
             			<input type="hidden" name="changepw_active" />
+            			<input type="submit" value="submit" name="changepw_submit" />
             		</form>
             	</td>
 	        </tr>

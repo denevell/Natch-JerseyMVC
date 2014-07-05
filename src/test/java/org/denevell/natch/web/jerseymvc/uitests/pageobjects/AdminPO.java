@@ -21,9 +21,10 @@ public class AdminPO {
 	}
 	
 	public AdminPO changePassword(String username, String password) {
-	    WebElement aaron2ChangePassword = driver.findElement(By.id(username+"_changePassword"));
-	    aaron2ChangePassword.sendKeys(password);
-	    WebElement changePasswordButton = driver.findElement(By.id(username+"_changePasswordButton"));
+	    WebElement aaron2ChangePassword = driver.findElement(By.id(username+"_changepw"));
+	    WebElement pass = aaron2ChangePassword.findElement(By.name("changepw_password"));
+	    pass.sendKeys(password);
+	    WebElement changePasswordButton = aaron2ChangePassword.findElement(By.name("changepw_submit"));
 	    changePasswordButton.click();
 	    return this;
 	}

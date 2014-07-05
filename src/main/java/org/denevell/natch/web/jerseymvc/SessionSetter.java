@@ -14,7 +14,7 @@ public class SessionSetter {
     }
 
     public static boolean sessionAlreadySet(HttpServletRequest request) {
-    	return request.getSession()!=null || request.getSession().getAttribute("to")==null;
+    	return request.getSession()!=null && request.getSession().getAttribute("to")!=null;
     }
     
 	public SessionSetter(HttpServletRequest request) {
