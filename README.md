@@ -14,7 +14,8 @@ Todo
 * ~~Pagination templates~~
 * ~~Keep reset password if dodgy input~~
 * ~~Pw reset should be in pwreset template?~~
-* Test to show reset password has been successful
+* ~~Test to show reset password has been successful~~
+* Use session state in admin controller
 * Change pw module tests
 
 Backlog

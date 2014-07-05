@@ -45,6 +45,9 @@ public class PwChangeModule extends TemplateModule {
 				.request()
 				.header("AuthKey", attribute)
 				.delete();
+			if(response.getStatus()<300) {
+				mProcessed = true;
+			}
 			return response;
 		}})
 		._exception(new Runnable() { @Override public void run() {

@@ -34,7 +34,7 @@ public class AdminPage {
     		@FormParam("changepw_password") String chnagePwNewPass,
     		@FormParam("changepw_active") String changePwActive
     		) throws Exception {
-    		mPwChange.changePw(changePwActive, mRequest, changePwUsername, chnagePwNewPass);
+    	mPwChange.changePw(changePwActive, mRequest, changePwUsername, chnagePwNewPass);
     	return createView(); 
     }
 
