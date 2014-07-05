@@ -1,8 +1,16 @@
+{{#show_reset_form}}
+Reset password? 
+        <form method="post" action="">
+        <input name="resetpw_active" type="hidden" /> 
+        <input name="resetpw_email" type="text" id="resetpw_input" /> 
+        <input type="submit" id="resetpw_form_submit" value="reset" />
+</form>
+{{/show_reset_form}}
 {{#processed}}
-	{{#error}}
-		Error reseting password. Correct email?
-	{{/error}}
-	{{^error}}
-		Password reset request sent. Check email later.
-	{{/error}}
+        {{#error}}
+        	Error reseting password. Correct email?
+        {{/error}}
+        {{^error}}
+        	Password reset request sent. Check email later.
+        {{/error}}
 {{/processed}}

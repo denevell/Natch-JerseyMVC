@@ -13,7 +13,7 @@ Todo
 * ~~Make add thread to new pagination page return a redirected GET~~
 * ~~Pagination templates~~
 * ~~Keep reset password if dodgy input~~
-* Pw reset should be in pwreset template?
+* ~~Pw reset should be in pwreset template?~~
 * Test to show reset password has been successful
 * Change pw module tests
 

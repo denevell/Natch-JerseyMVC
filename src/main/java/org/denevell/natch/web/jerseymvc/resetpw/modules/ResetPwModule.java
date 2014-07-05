@@ -12,11 +12,13 @@ public class ResetPwModule extends TemplateModule {
 	
 	private boolean mError = false;
 	protected boolean mProcessed;
+	protected boolean mShowForm;
 
 	@SuppressWarnings("unused")
 	public String template(final HttpServletRequest request) {
 		return createTemplate("pwreset.mustache", 
 			new Object() {
+				boolean show_reset_form = mShowForm;
 				boolean error = mError;
 				boolean processed = mProcessed;
     		}
@@ -39,9 +41,9 @@ public class ResetPwModule extends TemplateModule {
 			mError = true;
 			}}).go();
 	}
-	
-	public boolean hasError() {
-		return mProcessed && mError; 
+
+	public void showForm() {
+		mShowForm = true;
 	}
 
 }

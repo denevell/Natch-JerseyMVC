@@ -78,8 +78,8 @@ public class LoginLogoutModule extends TemplateModule {
 		}).go();
 	}
 
-	public void resetPwError() {
-		mLogin.setErrorMessage(Strings.EmailForResetAddressCorrect());
+	public boolean errord() {
+		return mLogin.getErrorMessage()!=null && mLogin.getErrorMessage().trim().length()>0;
 	}
 
 }

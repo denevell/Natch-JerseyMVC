@@ -71,8 +71,8 @@ public class ThreadsPage {
     	mAddThread.add(addthreadActive, mRequest, subject, content, tags);
     	mResetPwModule.reset(resetPwActive, mRequest, resetPwEmail);
     	mLogin.login(loginActive, mRequest, username, password);
-    	if(mResetPwModule.hasError()) {
-    		mLogin.resetPwError();
+    	if(mLogin.errord()) {
+    		mResetPwModule.showForm();
     	}
 
     	createTemplate(mUriInfo.getRequestUri().toString(), start, limit);
