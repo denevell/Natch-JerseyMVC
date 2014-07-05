@@ -39,6 +39,7 @@ public class ResetPwModule extends TemplateModule {
 		}})
 		._exception(new Runnable() { @Override public void run() {
 			mError = true;
+			showForm();
 			}}).go();
 	}
 

@@ -7,15 +7,12 @@ import org.openqa.selenium.WebElement;
 public class ForgottenPasswordPo {
 
 	private WebDriver driver;
-	private LoginoutPo loginPo;
 
 	public ForgottenPasswordPo(WebDriver driver) {
 		this.driver = driver;
-		loginPo = new LoginoutPo(driver);
 	}
 
-	public ForgottenPasswordPo requestReset(String username, String pass, String email) {
-		loginPo.loginFromHomepage(username, pass);
+	public ForgottenPasswordPo requestReset(String email) {
 	    WebElement input = driver.findElement(By.id("resetpw_input"));
 	    input.sendKeys(email);
 	    WebElement button = driver.findElement(By.id("resetpw_form_submit"));
@@ -25,9 +22,7 @@ public class ForgottenPasswordPo {
 
 	public ForgottenPasswordPo hasRequestedSuccessfully(boolean t) {
 		if(t) {
-			// org.junit.Assert.assertTrue(driver.getPageSource().toLowerCase().contains("password reset sent"));
-			// TODO: Find a way to sent template date on redirects for this
-			org.junit.Assert.assertFalse(driver.getPageSource().toLowerCase().contains("error reseting password"));
+			org.junit.Assert.assertTrue(driver.getPageSource().toLowerCase().contains("password reset request"));
 		} else if(!t){
 			org.junit.Assert.assertTrue(driver.getPageSource().toLowerCase().contains("error reseting password"));
 		}
