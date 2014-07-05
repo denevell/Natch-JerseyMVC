@@ -1,6 +1,7 @@
 package org.denevell.natch.web.jerseymvc.admin;
 
-import java.util.HashMap;
+import static org.denevell.natch.web.jerseymvc.SessionSetter.sessionAlreadySet;
+import static org.denevell.natch.web.jerseymvc.SessionSetter.setSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
@@ -16,9 +17,6 @@ import org.denevell.natch.web.jerseymvc.admin.modules.AdminModule;
 import org.denevell.natch.web.jerseymvc.admin.modules.PwChangeModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
-
-import static org.denevell.natch.web.jerseymvc.SessionSetter.setSession;
-import static org.denevell.natch.web.jerseymvc.SessionSetter.sessionAlreadySet;
 
 @Path("admin")
 public class AdminPage {

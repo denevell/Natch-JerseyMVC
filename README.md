@@ -17,13 +17,12 @@ Todo
 * ~~Test to show reset password has been successful~~
 * ~~Use session state in admin controller~~
 * Change pw module tests
+* Delete thread service code
+* Delete thread view for error
 
 Backlog
 -------
 
-* What if one template needs data from another template, login showing forgotten password box is forgotten password template returns false?
 * Test if recovery email is invalid?
 * Test go back to homepage from single thread page
 * Test content in single thread page
-* Look at what to unit test
-* ManifestVars for urls
