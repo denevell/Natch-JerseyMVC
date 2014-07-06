@@ -84,15 +84,14 @@ public class ThreadsPage {
     	if(sessionAlreadySet(mRequest)) return;
 		mThreadsModule.getThreads(start, limit);
     	final int numOfThreads = (int) mThreadsModule.mThreads.getNumOfThreads();
+    	mPaginationModule.init(requestUri, start, limit, numOfThreads);
     	setSession(mRequest)
 			.put("login", mLogin.template(mRequest))
 			.put("pwreset", mResetPwModule.template(mRequest))
 			.put("register", mRegister.template(mRequest))
 			.put("addthread", mAddThread.template(mRequest))
 			.put("threads", mThreadsModule.template(mRequest))
-			.put("next", mPaginationModule.createUriForNextPagination(requestUri, start, limit, numOfThreads).toString())
-			.put("prev", mPaginationModule.createUriForPrevPagination(requestUri, start, limit).toString())
-			.put("pages", mPaginationModule.createPagintionNumbers(requestUri, limit, numOfThreads))
+			.put("pagination", mPaginationModule.template(mRequest))
 			.build();
     }
 }
