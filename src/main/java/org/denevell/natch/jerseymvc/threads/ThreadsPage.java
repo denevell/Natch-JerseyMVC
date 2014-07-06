@@ -73,6 +73,7 @@ public class ThreadsPage extends TemplateController {
     		@FormParam("resetpw_active") final String resetPwActive,
     		@FormParam("resetpw_email") final String resetPwEmail
     		) throws Exception {
+
     	mLogin.logout(logoutActive, mRequest);
     	mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
     	mAddThread.add(addthreadActive, mRequest, subject, content, tags);

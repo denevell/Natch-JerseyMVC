@@ -11,7 +11,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 import org.denevell.natch.jerseymvc.post.modules.PostModule;
-import org.denevell.natch.jerseymvc.post.modules.ThreadUrlGeneratorModule;
+import org.denevell.natch.jerseymvc.urls.ThreadUrlGenerator;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -39,7 +39,7 @@ public class PostPage {
 		return new Viewable("/post_index.mustache", 
 				new HashMap<String, String>() {{
 					put("post", mPostModule.template(mRequest));
-					put("backUrl", new ThreadUrlGeneratorModule().createThreadUrl(mPostModule.mPostOutput.getThreadId()));
+					put("backUrl", new ThreadUrlGenerator().createThreadUrl(mPostModule.mPostOutput.getThreadId()));
 				}});
 	}
 

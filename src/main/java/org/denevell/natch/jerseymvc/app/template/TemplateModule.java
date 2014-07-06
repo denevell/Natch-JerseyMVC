@@ -59,6 +59,7 @@ public class TemplateModule {
 	}
 
 	public String template(final HttpServletRequest request) throws Exception {
+		if(mTemplateFile==null) return "";
 		mRequest = request;
 		HashMap<String, Object> hm = new HashMap<>();
 		for(PropertyDescriptor propertyDescriptor : 

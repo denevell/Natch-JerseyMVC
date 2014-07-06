@@ -26,7 +26,7 @@ public class LogoutUITests {
 	public void shouldLogoutCorrectly() throws InterruptedException {
 		loginPo
 			.loginFromHomepage("aaron", "aaron")
-			.canSeeLogoutText()
+			.canSeeLogout()
 			.logout()
 			.cantSeeLogoutButton();
 	}

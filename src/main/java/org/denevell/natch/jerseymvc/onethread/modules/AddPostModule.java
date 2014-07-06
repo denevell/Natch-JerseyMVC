@@ -25,6 +25,13 @@ public class AddPostModule extends TemplateModule {
 	public AddThreadOutput getAddpost() {
 		return mAddPost;
 	}
+	
+	public int getNumPosts() {
+		if(mAddPost==null || mAddPost.getThread()==null) {
+			return 0;
+		}
+		return mAddPost.getThread().getNumPosts();
+	}
 
 	public boolean add(Object trueObject, 
 			final HttpServletRequest serv,

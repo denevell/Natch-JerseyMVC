@@ -1,4 +1,9 @@
 {{#thread}}
+    <form method="post" action="">
+        <input name="delete_thread_active" value="yeah" type="hidden" /> 
+        <input name="delete_thread_id" value="{{rootPostId}}" type="hidden" /> 
+        <input type="submit" id="delete_thread_form_submit" value="delete thread" />
+	</form>
  	<h3 id="thread_subject">
            {{subject}}
 	</h3>
@@ -16,10 +21,7 @@
            		<span id="post_date">
            			{{lastModifiedDate}}
            		</span>
-           		<a id="link" href="/post/{{id}}">
-           			link
-           		</a>
-           		
+           		<a id="link" href="/post/{{id}}">link</a>
 			</li>
 		{{/posts}}
 	</ul>

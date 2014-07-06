@@ -1,7 +1,5 @@
 package org.denevell.natch.jerseymvc.onethread;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DefaultValue;
@@ -12,24 +10,35 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.denevell.natch.jerseymvc.app.template.TemplateController;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.onethread.modules.AddPostModule;
-import org.denevell.natch.jerseymvc.onethread.modules.OneThreadPaginationModule;
+import org.denevell.natch.jerseymvc.onethread.modules.DeleteThreadModule;
 import org.denevell.natch.jerseymvc.onethread.modules.ThreadModule;
+import org.denevell.natch.jerseymvc.threads.modules.ThreadsPaginationModule;
+import org.denevell.natch.jerseymvc.urls.MainPageUrlGenerator;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
+@TemplateName("/thread_index.mustache")
 @Path("thread")
-public class OneThreadPage {
+public class OneThreadPage extends TemplateController{
 	
 	@Context HttpServletRequest mRequest;
 	@Context HttpServletResponse mResponse;
 	@Context UriInfo mUriInfo;
-	ThreadModule mThreadModule = new ThreadModule();
-	AddPostModule mPostModule = new AddPostModule();
-	OneThreadPaginationModule mPaginationModule = new OneThreadPaginationModule();
-   	boolean mError = false;
+	@TemplateModuleInfo(value="addpost") 
+	public AddPostModule mPostModule = new AddPostModule();
+	@TemplateModuleInfo(value="deletethread") 
+	public DeleteThreadModule mDeleteThreadModule = new DeleteThreadModule();
+	@TemplateModuleInfo(value="thread", usedInGET=true) 
+	public ThreadModule mThreadModule = new ThreadModule();
+	@TemplateModuleInfo(value="pagination", usedInGET=true) 
+	public ThreadsPaginationModule mPaginationModule = new ThreadsPaginationModule();
 
     @GET
     @Path("{threadId}")
@@ -39,56 +48,34 @@ public class OneThreadPage {
     		@QueryParam("start") @DefaultValue("0") int start,
     		@QueryParam("limit") @DefaultValue("10") int limit
     		) throws Exception {
-
-    	mThreadModule.getThread(start, limit, threadId);
-    	return createView(mUriInfo.getRequestUri().toString(), start, limit, mThreadModule.mThreadsList.getNumPosts(), threadId); 
+    	mThreadModule.fetchThread(start, limit, threadId);
+    	mPaginationModule.calculatePagination(mUriInfo.getRequestUri().toString(), start, limit, mThreadModule.getThread().getNumPosts());
+    	storeSessionTemplateObjectFromTemplateModules(mRequest, this);
+    	return viewableFromSession(mRequest);
 	}
 
     @POST
     @Path("{threadId}")
     @Template
-    public Viewable indexPost(
+    public Response indexPost(
     		@PathParam("threadId") String threadId,
     		@QueryParam("start") @DefaultValue("0") int start,
     		@QueryParam("limit") @DefaultValue("10") int limit,
     		@FormParam("content") final String content,
-    		@FormParam("addpost_active") final String addPostActive
+    		@FormParam("addpost_active") final String addPostActive,
+    		@FormParam("delete_thread_active") final String deleteThreadActive,
+    		@FormParam("delete_thread_id") final String deleteThreadId
     		) throws Exception {
-    	
-    	mError = !mPostModule.add(addPostActive, mRequest, content, threadId);
-    	int numPosts = 0;
-    	if(mPostModule.mAddPost.getThread()==null) {
-    		numPosts = mThreadModule.getThread(start, limit, threadId).getNumPosts();
+    	mDeleteThreadModule.delete(deleteThreadActive, mRequest, deleteThreadId);
+    	mPostModule.add(addPostActive, mRequest, content, threadId);
+    	mPaginationModule.calculatePagination(mUriInfo.getRequestUri().toString(), start, limit, mPostModule.getNumPosts());
+   		storeSessionTemplateObjectFromTemplateModules(mRequest, this);
+   		if(mDeleteThreadModule.getSuccessful()) {
+    		return Response.seeOther(new MainPageUrlGenerator().build()).build();
+   		} else if(mPostModule.getNumPosts() > start+limit) { 
+    		return Response.seeOther(mPaginationModule.getNext()).build();
     	} else {
-    		numPosts = mPostModule.mAddPost.getThread().getNumPosts();
+    		return Response.seeOther(mUriInfo.getRequestUri()).build();
     	}
-		if(mError) { 
-    		return createView(mUriInfo.getRequestUri().toString(), start, limit, numPosts, threadId);
-    	} else if(numPosts> start+limit) {
-			mResponse.sendRedirect(mPaginationModule.createUriForNextPagination(mUriInfo.getRequestUri().toString(), start, limit, numPosts));
-    		return null;
-		} else { 
-    		mResponse.sendRedirect(mUriInfo.getRequestUri().toString());
-    		return null;
-    	}
-	}
-
-    @SuppressWarnings("serial")
-	private Viewable createView(
-			final String requestUri,
-			final int start, 
-			final int limit,
-			final int numPosts, 
-			final String threadId) throws Exception {
-    	mThreadModule.getThread(start, limit, threadId);
-		return new Viewable("/thread_index.mustache", 
-				new HashMap<String, String>() {{
-					put("addpost", mPostModule.template(mRequest));
-					put("thread", mThreadModule.template(mRequest));
-					put("next", mPaginationModule.createUriForNextPagination(requestUri, start, limit, numPosts).toString());
-					put("prev", mPaginationModule.createUriForPrevPagination(requestUri, start, limit).toString());
-					put("pages", mPaginationModule.createPagintionNumbers(requestUri, limit, numPosts));
-				}});
-	}
-
+    }
 }

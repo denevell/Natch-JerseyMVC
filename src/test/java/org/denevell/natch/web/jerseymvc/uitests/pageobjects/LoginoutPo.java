@@ -72,7 +72,7 @@ public class LoginoutPo {
 		return this;
 	}
 
-	public LoginoutPo canSeeLogoutText() {
+	public LoginoutPo canSeeLogout() {
 		try {
 			driver.findElement(By.id("logout_form_submit"));
 		} catch (NoSuchElementException e) {

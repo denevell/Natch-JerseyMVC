@@ -71,6 +71,13 @@ public class ResetPasswordRequestTests {
 			.changePassword("aaron2", "newpass")
 			.canSeeSuccessFulPasswordChange()
 			.isRequestPasswordReset("aaron2", false);
+        driver.get(URLs.HOMEPAGE);
+		loginoutPo
+			.logout()
+			.login("aaron2", "newpass")
+			.canSeeLogout()
+			.shouldntSeeLoginButton();
+
 	}
 
 

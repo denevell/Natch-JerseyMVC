@@ -130,7 +130,12 @@ public class ThreadOutput {
 	}
 
 	public long getRootPostId() {
-		return rootPostId;
+		List<PostOutput> posts = getPosts();
+		if(posts!=null && posts.get(0)!=null) {
+			return posts.get(0).getId();
+		} else {
+			return rootPostId;
+		}
 	}
 
 	public void setRootPostId(long rootPostId) {

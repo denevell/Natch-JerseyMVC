@@ -15,7 +15,7 @@ public class ThreadModule extends TemplateModule {
    		return mThreadsList;
    	}
    	
-	public ThreadOutput getThread(int start, int limit, String threadId) {
+	public ThreadOutput fetchThread(int start, int limit, String threadId) {
         mThreadsList = sService
                 .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
                 .path("rest").path("post").path("thread")
