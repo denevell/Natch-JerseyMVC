@@ -1,6 +1,6 @@
 package org.denevell.natch.web.jerseymvc.login.modules;
 
-import java.io.IOException;
+import static org.denevell.natch.web.jerseymvc.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
@@ -11,23 +11,30 @@ import org.denevell.natch.web.jerseymvc.TemplateModule;
 import org.denevell.natch.web.jerseymvc.login.io.LoginInput;
 import org.denevell.natch.web.jerseymvc.login.io.LoginOutput;
 
-import static org.denevell.natch.web.jerseymvc.Serv.serv;
-
 public class LoginLogoutModule extends TemplateModule {
 	
 	private LoginOutput mLogin = new LoginOutput();
 	
-	@SuppressWarnings("unused")
-	public String template(final HttpServletRequest request) throws IOException {
-		return createTemplate("login.mustache", 
-			new Object() {
-				LoginOutput login = mLogin;
-				boolean loggedin = request.getSession(true).getAttribute("loggedin")!=null;
-				boolean isadmin = request.getSession(true).getAttribute("admin")!=null;
-    		}
-		);
+	public LoginLogoutModule() {
+		super("login.mustache");
+	}
+	
+	public LoginOutput getLogin() {
+		return mLogin;
+	}
+	
+	public boolean getLoggedin() {
+		return mRequest.getSession(true).getAttribute("loggedin")!=null;
+	}
+	
+	public boolean getIsadmin() {
+		return mRequest.getSession(true).getAttribute("admin")!=null;
 	}
 
+	public boolean errord() {
+		return mLogin.getErrorMessage()!=null && mLogin.getErrorMessage().trim().length()>0;
+	}
+	
 	public boolean login(final Object trueObject, 
 			final HttpServletRequest request, 
 			final String username, 
@@ -76,10 +83,6 @@ public class LoginLogoutModule extends TemplateModule {
 			request.getSession(true).setAttribute("admin", null);
 			}
 		}).go();
-	}
-
-	public boolean errord() {
-		return mLogin.getErrorMessage()!=null && mLogin.getErrorMessage().trim().length()>0;
 	}
 
 }

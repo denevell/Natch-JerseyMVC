@@ -65,7 +65,6 @@ public class ThreadsPage {
     		@FormParam("resetpw_active") final String resetPwActive,
     		@FormParam("resetpw_email") final String resetPwEmail
     		) throws Exception {
-    	
     	mLogin.logout(logoutActive, mRequest);
     	mRegister.register(registerActive, mRequest, username, password, recoveryEmail);
     	mAddThread.add(addthreadActive, mRequest, subject, content, tags);
@@ -74,7 +73,6 @@ public class ThreadsPage {
     	if(mLogin.errord()) {
     		mResetPwModule.showForm();
     	}
-
     	createTemplate(mUriInfo.getRequestUri().toString(), start, limit);
     	return Response.seeOther(mUriInfo.getRequestUri()).build();
 	}

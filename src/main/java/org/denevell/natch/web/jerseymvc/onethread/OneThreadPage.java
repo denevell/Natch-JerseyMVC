@@ -79,13 +79,12 @@ public class OneThreadPage {
 			final int start, 
 			final int limit,
 			final int numPosts, 
-			final String threadId
-			) throws Exception {
-
+			final String threadId) throws Exception {
+    	mThreadModule.getThread(start, limit, threadId);
 		return new Viewable("/thread_index.mustache", 
 				new HashMap<String, String>() {{
 					put("addpost", mPostModule.template(mRequest));
-					put("thread", mThreadModule.template(mRequest, start, limit, threadId));
+					put("thread", mThreadModule.template(mRequest));
 					put("next", mPaginationModule.createUriForNextPagination(requestUri, start, limit, numPosts).toString());
 					put("prev", mPaginationModule.createUriForPrevPagination(requestUri, start, limit).toString());
 					put("pages", mPaginationModule.createPagintionNumbers(requestUri, limit, numPosts));

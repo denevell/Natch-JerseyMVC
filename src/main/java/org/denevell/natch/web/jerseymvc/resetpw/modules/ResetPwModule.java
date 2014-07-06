@@ -11,18 +11,23 @@ import org.denevell.natch.web.jerseymvc.TemplateModule;
 public class ResetPwModule extends TemplateModule {
 	
 	private boolean mError = false;
-	protected boolean mProcessed;
-	protected boolean mShowForm;
+	private boolean mProcessed;
+	private boolean mShowForm;
 
-	@SuppressWarnings("unused")
-	public String template(final HttpServletRequest request) {
-		return createTemplate("pwreset.mustache", 
-			new Object() {
-				boolean show_reset_form = mShowForm;
-				boolean error = mError;
-				boolean processed = mProcessed;
-    		}
-		);
+   	public ResetPwModule() {
+   		super("pwreset.mustache");
+	}
+	
+	public boolean getShow_reset_form() {
+		return mShowForm;
+	}
+	
+	public boolean getError() {
+		return mError;
+	}
+	
+	public boolean getProcessed() {
+		return mProcessed;
 	}
 
 	public boolean reset(String trueObject, HttpServletRequest mRequest, final String resetPwEmail) {

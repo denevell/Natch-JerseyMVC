@@ -1,7 +1,5 @@
 package org.denevell.natch.web.jerseymvc.admin.modules;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
@@ -13,17 +11,19 @@ import org.denevell.natch.web.jerseymvc.admin.io.ChangePasswordInput;
 
 public class PwChangeModule extends TemplateModule {
 	
-   	protected boolean mProcessed;
-	protected boolean mError;
+   	private boolean mProcessed;
+	private boolean mError;
 
-	@SuppressWarnings("unused")
-	public String template(final HttpServletRequest request) throws IOException { 
-        return createTemplate("admin_changepw.mustache", 
-        	new Object() {
-        		boolean processed = mProcessed;
-        		boolean error = mError;
-            }
-        );
+	public PwChangeModule() {
+		super("admin_changepw.mustache");
+	}
+	
+	public boolean getProcessed() {
+		return mProcessed;
+	}
+	
+	public boolean getError() {
+		return mError;
 	}
 	
 	public boolean changePw(Object trueObject, 

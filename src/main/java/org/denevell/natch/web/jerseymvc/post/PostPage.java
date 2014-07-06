@@ -34,13 +34,11 @@ public class PostPage {
 	}
 
     @SuppressWarnings("serial")
-	private Viewable createView(
-			final int postId
-			) throws Exception {
-
+	private Viewable createView(final int postId) throws Exception {
+    	mPostModule.fetchPost(postId);
 		return new Viewable("/post_index.mustache", 
 				new HashMap<String, String>() {{
-					put("post", mPostModule.template(postId));
+					put("post", mPostModule.template(mRequest));
 					put("backUrl", new ThreadUrlGeneratorModule().createThreadUrl(mPostModule.mPostOutput.getThreadId()));
 				}});
 	}

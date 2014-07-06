@@ -2,8 +2,6 @@ package org.denevell.natch.web.jerseymvc.onethread.modules;
 
 import static org.denevell.natch.web.jerseymvc.Serv.serv;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
@@ -15,14 +13,17 @@ import org.denevell.natch.web.jerseymvc.onethread.io.AddThreadOutput;
 public class AddPostModule extends TemplateModule {
 
 	public AddThreadOutput mAddPost = new AddThreadOutput();
+	
+	public AddPostModule() {
+		super("addpost.mustache");
+	}
+	
+	public boolean getLoggedin() {
+		return mRequest.getSession(true).getAttribute("loggedin")!=null;
+	}
 
-	@SuppressWarnings("unused")
-	public String template(final HttpServletRequest request) throws IOException {
-		return createTemplate("addpost.mustache", 
-    		new Object() {
-				boolean loggedin = request.getSession(true).getAttribute("loggedin")!=null;
-				AddThreadOutput addpost = mAddPost;
-    		});
+	public AddThreadOutput getAddpost() {
+		return mAddPost;
 	}
 
 	public boolean add(Object trueObject, 

@@ -47,6 +47,7 @@ public class AdminPage {
 
 	private void createTemplate() throws Exception {
     	if(sessionAlreadySet(mRequest)) return;
+    	mAdmin.getUsers((String)mRequest.getSession(true).getAttribute("authkey"));
     	setSession(mRequest)
 			.put("users", mAdmin.template(mRequest))
 			.put("pwchange", mPwChange.template(mRequest))
