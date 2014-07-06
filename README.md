@@ -16,7 +16,7 @@ Todo
 * ~~Pw reset should be in pwreset template?~~
 * ~~Test to show reset password has been successful~~
 * ~~Use session state in admin controller~~
-* Change pw module tests
+* ~~Change pw module tests~~
 * Delete thread service code
 * Delete thread view for error
 

@@ -69,6 +69,7 @@ public class ResetPasswordRequestTests {
 			.gotoAdminPage()
 			.isRequestPasswordReset("aaron2", true)
 			.changePassword("aaron2", "newpass")
+			.canSeeSuccessFulPasswordChange()
 			.isRequestPasswordReset("aaron2", false);
 	}
 

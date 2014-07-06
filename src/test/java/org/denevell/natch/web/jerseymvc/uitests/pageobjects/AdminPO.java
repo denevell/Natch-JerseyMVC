@@ -48,4 +48,10 @@ public class AdminPO {
 		org.junit.Assert.assertEquals("Has correct recovery password set", recoveryEmail, getRecoveryEmail(username));
 	}
 
+	public AdminPO canSeeSuccessFulPasswordChange() {
+		org.junit.Assert.assertTrue("Can see password reset messsage",
+				driver.getPageSource().toLowerCase().contains("password reset"));
+		return this;
+	}
+
 }
