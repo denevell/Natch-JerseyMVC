@@ -10,8 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
+import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.post.modules.PostModule;
-import org.denevell.natch.jerseymvc.urls.ThreadUrlGenerator;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 

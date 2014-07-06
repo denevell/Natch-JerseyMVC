@@ -16,11 +16,11 @@ import javax.ws.rs.core.UriInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
 import org.denevell.natch.jerseymvc.onethread.modules.AddPostModule;
 import org.denevell.natch.jerseymvc.onethread.modules.DeleteThreadModule;
 import org.denevell.natch.jerseymvc.onethread.modules.ThreadModule;
 import org.denevell.natch.jerseymvc.threads.modules.ThreadsPaginationModule;
-import org.denevell.natch.jerseymvc.urls.MainPageUrlGenerator;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 

@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.urls;
+package org.denevell.natch.jerseymvc.app.urls;
 
 import java.net.URI;
 import java.net.URISyntaxException;
