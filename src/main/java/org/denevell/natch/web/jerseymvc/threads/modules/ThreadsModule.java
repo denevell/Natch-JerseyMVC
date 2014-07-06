@@ -15,7 +15,7 @@ public class ThreadsModule extends TemplateModule {
 		return mThreads;
 	}
 
-	public ThreadsOutput getThreads(int start, int limit) {
+	public ThreadsOutput fetchThreads(int start, int limit) {
         mThreads = sService
                 .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
                 .path("rest").path("threads").path(String.valueOf(start)).path(String.valueOf(limit))

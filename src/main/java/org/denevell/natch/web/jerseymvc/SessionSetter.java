@@ -17,12 +17,19 @@ public class SessionSetter {
     	return request.getSession()!=null && request.getSession().getAttribute("to")!=null;
     }
     
+	@SuppressWarnings("unchecked")
 	public SessionSetter(HttpServletRequest request) {
+		Object attribute = request.getSession().getAttribute("to");
+		if(attribute!=null) {
+			mHm = (HashMap<String, String>) attribute;
+		}
 		mRequest = request;
 	}
 
 	public SessionSetter put(String name, String template) {
-		mHm.put(name, template);
+		if(!mHm.containsKey(name)) {
+			mHm.put(name, template);
+		}
 		return this;
 	}
 

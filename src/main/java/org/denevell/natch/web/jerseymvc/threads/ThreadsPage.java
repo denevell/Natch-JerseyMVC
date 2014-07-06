@@ -1,7 +1,6 @@
 package org.denevell.natch.web.jerseymvc.threads;
 
 import static org.denevell.natch.web.jerseymvc.SessionSetter.setSession;
-import static org.denevell.natch.web.jerseymvc.SessionSetter.sessionAlreadySet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DefaultValue;
@@ -81,8 +80,7 @@ public class ThreadsPage {
 			final String requestUri,
 			final int start, 
 			final int limit) throws Exception {
-    	if(sessionAlreadySet(mRequest)) return;
-		mThreadsModule.getThreads(start, limit);
+		mThreadsModule.fetchThreads(start, limit);
     	final int numOfThreads = (int) mThreadsModule.mThreads.getNumOfThreads();
     	mPaginationModule.init(requestUri, start, limit, numOfThreads);
     	setSession(mRequest)
