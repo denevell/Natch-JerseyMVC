@@ -1,7 +1,5 @@
 package org.denevell.natch.web.jerseymvc.threads;
 
-import static org.denevell.natch.web.jerseymvc.SessionSetter.setSession;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -13,7 +11,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.web.jerseymvc.ViewableFromSession;
+import org.denevell.natch.web.jerseymvc.TemplateModule;
+import org.denevell.natch.web.jerseymvc.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.web.jerseymvc.login.modules.LoginLogoutModule;
 import org.denevell.natch.web.jerseymvc.register.modules.RegisterModule;
 import org.denevell.natch.web.jerseymvc.resetpw.modules.ResetPwModule;
@@ -28,12 +27,14 @@ public class ThreadsPage {
 	
 	@Context HttpServletRequest mRequest;
 	@Context UriInfo mUriInfo;
-	RegisterModule mRegister = new RegisterModule();
-	LoginLogoutModule mLogin = new LoginLogoutModule();
-	AddThreadModule mAddThread = new AddThreadModule();
-    ThreadsPaginationModule mPaginationModule = new ThreadsPaginationModule();
-	ThreadsModule mThreadsModule = new ThreadsModule();
-	ResetPwModule mResetPwModule = new ResetPwModule();
+	@TemplateModuleInfo("register") public RegisterModule mRegister = new RegisterModule();
+	@TemplateModuleInfo("login") public LoginLogoutModule mLogin = new LoginLogoutModule();
+	@TemplateModuleInfo("addthread") public AddThreadModule mAddThread = new AddThreadModule();
+	@TemplateModuleInfo("pwreset") public ResetPwModule mResetPwModule = new ResetPwModule();
+	@TemplateModuleInfo(value="pagination", overwrite=true) 
+	public ThreadsPaginationModule mPaginationModule = new ThreadsPaginationModule();
+	@TemplateModuleInfo(value="threads", overwrite=true) 
+	public ThreadsModule mThreadsModule = new ThreadsModule();
 
     @GET
     @Template
@@ -43,8 +44,9 @@ public class ThreadsPage {
     		) throws Exception {
 		mThreadsModule.fetchThreads(start, limit);
     	mPaginationModule.calculatePagination(mUriInfo.getRequestUri().toString(), start, limit, mThreadsModule.getNumThreads());
-    	createTemplate();
-		return new ViewableFromSession("/threads_index.mustache", mRequest.getSession());
+    	TemplateModule.storeSessionTemplateObjectFromTemplateModules(mRequest, this);
+    	return new Viewable("/threads_index.mustache", 
+    			TemplateModule.getThenRemoveSessionTemplateObject(mRequest));
 	}
 
     @POST
@@ -74,18 +76,8 @@ public class ThreadsPage {
     	if(mLogin.errord()) {
     		mResetPwModule.showForm();
     	}
-    	createTemplate();
+    	TemplateModule.storeSessionTemplateObjectFromTemplateModules(mRequest, this);
     	return Response.seeOther(mUriInfo.getRequestUri()).build();
 	}
     
-    public void createTemplate() throws Exception {
-    	setSession(mRequest)
-			.put("login", mLogin.template(mRequest))
-			.put("pwreset", mResetPwModule.template(mRequest))
-			.put("register", mRegister.template(mRequest))
-			.put("addthread", mAddThread.template(mRequest))
-			.put("threads", mThreadsModule.template(mRequest), true)
-			.put("pagination", mPaginationModule.template(mRequest), true)
-			.build();
-    }
 }

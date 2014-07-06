@@ -16,6 +16,7 @@ public class ThreadsModule extends TemplateModule {
 	}
 	
 	public int getNumThreads() {
+		if(mThreads==null) return 0;
 		return (int) mThreads.getNumOfThreads();
 	}
 

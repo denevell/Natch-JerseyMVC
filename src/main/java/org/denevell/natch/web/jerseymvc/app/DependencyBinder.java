@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc;
+package org.denevell.natch.web.jerseymvc.app;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 /**

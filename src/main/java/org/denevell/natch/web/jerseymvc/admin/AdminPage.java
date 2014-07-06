@@ -1,8 +1,5 @@
 package org.denevell.natch.web.jerseymvc.admin;
 
-import static org.denevell.natch.web.jerseymvc.SessionSetter.sessionAlreadySet;
-import static org.denevell.natch.web.jerseymvc.SessionSetter.setSession;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -12,7 +9,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.web.jerseymvc.ViewableFromSession;
+import org.denevell.natch.web.jerseymvc.TemplateModule;
+import org.denevell.natch.web.jerseymvc.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.web.jerseymvc.admin.modules.AdminModule;
 import org.denevell.natch.web.jerseymvc.admin.modules.PwChangeModule;
 import org.glassfish.jersey.server.mvc.Template;
@@ -23,14 +21,16 @@ public class AdminPage {
 	
 	@Context HttpServletRequest mRequest;
 	@Context UriInfo mUriInfo;
-	private AdminModule mAdmin = new AdminModule();
-	private PwChangeModule mPwChange = new PwChangeModule();
+	@TemplateModuleInfo(value="users", overwrite=true) public AdminModule mAdmin = new AdminModule();
+	@TemplateModuleInfo("pwchange") public PwChangeModule mPwChange = new PwChangeModule();
 
     @GET
     @Template
     public Viewable index() throws Exception {
-    	createTemplate();
-		return new ViewableFromSession("/admin_index.mustache", mRequest.getSession());
+    	mAdmin.getUsers((String)mRequest.getSession(true).getAttribute("authkey"));
+    	TemplateModule.storeSessionTemplateObjectFromTemplateModules(mRequest, this);
+    	return new Viewable("/admin_index.mustache", 
+    			TemplateModule.getThenRemoveSessionTemplateObject(mRequest));
     }
 
     @POST
@@ -41,16 +41,7 @@ public class AdminPage {
     		@FormParam("changepw_active") String changePwActive
     		) throws Exception {
     	mPwChange.changePw(changePwActive, mRequest, changePwUsername, chnagePwNewPass);
-    	createTemplate();
+    	TemplateModule.storeSessionTemplateObjectFromTemplateModules(mRequest, this);
     	return Response.seeOther(mUriInfo.getRequestUri()).build();
     }
-
-	private void createTemplate() throws Exception {
-    	if(sessionAlreadySet(mRequest)) return;
-    	mAdmin.getUsers((String)mRequest.getSession(true).getAttribute("authkey"));
-    	setSession(mRequest)
-			.put("users", mAdmin.template(mRequest))
-			.put("pwchange", mPwChange.template(mRequest))
-			.build();
-	}
 }

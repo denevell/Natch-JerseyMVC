@@ -1,5 +1,5 @@
 
-package org.denevell.natch.web.jerseymvc;
+package org.denevell.natch.web.jerseymvc.app;
 
 import java.io.InputStream;
 import java.util.jar.Attributes;

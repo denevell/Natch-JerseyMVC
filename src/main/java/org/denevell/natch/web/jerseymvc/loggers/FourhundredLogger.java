@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc;
+package org.denevell.natch.web.jerseymvc.loggers;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.Response;

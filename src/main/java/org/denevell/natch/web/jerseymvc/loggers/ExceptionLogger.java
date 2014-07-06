@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc;
+package org.denevell.natch.web.jerseymvc.loggers;
 
 import java.io.IOException;
 
