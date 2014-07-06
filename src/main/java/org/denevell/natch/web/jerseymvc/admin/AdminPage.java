@@ -9,28 +9,29 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.web.jerseymvc.TemplateModule;
+import org.denevell.natch.web.jerseymvc.TemplateController;
 import org.denevell.natch.web.jerseymvc.TemplateModule.TemplateModuleInfo;
+import org.denevell.natch.web.jerseymvc.TemplateModule.TemplateName;
 import org.denevell.natch.web.jerseymvc.admin.modules.AdminModule;
 import org.denevell.natch.web.jerseymvc.admin.modules.PwChangeModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
+@TemplateName("/admin_index.mustache")
 @Path("admin")
-public class AdminPage {
+public class AdminPage extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;
 	@Context UriInfo mUriInfo;
-	@TemplateModuleInfo(value="users", overwrite=true) public AdminModule mAdmin = new AdminModule();
+	@TemplateModuleInfo(value="users", usedInGET=true) public AdminModule mAdmin = new AdminModule();
 	@TemplateModuleInfo("pwchange") public PwChangeModule mPwChange = new PwChangeModule();
 
     @GET
     @Template
     public Viewable index() throws Exception {
     	mAdmin.getUsers((String)mRequest.getSession(true).getAttribute("authkey"));
-    	TemplateModule.storeSessionTemplateObjectFromTemplateModules(mRequest, this);
-    	return new Viewable("/admin_index.mustache", 
-    			TemplateModule.getThenRemoveSessionTemplateObject(mRequest));
+    	storeSessionTemplateObjectFromTemplateModules(mRequest, this);
+    	return viewableFromSession(mRequest);
     }
 
     @POST
@@ -41,7 +42,7 @@ public class AdminPage {
     		@FormParam("changepw_active") String changePwActive
     		) throws Exception {
     	mPwChange.changePw(changePwActive, mRequest, changePwUsername, chnagePwNewPass);
-    	TemplateModule.storeSessionTemplateObjectFromTemplateModules(mRequest, this);
+    	storeSessionTemplateObjectFromTemplateModules(mRequest, this);
     	return Response.seeOther(mUriInfo.getRequestUri()).build();
     }
 }
