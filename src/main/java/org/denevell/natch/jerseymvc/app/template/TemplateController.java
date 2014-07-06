@@ -1,12 +1,12 @@
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.app.template;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.denevell.natch.jerseymvc.TemplateModule.TemplateModuleInfo;
-import org.denevell.natch.jerseymvc.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 public class TemplateController {

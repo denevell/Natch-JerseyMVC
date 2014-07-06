@@ -4,7 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.http.client.utils.URIBuilder;
-import org.denevell.natch.jerseymvc.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 
 public class ThreadsPaginationModule extends TemplateModule {
 	

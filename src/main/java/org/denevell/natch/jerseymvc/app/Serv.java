@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.app;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

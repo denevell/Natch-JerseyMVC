@@ -24,7 +24,7 @@
     <filter>
        <filter-name>Logging Filter</filter-name>
        <filter-class>
-       org.denevell.natch.jerseymvc.loggers.ExceptionLogger
+       org.denevell.natch.jerseymvc.app.loggers.ExceptionLogger
        </filter-class>
     </filter>
     <filter-mapping>

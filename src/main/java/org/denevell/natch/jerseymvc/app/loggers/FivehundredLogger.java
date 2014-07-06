@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.loggers;
+package org.denevell.natch.jerseymvc.app.loggers;
 
 import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.core.Response;

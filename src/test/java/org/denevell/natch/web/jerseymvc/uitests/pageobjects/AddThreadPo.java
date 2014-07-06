@@ -3,7 +3,7 @@ package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.denevell.natch.jerseymvc.Strings;
+import org.denevell.natch.jerseymvc.app.Strings;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

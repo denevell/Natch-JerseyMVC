@@ -1,12 +1,12 @@
 package org.denevell.natch.jerseymvc.onethread.modules;
 
-import static org.denevell.natch.jerseymvc.Serv.serv;
+import static org.denevell.natch.jerseymvc.app.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
-import org.denevell.natch.jerseymvc.Strings;
-import org.denevell.natch.jerseymvc.TemplateModule;
+import org.denevell.natch.jerseymvc.app.Strings;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.onethread.io.AddThreadInput;
 import org.denevell.natch.jerseymvc.onethread.io.AddThreadOutput;
 

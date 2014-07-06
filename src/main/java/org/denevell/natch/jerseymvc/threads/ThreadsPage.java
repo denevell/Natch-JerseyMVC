@@ -11,9 +11,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.jerseymvc.TemplateController;
-import org.denevell.natch.jerseymvc.TemplateModule.TemplateModuleInfo;
-import org.denevell.natch.jerseymvc.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.template.TemplateController;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.login.modules.LoginLogoutModule;
 import org.denevell.natch.jerseymvc.register.modules.RegisterModule;
 import org.denevell.natch.jerseymvc.resetpw.modules.ResetPwModule;

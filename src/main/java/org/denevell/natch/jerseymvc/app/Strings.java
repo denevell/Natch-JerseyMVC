@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.app;
 
 public class Strings {
 

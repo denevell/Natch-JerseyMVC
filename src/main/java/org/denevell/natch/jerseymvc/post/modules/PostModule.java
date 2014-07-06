@@ -1,6 +1,6 @@
 package org.denevell.natch.jerseymvc.post.modules;
 
-import org.denevell.natch.jerseymvc.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.post.io.PostOutput;
 
 public class PostModule extends TemplateModule {

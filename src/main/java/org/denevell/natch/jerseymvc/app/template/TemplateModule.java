@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.app.template;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;

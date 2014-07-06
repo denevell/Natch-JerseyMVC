@@ -9,11 +9,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.jerseymvc.TemplateController;
-import org.denevell.natch.jerseymvc.TemplateModule.TemplateModuleInfo;
-import org.denevell.natch.jerseymvc.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.admin.modules.AdminModule;
 import org.denevell.natch.jerseymvc.admin.modules.PwChangeModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateController;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
