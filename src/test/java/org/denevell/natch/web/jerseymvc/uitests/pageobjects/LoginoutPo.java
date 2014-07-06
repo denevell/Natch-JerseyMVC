@@ -1,6 +1,6 @@
 package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
-import org.denevell.natch.jerseymvc.app.Strings;
+import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.web.jerseymvc.uitests.URLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;

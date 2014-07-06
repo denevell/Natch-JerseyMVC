@@ -1,12 +1,12 @@
 package org.denevell.natch.jerseymvc.register.modules;
 
-import static org.denevell.natch.jerseymvc.app.Serv.serv;
+import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
-import org.denevell.natch.jerseymvc.app.Strings;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.login.modules.LoginLogoutModule;
 import org.denevell.natch.jerseymvc.register.io.RegisterInput;
 import org.denevell.natch.jerseymvc.register.io.RegisterOutput;

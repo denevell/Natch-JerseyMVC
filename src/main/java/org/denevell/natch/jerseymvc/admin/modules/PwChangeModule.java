@@ -5,9 +5,9 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.admin.io.ChangePasswordInput;
-import org.denevell.natch.jerseymvc.app.Serv;
-import org.denevell.natch.jerseymvc.app.Serv.ResponseRunnable;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.utils.Serv;
+import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 
 public class PwChangeModule extends TemplateModule {
 	

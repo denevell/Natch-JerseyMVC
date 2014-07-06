@@ -1,12 +1,12 @@
 package org.denevell.natch.jerseymvc.resetpw.modules;
 
-import static org.denevell.natch.jerseymvc.app.Serv.serv;
+import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
-import org.denevell.natch.jerseymvc.app.Serv.ResponseRunnable;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 
 public class ResetPwModule extends TemplateModule {
 	

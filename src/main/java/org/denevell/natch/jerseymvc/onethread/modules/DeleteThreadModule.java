@@ -1,6 +1,6 @@
 package org.denevell.natch.jerseymvc.onethread.modules;
 
-import static org.denevell.natch.jerseymvc.app.Serv.serv;
+import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 
