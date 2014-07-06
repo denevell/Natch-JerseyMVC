@@ -2,7 +2,7 @@
         {{#threads}}
                 {{#threads}}
                         <li id="thread_{{iterate}}">
-                        	<a id="thread_link" href="/thread/{{id}}"><span id="thread_subject">{{subject}}</span><a> -
+                        	<a id="thread_link" href="/thread/{{id}}?start=0&limit=10"><span id="thread_subject">{{subject}}</span></a> -
                         	<span id="thread_author">{{author}}</span> - 
                         	<span id="thread_date">{{lastModifiedDate}}</span>
                         </li>
