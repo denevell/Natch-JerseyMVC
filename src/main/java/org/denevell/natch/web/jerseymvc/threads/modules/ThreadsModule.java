@@ -14,6 +14,10 @@ public class ThreadsModule extends TemplateModule {
 	public ThreadsOutput getThreads() {
 		return mThreads;
 	}
+	
+	public int getNumThreads() {
+		return (int) mThreads.getNumOfThreads();
+	}
 
 	public ThreadsOutput fetchThreads(int start, int limit) {
         mThreads = sService

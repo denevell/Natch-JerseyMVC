@@ -27,7 +27,12 @@ public class SessionSetter {
 	}
 
 	public SessionSetter put(String name, String template) {
-		if(!mHm.containsKey(name)) {
+		put(name, template, false);
+		return this;
+	}
+
+	public SessionSetter put(String name, String template, boolean overwrite) {
+		if(overwrite || !mHm.containsKey(name)) {
 			mHm.put(name, template);
 		}
 		return this;

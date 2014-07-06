@@ -41,7 +41,9 @@ public class ThreadsPage {
     		@QueryParam("start") @DefaultValue("0") int start,
     		@QueryParam("limit") @DefaultValue("10") int limit
     		) throws Exception {
-    	createTemplate(mUriInfo.getRequestUri().toString(), start, limit);
+		mThreadsModule.fetchThreads(start, limit);
+    	mPaginationModule.calculatePagination(mUriInfo.getRequestUri().toString(), start, limit, mThreadsModule.getNumThreads());
+    	createTemplate();
 		return new ViewableFromSession("/threads_index.mustache", mRequest.getSession());
 	}
 
@@ -72,24 +74,18 @@ public class ThreadsPage {
     	if(mLogin.errord()) {
     		mResetPwModule.showForm();
     	}
-    	createTemplate(mUriInfo.getRequestUri().toString(), start, limit);
+    	createTemplate();
     	return Response.seeOther(mUriInfo.getRequestUri()).build();
 	}
     
-    public void createTemplate(
-			final String requestUri,
-			final int start, 
-			final int limit) throws Exception {
-		mThreadsModule.fetchThreads(start, limit);
-    	final int numOfThreads = (int) mThreadsModule.mThreads.getNumOfThreads();
-    	mPaginationModule.init(requestUri, start, limit, numOfThreads);
+    public void createTemplate() throws Exception {
     	setSession(mRequest)
 			.put("login", mLogin.template(mRequest))
 			.put("pwreset", mResetPwModule.template(mRequest))
 			.put("register", mRegister.template(mRequest))
 			.put("addthread", mAddThread.template(mRequest))
-			.put("threads", mThreadsModule.template(mRequest))
-			.put("pagination", mPaginationModule.template(mRequest))
+			.put("threads", mThreadsModule.template(mRequest), true)
+			.put("pagination", mPaginationModule.template(mRequest), true)
 			.build();
     }
 }

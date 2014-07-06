@@ -17,7 +17,7 @@ public class ThreadsPaginationModule extends TemplateModule {
 		super("threads_pagination.mustache");
 	}
 	
-	public void init(String requestUri, int start, int limit, int numPosts) throws URISyntaxException {
+	public void calculatePagination(String requestUri, int start, int limit, int numPosts) throws URISyntaxException {
 		mRequestUri = requestUri;
 		mStart = start;
 		mLimit = limit;
@@ -40,6 +40,7 @@ public class ThreadsPaginationModule extends TemplateModule {
 	}
 	
 	public String getPages() throws URISyntaxException {
+		if(mRequestUri==null) return null;
     	StringBuffer numbers = new StringBuffer();
 		float pagesFloat = (mNumPosts/ mLimit);
 		int pages = (int) pagesFloat;
@@ -56,6 +57,7 @@ public class ThreadsPaginationModule extends TemplateModule {
 	}
 
 	private URI createUriForPagination(String requestUri, int start, int limit) throws URISyntaxException {
+		if(requestUri==null) return null;
 		URI uri = new URIBuilder(requestUri)
 			.setParameter("start", String.valueOf(start))
 			.setParameter("limit", String.valueOf(limit))
