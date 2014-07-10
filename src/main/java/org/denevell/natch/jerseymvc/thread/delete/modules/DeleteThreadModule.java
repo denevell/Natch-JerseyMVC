@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.thread.view.modules;
+package org.denevell.natch.jerseymvc.thread.delete.modules;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
