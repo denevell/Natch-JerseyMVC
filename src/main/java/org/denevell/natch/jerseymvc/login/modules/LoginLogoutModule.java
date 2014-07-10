@@ -49,6 +49,7 @@ public class LoginLogoutModule extends TemplateModule {
 			if(mLogin.getAuthKey()!=null && mLogin.getAuthKey().trim().length()>0) {
 				request.getSession(true).setAttribute("loggedin", true);
 				request.getSession(true).setAttribute("authkey", mLogin.getAuthKey());
+				request.getSession(true).setAttribute("name", username);
 			}
 			if(mLogin.isAdmin()) {
 				request.getSession(true).setAttribute("admin", true);
@@ -74,12 +75,14 @@ public class LoginLogoutModule extends TemplateModule {
 				.delete();
 			request.getSession(true).setAttribute("loggedin", null);
 			request.getSession(true).setAttribute("admin", null);
+			request.getSession(true).setAttribute("name", null);
 			request.getSession(true).setAttribute("authkey", null);
 			}})
 		._exception(new Runnable() { @Override public void run() {
 			Logger.getLogger(LoginLogoutModule.class).error("Whoops... erm...");
 			request.getSession(true).setAttribute("loggedin", null);
 			request.getSession(true).setAttribute("authkey", null);
+			request.getSession(true).setAttribute("name", null);
 			request.getSession(true).setAttribute("admin", null);
 			}
 		}).go();

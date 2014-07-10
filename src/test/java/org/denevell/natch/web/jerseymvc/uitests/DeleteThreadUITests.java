@@ -102,22 +102,25 @@ public class DeleteThreadUITests {
 		deleteThreadPo
 			.canSeeDeleteLink(false);
 	}
-//	
-//	@Test
-//	public void shouldntSeeDeleteThreadWhenLoggedInAsSomeoneElse() throws InterruptedException {
-//		// Arrange - logon
-//		LogonUITests.logonCorrectly(driver);
-//        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-//		
-//		// Act 
-//        String curUrl = driver.getCurrentUrl();
-//        LogonUITests.logout(driver);
-//		LogonUITests.logonCorrectlyAs(driver, "aaron2", "aaron2");
-//        driver.get(curUrl);
-//        
-//        // Assert
-//        assertFalse(driver.getPageSource().contains("Delete thread"));
-//	}	
+	
+	@Test
+	public void shouldntSeeDeleteThreadWhenLoggedInAsSomeoneElse() throws InterruptedException {
+		loginPo
+			.login("aaron", "aaron");
+		addThreadPo
+			.add("subjectt", "conttt", "c");
+		driver.get(URLs.HOMEPAGE);
+		loginPo
+			.logout();
+
+		loginPo
+			.login("aaron2", "aaron");
+		addThreadPo
+			.gotoThread(0);
+
+		deleteThreadPo
+			.canSeeDeleteLink(false);
+	}	
 //	
 //	@Test
 //	public void shouldntSeeDeleteThreadIconOnPagesAfterFirst() throws InterruptedException {

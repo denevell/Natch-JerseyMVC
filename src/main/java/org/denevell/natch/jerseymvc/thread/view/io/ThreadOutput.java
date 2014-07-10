@@ -27,6 +27,7 @@ public class ThreadOutput {
 	private long modification;
 	private long rootPostId;
 	private long latestPostId;
+	private boolean mLoggedin; 
 
 	public ThreadOutput(ThreadOutput tr) {
 		subject = tr.subject;
@@ -150,13 +151,22 @@ public class ThreadOutput {
 		this.latestPostId = latestPostId;
 	}
 
-	int i = 0; int iterate() { return i++; }
+	int i = 0;
+	int iterate() { return i++; }
 	public List<PostOutput> getPosts() {
 		return posts;
 	}
 
 	public void setPosts(List<PostOutput> posts) {
 		this.posts = posts;
+	}
+
+	public void setLoggedinCorrectly(boolean b) {
+		mLoggedin = b;
+	}
+	
+	public boolean getLoggedinCorrectly() {
+		return mLoggedin;
 	}
 
 }

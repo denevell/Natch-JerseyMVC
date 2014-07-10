@@ -46,7 +46,6 @@ public class ThreadView extends TemplateController{
     		) throws Exception {
     	mThreadModule.fetchThread(start, limit, threadId);
     	mPaginationModule.calculatePagination(mUriInfo.getRequestUri().toString(), start, limit, mThreadModule.getThread().getNumPosts());
-    	addToTemplateSession(mRequest, "loggedin", mRequest.getSession(true).getAttribute("loggedin")!=null);
     	storeSessionTemplateObjectFromTemplateModules(mRequest, this);
     	return viewableFromSession(mRequest);
 	}

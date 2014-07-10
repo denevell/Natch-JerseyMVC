@@ -61,6 +61,7 @@ public class TemplateModule {
 	public String template(final HttpServletRequest request) throws Exception {
 		if(mTemplateFile==null) return "";
 		mRequest = request;
+		modifyTemplateDataBeforeRender(request);
 		HashMap<String, Object> hm = new HashMap<>();
 		for(PropertyDescriptor propertyDescriptor : 
 		    Introspector.getBeanInfo(getClass(), Object.class).getPropertyDescriptors()){
@@ -70,6 +71,10 @@ public class TemplateModule {
 			hm.put(property, readMethod.invoke(this));
 		}
 		return createTemplate(mTemplateFile, hm);
+	}
+
+	protected void modifyTemplateDataBeforeRender(HttpServletRequest request) {
+		
 	}
 
 }

@@ -10,8 +10,16 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 -----
 * ~~Delete thread service code~~
-* Delete thread view for error
-* Delete thread tests
+* ~~Delete thread confirm screen~~
+* ~~Delete thread view for error~~
+* ~~Delete thread success test~~
+* ~~Delete thread as admin~~
+* ~~Delete thread when not logged in~~
+* Delete thread when logged in as someone else
+* Shouldn't see delete icon after first page
+* Delete post service
+* Delete post error message
+* Look at delete post tests
 
 Backlog
 -------

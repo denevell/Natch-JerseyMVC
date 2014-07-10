@@ -1,10 +1,10 @@
 {{#thread}}
-	{{#loggedin}}
+	{{#loggedinCorrectly}}
     <form method="get" action="delete">
         <input name="delete_thread_id" value="{{rootPostId}}" type="hidden" /> 
         <input type="submit" id="delete_thread_form_submit" value="delete thread" />
 	</form>
-	{{/loggedin}}
+	{{/loggedinCorrectly}}
  	<h3 id="thread_subject">
            {{subject}}
 	</h3>
