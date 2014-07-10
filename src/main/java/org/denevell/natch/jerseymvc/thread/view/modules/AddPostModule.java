@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.onethread.modules;
+package org.denevell.natch.jerseymvc.thread.view.modules;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -7,8 +7,8 @@ import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
-import org.denevell.natch.jerseymvc.onethread.io.AddThreadInput;
-import org.denevell.natch.jerseymvc.onethread.io.AddThreadOutput;
+import org.denevell.natch.jerseymvc.thread.view.io.AddThreadInput;
+import org.denevell.natch.jerseymvc.thread.view.io.AddThreadOutput;
 
 public class AddPostModule extends TemplateModule {
 

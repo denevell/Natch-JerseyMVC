@@ -1,7 +1,7 @@
-package org.denevell.natch.jerseymvc.onethread.modules;
+package org.denevell.natch.jerseymvc.thread.view.modules;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.onethread.io.ThreadOutput;
+import org.denevell.natch.jerseymvc.thread.view.io.ThreadOutput;
 
 public class ThreadModule extends TemplateModule {
 	

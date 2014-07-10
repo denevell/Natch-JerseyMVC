@@ -15,9 +15,9 @@ public class TemplateController {
 	public void storeSessionTemplateObjectFromTemplateModules(HttpServletRequest mRequest, Object ob) throws Exception {
 		// Create hash map object that sits on session
 		Object attribute = mRequest.getSession().getAttribute("to");
-		HashMap<String, String> hm = new HashMap<>();
+		HashMap<String, Object> hm = new HashMap<>();
 		if(attribute!=null) {
-			 hm = (HashMap<String, String>) attribute;
+			 hm = (HashMap<String, Object>) attribute;
 		}
 		// Get all the TemplateModule fields
         Class<?> c = Class.forName(ob.getClass().getName());
@@ -38,6 +38,17 @@ public class TemplateController {
         }
         // Now set that to the session
 		mRequest.getSession().setAttribute("to", hm);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void addToTemplateSession(HttpServletRequest request, String name, Object o) {
+		Object attribute = request.getSession().getAttribute("to");
+		HashMap<String, Object> hm = new HashMap<>();
+		if(attribute!=null) {
+			 hm = (HashMap<String, Object>) attribute;
+		}
+		hm.put(name, o);
+		request.getSession().setAttribute("to", hm);
 	}
 	
 	public String getTemplate() {

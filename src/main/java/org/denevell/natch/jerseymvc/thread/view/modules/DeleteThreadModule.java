@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.onethread.modules;
+package org.denevell.natch.jerseymvc.thread.view.modules;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -9,22 +9,23 @@ import org.denevell.natch.jerseymvc.threads.io.DeletePostOutput;
 
 public class DeleteThreadModule extends TemplateModule {
 
-	private DeletePostOutput mDeleteThread;
+	private DeletePostOutput mDeleteThread = new DeletePostOutput();
 	
 	public DeleteThreadModule() {
 		super(null);
+	}
+
+	public DeletePostOutput getDeletethread() {
+		return mDeleteThread;
 	}
 	
 	public boolean getSuccessful() {
 		return mDeleteThread!=null && mDeleteThread.isSuccessful();
 	}
 
-	public boolean delete(Object trueObject, 
-			final HttpServletRequest serv,
-			final String id) {
-		if (trueObject == null) return true;
+	public boolean delete(final HttpServletRequest serv, final String id) {
 		return serv(new Runnable() { @Override public void run() {
-			mDeleteThread= sService
+			mDeleteThread = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
 				.path("rest").path("post").path("del").path(id).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
@@ -40,6 +41,5 @@ public class DeleteThreadModule extends TemplateModule {
 			mDeleteThread.setErrorMessage("Whoops... erm...");
 			}}).go();
 	}
-
 
 }

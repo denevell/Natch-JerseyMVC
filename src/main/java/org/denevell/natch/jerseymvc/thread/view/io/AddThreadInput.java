@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.onethread.io;
+package org.denevell.natch.jerseymvc.thread.view.io;
 
 import java.util.ArrayList;
 import java.util.List;

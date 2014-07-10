@@ -6,7 +6,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.denevell.natch.jerseymvc.onethread.io.ThreadOutput;
+import org.denevell.natch.jerseymvc.thread.view.io.ThreadOutput;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)

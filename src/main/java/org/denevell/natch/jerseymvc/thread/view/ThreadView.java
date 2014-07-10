@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.onethread;
+package org.denevell.natch.jerseymvc.thread.view;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,25 +16,21 @@ import javax.ws.rs.core.UriInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
-import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
-import org.denevell.natch.jerseymvc.onethread.modules.AddPostModule;
-import org.denevell.natch.jerseymvc.onethread.modules.DeleteThreadModule;
-import org.denevell.natch.jerseymvc.onethread.modules.ThreadModule;
+import org.denevell.natch.jerseymvc.thread.view.modules.AddPostModule;
+import org.denevell.natch.jerseymvc.thread.view.modules.ThreadModule;
 import org.denevell.natch.jerseymvc.threads.modules.ThreadsPaginationModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 @TemplateName("/thread_index.mustache")
 @Path("thread")
-public class OneThreadPage extends TemplateController{
+public class ThreadView extends TemplateController{
 	
 	@Context HttpServletRequest mRequest;
 	@Context HttpServletResponse mResponse;
 	@Context UriInfo mUriInfo;
 	@TemplateModuleInfo(value="addpost") 
 	public AddPostModule mPostModule = new AddPostModule();
-	@TemplateModuleInfo(value="deletethread") 
-	public DeleteThreadModule mDeleteThreadModule = new DeleteThreadModule();
 	@TemplateModuleInfo(value="thread", usedInGET=true) 
 	public ThreadModule mThreadModule = new ThreadModule();
 	@TemplateModuleInfo(value="pagination", usedInGET=true) 
@@ -50,6 +46,7 @@ public class OneThreadPage extends TemplateController{
     		) throws Exception {
     	mThreadModule.fetchThread(start, limit, threadId);
     	mPaginationModule.calculatePagination(mUriInfo.getRequestUri().toString(), start, limit, mThreadModule.getThread().getNumPosts());
+    	addToTemplateSession(mRequest, "loggedin", mRequest.getSession(true).getAttribute("loggedin")!=null);
     	storeSessionTemplateObjectFromTemplateModules(mRequest, this);
     	return viewableFromSession(mRequest);
 	}
@@ -62,17 +59,12 @@ public class OneThreadPage extends TemplateController{
     		@QueryParam("start") @DefaultValue("0") int start,
     		@QueryParam("limit") @DefaultValue("10") int limit,
     		@FormParam("content") final String content,
-    		@FormParam("addpost_active") final String addPostActive,
-    		@FormParam("delete_thread_active") final String deleteThreadActive,
-    		@FormParam("delete_thread_id") final String deleteThreadId
+    		@FormParam("addpost_active") final String addPostActive
     		) throws Exception {
-    	mDeleteThreadModule.delete(deleteThreadActive, mRequest, deleteThreadId);
     	mPostModule.add(addPostActive, mRequest, content, threadId);
     	mPaginationModule.calculatePagination(mUriInfo.getRequestUri().toString(), start, limit, mPostModule.getNumPosts());
    		storeSessionTemplateObjectFromTemplateModules(mRequest, this);
-   		if(mDeleteThreadModule.getSuccessful()) {
-    		return Response.seeOther(new MainPageUrlGenerator().build()).build();
-   		} else if(mPostModule.getNumPosts() > start+limit) { 
+   		if(mPostModule.getNumPosts() > start+limit) { 
     		return Response.seeOther(mPaginationModule.getNext()).build();
     	} else {
     		return Response.seeOther(mUriInfo.getRequestUri()).build();
