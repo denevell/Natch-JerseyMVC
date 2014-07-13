@@ -6,17 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 
+@TemplateName("pwreset.mustache")
 public class ResetPwModule extends TemplateModule {
 	
 	private boolean mError = false;
 	private boolean mProcessed;
 	private boolean mShowForm;
-
-   	public ResetPwModule() {
-   		super("pwreset.mustache");
-	}
 	
 	public boolean getShow_reset_form() {
 		return mShowForm;

@@ -6,19 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.login.modules.LoginLogoutModule;
 import org.denevell.natch.jerseymvc.register.io.RegisterInput;
 import org.denevell.natch.jerseymvc.register.io.RegisterOutput;
 
+@TemplateName("register.mustache")
 public class RegisterModule extends TemplateModule {
 	
 	public RegisterOutput mRegister = new RegisterOutput();
 
-	public RegisterModule() {
-		super("register.mustache");
-	}
-	
 	public RegisterOutput getRegister() {
 		return mRegister;
 	}

@@ -5,7 +5,9 @@ import java.net.URISyntaxException;
 
 import org.apache.http.client.utils.URIBuilder;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 
+@TemplateName("threads_pagination.mustache")
 public class ThreadsPaginationModule extends TemplateModule {
 	
 	private String mRequestUri;
@@ -13,10 +15,6 @@ public class ThreadsPaginationModule extends TemplateModule {
 	private int mLimit;
 	private int mNumPosts;
 
-	public ThreadsPaginationModule() {
-		super("threads_pagination.mustache");
-	}
-	
 	public void calculatePagination(String requestUri, int start, int limit, int numPosts) throws URISyntaxException {
 		mRequestUri = requestUri;
 		mStart = start;

@@ -7,17 +7,15 @@ import javax.ws.rs.client.Entity;
 
 import org.apache.log4j.Logger;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.login.io.LoginInput;
 import org.denevell.natch.jerseymvc.login.io.LoginOutput;
 
+@TemplateName("login.mustache")
 public class LoginLogoutModule extends TemplateModule {
 	
 	private LoginOutput mLogin = new LoginOutput();
-	
-	public LoginLogoutModule() {
-		super("login.mustache");
-	}
 	
 	public LoginOutput getLogin() {
 		return mLogin;

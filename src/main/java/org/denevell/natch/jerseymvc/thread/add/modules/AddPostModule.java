@@ -6,17 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.thread.view.io.AddThreadInput;
 import org.denevell.natch.jerseymvc.thread.view.io.AddThreadOutput;
 
+@TemplateName("addpost.mustache")
 public class AddPostModule extends TemplateModule {
 
 	public AddThreadOutput mAddPost = new AddThreadOutput();
-	
-	public AddPostModule() {
-		super("addpost.mustache");
-	}
 	
 	public boolean getLoggedin() {
 		return mRequest.getSession(true).getAttribute("loggedin")!=null;

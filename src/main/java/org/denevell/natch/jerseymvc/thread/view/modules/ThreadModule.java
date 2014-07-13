@@ -3,15 +3,13 @@ package org.denevell.natch.jerseymvc.thread.view.modules;
 import javax.servlet.http.HttpServletRequest;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.thread.view.io.ThreadOutput;
 
+@TemplateName("thread.mustache")
 public class ThreadModule extends TemplateModule {
 	
    	public ThreadOutput mThreadsList;
-   	
-   	public ThreadModule() {
-   		super("thread.mustache");
-	}
    	
    	public ThreadOutput getThread() {
    		return mThreadsList;

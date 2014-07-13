@@ -45,8 +45,10 @@ public class TemplateModule {
 	    String value();
     }
 
-	public TemplateModule(String templateFile) {
-		mTemplateFile = templateFile;
+	public TemplateModule() {
+		TemplateName annotation = getClass().getAnnotation(TemplateName.class);
+		String name = annotation.value();
+		mTemplateFile = name;
 		writer = new StringWriter();
 	}
 	
@@ -59,7 +61,7 @@ public class TemplateModule {
 	}
 
 	public String template(final HttpServletRequest request) throws Exception {
-		if(mTemplateFile==null) return "";
+		if(mTemplateFile==null || mTemplateFile.trim().length()==0) return "";
 		mRequest = request;
 		modifyTemplateDataBeforeRender(request);
 		HashMap<String, Object> hm = new HashMap<>();
