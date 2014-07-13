@@ -16,7 +16,7 @@ import javax.ws.rs.core.UriInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
-import org.denevell.natch.jerseymvc.thread.view.modules.AddPostModule;
+import org.denevell.natch.jerseymvc.thread.add.modules.AddPostModule;
 import org.denevell.natch.jerseymvc.thread.view.modules.ThreadModule;
 import org.denevell.natch.jerseymvc.threads.modules.ThreadsPaginationModule;
 import org.glassfish.jersey.server.mvc.Template;
