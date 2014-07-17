@@ -1,5 +1,7 @@
 Jersey MVC interface to android-manchester.co.uk
 ================================================
+ 
+Testing commit.
 
 Work in progress. Just beginning. This replaces the old Jsp / SimpleTags version.
 
