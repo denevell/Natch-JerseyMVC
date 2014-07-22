@@ -1,8 +1,7 @@
 Jersey MVC interface to android-manchester.co.uk
 ================================================
  
-Another commit.
-
+ttt
 Work in progress. Just beginning. This replaces the old Jsp / SimpleTags version.
 
 You currently need the rest services (See and run Natch-Runner) running on localhost:8080, unless you change the urls.
