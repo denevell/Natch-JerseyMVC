@@ -4,9 +4,9 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.denevell.natch.jerseymvc.app.models.DeletePostOutput;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
-import org.denevell.natch.jerseymvc.threads.io.DeletePostOutput;
 
 @TemplateName("")
 public class DeleteThreadModule extends TemplateModule {

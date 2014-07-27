@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.thread.delete;
+package org.denevell.natch.jerseymvc.thread.delete.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

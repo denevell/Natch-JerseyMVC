@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.login.io;
+package org.denevell.natch.jerseymvc.app.models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

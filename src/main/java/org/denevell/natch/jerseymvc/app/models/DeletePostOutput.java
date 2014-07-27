@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.threads.io;
+package org.denevell.natch.jerseymvc.app.models;
 
 public class DeletePostOutput {
     private boolean successful;

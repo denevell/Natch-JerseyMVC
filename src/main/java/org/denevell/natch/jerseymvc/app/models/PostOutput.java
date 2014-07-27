@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.post.io;
+package org.denevell.natch.jerseymvc.app.models;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

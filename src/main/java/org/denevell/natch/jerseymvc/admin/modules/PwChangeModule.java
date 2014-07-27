@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
-import org.denevell.natch.jerseymvc.admin.io.ChangePasswordInput;
+import org.denevell.natch.jerseymvc.app.models.ChangePasswordInput;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Serv;

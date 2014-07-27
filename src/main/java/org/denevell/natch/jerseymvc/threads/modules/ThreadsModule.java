@@ -1,8 +1,8 @@
 package org.denevell.natch.jerseymvc.threads.modules;
 
+import org.denevell.natch.jerseymvc.app.models.ThreadsOutput;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
-import org.denevell.natch.jerseymvc.threads.io.ThreadsOutput;
 
 @TemplateName("threads.mustache")
 public class ThreadsModule extends TemplateModule {

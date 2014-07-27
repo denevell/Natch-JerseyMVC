@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.thread.view.io;
+package org.denevell.natch.jerseymvc.app.models;
 
 import java.util.ArrayList;
 import java.util.List;

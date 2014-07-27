@@ -1,6 +1,6 @@
 package org.denevell.natch.jerseymvc.admin.modules;
 
-import org.denevell.natch.jerseymvc.admin.io.UserListOutput;
+import org.denevell.natch.jerseymvc.app.models.UserListOutput;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 

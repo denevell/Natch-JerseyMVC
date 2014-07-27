@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.threads.io;
+package org.denevell.natch.jerseymvc.app.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.denevell.natch.jerseymvc.thread.view.io.ThreadOutput;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.thread.view.io;
+package org.denevell.natch.jerseymvc.app.models;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.denevell.natch.jerseymvc.post.io.PostOutput;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)

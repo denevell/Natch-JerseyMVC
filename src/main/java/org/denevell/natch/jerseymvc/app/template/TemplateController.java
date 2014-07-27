@@ -1,17 +1,24 @@
 package org.denevell.natch.jerseymvc.app.template;
 
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.denevell.natch.jerseymvc.Model;
+import org.denevell.natch.jerseymvc.Presenter;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.MVP;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.template.TemplateModule.UsedInGet;
 import org.glassfish.jersey.server.mvc.Viewable;
+
+import com.github.mustachejava.DefaultMustacheFactory;
 
 public class TemplateController {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void storeSessionTemplateObjectFromTemplateModules(HttpServletRequest mRequest, Object ob) throws Exception {
 		// Create hash map object that sits on session
 		Object attribute = mRequest.getSession().getAttribute("to");
@@ -33,6 +40,31 @@ public class TemplateController {
         	// HashMap with the annotation name as the key
         	if(overwrite || !hm.containsKey(name)) {
         		hm.put(name, x.template(mRequest));
+        	}
+          } else if(Model.class.isAssignableFrom(fld.getType())) {
+			System.out.println(fld);
+			
+			// Get the variables in the annotation
+			MVP annotation = fld.getAnnotation(MVP.class);
+			String templateName = annotation.templateName();
+			String hashName = annotation.templateValueName();
+			boolean overwrite = fld.getAnnotation(UsedInGet.class)!=null;
+			Presenter presenter = annotation.presenter().newInstance();
+        	// Put the value, via template(), of the TemplateModule into the 
+        	// HashMap with the annotation name as the key
+        	if(overwrite || !hm.containsKey(hashName)) {
+
+        		// Get the model output
+        		Model model = (Model) fld.get(ob);
+        		Object modelOutput = model.model();
+        	
+        		// Pass the model into the presenter
+        		Object presenterOutput = presenter.present(mRequest, modelOutput);
+
+        		// Create a template from the presenter
+				String createTemplate = createTemplate(templateName, presenterOutput);
+
+				hm.put(hashName, createTemplate);
         	}
           }
         }
@@ -60,6 +92,18 @@ public class TemplateController {
     	request.getSession().removeAttribute("to");
     	return new Viewable(getTemplate(), attr);
 	}
+
+		protected StringWriter writer;
+		protected static DefaultMustacheFactory sFactory = new DefaultMustacheFactory();
+		
+		protected String createTemplate(String templateName, Object object) {
+			writer = new StringWriter();
+	    	sFactory
+	    		.compile(templateName)
+	    		.execute(writer,object);
+			writer.flush();
+			return writer.toString();
+		}
 
 
 }
