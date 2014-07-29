@@ -6,19 +6,15 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.denevell.natch.jerseymvc.Model;
-import org.denevell.natch.jerseymvc.Presenter;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.MVP;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.UsedInGet;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 
 public class TemplateController {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked" })
 	public void storeSessionTemplateObjectFromTemplateModules(HttpServletRequest mRequest, Object ob) throws Exception {
 		// Create hash map object that sits on session
 		Object attribute = mRequest.getSession().getAttribute("to");
@@ -41,32 +37,7 @@ public class TemplateController {
         	if(overwrite || !hm.containsKey(name)) {
         		hm.put(name, x.template(mRequest));
         	}
-          } else if(Model.class.isAssignableFrom(fld.getType())) {
-			System.out.println(fld);
-			
-			// Get the variables in the annotation
-			MVP annotation = fld.getAnnotation(MVP.class);
-			String templateName = annotation.templateName();
-			String hashName = annotation.templateValueName();
-			boolean overwrite = fld.getAnnotation(UsedInGet.class)!=null;
-			Presenter presenter = annotation.presenter().newInstance();
-        	// Put the value, via template(), of the TemplateModule into the 
-        	// HashMap with the annotation name as the key
-        	if(overwrite || !hm.containsKey(hashName)) {
-
-        		// Get the model output
-        		Model model = (Model) fld.get(ob);
-        		Object modelOutput = model.model();
-        	
-        		// Pass the model into the presenter
-        		Object presenterOutput = presenter.present(mRequest, modelOutput);
-
-        		// Create a template from the presenter
-				String createTemplate = createTemplate(templateName, presenterOutput);
-
-				hm.put(hashName, createTemplate);
-        	}
-          }
+          } 
         }
         // Now set that to the session
 		mRequest.getSession().setAttribute("to", hm);
@@ -85,6 +56,16 @@ public class TemplateController {
 	
 	public String getTemplate() {
 		return getClass().getAnnotation(TemplateName.class).value();
+	}
+	
+	public Viewable createTemplate(Object templateObject) {
+		String name = templateObject.getClass().getAnnotation(TemplateName.class).value();
+    	return new Viewable(name, templateObject);
+	}
+
+	public Viewable viewableFromSession(HttpServletRequest request, Object ob) throws Exception {
+    	storeSessionTemplateObjectFromTemplateModules(request, ob);
+    	return viewableFromSession(request);
 	}
 
 	public Viewable viewableFromSession(HttpServletRequest request) {

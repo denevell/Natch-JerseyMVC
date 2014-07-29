@@ -1,9 +1,25 @@
 package org.denevell.natch.jerseymvc;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Response;
 
-public interface Presenter<ModelInput, TemplateOutput> {
+public interface Presenter<TemplateOutput> {
+	TemplateOutput onGet(HttpServletRequest request) throws Exception;
+	Response onPost(HttpServletRequest request) throws Exception;
 	
-	TemplateOutput present(HttpServletRequest request, ModelInput object);
+	public static class Utils {
+		public static void saveViewToSession(HttpServletRequest request, Object o) {
+			request.getSession(true).setAttribute("view", o);
+		}
+
+		public static Object restoreViewFromSession(HttpServletRequest request, Object o) {
+			Object view = request.getSession(true).getAttribute("view");
+			if(view!=null && view.getClass().isInstance(o)) {
+            	return view;
+			} else {
+				return o;
+			}
+		}
+	}
 
 }

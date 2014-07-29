@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.thread.add.modules;
+package org.denevell.natch.jerseymvc.screens.thread.mvp.models;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -7,19 +7,16 @@ import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.models.AddThreadInput;
 import org.denevell.natch.jerseymvc.app.models.AddThreadOutput;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
-@TemplateName("addpost.mustache")
-public class AddPostModule extends TemplateModule {
+public class PostAddModel {
 
+	protected static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	public AddThreadOutput mAddPost = new AddThreadOutput();
 	
-	public boolean getLoggedin() {
-		return mRequest.getSession(true).getAttribute("loggedin")!=null;
-	}
-
 	public AddThreadOutput getAddpost() {
 		return mAddPost;
 	}

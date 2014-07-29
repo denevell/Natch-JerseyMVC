@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.thread.mvp;
+package org.denevell.natch.jerseymvc.screens.thread.mvp.models;
 
 import org.denevell.natch.jerseymvc.Model;
 import org.denevell.natch.jerseymvc.app.models.ThreadOutput;
@@ -13,7 +13,7 @@ public class ThreadModel implements Model<ThreadOutput> {
 	private int mStart;
 	private ThreadOutput mThreadsList;
 
-	public void initValues(int start, int limit, String threadId) {
+	public ThreadModel(int start, int limit, String threadId) {
 		this.mStart = start;
 		this.mLimit = limit;
 		this.mThreadId = threadId;
