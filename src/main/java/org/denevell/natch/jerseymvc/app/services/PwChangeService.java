@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.admin.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
@@ -11,7 +11,7 @@ import org.denevell.natch.jerseymvc.app.utils.Serv;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 
 @TemplateName("admin_changepw.mustache")
-public class PwChangeModule extends TemplateModule {
+public class PwChangeService extends TemplateModule {
 	
    	private boolean mProcessed;
 	private boolean mError;

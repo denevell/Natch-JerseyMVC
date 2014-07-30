@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.resetpw.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -10,7 +10,7 @@ import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 
 @TemplateName("pwreset.mustache")
-public class ResetPwModule extends TemplateModule {
+public class PwResetService extends TemplateModule {
 	
 	private boolean mError = false;
 	private boolean mProcessed;

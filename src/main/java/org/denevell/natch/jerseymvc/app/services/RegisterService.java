@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.register.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -10,10 +10,9 @@ import org.denevell.natch.jerseymvc.app.models.RegisterOutput;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
-import org.denevell.natch.jerseymvc.screens.login.modules.LoginLogoutModule;
 
 @TemplateName("register.mustache")
-public class RegisterModule extends TemplateModule {
+public class RegisterService extends TemplateModule {
 	
 	public RegisterOutput mRegister = new RegisterOutput();
 
@@ -45,7 +44,7 @@ public class RegisterModule extends TemplateModule {
 			if (mRegister.getError() != null && mRegister.getError().trim().length() > 0) {
 				mRegister.setErrorMessage(mRegister.getError()); // Hack...
 			} else {
-				new LoginLogoutModule().login(new Object(), serv, username, password);
+				new LoginLogoutService().login(new Object(), serv, username, password);
 			}
 			}})
 		._403(new Runnable() { @Override public void run() {

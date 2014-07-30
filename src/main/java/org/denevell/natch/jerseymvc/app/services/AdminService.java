@@ -1,11 +1,11 @@
-package org.denevell.natch.jerseymvc.screens.admin.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import org.denevell.natch.jerseymvc.app.models.UserListOutput;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 
 @TemplateName("admin_users.mustache")
-public class AdminModule extends TemplateModule {
+public class AdminService extends TemplateModule {
 	
    	private UserListOutput mUsers;
 

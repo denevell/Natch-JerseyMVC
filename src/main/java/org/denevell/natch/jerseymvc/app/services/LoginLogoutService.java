@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.login.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -13,7 +13,7 @@ import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 
 @TemplateName("login.mustache")
-public class LoginLogoutModule extends TemplateModule {
+public class LoginLogoutService extends TemplateModule {
 	
 	private LoginOutput mLogin = new LoginOutput();
 	
@@ -77,7 +77,7 @@ public class LoginLogoutModule extends TemplateModule {
 			request.getSession(true).setAttribute("authkey", null);
 			}})
 		._exception(new Runnable() { @Override public void run() {
-			Logger.getLogger(LoginLogoutModule.class).error("Whoops... erm...");
+			Logger.getLogger(LoginLogoutService.class).error("Whoops... erm...");
 			request.getSession(true).setAttribute("loggedin", null);
 			request.getSession(true).setAttribute("authkey", null);
 			request.getSession(true).setAttribute("name", null);

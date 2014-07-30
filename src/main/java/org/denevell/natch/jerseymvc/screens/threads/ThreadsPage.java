@@ -11,12 +11,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.denevell.natch.jerseymvc.app.services.LoginLogoutService;
+import org.denevell.natch.jerseymvc.app.services.PwResetService;
+import org.denevell.natch.jerseymvc.app.services.RegisterService;
 import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
-import org.denevell.natch.jerseymvc.screens.login.modules.LoginLogoutModule;
-import org.denevell.natch.jerseymvc.screens.register.modules.RegisterModule;
-import org.denevell.natch.jerseymvc.screens.resetpw.modules.ResetPwModule;
 import org.denevell.natch.jerseymvc.screens.threads.modules.AddThreadModule;
 import org.denevell.natch.jerseymvc.screens.threads.modules.ThreadsModule;
 import org.denevell.natch.jerseymvc.screens.threads.modules.ThreadsPaginationModule;
@@ -30,13 +30,13 @@ public class ThreadsPage extends TemplateController {
 	@Context HttpServletRequest mRequest;
 	@Context UriInfo mUriInfo;
 	@TemplateModuleInfo("register") 
-	public RegisterModule mRegister = new RegisterModule();
+	public RegisterService mRegister = new RegisterService();
 	@TemplateModuleInfo("login") 
-	public LoginLogoutModule mLogin = new LoginLogoutModule();
+	public LoginLogoutService mLogin = new LoginLogoutService();
 	@TemplateModuleInfo("addthread") 
 	public AddThreadModule mAddThread = new AddThreadModule();
 	@TemplateModuleInfo("pwreset") 
-	public ResetPwModule mResetPwModule = new ResetPwModule();
+	public PwResetService mResetPwModule = new PwResetService();
 	@TemplateModuleInfo(value="pagination", usedInGET=true) 
 	public ThreadsPaginationModule mPaginationModule = new ThreadsPaginationModule();
 	@TemplateModuleInfo(value="threads", usedInGET=true) 

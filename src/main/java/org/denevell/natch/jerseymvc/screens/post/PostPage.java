@@ -10,8 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
+import org.denevell.natch.jerseymvc.app.services.PostService;
 import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
-import org.denevell.natch.jerseymvc.screens.post.modules.PostModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -21,7 +21,7 @@ public class PostPage {
 	@Context HttpServletRequest mRequest;
 	@Context HttpServletResponse mResponse;
 	@Context UriInfo mUriInfo;
-	PostModule mPostModule = new PostModule();
+	PostService mPostModule = new PostService();
    	boolean mError = false;
 
     @GET

@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.thread.mvp.models;
+package org.denevell.natch.jerseymvc.app.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -12,7 +12,7 @@ import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
-public class PostAddModel {
+public class PostAddService {
 
 	protected static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	public AddThreadOutput mAddPost = new AddThreadOutput();

@@ -9,11 +9,11 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.denevell.natch.jerseymvc.app.services.AdminService;
+import org.denevell.natch.jerseymvc.app.services.PwChangeService;
 import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateModuleInfo;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
-import org.denevell.natch.jerseymvc.screens.admin.modules.AdminModule;
-import org.denevell.natch.jerseymvc.screens.admin.modules.PwChangeModule;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -23,8 +23,8 @@ public class AdminPage extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;
 	@Context UriInfo mUriInfo;
-	@TemplateModuleInfo(value="users", usedInGET=true) public AdminModule mAdmin = new AdminModule();
-	@TemplateModuleInfo("pwchange") public PwChangeModule mPwChange = new PwChangeModule();
+	@TemplateModuleInfo(value="users", usedInGET=true) public AdminService mAdmin = new AdminService();
+	@TemplateModuleInfo("pwchange") public PwChangeService mPwChange = new PwChangeService();
 
     @GET
     @Template

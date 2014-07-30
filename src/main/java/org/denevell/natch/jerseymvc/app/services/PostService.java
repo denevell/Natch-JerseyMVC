@@ -1,11 +1,11 @@
-package org.denevell.natch.jerseymvc.screens.post.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import org.denevell.natch.jerseymvc.app.models.PostOutput;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 
 @TemplateName("post.mustache")
-public class PostModule extends TemplateModule {
+public class PostService extends TemplateModule {
 	
    	public PostOutput mPostOutput;
 	

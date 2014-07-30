@@ -8,10 +8,10 @@ import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.app.models.PostOutput;
 import org.denevell.natch.jerseymvc.app.models.ThreadOutput;
+import org.denevell.natch.jerseymvc.app.services.PostAddService;
+import org.denevell.natch.jerseymvc.app.services.ThreadService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.screens.thread.mvp.ThreadView.Post;
-import org.denevell.natch.jerseymvc.screens.thread.mvp.models.PostAddModel;
-import org.denevell.natch.jerseymvc.screens.thread.mvp.models.ThreadModel;
 import org.denevell.natch.jerseymvc.screens.threads.modules.ThreadsPaginationModule;
 
 public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
@@ -29,7 +29,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 		super.onGet(request);
 		
 		// Model call
-		mModel = new ThreadModel(mController.start, mController.limit, mController.threadId).model();
+		mModel = new ThreadService(mController.start, mController.limit, mController.threadId).model();
 		
 		// Get logged in user
     	mView.loggedInCorrectly = getCorrectlyLoggedIn(request);
@@ -61,7 +61,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 		super.onPost(request);
 
 		// Model call
-    	PostAddModel addPostModule = new PostAddModel();
+    	PostAddService addPostModule = new PostAddService();
     	addPostModule.add(new Object(), request, 
     			mController.content, 
     			mController.threadId);
@@ -70,9 +70,9 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
     	mView.addPostError = addPostModule.getAddpost().getErrorMessage();
 
     	// Pagination info for Response
-		String url = request.getRequestURL()+"?"+request.getQueryString();
 		int numPosts = addPostModule.getNumPosts();
 		ThreadsPaginationModule pagination = getPagination(request, numPosts);
+		String url = request.getRequestURL()+"?"+request.getQueryString();
     	if(numPosts > mController.start+mController.limit) { 
     		return Response.seeOther(pagination.getNext()).build();
     	} else {
