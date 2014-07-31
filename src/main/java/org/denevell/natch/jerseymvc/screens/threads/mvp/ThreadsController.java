@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.threads;
+package org.denevell.natch.jerseymvc.screens.threads.mvp;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DefaultValue;
