@@ -23,11 +23,12 @@ public class ThreadView {
 		public String username;
 		public String lastModifiedDate;
 		public int id;
-		public Post(String username, String htmlContent, int id, int iterate) {
+		public Post(String username, String htmlContent, int id, int iterate, String lastModifiedDate) {
 			this.username = username;
 			this.htmlContent = htmlContent;
 			this.id = id;
 			this.iterate = iterate;
+			this.lastModifiedDate = lastModifiedDate;
 		}
 	}
 

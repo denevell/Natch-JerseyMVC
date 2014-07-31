@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.threads.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -8,7 +8,7 @@ import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 
 @TemplateName("threads_pagination.mustache")
-public class ThreadsPaginationModule extends TemplateModule {
+public class ThreadsPaginationService extends TemplateModule {
 	
 	private String mRequestUri;
 	private int mStart;

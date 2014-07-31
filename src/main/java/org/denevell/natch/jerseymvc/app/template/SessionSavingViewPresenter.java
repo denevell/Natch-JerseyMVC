@@ -19,8 +19,10 @@ public class SessionSavingViewPresenter<View> implements Presenter<View> {
 		return mView;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Response onPost(HttpServletRequest request) throws Exception {
+		mView = (View) mView.getClass().newInstance();
     	Presenter.Utils.saveViewToSession(request, mView);
 		return null;
 	}

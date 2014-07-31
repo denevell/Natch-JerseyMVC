@@ -5,9 +5,11 @@ import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
+import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.app.services.ThreadDeleteService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
+import org.denevell.natch.jerseymvc.screens.thread.mvp.ThreadView;
 
 public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<ThreadDeleteConfirmationView>  {
 	
@@ -24,6 +26,7 @@ public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<Thr
 		super.onGet(request);
 		mView.id = Integer.valueOf(mController.getDeleteThreadId()); 
 		mView.loggedIn = request.getSession(true).getAttribute("loggedin")!=null;
+    	Presenter.Utils.clearViewStateFromSEssion(request, ThreadView.class);
 		return mView;
 	}
 

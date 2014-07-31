@@ -6,13 +6,14 @@ import java.net.URISyntaxException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
+import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.app.models.PostOutput;
 import org.denevell.natch.jerseymvc.app.models.ThreadOutput;
 import org.denevell.natch.jerseymvc.app.services.PostAddService;
 import org.denevell.natch.jerseymvc.app.services.ThreadService;
+import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.screens.thread.mvp.ThreadView.Post;
-import org.denevell.natch.jerseymvc.screens.threads.modules.ThreadsPaginationModule;
 
 public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 	
@@ -43,16 +44,17 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 		// Set posts in template
 		for (int i = 0; i < mModel.getPosts().size(); i++) {
 			PostOutput p = mModel.getPosts().get(i);
-			mView.posts.add(new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i)); 
+			mView.posts.add(new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime())); 
 		}
     	
     	// Pagination
 		int numPosts = mModel.getNumPosts();
-		ThreadsPaginationModule pagination = getPagination(request, numPosts);
+		ThreadsPaginationService pagination = getPagination(request, numPosts);
 		mView.next = pagination.getNext().toString();
 		mView.prev = pagination.getPrev().toString();
 		mView.pages = pagination.getPages().toString();
 		
+    	Presenter.Utils.clearViewStateFromSEssion(request, ThreadView.class);
 		return mView;
 	}
 
@@ -71,7 +73,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 
     	// Pagination info for Response
 		int numPosts = addPostModule.getNumPosts();
-		ThreadsPaginationModule pagination = getPagination(request, numPosts);
+		ThreadsPaginationService pagination = getPagination(request, numPosts);
 		String url = request.getRequestURL()+"?"+request.getQueryString();
     	if(numPosts > mController.start+mController.limit) { 
     		return Response.seeOther(pagination.getNext()).build();
@@ -80,8 +82,8 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
     	}
 	}
 
-	private ThreadsPaginationModule getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
-		ThreadsPaginationModule pagination = new ThreadsPaginationModule();
+	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
+		ThreadsPaginationService pagination = new ThreadsPaginationService();
 		pagination.calculatePagination(
 				request.getRequestURL()+"?"+request.getQueryString(), 
 				mController.start, 

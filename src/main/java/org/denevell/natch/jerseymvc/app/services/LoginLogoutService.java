@@ -8,29 +8,17 @@ import javax.ws.rs.client.Entity;
 import org.apache.log4j.Logger;
 import org.denevell.natch.jerseymvc.app.models.LoginInput;
 import org.denevell.natch.jerseymvc.app.models.LoginOutput;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
-@TemplateName("login.mustache")
-public class LoginLogoutService extends TemplateModule {
+public class LoginLogoutService {
 	
+	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	private LoginOutput mLogin = new LoginOutput();
-	
 	public LoginOutput getLogin() {
 		return mLogin;
-	}
-	
-	public boolean getLoggedin() {
-		return mRequest.getSession(true).getAttribute("loggedin")!=null;
-	}
-	
-	public boolean getIsadmin() {
-		return mRequest.getSession(true).getAttribute("admin")!=null;
-	}
-
-	public boolean errord() {
-		return mLogin.getErrorMessage()!=null && mLogin.getErrorMessage().trim().length()>0;
 	}
 	
 	public boolean login(final Object trueObject, 

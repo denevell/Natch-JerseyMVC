@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.threads.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
@@ -7,22 +7,15 @@ import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.models.AddThreadInput;
 import org.denevell.natch.jerseymvc.app.models.AddThreadOutput;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
-@TemplateName("addthread.mustache")
-public class AddThreadModule extends TemplateModule {
+public class ThreadAddService {
 
+	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	private AddThreadOutput mAddThread = new AddThreadOutput();
-	
-	public boolean getLoggedin() {
-		return mRequest.getSession(true).getAttribute("loggedin")!=null;
-	}
-	
-	public AddThreadOutput getAddthread() {
-		return mAddThread;
-	}
 
 	public boolean add(Object trueObject, 
 			final HttpServletRequest serv,
@@ -39,18 +32,21 @@ public class AddThreadModule extends TemplateModule {
 				.put(Entity.json(entity), AddThreadOutput.class);
 			}})
 		._403(new Runnable() { @Override public void run() {
-			mAddThread.setErrorMessage("You're not logged in");
+			getAddThread().setErrorMessage("You're not logged in");
 			}})
 		._401(new Runnable() { @Override public void run() {
-			mAddThread.setErrorMessage("You're not logged in");
+			getAddThread().setErrorMessage("You're not logged in");
 			}})
 		._400(new Runnable() { @Override public void run() {
-			mAddThread.setErrorMessage(Strings.getPostFieldsCannotBeBlank());
+			getAddThread().setErrorMessage(Strings.getPostFieldsCannotBeBlank());
 			}})
 		._exception(new Runnable() { @Override public void run() {
-			mAddThread.setErrorMessage("Whoops... erm...");
+			getAddThread().setErrorMessage("Whoops... erm...");
 			}}).go();
 	}
 
+	public AddThreadOutput getAddThread() {
+		return mAddThread;
+	}
 
 }

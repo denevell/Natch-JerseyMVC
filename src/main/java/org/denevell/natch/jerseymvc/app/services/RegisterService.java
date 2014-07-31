@@ -7,21 +7,18 @@ import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.models.RegisterInput;
 import org.denevell.natch.jerseymvc.app.models.RegisterOutput;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
-@TemplateName("register.mustache")
-public class RegisterService extends TemplateModule {
+public class RegisterService {
 	
+	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	public RegisterOutput mRegister = new RegisterOutput();
 
 	public RegisterOutput getRegister() {
 		return mRegister;
-	}
-
-	public boolean getLoggedin() {
-		return mRequest.getSession(true).getAttribute("loggedin")!=null;
 	}
 
 	public boolean register(Object trueObject, 

@@ -1,12 +1,13 @@
-package org.denevell.natch.jerseymvc.screens.threads.modules;
+package org.denevell.natch.jerseymvc.app.services;
 
 import org.denevell.natch.jerseymvc.app.models.ThreadsOutput;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
-@TemplateName("threads.mustache")
-public class ThreadsModule extends TemplateModule {
+public class ThreadsService {
 	
+	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
    	public ThreadsOutput mThreads;
 
 	public ThreadsOutput getThreads() {

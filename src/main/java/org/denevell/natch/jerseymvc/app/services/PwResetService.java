@@ -5,29 +5,19 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 @TemplateName("pwreset.mustache")
-public class PwResetService extends TemplateModule {
+public class PwResetService {
 	
+	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	private boolean mError = false;
-	private boolean mProcessed;
-	private boolean mShowForm;
+	private boolean mProcessed = false;
 	
-	public boolean getShow_reset_form() {
-		return mShowForm;
-	}
-	
-	public boolean getError() {
-		return mError;
-	}
-	
-	public boolean getProcessed() {
-		return mProcessed;
-	}
-
 	public boolean reset(String trueObject, HttpServletRequest mRequest, final String resetPwEmail) {
 		if(trueObject==null) return true;
 		return serv(new ResponseRunnable() { @Override public Response run() {
@@ -41,13 +31,18 @@ public class PwResetService extends TemplateModule {
 			return response;
 		}})
 		._exception(new Runnable() { @Override public void run() {
+			mProcessed = false;
 			mError = true;
-			showForm();
 			}}).go();
 	}
 
-	public void showForm() {
-		mShowForm = true;
+	public boolean isError() {
+		return mError;
 	}
+
+	public boolean isProcessed() {
+		return mProcessed;
+	}
+
 
 }
