@@ -45,6 +45,7 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
 
 		// Logged in info
 		mView.loggedIn = SessionUtils.isLoggedIn(request);
+		mView.isAdmin = request.getSession(true).getAttribute("admin")!=null;
 
 		// Pagination
     	mPagination.calculatePagination(

@@ -28,10 +28,10 @@
                 <input name="logout_active" value="yeah" type="hidden" /> 
                 <input type="submit" id="logout_form_submit" value="logout" />
         </form>
-		{{#isAdmin}}
-			<a href="/admin" id="admin">admin</a>
-		{{/isAdmin}}
 {{/loggedIn}}
+{{#isAdmin}}
+		<a href="/admin" id="admin">admin</a>
+{{/isAdmin}}
 
 {{#resetPasswordError}}
         Error reseting password. Correct email?

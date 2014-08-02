@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.post.single;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
+import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
@@ -25,6 +26,7 @@ public class PostSinglePresenter extends SessionSavingViewPresenter<PostSingleVi
 		mView.htmlContent = mPostService.getPost().getHtmlContent();
 		mView.username = mPostService.getPost().getUsername();
 		mView.backUrl = new ThreadUrlGenerator().createThreadUrl(mPostService.mPostOutput.getThreadId());
+    	Presenter.Utils.clearViewStateFromSEssion(request, PostSingleView.class);
 		return mView;
 	}
 
