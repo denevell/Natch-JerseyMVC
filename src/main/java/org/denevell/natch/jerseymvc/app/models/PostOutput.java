@@ -20,6 +20,7 @@ public class PostOutput {
 
 	private long id;
 	private String username;
+	private String errorMessage;
 	private String subject;
 	private String content;
 	private String threadId;
@@ -147,6 +148,14 @@ public class PostOutput {
 
     public void setAdminEdited(boolean adminEdited) {
         this.adminEdited = adminEdited;
-    }	
+    }
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}	
 }
 
