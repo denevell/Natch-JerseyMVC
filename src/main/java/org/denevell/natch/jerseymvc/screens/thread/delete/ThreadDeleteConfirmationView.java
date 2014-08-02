@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.thread.delete.mvp;
+package org.denevell.natch.jerseymvc.screens.thread.delete;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
 

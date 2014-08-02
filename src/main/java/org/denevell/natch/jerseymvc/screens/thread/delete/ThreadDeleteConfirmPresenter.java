@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.thread.delete.mvp;
+package org.denevell.natch.jerseymvc.screens.thread.delete;
 
 import java.net.URI;
 
@@ -9,7 +9,7 @@ import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.app.services.ThreadDeleteService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
-import org.denevell.natch.jerseymvc.screens.thread.mvp.ThreadView;
+import org.denevell.natch.jerseymvc.screens.thread.ThreadView;
 
 public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<ThreadDeleteConfirmationView>  {
 	

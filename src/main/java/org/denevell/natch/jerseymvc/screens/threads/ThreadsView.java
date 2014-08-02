@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.threads.mvp;
+package org.denevell.natch.jerseymvc.screens.threads;
 
 import java.util.ArrayList;
 import java.util.List;

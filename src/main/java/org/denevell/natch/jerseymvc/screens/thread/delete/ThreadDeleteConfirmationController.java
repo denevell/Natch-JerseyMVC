@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.thread.delete.mvp;
+package org.denevell.natch.jerseymvc.screens.thread.delete;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
