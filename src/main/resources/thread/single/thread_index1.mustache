@@ -41,7 +41,9 @@
 	           			{{lastModifiedDate}}
 	           		</span>
 	           		<a id="link" href="/post/{{id}}">link</a> | 
-	           		<a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}">delete</a>
+   		            {{#loggedInCorrectly}}
+	           			<a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}">delete</a>
+        			{{/loggedInCorrectly}}
 				</li>
 			{{/posts}}
 		</ul>

@@ -18,6 +18,7 @@ Todo
 * ~~Show delete post link~~
 * ~~Test deleting the post~~
 * Only show delete post if you're the user
+* Delete post icon not on first post
 * Delete post error message
 
 Backlog

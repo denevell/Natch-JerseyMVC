@@ -21,17 +21,17 @@ public class PostDeletePo {
 		return this;
 	}
 
-	public PostDeletePo canSeeDeleteLink(boolean b) {
+	public PostDeletePo canSeeDeleteLink(int num, boolean b) {
 		if(!b) {
 			try {
-				driver.findElement(By.id("delete_thread_form_submit"));
+				driver.findElement(By.id("delete_"+num));
 				org.junit.Assert.assertTrue("Found unexpected delete link", false);
 			} catch (Exception e) {
 				// All good
 			}
 		} else {
 			try {
-				driver.findElement(By.id("delete_thread_form_submit"));
+				driver.findElement(By.id("delete_"+num));
 				// All good
 			} catch (Exception e) {
 				org.junit.Assert.assertTrue("Didn't find unexpected delete link", false);

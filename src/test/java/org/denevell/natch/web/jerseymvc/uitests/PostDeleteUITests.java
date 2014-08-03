@@ -22,8 +22,7 @@ public class PostDeleteUITests {
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
-		driver = SeleniumDriverUtils.getDriver();;
-		driver = SeleniumDriverUtils.getDriver();;
+		driver = SeleniumDriverUtils.getDriver();
 		driver.get(URLs.HOMEPAGE);
 		registerPo = new RegisterPo(driver);
 		loginPo = new LoginoutPo(driver);
@@ -70,25 +69,75 @@ public class PostDeleteUITests {
         addpostPo.canSeePostOnSecondPage(false);
 	}	
 	
-	/*
-
     @Test
     public void shouldDeletePostAsAdmin() throws InterruptedException {
-        // Arrange
-        LogonUITests.logonCorrectlyAsUserTwo(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "sss", "b", "c");
+		loginPo
+			.login("aaron2", "aaron2");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
+        addpostPo.add("pooost");
         
-        // Act  - add posts
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        
-        // Press delete button
-        driver.findElement(By.linkText("[Del]")).click();
-        driver.findElement(By.name("confirmdelete")).click();
-        
-        // Assert first post gone
-        assertFalse("Doesn't contain post xxx", driver.getPageSource().contains("xxx"));
-        assertTrue("Does contain original thread text", driver.getPageSource().contains("sss"));
+        // Login as admin
+        driver.get(URLs.HOMEPAGE);
+		loginPo
+			.logout()
+			.login("aaron", "aaron");
+		addthreadPo
+			.gotoThread(0);
+
+        postDeletePo
+        	.pressDeleteLink(0)
+        	.pressConfirmDelete();
+        addpostPo.cantSeePost("pooost");
     }   	
+
+	@Test
+	public void shouldNotSeeDeleteMarksWhenNotLoggedIn() throws InterruptedException {
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
+        addpostPo
+        	.add("pooost");
+        postDeletePo
+        	.canSeeDeleteLink(0, true);
+        String deletePage = driver.getCurrentUrl();
+
+        // Logout, shouldn't be active
+        driver.get(URLs.HOMEPAGE);
+		loginPo
+			.logout();
+		driver.get(deletePage);
+        postDeletePo
+        	.canSeeDeleteLink(0, false);
+	}
+
+	@Test
+	public void shouldNotSeeDeleteMarksWhenLoggedInAsAnother() throws InterruptedException {
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
+        addpostPo
+        	.add("pooost");
+        postDeletePo
+        	.canSeeDeleteLink(0, true);
+        String deletePage = driver.getCurrentUrl();
+
+        // Logout, shouldn't be active
+        driver.get(URLs.HOMEPAGE);
+		loginPo
+			.logout()
+			.login("aaron2", "aaron2");
+		driver.get(deletePage);
+        postDeletePo
+        	.canSeeDeleteLink(0, false);
+	}	
+
+	/*
 	
 	@Test
 	public void shouldGoBackToPreviousPageOnDeleteOnlyPostOnPage() throws InterruptedException {
@@ -147,77 +196,6 @@ public class PostDeleteUITests {
 	    // Assert login error
 	    assertTrue("Should see auth error", driver.getPageSource().contains("please logon"));
 	}		
-
-	@Test
-	public void shouldNotSeeDeleteMarksWhenNotLoggedIn() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        
-		// Act  - add posts
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("yyy", driver);
-        
-        // Assert - Delete is there when logged in 
-        String pageText = driver.getPageSource();
-        boolean b = pageText.toLowerCase().contains("[Del]".toLowerCase());
-        assertTrue(b);
-        
-        // Act - logout
-        String currentUrl = driver.getCurrentUrl();
-        LogonUITests.logout(driver);
-        driver.get(currentUrl);
-        
-        // Assert - Delete is not there when logged out 
-        pageText = driver.getPageSource();
-        b = pageText.toLowerCase().contains("[Del]".toLowerCase());
-        assertFalse(b);
-	}
-	
-	@Test
-	public void shouldNotSeeDeleteMarksWhenLoggedInAsAnother() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        
-		// Act  - add posts
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        
-        // Assert - Delete is there when logged in 
-        String pageText = driver.getPageSource();
-        boolean b = pageText.toLowerCase().contains("[Del]".toLowerCase());
-        assertTrue(b);
-        
-        // Act - logout
-        String currentUrl = driver.getCurrentUrl();
-        LogonUITests.logout(driver);
-		LogonUITests.logonCorrectlyAsUserTwo(driver);
-        driver.get(currentUrl);
-        
-        // Assert - Delete is not there when logged out 
-        b = driver.getPageSource().toLowerCase().contains("[Del]".toLowerCase());
-        assertFalse(b);
-	}	
-
-	@Test
-	public void shouldSeeDeleteMarksWhenAdmin() throws InterruptedException {
-		// Arrange - login as non admin, add a thread and post
-		LogonUITests.logonCorrectlyAsUserTwo(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        
-        // Act - login as admin and see delete markers
-        LogonUITests.logout(driver);
-		LogonUITests.logonCorrectly(driver);
-        String pageText = driver.getPageSource();
-        boolean del = pageText.toLowerCase().contains("[Del]".toLowerCase());
-        boolean delthread = pageText.toLowerCase().contains("[Delete thread]".toLowerCase());
-        
-        // Assert
-        assertTrue(del);
-        assertTrue(delthread);
-	}	
 	
 	*/
 }

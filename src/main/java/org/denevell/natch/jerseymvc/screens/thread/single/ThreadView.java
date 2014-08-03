@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
-@TemplateName("/thread_index1.mustache")
+@TemplateName("/thread/single/thread_index1.mustache")
 public class ThreadView {
 	
 	public String addPostError;
@@ -25,6 +25,7 @@ public class ThreadView {
 		public String lastModifiedDate;
 		public int id;
 		public String parentThreadId;
+		public boolean loggedInCorrectly;
 
 		public Post(String username, String htmlContent, int id, int iterate, String lastModifiedDate) {
 			this.username = username;
