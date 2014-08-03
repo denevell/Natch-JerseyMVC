@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-public class DeletePostUITests {
+public class PostDeleteUITests {
 	
 	private WebDriver driver;
 	private RegisterPo registerPo;

@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-public class ListThreadsUITests {
+public class ThreadsListUITests {
 	
 	private WebDriver driver;
 	private LoginoutPo loginPo;
