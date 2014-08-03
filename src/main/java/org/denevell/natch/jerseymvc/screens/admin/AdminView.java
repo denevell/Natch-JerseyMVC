@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
-@TemplateName("/admin_index.mustache")
+@TemplateName("/admin.mustache")
 public class AdminView {
 	
 	public boolean pwChangeProcessed;

@@ -44,13 +44,17 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
     	mView.subject = mModel.getSubject();
 
 		// Set posts in template
-		for (int i = 0; i < mModel.getPosts().size(); i++) {
+		int postsSize = mModel.getPosts().size();
+		for (int i = 0; i < postsSize; i++) {
 			PostOutput p = mModel.getPosts().get(i);
 			Post e = new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime());
 			e.parentThreadId = mModel.getId();
 			e.loggedInCorrectly = mView.loggedInCorrectly;
-			e.returnToThreadFromDeletePostLimitParam = mController.limit; 
 			e.returnToThreadFromDeletePostStartParam = mController.start;
+			if(postsSize==1 && mModel.getNumPosts() > postsSize) {
+				e.returnToThreadFromDeletePostStartParam -= 10;
+			}
+			e.returnToThreadFromDeletePostLimitParam = mController.limit; 
 			mView.posts.add(e); 
 		}
     	
