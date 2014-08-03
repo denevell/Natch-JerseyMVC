@@ -15,7 +15,7 @@ import org.denevell.natch.jerseymvc.app.services.ThreadAddService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.screens.thread.ThreadView;
+import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
 public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
 	

@@ -9,7 +9,7 @@ import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.app.services.ThreadDeleteService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
-import org.denevell.natch.jerseymvc.screens.thread.ThreadView;
+import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
 public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<ThreadDeleteConfirmationView>  {
 	

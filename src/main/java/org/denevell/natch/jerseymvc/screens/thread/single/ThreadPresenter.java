@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.screens.thread;
+package org.denevell.natch.jerseymvc.screens.thread.single;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,7 +13,7 @@ import org.denevell.natch.jerseymvc.app.services.PostAddService;
 import org.denevell.natch.jerseymvc.app.services.ThreadService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.screens.thread.ThreadView.Post;
+import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView.Post;
 
 public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 	
