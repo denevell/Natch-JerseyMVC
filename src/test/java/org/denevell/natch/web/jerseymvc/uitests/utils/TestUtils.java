@@ -1,4 +1,4 @@
-package org.denevell.natch.web.jerseymvc.uitests;
+package org.denevell.natch.web.jerseymvc.uitests.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

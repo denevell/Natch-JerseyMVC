@@ -1,6 +1,6 @@
 package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
-import org.denevell.natch.web.jerseymvc.uitests.URLs;
+import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

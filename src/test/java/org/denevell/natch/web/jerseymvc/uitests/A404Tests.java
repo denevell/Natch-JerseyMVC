@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
+import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -4,6 +4,8 @@ import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
+import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
+import org.denevell.natch.web.jerseymvc.uitests.utils.TestUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
