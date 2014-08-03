@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-public class ResetPasswordRequestTests {
+public class PasswordResetRequestTests {
 	
 	private WebDriver driver;
 	private AdminPO adminPo;

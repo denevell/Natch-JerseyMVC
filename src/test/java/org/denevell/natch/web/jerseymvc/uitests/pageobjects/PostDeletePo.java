@@ -40,4 +40,17 @@ public class PostDeletePo {
 		return this;
 	}
 
+	public PostDeletePo canPressConfirmLink(boolean b) {
+        boolean enabled = driver.findElement(By.id("delete_post_form_submit")).isEnabled();
+        String s = "you must be logged in";
+		if(b) {
+        	org.junit.Assert.assertFalse("Can't see please login text", driver.getPageSource().contains(s));
+        	org.junit.Assert.assertTrue(enabled);
+        } else {
+        	org.junit.Assert.assertTrue("Can see please login text", driver.getPageSource().contains(s));
+        	org.junit.Assert.assertFalse(enabled);
+        }
+        return this;
+	}
+
 }

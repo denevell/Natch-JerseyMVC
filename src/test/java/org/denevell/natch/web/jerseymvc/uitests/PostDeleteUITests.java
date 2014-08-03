@@ -136,6 +136,29 @@ public class PostDeleteUITests {
         postDeletePo
         	.canSeeDeleteLink(0, false);
 	}	
+	
+	@Test
+	public void shouldSeeErrorWhenLoggedOut() throws InterruptedException {
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
+        addpostPo
+        	.add("hiya");
+        postDeletePo
+        	.pressDeleteLink(0)
+        	.canPressConfirmLink(true);
+        String deletePage = driver.getCurrentUrl();
+
+	    // Logout and come back
+        driver.get(URLs.HOMEPAGE);
+        loginPo
+        	.logout();
+        driver.get(deletePage);
+        postDeletePo
+        	.canPressConfirmLink(false);
+	}		
 
 	/*
 	
@@ -171,30 +194,6 @@ public class PostDeleteUITests {
         assertEquals("Gone to first page paga", currentUrl, oldUrl);
 	    // Assert still have last post on page two
 	    assertFalse("Doesn't contain post xxx", driver.getPageSource().contains("pagetwopointone"));
-	}		
-	
-	@Test
-	public void shouldSeeErrorWhenLoggedOut() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        
-		// Act  - add posts
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("yyy", driver);
-        // Assert text there
-	    assertTrue("Contains post xxx", 
-	    		driver.getPageSource().contains("xxx"));
-        // Press delete button
-	    List<WebElement> del = driver.findElements(By.linkText("[Del]"));
-	    del.get(0).click();
-        // Logout and come back
-	    String oldUrl = driver.getCurrentUrl();
-        LogonUITests.logout(driver);
-	    driver.get(oldUrl);
-	    
-	    // Assert login error
-	    assertTrue("Should see auth error", driver.getPageSource().contains("please logon"));
 	}		
 	
 	*/
