@@ -68,7 +68,7 @@ public class LoginoutPo {
 	}
 
 	public LoginoutPo shouldBeOnHomepage() {
-        org.junit.Assert.assertTrue(driver.getCurrentUrl().equals(URLs.HOMEPAGE));
+        org.junit.Assert.assertTrue(driver.getCurrentUrl().startsWith(URLs.HOMEPAGE));
 		return this;
 	}
 

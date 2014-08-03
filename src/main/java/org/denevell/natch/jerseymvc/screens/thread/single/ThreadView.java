@@ -16,6 +16,7 @@ public class ThreadView {
 	public String next;
 	public String prev;
 	public String pages;
+	public boolean loggedIn;
 
 	public static class Post {
 		public int iterate;
