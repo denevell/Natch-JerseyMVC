@@ -49,6 +49,8 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			Post e = new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime());
 			e.parentThreadId = mModel.getId();
 			e.loggedInCorrectly = mView.loggedInCorrectly;
+			e.returnToThreadFromDeletePostLimitParam = mController.limit; 
+			e.returnToThreadFromDeletePostStartParam = mController.start;
 			mView.posts.add(e); 
 		}
     	

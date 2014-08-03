@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
-@TemplateName("/threads_index1.mustache")
+@TemplateName("/threads.mustache")
 public class ThreadsView {
 	
 	public boolean loggedIn;

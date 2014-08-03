@@ -11,18 +11,18 @@ import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
-public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<ThreadDeleteConfirmationView>  {
+public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<ThreadDeleteConfirmView>  {
 	
 	private ThreadDeleteConfirmationController mController;
 	private ThreadDeleteService mModel = new ThreadDeleteService();
 	
 	public ThreadDeleteConfirmPresenter(ThreadDeleteConfirmationController controller) throws Exception {
-		super(ThreadDeleteConfirmationView.class);
+		super(ThreadDeleteConfirmView.class);
 		mController = controller;
 	}
 
 	@Override
-	public ThreadDeleteConfirmationView onGet(HttpServletRequest request) throws Exception {
+	public ThreadDeleteConfirmView onGet(HttpServletRequest request) throws Exception {
 		super.onGet(request);
 		mView.id = Integer.valueOf(mController.getDeleteThreadId()); 
 		mView.loggedIn = request.getSession(true).getAttribute("loggedin")!=null;

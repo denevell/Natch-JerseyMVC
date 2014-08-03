@@ -42,7 +42,7 @@
 	           		</span>
 	           		<a id="link" href="/post/{{id}}">link</a> | 
    		            {{#loggedInCorrectly}}
-	           			<a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}">delete</a>
+	           			<a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">delete</a>
         			{{/loggedInCorrectly}}
 				</li>
 			{{/posts}}

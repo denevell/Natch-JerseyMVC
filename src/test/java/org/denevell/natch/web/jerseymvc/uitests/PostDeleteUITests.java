@@ -163,41 +163,30 @@ public class PostDeleteUITests {
         	.canPressConfirmLink(false);
 	}		
 
-	/*
-	
 	@Test
 	public void shouldGoBackToPreviousPageOnDeleteOnlyPostOnPage() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        
-		// Act  - add posts
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        String oldUrl = driver.getCurrentUrl();
-        
-        AddPostToThreadUITests.shouldAddPost("yyy", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("pagetwopointone", driver);
-        String secondPageUrl = driver.getCurrentUrl();
-        assertNotEquals("Gone to second page", oldUrl, secondPageUrl);        
-
-        // Act 
-        // Press delete button
-	    List<WebElement> del = driver.findElements(By.linkText("[Del]"));
-	    del.get(0).click();
-        
-        // Assert - delete text there
-	    // Act - confirm the delete
-	    assertTrue("Contains delete text", driver.getPageSource().contains("Sure you want to delete the post?"));
-	    driver.findElement(By.name("confirmdelete")).click();
-	    
-	    // Assert first post gone
-        String currentUrl = driver.getCurrentUrl();
-        assertEquals("Gone to first page paga", currentUrl, oldUrl);
-	    // Assert still have last post on page two
-	    assertFalse("Doesn't contain post xxx", driver.getPageSource().contains("pagetwopointone"));
+		// Add a page and two posts of data
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
+        String pageOneUrl = driver.getCurrentUrl();
+        addpostPo
+        	.addPagePlusOneOfPosts()
+        	.add("last_post");
+        String pageTwoUrl = driver.getCurrentUrl();
+        // Delete the last on page two, and still on page two
+        postDeletePo
+        	.pressDeleteLink(1)
+        	.pressConfirmDelete();
+        addpostPo
+        	.canSeePostOnSecondPage(true);
+        org.junit.Assert.assertEquals("Still on second page", pageTwoUrl, driver.getCurrentUrl());        
+        // Delete the last on page two and page on page one
+        postDeletePo
+        	.pressDeleteLink(0)
+        	.pressConfirmDelete();
+        org.junit.Assert.assertEquals("Now on first page", pageOneUrl, driver.getCurrentUrl());        
 	}		
-	
-	*/
 }

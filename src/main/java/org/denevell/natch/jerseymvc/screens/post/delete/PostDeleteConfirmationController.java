@@ -24,15 +24,22 @@ public class PostDeleteConfirmationController extends TemplateController {
 	@Context UriInfo mUriInfo;
 	private String deletePostId;
 	private String parentThreadId;
+	private int start;
+	private int limit;
 
     @GET
     @Path("{delete_post_id}")
     @Template
     public Viewable index(
     		@PathParam("delete_post_id") final String deletePostId,
-    		@QueryParam("thread") final String parentThreadId) throws Exception {
+    		@QueryParam("thread") final String parentThreadId,
+    		@QueryParam("start") final int start,
+    		@QueryParam("limit") final int limit 
+    		) throws Exception {
     	this.deletePostId = deletePostId;
 		this.parentThreadId = parentThreadId;
+		this.start = start;
+		this.limit = limit;
     	return createTemplate(
     			new PostDeleteConfirmPresenter(this).onGet(mRequest)
     			);
@@ -42,13 +49,26 @@ public class PostDeleteConfirmationController extends TemplateController {
     @Template
     public Response indexPost(
     		@FormParam("delete_post_id") final String deleteThreadId,
-    		@QueryParam("thread") final String parentThreadId) throws Exception {
+    		@QueryParam("thread") final String parentThreadId,
+    		@QueryParam("start") final int start,
+    		@QueryParam("limit") final int limit 
+    		) throws Exception {
     	this.deletePostId = deleteThreadId;
     	this.parentThreadId = parentThreadId;
+		this.start = start;
+		this.limit = limit;
     	return new PostDeleteConfirmPresenter(this).onPost(mRequest);
     }
     
     // Getters
+    
+    public int getStart() {
+		return start;
+	}
+    
+    public int getLimit() {
+		return limit;
+	}
 
 	public String getDeletePostId() {
 		return deletePostId;

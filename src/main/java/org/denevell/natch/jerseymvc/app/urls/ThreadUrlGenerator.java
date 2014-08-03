@@ -7,5 +7,9 @@ public class ThreadUrlGenerator {
 		return "/thread/"+threadId;
 	}
 
+	public String createThreadUrl(String threadId, int start, int limit) {
+		return "/thread/"+threadId+"?start="+start+"&limit="+limit;
+	}
+
 
 }

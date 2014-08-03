@@ -2,8 +2,8 @@ package org.denevell.natch.jerseymvc.screens.thread.delete;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
-@TemplateName("/thread/delete/confirm.mustache")
-public class ThreadDeleteConfirmationView {
+@TemplateName("/thread_delete_confirm.mustache")
+public class ThreadDeleteConfirmView {
 	
 	public String errorMessage;
 	public boolean loggedIn;

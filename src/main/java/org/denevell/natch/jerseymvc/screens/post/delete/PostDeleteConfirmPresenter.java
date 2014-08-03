@@ -12,22 +12,24 @@ import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
-public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostDeleteConfirmationView>  {
+public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostDeleteConfirmView>  {
 	
 	private PostDeleteConfirmationController mController;
 	private PostDeleteService mModel = new PostDeleteService();
 	
 	public PostDeleteConfirmPresenter(PostDeleteConfirmationController controller) throws Exception {
-		super(PostDeleteConfirmationView.class);
+		super(PostDeleteConfirmView.class);
 		mController = controller;
 	}
 
 	@Override
-	public PostDeleteConfirmationView onGet(HttpServletRequest request) throws Exception {
+	public PostDeleteConfirmView onGet(HttpServletRequest request) throws Exception {
 		super.onGet(request);
 		mView.id = Integer.valueOf(mController.getDeletePostId()); 
 		mView.loggedIn = SessionUtils.isLoggedIn(request);
 		mView.parentThreadId = mController.getParentThreadId();
+		mView.start = mController.getStart();
+		mView.limit = mController.getLimit();
     	Presenter.Utils.clearViewStateFromSEssion(request, ThreadView.class);
 		return mView;
 	}
@@ -38,8 +40,11 @@ public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostD
 		mModel.delete(new Object(), request, mController.getDeletePostId());
 		if (mModel.mPostDelete.isSuccessful()) {
 			return Response.seeOther(new URI(
-					new ThreadUrlGenerator().createThreadUrl(mController.getParentThreadId())
-			)).build();
+					new ThreadUrlGenerator()
+						.createThreadUrl(
+								mController.getParentThreadId(),
+								mController.getStart(), 
+								mController.getLimit()))).build();
 		} else {
 			mView.errorMessage = mModel.mPostDelete.getErrorMessage();
 			String url = request.getRequestURL() + "?" + request.getQueryString();
