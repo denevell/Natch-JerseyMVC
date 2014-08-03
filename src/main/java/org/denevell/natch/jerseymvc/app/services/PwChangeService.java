@@ -5,16 +5,19 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.app.models.ChangePasswordInput;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.template.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Serv;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
+import org.glassfish.jersey.client.JerseyClient;
+import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.glassfish.jersey.jackson.JacksonFeature;
 
 @TemplateName("admin_changepw.mustache")
-public class PwChangeService extends TemplateModule {
+public class PwChangeService {
 	
    	private boolean mProcessed;
 	private boolean mError;
+	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 
 	public boolean getProcessed() {
 		return mProcessed;

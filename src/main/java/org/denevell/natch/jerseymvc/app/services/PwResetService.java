@@ -5,7 +5,7 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.template.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;

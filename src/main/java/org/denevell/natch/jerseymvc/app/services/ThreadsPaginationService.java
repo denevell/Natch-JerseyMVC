@@ -4,11 +4,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.http.client.utils.URIBuilder;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule;
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("threads_pagination.mustache")
-public class ThreadsPaginationService extends TemplateModule {
+public class ThreadsPaginationService {
 	
 	private String mRequestUri;
 	private int mStart;

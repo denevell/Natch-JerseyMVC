@@ -3,7 +3,7 @@ package org.denevell.natch.jerseymvc.screens.thread;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.denevell.natch.jerseymvc.app.template.TemplateModule.TemplateName;
+import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/thread_index1.mustache")
 public class ThreadView {
