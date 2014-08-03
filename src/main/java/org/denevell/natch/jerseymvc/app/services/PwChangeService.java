@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
-import org.denevell.natch.jerseymvc.app.models.ChangePasswordInput;
+import org.denevell.natch.jerseymvc.app.models.PasswordChangeInput;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Serv;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
@@ -39,7 +39,7 @@ public class PwChangeService {
 				.path("rest").path("user").path("password").path(username)
 				.request()
 				.header("AuthKey", attribute)
-				.post(Entity.json(new ChangePasswordInput(password)));
+				.post(Entity.json(new PasswordChangeInput(password)));
 			sService
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
 				.path("rest").path("user").path("password_reset").path("remove").path(username)

@@ -46,7 +46,9 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 		// Set posts in template
 		for (int i = 0; i < mModel.getPosts().size(); i++) {
 			PostOutput p = mModel.getPosts().get(i);
-			mView.posts.add(new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime())); 
+			Post e = new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime());
+			e.parentThreadId = mModel.getId();
+			mView.posts.add(e); 
 		}
     	
     	// Pagination

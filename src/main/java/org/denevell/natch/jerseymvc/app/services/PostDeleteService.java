@@ -9,32 +9,36 @@ import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
-public class ThreadDeleteService {
+public class PostDeleteService {
 
-	private PostDeleteOutput mDeleteThread = new PostDeleteOutput();
-	public static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
+	protected static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
+	public PostDeleteOutput mPostDelete = new PostDeleteOutput();
 	
-	public boolean delete(final HttpServletRequest serv, final String id) {
+	public PostDeleteOutput getPostDelete() {
+		return mPostDelete;
+	}
+	
+	public boolean delete(Object trueObject, 
+			final HttpServletRequest serv,
+			final String postId) {
+		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
-			mDeleteThread = sService
+			mPostDelete = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
-				.path("rest").path("post").path("del").path(id).request()
+				.path("rest").path("post").path("del").path(postId).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.delete(PostDeleteOutput.class);
 			}})
 		._403(new Runnable() { @Override public void run() {
-			getDeleteThread().setErrorMessage("You're not logged in");
+			mPostDelete.setErrorMessage("You're not logged in");
 			}})
 		._401(new Runnable() { @Override public void run() {
-			getDeleteThread().setErrorMessage("You're not logged in");
+			mPostDelete.setErrorMessage("You're not logged in");
 			}})
 		._exception(new Runnable() { @Override public void run() {
-			getDeleteThread().setErrorMessage("Whoops... erm...");
+			mPostDelete.setErrorMessage("Whoops... erm...");
 			}}).go();
 	}
 
-	public PostDeleteOutput getDeleteThread() {
-		return mDeleteThread;
-	}
 
 }

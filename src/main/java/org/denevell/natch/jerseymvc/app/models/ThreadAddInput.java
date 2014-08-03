@@ -8,28 +8,28 @@ import javax.xml.bind.annotation.XmlElement;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class AddThreadInput {
+public class ThreadAddInput {
 
 	@NotEmpty @NotBlank private String subject;
 	@NotEmpty @NotBlank private String content;
 	private String threadId;
 	private List<String> tags = new ArrayList<String>();
 	
-	public AddThreadInput() {
+	public ThreadAddInput() {
 	}
 	
-	public AddThreadInput (String subject, String content) {
+	public ThreadAddInput (String subject, String content) {
 		this.subject = subject;
 		this.content = content;
 	}
 	
-	public AddThreadInput(String subject, String content, List<String> tags) {
+	public ThreadAddInput(String subject, String content, List<String> tags) {
 		this.subject = subject;
 		this.content = content;
 		this.tags = tags;
 	}
 	
-	public AddThreadInput(String subject, String content, String threadId) {
+	public ThreadAddInput(String subject, String content, String threadId) {
 		this.subject = subject;
 		this.content = content;
 		this.threadId = threadId;

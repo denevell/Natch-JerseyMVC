@@ -3,9 +3,9 @@ package org.denevell.natch.jerseymvc.app.models;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ChangePasswordInput {
+public class PasswordChangeInput {
 	private String password;
-	public ChangePasswordInput(String pass) {
+	public PasswordChangeInput(String pass) {
 		this.password = pass;
 	}
 

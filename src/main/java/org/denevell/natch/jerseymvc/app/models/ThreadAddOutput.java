@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class AddThreadOutput {
+public class ThreadAddOutput {
 	private ThreadOutput thread;
 	private String errorMessage;
 

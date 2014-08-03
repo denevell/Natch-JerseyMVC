@@ -1,0 +1,12 @@
+<html>
+	{{errorMessage}}
+    <form method="post" action="/post/delete/?thread={{parentThreadId}}">
+        <input name="delete_post_id" value="{{id}}" type="hidden" /> 
+        {{#loggedIn}}
+	        <input type="submit" id="delete_post_form_submit" value="delete post?" />
+        {{/loggedIn}}
+        {{^loggedIn}}
+	        <input type="submit" id="delete_post_form_submit" disabled="disabled" value="you must be logged in" />
+        {{/loggedIn}}
+	</form>
+</html>

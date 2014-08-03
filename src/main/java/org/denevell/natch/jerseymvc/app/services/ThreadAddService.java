@@ -5,8 +5,8 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
-import org.denevell.natch.jerseymvc.app.models.AddThreadInput;
-import org.denevell.natch.jerseymvc.app.models.AddThreadOutput;
+import org.denevell.natch.jerseymvc.app.models.ThreadAddInput;
+import org.denevell.natch.jerseymvc.app.models.ThreadAddOutput;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -15,7 +15,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 public class ThreadAddService {
 
 	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
-	private AddThreadOutput mAddThread = new AddThreadOutput();
+	private ThreadAddOutput mAddThread = new ThreadAddOutput();
 
 	public boolean add(Object trueObject, 
 			final HttpServletRequest serv,
@@ -24,12 +24,12 @@ public class ThreadAddService {
 			final String tags) {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
-			AddThreadInput entity = new AddThreadInput(subject, content);
+			ThreadAddInput entity = new ThreadAddInput(subject, content);
 			mAddThread = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
 				.path("rest").path("post").path("addthread").request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
-				.put(Entity.json(entity), AddThreadOutput.class);
+				.put(Entity.json(entity), ThreadAddOutput.class);
 			}})
 		._403(new Runnable() { @Override public void run() {
 			getAddThread().setErrorMessage("You're not logged in");
@@ -45,7 +45,7 @@ public class ThreadAddService {
 			}}).go();
 	}
 
-	public AddThreadOutput getAddThread() {
+	public ThreadAddOutput getAddThread() {
 		return mAddThread;
 	}
 

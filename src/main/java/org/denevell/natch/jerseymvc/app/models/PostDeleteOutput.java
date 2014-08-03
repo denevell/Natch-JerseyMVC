@@ -1,6 +1,6 @@
 package org.denevell.natch.jerseymvc.app.models;
 
-public class DeletePostOutput {
+public class PostDeleteOutput {
     private boolean successful;
     private String error = "";
     private String errorMessage;
