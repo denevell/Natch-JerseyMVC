@@ -2,15 +2,15 @@ package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
-public class ListThreadsPo {
+public class ThreadsListPo {
 
 	private WebDriver driver;
 
-	public ListThreadsPo(WebDriver driver) {
+	public ThreadsListPo(WebDriver driver) {
 		this.driver = driver;
 	}
 
-	public ListThreadsPo hasText(String content, boolean b) {
+	public ThreadsListPo hasText(String content, boolean b) {
         String pageText = driver.getPageSource();
         boolean title = pageText.contains(content);
         if(b) {
@@ -21,15 +21,15 @@ public class ListThreadsPo {
 		return this;
 	}
 	
-	public ListThreadsPo hasContent(String content, boolean b) {
+	public ThreadsListPo hasContent(String content, boolean b) {
 		return hasText(content, b);
 	}
 
-	public ListThreadsPo hasSubject(String subject, boolean b) {
+	public ThreadsListPo hasSubject(String subject, boolean b) {
 		return hasText(subject, b);
 	}
 
-	public ListThreadsPo hasAuthor(String author, boolean b) {
+	public ThreadsListPo hasAuthor(String author, boolean b) {
 		return hasText(author, b);
 	}
 	

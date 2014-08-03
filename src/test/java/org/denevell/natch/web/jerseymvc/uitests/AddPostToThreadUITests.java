@@ -3,8 +3,8 @@ package org.denevell.natch.web.jerseymvc.uitests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AddPostPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AddThreadPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.junit.After;
@@ -17,8 +17,8 @@ public class AddPostToThreadUITests {
 	private WebDriver driver;
 	private RegisterPo registerPo;
 	private LoginoutPo loginPo;
-	private AddThreadPo addthreadPo;
-	private AddPostPo addpostPo;
+	private ThreadAddPo addthreadPo;
+	private PostAddPo addpostPo;
 
 	@Before
 	public void setup() throws Exception {
@@ -27,8 +27,8 @@ public class AddPostToThreadUITests {
 		driver.get(URLs.HOMEPAGE);
 		registerPo = new RegisterPo(driver);
 		loginPo = new LoginoutPo(driver);
-		addthreadPo = new AddThreadPo(driver);
-		addpostPo = new AddPostPo(driver);
+		addthreadPo = new ThreadAddPo(driver);
+		addpostPo = new PostAddPo(driver);
 		registerPo.register("aaron", "aaron", "");
 		loginPo.logout();
 		registerPo.register("aaron2", "aaron2", "");

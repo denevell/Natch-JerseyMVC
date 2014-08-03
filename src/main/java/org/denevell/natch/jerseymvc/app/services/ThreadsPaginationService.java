@@ -39,9 +39,9 @@ public class ThreadsPaginationService {
 	public String getPages() throws URISyntaxException {
 		if(mRequestUri==null) return null;
     	StringBuffer numbers = new StringBuffer();
-		float pagesFloat = (mNumPosts/ mLimit);
+		float pagesFloat = ((float) mNumPosts/ (float) mLimit);
 		int pages = (int) pagesFloat;
-		if(pagesFloat!=0) {
+		if(pagesFloat>(float) pages) {
 			pages++;
 		}
     	for (int i = 0; i < pages; i++) {

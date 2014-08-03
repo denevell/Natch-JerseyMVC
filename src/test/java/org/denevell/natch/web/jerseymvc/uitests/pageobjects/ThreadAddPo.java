@@ -8,15 +8,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddThreadPo {
+public class ThreadAddPo {
 	
 	private WebDriver driver;
 
-	public AddThreadPo(WebDriver driver) {
+	public ThreadAddPo(WebDriver driver) {
 		this.driver = driver;
 	}
 	
-	public AddThreadPo add(String subject, String content, String tags) {
+	public ThreadAddPo add(String subject, String content, String tags) {
 		WebElement subject_input = driver.findElement(By.id("threads_subject_input"));
         WebElement content_input = driver.findElement(By.id("threads_content_input"));
         WebElement tags_input = driver.findElement(By.id("threads_tags_input"));
@@ -31,21 +31,21 @@ public class AddThreadPo {
         return this;
 	}
 
-	public AddThreadPo hasTitle(int i, String string) {
+	public ThreadAddPo hasTitle(int i, String string) {
 		WebElement thread = driver.findElement(By.id("thread_" + i));
         WebElement title = thread.findElement(By.id("thread_subject"));
         org.junit.Assert.assertTrue(title.getText().equals(string));
 		return this;
 	}
 
-	public AddThreadPo hasAuthor(int i, String string) {
+	public ThreadAddPo hasAuthor(int i, String string) {
 		WebElement thread = driver.findElement(By.id("thread_" + i));
         WebElement author = thread.findElement(By.id("thread_author"));
         org.junit.Assert.assertTrue(author.getText().equals(string));
 		return this;
 	}
 
-	public AddThreadPo showsInputError() {
+	public ThreadAddPo showsInputError() {
         boolean inputError= driver.getPageSource().contains(Strings.getPostFieldsCannotBeBlank());
         org.junit.Assert.assertTrue(inputError);
 		return this;
@@ -57,11 +57,11 @@ public class AddThreadPo {
         link.click();
 	}
 
-	public AddThreadPo hasPost(int i, String string) {
+	public ThreadAddPo hasPost(int i, String string) {
 		return this;
 	}
 
-	public AddThreadPo addPagePlusOneOfThreads() {
+	public ThreadAddPo addPagePlusOneOfThreads() {
 		add("suby0", "cont0", "tagx");
 		add("suby1", "cont1", "tagx");
 		add("suby2", "cont2", "tagx");
@@ -77,14 +77,14 @@ public class AddThreadPo {
 		
 	}
 
-	public AddThreadPo hasDate(int i, String dateString) {
+	public ThreadAddPo hasDate(int i, String dateString) {
 		WebElement thread = driver.findElement(By.id("thread_" + i));
         WebElement date= thread.findElement(By.id("thread_date"));
         org.junit.Assert.assertTrue("Should see date", date.getText().contains(dateString));
         return this;
 	}
 
-	public AddThreadPo hasTodaysDate(int i) {
+	public ThreadAddPo hasTodaysDate(int i) {
         Calendar c = Calendar.getInstance();
         int dom = c.get(Calendar.DAY_OF_MONTH);
         String month = new SimpleDateFormat("MMM").format(c.getTime());
@@ -97,24 +97,24 @@ public class AddThreadPo {
         return this;
 	}
 
-	public AddThreadPo clickOnPrev() {
+	public ThreadAddPo clickOnPrev() {
         driver.findElement(By.id("prev")).click();;
 		return this;
 	}
 
-	public AddThreadPo clickOnNext() {
+	public ThreadAddPo clickOnNext() {
         driver.findElement(By.id("next")).click();;
 		return this;
 	}
 
-	public AddThreadPo amOnPageByUrl(int page) {
+	public ThreadAddPo amOnPageByUrl(int page) {
 		String uri = driver.getCurrentUrl();
 		page--;
 		org.junit.Assert.assertTrue("Url is for correct page", uri.contains("start="+(page*10)));
 		return this;
 	}
 
-	public AddThreadPo clickOnPage(int page) {
+	public ThreadAddPo clickOnPage(int page) {
         driver.findElement(By.id("page"+page)).click();
 		return this;
 	}

@@ -3,25 +3,25 @@ package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class DeleteThreadPo {
+public class ThreadDeletePo {
 
 	private WebDriver driver;
 
-	public DeleteThreadPo(WebDriver driver) {
+	public ThreadDeletePo(WebDriver driver) {
 		this.driver = driver;
 	}
 
-	public DeleteThreadPo pressDeleteLink() {
+	public ThreadDeletePo pressDeleteLink() {
         driver.findElement(By.id("delete_thread_form_submit")).click();
 		return this;
 	}
 
-	public DeleteThreadPo pressConfirmDelete() {
+	public ThreadDeletePo pressConfirmDelete() {
         driver.findElement(By.id("delete_thread_form_submit")).click();
 		return this;
 	}
 
-	public DeleteThreadPo canSeeDeleteLink(boolean b) {
+	public ThreadDeletePo canSeeDeleteLink(boolean b) {
 		if(!b) {
 			try {
 				driver.findElement(By.id("delete_thread_form_submit"));

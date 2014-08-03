@@ -1,69 +1,76 @@
 package org.denevell.natch.web.jerseymvc.uitests;
 
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostDeletePo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
 public class DeletePostUITests {
 	
 	private WebDriver driver;
+	private RegisterPo registerPo;
+	private LoginoutPo loginPo;
+	private ThreadAddPo addthreadPo;
+	private PostAddPo addpostPo;
+	private PostDeletePo postDeletePo;
 
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
 		driver = SeleniumDriverUtils.getDriver();;
-		//LogonUITests.addTestUserToDb(driver);
-		//LogonUITests.addTestTwoUserToDb(driver);
-        //LogonUITests.logout(driver);
+		driver = SeleniumDriverUtils.getDriver();;
+		driver.get(URLs.HOMEPAGE);
+		registerPo = new RegisterPo(driver);
+		loginPo = new LoginoutPo(driver);
+		addthreadPo = new ThreadAddPo(driver);
+		addpostPo = new PostAddPo(driver);
+		postDeletePo = new PostDeletePo(driver);
+		registerPo.register("aaron", "aaron", "");
+		loginPo.logout();
+		registerPo.register("aaron2", "aaron2", "");
+		loginPo.logout();
 		driver.get(URLs.HOMEPAGE);
 	}
 	
 	@After
 	public void destroy() {
-        //LogonUITests.logout(driver);
+		try {
+			loginPo.logout();
+		} catch (Exception e) { } 
 		driver.quit();
 	}
 
-	/*
-	
-	
 	@Test
 	public void shouldDeletePost() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        
-		// Act  - add posts
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        String oldUrl = driver.getCurrentUrl();
-        
-        AddPostToThreadUITests.shouldAddPost("yyy", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("pagetwopointone", driver);
-        AddPostToThreadUITests.shouldAddPost("pagetwopointtwo", driver);
-        String secondPageUrl = driver.getCurrentUrl();
-        assertNotEquals("Gone to second page", oldUrl, secondPageUrl);        
-        // Act 
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
 		
-        // Assert text there
-	    assertTrue("Contains post xxx", driver.getPageSource().contains("pagetwopointone"));
-        // Press delete button
-	    List<WebElement> del = driver.findElements(By.linkText("[Del]"));
-	    del.get(0).click();
-        
-        // Assert - delete text there
-	    assertTrue("Contains delete text", driver.getPageSource().contains("Sure you want to delete the post?"));
-	    
-	    // Act - confirm the delete
-	    driver.findElement(By.name("confirmdelete")).click();
+		// Add a page plus one of posts
+        String oldUrl = driver.getCurrentUrl();
+        addpostPo.addPagePlusOneOfPosts();
+        String secondPageUrl = driver.getCurrentUrl();
+        org.junit.Assert.assertNotEquals("Gone to second page", oldUrl, secondPageUrl);        
+        addpostPo.canSeePostOnSecondPage(true);
+
+        postDeletePo
+        	.pressDeleteLink(0)
+        	.pressConfirmDelete();
 	    
 	    // Assert first post gone
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("Gone to second page", currentUrl, secondPageUrl);
-	    // Assert still have last post on page two
-	    assertFalse("Doesn't contain post xxx", driver.getPageSource().contains("pagetwopointone"));
+        org.junit.Assert.assertNotEquals("Gone to second page", currentUrl, secondPageUrl);        
+        addpostPo.canSeePostOnSecondPage(false);
 	}	
+	
+	/*
 
     @Test
     public void shouldDeletePostAsAdmin() throws InterruptedException {

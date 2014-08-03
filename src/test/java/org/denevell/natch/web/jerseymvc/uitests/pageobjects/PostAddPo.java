@@ -11,15 +11,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddPostPo {
+public class PostAddPo {
 
 	private WebDriver driver;
 
-	public AddPostPo(WebDriver driver) {
+	public PostAddPo(WebDriver driver) {
 		this.driver = driver;
 	}
 
-	public AddPostPo add(String content) {
+	public PostAddPo add(String content) {
         WebElement content_input = driver.findElement(By.id("post_content_input"));
         WebElement addinput_input = driver.findElement(By.id("addpost_form_submit"));
         content_input.clear();
@@ -28,7 +28,7 @@ public class AddPostPo {
         return this;
 	}
 
-	public AddPostPo hasPost(int i, String string) {
+	public PostAddPo hasPost(int i, String string) {
 		WebElement thread = driver.findElement(By.id("post_" + i));
         WebElement title = thread.findElement(By.id("post_content"));
         String text = title.getText();
@@ -36,7 +36,7 @@ public class AddPostPo {
 		return this;
 	}
 
-	public AddPostPo hasAuthor(int i, String string) {
+	public PostAddPo hasAuthor(int i, String string) {
 		WebElement thread = driver.findElement(By.id("post_" + i));
         WebElement author = thread.findElement(By.id("post_author"));
         String text = author.getText();
@@ -44,26 +44,26 @@ public class AddPostPo {
 		return this;
 	}
 
-	public AddPostPo hasInputError() {
+	public PostAddPo hasInputError() {
         boolean inputError= driver.getPageSource().contains(Strings.getPostFieldsCannotBeBlank());
         org.junit.Assert.assertTrue(inputError);
 		return this;
 	}
 
-	public AddPostPo  submitButtonIsDisabled() {
+	public PostAddPo  submitButtonIsDisabled() {
         WebElement submit = driver.findElement(By.id("addpost_form_submit"));
         String attribute = submit.getAttribute("disabled");
 		org.junit.Assert.assertTrue("Submit button should be disabled", attribute.equals("true"));
 		return this;
 	}
 
-	public AddPostPo hasPleaseLogonToAddPost() {
+	public PostAddPo hasPleaseLogonToAddPost() {
         String source = driver.getPageSource();
         org.junit.Assert.assertTrue("please login to add post text", source.contains("please login"));
         return this;
 	}
 
-	public AddPostPo addPagePlusOneOfPosts() {
+	public PostAddPo addPagePlusOneOfPosts() {
        	add("c0");
       	add("xxx");
        	add("xxx");
@@ -77,23 +77,35 @@ public class AddPostPo {
        	return this;
 	}
 
-	public AddPostPo cantSeePost(String string) {
+	public String getPostOnSecondPage() {
+		return "c10";
+	}
+
+	public void canSeePostOnSecondPage(boolean b) {
+		if(b) {
+			org.junit.Assert.assertTrue("Contains second page post", driver.getPageSource().contains(getPostOnSecondPage()));
+		} else {
+			org.junit.Assert.assertFalse("Doesn't contain second page post", driver.getPageSource().contains(getPostOnSecondPage()));
+		}
+	}
+
+	public PostAddPo cantSeePost(String string) {
 		org.junit.Assert.assertFalse(driver.getPageSource().contains(string));
 		return this;
 	}
 
-	public AddPostPo hasCorrectPageTitle(String string) {
+	public PostAddPo hasCorrectPageTitle(String string) {
         WebElement subject = driver.findElement(By.id("thread_subject"));
         org.junit.Assert.assertEquals("Has title", string, subject.getText().trim()); 
 		return this;
 	}
 
-	public AddPostPo clickPrev() {
+	public PostAddPo clickPrev() {
         driver.findElement(By.id("prev")).click();;
 		return this;
 	}
 
-	public AddPostPo hasTodaysDate(int i) {
+	public PostAddPo hasTodaysDate(int i) {
         Calendar c = Calendar.getInstance();
         int dom = c.get(Calendar.DAY_OF_MONTH);
         String month = new SimpleDateFormat("MMM").format(c.getTime());
@@ -106,43 +118,43 @@ public class AddPostPo {
 		return this;
 	}
 
-	public AddPostPo clickOnPageLink(String string) {
+	public PostAddPo clickOnPageLink(String string) {
         driver.findElement(By.id("page"+string)).click();;
 		return this;
 	}
 
-	public AddPostPo isOnPageViaUrl(int page) {
+	public PostAddPo isOnPageViaUrl(int page) {
 		String uri = driver.getCurrentUrl();
 		page--;
 		org.junit.Assert.assertTrue("Url is for correct page", uri.contains("start="+(page*10)));
 		return this;
 	}
 
-	public AddPostPo clickNext() {
+	public PostAddPo clickNext() {
         driver.findElement(By.id("next")).click();;
 		return this;
 	}
 
-	public AddPostPo clickOnSinglePost(int i) {
+	public PostAddPo clickOnSinglePost(int i) {
 		List<WebElement> singlePostLink = driver.findElements(By.linkText("link"));
 		singlePostLink.get(1).click();
 		return this;
 	}
 
-	public AddPostPo hasPostInSinglePage(String string) {
+	public PostAddPo hasPostInSinglePage(String string) {
         Pattern p = Pattern.compile("<em>.*cont1.*</em>", Pattern.DOTALL);
         Matcher m = p.matcher(driver.getPageSource());
         org.junit.Assert.assertTrue("Can see single post with markdown", m.find());		
         return this;
 	}
 
-	public AddPostPo clickOnParentThreadFromSinglePostPage() {
+	public PostAddPo clickOnParentThreadFromSinglePostPage() {
         WebElement parentThreadLink = driver.findElement(By.id("parent-thread-link"));
         parentThreadLink.click();
 		return this;
 	}
 
-	public AddPostPo hasPostWithMarkdown(int i, String string) {
+	public PostAddPo hasPostWithMarkdown(int i, String string) {
 		WebElement thread = driver.findElement(By.id("post_" + i));
         WebElement title = thread.findElement(By.id("post_content"));
         String text = title.getAttribute("innerHTML");

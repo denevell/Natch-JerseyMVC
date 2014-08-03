@@ -1,6 +1,6 @@
 package org.denevell.natch.web.jerseymvc.uitests;
 
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AddThreadPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.junit.After;
@@ -13,7 +13,7 @@ public class AddThreadUITests {
 	private WebDriver driver;
 	private RegisterPo registerPo;
 	private LoginoutPo loginPo;
-	private AddThreadPo addthreadPo;
+	private ThreadAddPo addthreadPo;
 
 	@Before
 	public void setup() throws Exception {
@@ -21,7 +21,7 @@ public class AddThreadUITests {
 		driver = SeleniumDriverUtils.getDriver();
 		driver.get(URLs.HOMEPAGE);
 		loginPo = new LoginoutPo(driver);
-		addthreadPo = new AddThreadPo(driver);
+		addthreadPo = new ThreadAddPo(driver);
 		registerPo = new RegisterPo(driver);
 		registerPo.registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();

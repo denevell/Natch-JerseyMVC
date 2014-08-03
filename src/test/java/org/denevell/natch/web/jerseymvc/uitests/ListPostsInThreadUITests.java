@@ -1,7 +1,7 @@
 package org.denevell.natch.web.jerseymvc.uitests;
 
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AddPostPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AddThreadPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.junit.After;
@@ -13,17 +13,17 @@ public class ListPostsInThreadUITests {
 	
 	private WebDriver driver;
 	private LoginoutPo loginPo;
-	private AddThreadPo addthreadPo;
+	private ThreadAddPo addthreadPo;
 	private RegisterPo registerPo;
-	private AddPostPo addpostPo;
+	private PostAddPo addpostPo;
 
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
 		driver = SeleniumDriverUtils.getDriver();;
 		loginPo = new LoginoutPo(driver);
-		addthreadPo = new AddThreadPo(driver);
-		addpostPo = new AddPostPo(driver);
+		addthreadPo = new ThreadAddPo(driver);
+		addpostPo = new PostAddPo(driver);
 		registerPo = new RegisterPo(driver);
 		registerPo.registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();

@@ -1,8 +1,8 @@
 package org.denevell.natch.web.jerseymvc.uitests;
 
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AddThreadPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.DeleteThreadPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ListThreadsPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadDeletePo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadsListPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.junit.After;
@@ -15,18 +15,18 @@ public class DeleteThreadUITests {
 	private WebDriver driver;
 	private RegisterPo registerPo;
 	private LoginoutPo loginPo;
-	private AddThreadPo addThreadPo;
-	private DeleteThreadPo deleteThreadPo;
-	private ListThreadsPo listThreadPo;
+	private ThreadAddPo addThreadPo;
+	private ThreadDeletePo deleteThreadPo;
+	private ThreadsListPo listThreadPo;
 
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
 		driver = SeleniumDriverUtils.getDriver();
-		listThreadPo = new ListThreadsPo(driver);
-		deleteThreadPo = new DeleteThreadPo(driver);
+		listThreadPo = new ThreadsListPo(driver);
+		deleteThreadPo = new ThreadDeletePo(driver);
 		registerPo = new RegisterPo(driver);
-		addThreadPo = new AddThreadPo(driver);
+		addThreadPo = new ThreadAddPo(driver);
 		loginPo = new LoginoutPo(driver);
 		driver.get(URLs.HOMEPAGE);
 		registerPo.register("aaron", "aaron", null);
