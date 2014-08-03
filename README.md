@@ -10,18 +10,19 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 -----
 * Shouldn't see delete icon after first page
-~~
-* ~~Delete post template~~
-* ~~Delete post service~~
-* ~~Delete post controller~~
-* ~~Delete post presenter~~
-* ~~Show delete post link~~
-* ~~Test deleting the post~~
-* Only show delete post if you're the user
 * Delete post icon not on first post
 * Delete post error message
+* Test go back to homepage from single thread page
+* Test content in single thread page
+* No next icon when no next page
+~~
+* Add reply text 
+* Make reply page
+* Make template
+* Make controller
+* Make presenter
+* No enabled reply button when not logged in
+* Test error
 
 Backlog
 -------
-* Test go back to homepage from single thread page
-* Test content in single thread page
