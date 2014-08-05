@@ -1,0 +1,24 @@
+				{{replyError}}
+				<form action="/post/reply" 
+					method="post">
+					<div>
+						<textarea name="content"  cols="50" rows="12">
+> *{{username}} said on {{getLastModifiedDateWithTime}}*
+{{htmlContent}}
+						</textarea>
+					</div>
+					<div>
+						<input type="submit" name="submit" 
+        					{{^loggedIn}}
+								disabled="disabled"
+								value="please login to reply"
+        					{{/loggedIn}}
+        					{{#loggedIn}}
+								value="reply" 
+        					{{/loggedIn}}
+						/>
+					</div>
+					<p style="color: #aaa">
+						When replying, ensure you leave a new line between the quoted text and your reply for formatting goodness.
+					</p>
+				</form>

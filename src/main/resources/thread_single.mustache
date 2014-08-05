@@ -40,10 +40,11 @@
 	           		<span id="post_date">
 	           			{{lastModifiedDate}}
 	           		</span>
-	           		<a id="link" href="/post/{{id}}">link</a> | 
+	           		<a id="link" href="/post/{{id}}">link</a> 
    		            {{#loggedInCorrectly}}
-	           			<a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">delete</a>
+	           			| <a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">delete</a>
         			{{/loggedInCorrectly}}
+	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">reply</a>
 				</li>
 			{{/posts}}
 		</ul>
