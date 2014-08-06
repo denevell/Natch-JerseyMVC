@@ -3,6 +3,7 @@ package org.denevell.natch.web.jerseymvc.uitests;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostDeletePo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostReplyPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
@@ -10,6 +11,7 @@ import org.denevell.natch.web.jerseymvc.uitests.utils.TestUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
 public class PostReplyUITests {
@@ -20,6 +22,7 @@ public class PostReplyUITests {
 	private ThreadAddPo addthreadPo;
 	private PostAddPo addpostPo;
 	private PostDeletePo postDeletePo;
+	private PostReplyPo replyPo;
 
 	@Before
 	public void setup() throws Exception {
@@ -29,6 +32,7 @@ public class PostReplyUITests {
 		registerPo = new RegisterPo(driver);
 		loginPo = new LoginoutPo(driver);
 		addthreadPo = new ThreadAddPo(driver);
+		replyPo = new PostReplyPo(driver);
 		addpostPo = new PostAddPo(driver);
 		postDeletePo = new PostDeletePo(driver);
 		registerPo.register("aaron", "aaron", "");
@@ -46,74 +50,39 @@ public class PostReplyUITests {
 		driver.quit();
 	}
 	
-	/*
-	
 	@Test
 	public void shouldReplyToPost() throws InterruptedException {
-		// Arrange
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "sub", "ccc", "");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("**secondpage**", driver);
-        AddPostToThreadUITests.shouldAddPost("secondpage1", driver);
-
-		// Act
-	    java.util.List<WebElement> reply = driver.findElements(By.linkText("reply"));
-	    reply.get(0).click();
-
-		// Assert see post in reply box
-        Pattern p = Pattern.compile(".*&gt;.*aaron.*&gt;.*secondpage.*", Pattern.DOTALL);
-        String pageSource = driver.getPageSource();
-		Matcher m = p.matcher(pageSource);
-        boolean b = m.matches();
-        assertTrue("Can see text in reply box", b);
-        
-		// Assert - can see text to edit
-        p = Pattern.compile(".*\\*\\*secondpage\\*\\*.*", Pattern.DOTALL);
-        pageSource = driver.getPageSource();
-		m = p.matcher(pageSource);
-        b = m.matches();
-        assertTrue("Can see markdownshouldReplyToPost in edit box, not html", b);        
-        
-        // Act add most text and reply
-		WebElement content = driver.findElement(By.name("content"));
-		content.sendKeys("\n\nsome more text");
-        WebElement submit= driver.findElement(By.name("submit"));
-        submit.click();        
-        
-        // Assert see new reply
-        p = Pattern.compile(".*aaron.*secondpage.*some more text.*", Pattern.DOTALL);
-        pageSource = driver.getPageSource();
-		m = p.matcher(pageSource);
-        b = m.matches();
-        assertTrue("Can see reply", b);
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
+		addpostPo
+			.addPageOfPosts()
+			.add("**secondpage**");
+		replyPo
+			.clickReply(0)
+			.canSeeRegexText(".*&gt;.*aaron.*&gt;.*secondpage.*", true)
+        	.canSeeRegexText(".*\\*\\*secondpage\\*\\*.*", true)
+        	.enterReplyText("\n\nsome more text")
+        	.canSeeRegexText(".*aaron.*secondpage.*some more text.*", true);
 	}	
 	
 	@Test
 	public void shouldSeeReplyDisabledOnNotLoggedIn() throws InterruptedException {
-		// Arrange
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "sub", "ccc", "");
-        String currentUrl = driver.getCurrentUrl();
-        LogonUITests.logout(driver);
-        driver.get(currentUrl);
-
-		// Act
-	    WebElement reply = driver.findElement(By.linkText("reply"));
-	    reply.click();
-
-		// Assert 
-        WebElement submit= driver.findElement(By.name("submit"));
-        String attribute = submit.getAttribute("disabled");
-		assertTrue("Submit button should be disabled", attribute.equals("true"));
-        
-        // Assert
-        String source = driver.getPageSource();
-        assertTrue("Should see please logon text", source.toLowerCase().contains("please login"));	
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("s", "b", "c")
+			.gotoThread(0);
+		String url = driver.getCurrentUrl();
+		driver.get(URLs.HOMEPAGE);
+		loginPo
+			.logout();
+        driver.get(url);
+        replyPo
+        	.clickReply(0)
+        	.submitIsDisabled(true)
+        	.shouldSeeLoginText(true);
    }		
-	*/
-				
 }

@@ -77,6 +77,19 @@ public class PostAddPo {
        	return this;
 	}
 
+	public PostAddPo addPageOfPosts() {
+       	add("c0");
+      	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	add("xxx");
+       	return this;
+	}
+
 	public String getPostOnSecondPage() {
 		return "c10";
 	}
