@@ -19,6 +19,10 @@ Todo
 * Test what happens on 0 start and limit
 * Goto end of thread on replying.
 ~~
+* Move to thread get section
+* Move to thread post section
+* Test 1
+* Test 2
 
 Backlog
 -------

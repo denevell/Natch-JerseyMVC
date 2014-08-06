@@ -1,0 +1,23 @@
+{{moveError}}
+
+<html>
+		<p>As user: ${param.userId}</p>
+ 		<form action="" method="post">
+ 			<input placeholder="subject" 
+ 				type="text" 
+ 				name="subject" 
+ 				/>
+ 			<input type="hidden" name="postId" value="${param.postId}"/>
+ 			<input type="hidden" name="userId" value="${param.userId}"/>
+			<input type="submit" 
+				id="move_to_thread"
+				{{^loggedIn}}
+					disabled="disabled"
+					value="please logon to move post" 
+				{{/loggedIn}}
+				{{#loggedIn}}
+					value="move post to new thread"
+				{{/loggedIn}}
+			/>
+ 		</form>
+</html>
