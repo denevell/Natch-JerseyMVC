@@ -28,6 +28,7 @@ public class ThreadView {
 		public String parentThreadId;
 		public int returnToThreadFromDeletePostStartParam;
 		public int returnToThreadFromDeletePostLimitParam;
+		public int returnToThreadFromReplyStartParam;
 
 		public Post(String username, String htmlContent, int id, int iterate, String lastModifiedDate) {
 			this.username = username;

@@ -79,6 +79,7 @@ public class PostOutput {
 			if(!split[i].matches("^.*\\n?\\r$")) {
 				split[i] += "\n";
 			}
+			split[i] = split[i].replace("&gt;", ">");
 		}
 		String c = "";
 		for (String string : split) {

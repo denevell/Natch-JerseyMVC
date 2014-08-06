@@ -51,6 +51,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			e.parentThreadId = mModel.getId();
 			e.loggedInCorrectly = mView.loggedInCorrectly;
 			e.returnToThreadFromDeletePostStartParam = mController.start;
+			e.returnToThreadFromReplyStartParam = mController.start;
 			if(postsSize==1 && mModel.getNumPosts() > postsSize) {
 				e.returnToThreadFromDeletePostStartParam -= 10;
 			}

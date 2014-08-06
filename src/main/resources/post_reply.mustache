@@ -1,13 +1,17 @@
-				{{replyError}}
-				<form action="/post/reply" 
+<html>
+				{{errorMessage}}
+				<form action="/post/reply/{{id}}?start={{start}}&limit={{limit}}" 
 					method="post">
 					<div>
 						<textarea name="content"  cols="50" rows="12">
 > *{{username}} said on {{getLastModifiedDateWithTime}}*
 {{htmlContent}}
-						</textarea>
+
+
+</textarea>
 					</div>
 					<div>
+						<input type="hidden" value="{{threadId}}" name="thread" />
 						<input type="submit" name="submit" 
         					{{^loggedIn}}
 								disabled="disabled"
@@ -22,3 +26,4 @@
 						When replying, ensure you leave a new line between the quoted text and your reply for formatting goodness.
 					</p>
 				</form>
+</html>
