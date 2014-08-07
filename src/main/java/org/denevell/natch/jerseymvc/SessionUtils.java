@@ -9,4 +9,9 @@ public class SessionUtils {
     	return name !=null && name instanceof String && ((String)name).length()>0;
 	}
 
+	public static boolean isAdmin(HttpServletRequest request) {
+    	Object name = request.getSession(true).getAttribute("admin");
+    	return name!=null && name instanceof Boolean && ((boolean)name)==true;
+	}
+
 }

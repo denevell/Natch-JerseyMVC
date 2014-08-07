@@ -9,7 +9,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* Why does html content have a <p>?
 * Shouldn't see delete icon after first page
 * Delete post icon not on first post
 * Delete post error message
@@ -18,8 +17,9 @@ Todo
 * No next icon when no next page
 * Test what happens on 0 start and limit
 * Goto end of thread on replying.
+* Don't show move to thread on first post in thread
 ~~
-* Move to thread get section
+* ~~Move to thread get section~~
 * Move to thread post section
 * Test 1
 * Test 2

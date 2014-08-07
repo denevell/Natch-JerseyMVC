@@ -16,7 +16,7 @@ import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
-@Path("post/reply")
+@Path("post/movetothread")
 public class PostMoveToThreadController extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;

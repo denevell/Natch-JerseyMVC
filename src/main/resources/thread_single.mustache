@@ -44,6 +44,9 @@
    		            {{#loggedInCorrectly}}
 	           			| <a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">delete</a>
         			{{/loggedInCorrectly}}
+   		            {{#isAdmin}}
+	           			| <a id="movetothread_{{iterate}}" href="/post/movetothread/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">move to new thread</a>
+        			{{/isAdmin}}
 	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
 				</li>
 			{{/posts}}

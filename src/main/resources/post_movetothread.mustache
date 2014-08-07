@@ -1,23 +1,23 @@
 {{moveError}}
 
 <html>
-		<p>As user: ${param.userId}</p>
- 		<form action="" method="post">
- 			<input placeholder="subject" 
+		<p>As user: {{username}}</p>
+ 		<form action="/post/movetothread" method="post">
+ 			<input 
  				type="text" 
  				name="subject" 
  				/>
- 			<input type="hidden" name="postId" value="${param.postId}"/>
- 			<input type="hidden" name="userId" value="${param.userId}"/>
+ 			<input type="hidden" name="postId" value="{{postId}}"/>
+ 			<input type="hidden" name="userId" value="{{username}}"/>
 			<input type="submit" 
 				id="move_to_thread"
-				{{^loggedIn}}
+				{{^isAdmin}}
 					disabled="disabled"
 					value="please logon to move post" 
-				{{/loggedIn}}
-				{{#loggedIn}}
+				{{/isAdmin}}
+				{{#isAdmin}}
 					value="move post to new thread"
-				{{/loggedIn}}
+				{{/isAdmin}}
 			/>
  		</form>
 </html>

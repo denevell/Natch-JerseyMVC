@@ -23,6 +23,7 @@ public class ThreadView {
 		public String htmlContent;
 		public String username;
 		public String lastModifiedDate;
+		public boolean isAdmin;
 		public int id;
 		public boolean loggedInCorrectly;
 		public String parentThreadId;
