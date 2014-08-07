@@ -20,7 +20,9 @@ Todo
 * Don't show move to thread on first post in thread
 ~~
 * ~~Move to thread get section~~
+* ~~Create service~~
 * Move to thread post section
+* Redirect
 * Test 1
 * Test 2
 
