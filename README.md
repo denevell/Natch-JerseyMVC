@@ -9,20 +9,20 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
+* Don't show move to thread on first post in thread
+* Don't show delete post on first post
 * Shouldn't see delete icon after first page
-* Delete post icon not on first post
 * Delete post error message
 * Test go back to homepage from single thread page
 * Test content in single thread page
 * No next icon when no next page
 * Test what happens on 0 start and limit
 * Goto end of thread on replying.
-* Don't show move to thread on first post in thread
 ~~
 * ~~Move to thread get section~~
 * ~~Create service~~
 * ~~Move to thread post section~~
-* Redirect
+* ~~Redirect~~
 * Test 1
 * Test 2
 

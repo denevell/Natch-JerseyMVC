@@ -1,5 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.post.movetothread;
 
+import java.net.URI;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
@@ -8,6 +10,7 @@ import org.denevell.natch.jerseymvc.SessionUtils;
 import org.denevell.natch.jerseymvc.app.services.PostFromThreadService;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
+import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
 
 public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMoveToThreadView>  {
 	
@@ -39,7 +42,15 @@ public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMo
 				mController.postId, 
 				mController.subject);
 		mView.moveError = mPostFromThreadService.mThreadOutput.getErrorMessage();
-		return null;
+		if(mView.moveError==null || mView.moveError.trim().length()==0) {
+			String createThreadUrl = new ThreadUrlGenerator()
+				.createThreadUrl(mPostFromThreadService.mThreadOutput.getThread()
+				.getId());
+			return Response.seeOther(new URI(createThreadUrl)).build();
+		} else {
+			String url = request.getRequestURL() + "?" + request.getQueryString();
+			return Response.seeOther(new URI(url)).build();
+		}
 	}
 
 }
