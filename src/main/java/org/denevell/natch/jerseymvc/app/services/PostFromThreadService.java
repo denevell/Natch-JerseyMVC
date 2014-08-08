@@ -2,6 +2,7 @@ package org.denevell.natch.jerseymvc.app.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,14 +13,14 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 
 public class PostFromThreadService {
 	
-   	public ThreadAddOutput mThreadOutput;
+   	public ThreadAddOutput mThreadOutput = new ThreadAddOutput();
 	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	
 	public ThreadAddOutput getThread() {
 		return mThreadOutput;
 	}
 	
-	public boolean fetchPost(Object trueObject, final int postId, final String subject) {
+	public boolean fetchPost(Object trueObject, final HttpServletRequest serv, final int postId, final String subject) {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
 			AddThreadFromPostResourceInput input = new AddThreadFromPostResourceInput();
@@ -29,8 +30,21 @@ public class PostFromThreadService {
                 .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
                 .path("rest").path("thread").path("frompost")
                 .request()
+				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
                 .put(Entity.json(input), ThreadAddOutput.class); 	
 			}})
+		._400(new Runnable() { @Override public void run() {
+			mThreadOutput.setErrorMessage("Whoops... erm... 400");
+			}
+		})
+		._401(new Runnable() { @Override public void run() {
+			mThreadOutput.setErrorMessage("Whoops... erm... 401");
+			}
+		})
+		._403(new Runnable() { @Override public void run() {
+			mThreadOutput.setErrorMessage("Whoops... erm... 403");
+			}
+		})
 		._exception(new Runnable() { @Override public void run() {
 			mThreadOutput.setErrorMessage("Whoops... erm...");
 			}}).go();
