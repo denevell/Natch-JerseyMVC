@@ -3,13 +3,14 @@
 		<p>As user: {{username}}</p>
  		<form action="/post/movetothread/{{postId}}" method="post">
  			<input 
+ 				id="move_to_thread_subject"
  				type="text" 
  				name="subject" 
  				/>
  			<input type="hidden" name="postId" value="{{postId}}"/>
  			<input type="hidden" name="userId" value="{{username}}"/>
 			<input type="submit" 
-				id="move_to_thread"
+				id="move_to_thread_submit"
 				{{^isAdmin}}
 					disabled="disabled"
 					value="please logon to move post" 

@@ -23,8 +23,6 @@ public class PostMoveToThreadController extends TemplateController {
 	@Context HttpServletResponse mResponse;
 	@Context UriInfo mUriInfo;
 	public int postId;
-	public int start;
-	public int limit;
 	public String threadId;
 	public String content;
 	public String subject;
@@ -34,12 +32,8 @@ public class PostMoveToThreadController extends TemplateController {
     @Template
     public Viewable index(
     		@QueryParam("thread") String threadId,
-    		@QueryParam("start") int start,
-    		@QueryParam("limit") int limit,
     		@PathParam("post") int postId) throws Exception {
     	this.postId = postId;
-    	this.start = start;
-    	this.limit = limit;
     	this.threadId = threadId;
 		return createTemplate(new PostMoveToThreadPresenter(this).onGet(mRequest));
 	}
@@ -49,14 +43,10 @@ public class PostMoveToThreadController extends TemplateController {
     @Template
     public Response indexPost(
     		@PathParam("post") int postId,
-    		@QueryParam("start") int start,
-    		@QueryParam("limit") int limit,
     		@FormParam("thread") String threadId,
     		@FormParam("content") String content,
     		@FormParam("subject") String subject 
     		) throws Exception {
-    	this.start = start;
-    	this.limit = limit;
     	this.postId = postId;
     	this.threadId = threadId;
     	this.content = content;

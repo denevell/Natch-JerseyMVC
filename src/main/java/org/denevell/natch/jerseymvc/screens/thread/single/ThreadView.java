@@ -26,6 +26,7 @@ public class ThreadView {
 		public boolean isAdmin;
 		public int id;
 		public boolean loggedInCorrectly;
+		public boolean editedByAdmin;
 		public String parentThreadId;
 		public int returnToThreadFromDeletePostStartParam;
 		public int returnToThreadFromDeletePostLimitParam;

@@ -57,6 +57,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			}
 			e.returnToThreadFromDeletePostLimitParam = mController.limit; 
 			e.isAdmin = SessionUtils.isAdmin(request);
+			e.editedByAdmin = p.isAdminEdited();
 			mView.posts.add(e); 
 		}
     	
