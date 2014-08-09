@@ -177,4 +177,11 @@ public class PostAddPo {
         return this;
 	}
 
+	public PostAddPo hasEditedByAdminFlag(int i) {
+		WebElement post = driver.findElement(By.id("post_" + i));
+		boolean edited = post.getText().toLowerCase().contains("edited by an admin");
+        org.junit.Assert.assertTrue(edited);
+		return this;
+	}
+
 }

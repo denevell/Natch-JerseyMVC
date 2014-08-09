@@ -37,19 +37,26 @@ public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMo
 	@Override
 	public Response onPost(HttpServletRequest request) throws Exception {
 		super.onPost(request);
-		mPostFromThreadService.fetchPost(new Object(), 
-				request,
-				mController.postId, 
-				mController.subject);
-		mView.moveError = mPostFromThreadService.mThreadOutput.getErrorMessage();
-		if(mView.moveError==null || mView.moveError.trim().length()==0) {
-			String createThreadUrl = new ThreadUrlGenerator()
-				.createThreadUrl(mPostFromThreadService.mThreadOutput.getThread()
-				.getId());
-			return Response.seeOther(new URI(createThreadUrl)).build();
-		} else {
+		if(mController.subject==null || mController.subject.trim().length()==0) {
+			mView.moveError="Must supply a subject";
 			String url = request.getRequestURL() + "?" + request.getQueryString();
 			return Response.seeOther(new URI(url)).build();
+		} else {
+			mPostFromThreadService.fetchPost(
+					new Object(), 
+					request,
+					mController.postId, 
+					mController.subject);
+			mView.moveError = mPostFromThreadService.mThreadOutput .getErrorMessage();
+			if (mView.moveError == null || mView.moveError.trim().length() == 0) {
+				ThreadUrlGenerator threadUrl = new ThreadUrlGenerator();
+				String url = threadUrl.createThreadUrl(mPostFromThreadService.mThreadOutput
+								.getThread().getId());
+				return Response.seeOther(new URI(url)).build();
+			} else {
+				String url = request.getRequestURL() + "?" + request.getQueryString();
+				return Response.seeOther(new URI(url)).build();
+			}
 		}
 	}
 
