@@ -21,6 +21,8 @@ public class AdminController extends TemplateController {
 	private String changePwUsername;
 	private String changePwNewPass;
 	private String changePwActive;
+	public String adminToggleByUsername;
+	public String adminToggleActive;
 
     @GET
     @Template
@@ -33,11 +35,15 @@ public class AdminController extends TemplateController {
     public Response post(
     		@FormParam("changepw_username") String changePwUsername,
     		@FormParam("changepw_password") String changePwNewPass,
-    		@FormParam("changepw_active") String changePwActive
+    		@FormParam("changepw_active") String changePwActive,
+    		@FormParam("admintoggle_active") String adminToggleActive,
+    		@FormParam("admintoggle_username") String adminToggleUsername
     		) throws Exception {
 		this.changePwUsername = changePwUsername;
 		this.changePwNewPass = changePwNewPass;
 		this.changePwActive = changePwActive;
+		this.adminToggleByUsername = adminToggleUsername;
+		this.adminToggleActive = adminToggleActive;
 		return new AdminPresenter(this).onPost(mRequest);
     }
     

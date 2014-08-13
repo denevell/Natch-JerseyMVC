@@ -1,27 +1,27 @@
 package org.denevell.natch.jerseymvc.app.services;
 
-import org.denevell.natch.jerseymvc.app.models.UserListOutput;
+import org.denevell.natch.jerseymvc.app.models.SuccessOrError;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
-public class AdminService {
+public class AdminToggleService {
 	
-   	private UserListOutput mUsers;
+   	private SuccessOrError mSuccessOrError;
 	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 
-   	public UserListOutput getUsers() {
-   		return mUsers;
+   	public SuccessOrError getResult() {
+   		return mSuccessOrError;
    	}
 	
-	public void getUsers(String authKey) {
-        mUsers = sService
+	public void toggle(Object active, String authKey, String username) {
+		if(active==null) return;
+        mSuccessOrError = sService
                 .target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
-                .path("rest").path("user").path("list")
+                .path("rest").path("user").path("admin").path("toggle").path(username)
                 .request()
                 .header("AuthKey", authKey)
-                .get(UserListOutput.class); 	
+                .post(null, SuccessOrError.class); 	
 	}
-	
 
 }

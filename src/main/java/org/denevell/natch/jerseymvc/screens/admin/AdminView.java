@@ -13,11 +13,15 @@ public class AdminView {
 	public List<User> users = new ArrayList<>();
 	
 	public static class User {
-		public User(String username, String recoveryEmail, boolean resetPasswordRequest) {
+		public User(String username, String recoveryEmail, 
+				boolean resetPasswordRequest,
+				boolean admin) {
 			this.username = username;
 			this.recoveryEmail = recoveryEmail;
 			this.resetPasswordRequest = resetPasswordRequest;
+			this.admin = admin;
 		}
+		public boolean admin;
 		public String username;
 		public String recoveryEmail;
 		public boolean resetPasswordRequest;

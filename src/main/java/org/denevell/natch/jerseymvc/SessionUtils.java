@@ -14,4 +14,8 @@ public class SessionUtils {
     	return name!=null && name instanceof Boolean && ((boolean)name)==true;
 	}
 
+	public static String getAuthKey(HttpServletRequest request) {
+    	return (String)request.getSession(true).getAttribute("authkey");
+	}
+
 }

@@ -19,10 +19,10 @@ Todo
 * Test what happens on 0 start and limit
 * Goto end of thread on replying.
 ~~
-* Create admin toggle service
-* Update admin template for toggle (inc form)
-* Add post method to toggle the admin priv
-* Test it manually
+* ~~Create admin toggle service~~
+* ~~Add post method to toggle the admin priv~~
+* ~~Update admin template for toggle (inc form)~~
+* ~~Test it manually~~
 * Test 1
 * Test 2
 

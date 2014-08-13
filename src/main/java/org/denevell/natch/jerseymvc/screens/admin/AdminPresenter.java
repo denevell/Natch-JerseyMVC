@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
+import org.denevell.natch.jerseymvc.SessionUtils;
 import org.denevell.natch.jerseymvc.app.models.UserOutput;
 import org.denevell.natch.jerseymvc.app.services.AdminService;
+import org.denevell.natch.jerseymvc.app.services.AdminToggleService;
 import org.denevell.natch.jerseymvc.app.services.PwChangeService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.screens.admin.AdminView.User;
@@ -18,6 +20,7 @@ public class AdminPresenter extends SessionSavingViewPresenter<AdminView>  {
 	private AdminController mController;
 	public AdminService mAdmin = new AdminService();
 	public PwChangeService mPwChange = new PwChangeService();
+	public AdminToggleService mAdminToggleService = new AdminToggleService();
 	
 	public AdminPresenter(AdminController controller) throws Exception {
 		super(AdminView.class);
@@ -34,7 +37,8 @@ public class AdminPresenter extends SessionSavingViewPresenter<AdminView>  {
     		mView.users.add(new User(
     				userOutput.getUsername(), 
     				userOutput.getRecoveryEmail(), 
-    				userOutput.isResetPasswordRequest()));
+    				userOutput.isResetPasswordRequest(),
+    				userOutput.isAdmin()));
 		}
     	
     	Presenter.Utils.clearViewStateFromSEssion(request, AdminView.class);
@@ -44,13 +48,21 @@ public class AdminPresenter extends SessionSavingViewPresenter<AdminView>  {
 	@Override
 	public Response onPost(HttpServletRequest request) throws Exception {
 		super.onPost(request);
+
+		mAdminToggleService
+			.toggle(mController.adminToggleActive, 
+					SessionUtils.getAuthKey(request), 
+					mController.adminToggleByUsername);
+
     	mPwChange.changePw(mController.getChangePwActive(), 
     			request, 
     			mController.getChangePwUsername(), 
     			mController.getChangePwNewPass());
+
     	mView.pwChangeProcessed = mPwChange.getProcessed();
     	mView.pwChangeError = mPwChange.getError();
     	String url = request.getRequestURL()+"?"+request.getQueryString(); 
+
     	return Response.seeOther(new URI(url)).build();
 	}
 
