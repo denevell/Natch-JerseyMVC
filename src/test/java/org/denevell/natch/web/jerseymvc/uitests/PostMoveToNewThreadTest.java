@@ -90,7 +90,7 @@ public class PostMoveToNewThreadTest {
         addpostPo
         	.add("one");
 		postMoveToThreadPo
-			.cantSeeMoveLink(1);
+			.canSeeMoveLink(1, false);
 	}
 
 }

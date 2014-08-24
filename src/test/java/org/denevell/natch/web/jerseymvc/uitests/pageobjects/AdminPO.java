@@ -19,6 +19,23 @@ public class AdminPO {
 	    adminLink.click();
 	    return this;
 	}
+
+	public AdminPO adminToggle(String username) {
+	    WebElement adminToggle = driver.findElement(By.id(username+"_admin"));
+	    adminToggle.click();
+	    return this;
+	}
+
+	public AdminPO isAdmin(String username, boolean t) {
+	    WebElement adminToggle = driver.findElement(By.id(username+"_admin"));
+	    String text = adminToggle.getText();
+		if(t) {
+			org.junit.Assert.assertTrue("User should be admin", text.equals("true")); 
+		} else {
+			org.junit.Assert.assertTrue("User shouldn't be admin", text.equals("false")); 
+		}
+	    return this;
+	}
 	
 	public AdminPO changePassword(String username, String password) {
 	    WebElement aaron2ChangePassword = driver.findElement(By.id(username+"_changepw"));

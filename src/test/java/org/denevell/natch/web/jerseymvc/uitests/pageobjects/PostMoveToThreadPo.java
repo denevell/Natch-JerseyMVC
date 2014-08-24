@@ -16,12 +16,13 @@ public class PostMoveToThreadPo {
 		return this;
 	}
 
-	public PostMoveToThreadPo cantSeeMoveLink(int num) {
+	public PostMoveToThreadPo canSeeMoveLink(int num, boolean t) {
 		try {
 			driver.findElement(By.id("move_to_thread_"+num));
-			org.junit.Assert.assertTrue("Shouldn't see move link", false);
 		} catch(Exception e) {
-			// Good
+			if(t) {
+				org.junit.Assert.assertTrue("Should see move link", false);
+			}
 		}
 		return this;
 	}

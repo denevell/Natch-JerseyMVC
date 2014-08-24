@@ -1,81 +1,103 @@
 package org.denevell.natch.web.jerseymvc.uitests;
 
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AdminPO;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostMoveToThreadPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostReplyPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
+import org.denevell.natch.web.jerseymvc.uitests.utils.TestUtils;
+import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+
 public class AdminToggleTest {
 
-	/*
 	private WebDriver driver;
+	private RegisterPo registerPo;
+	private LoginoutPo loginPo;
+	private ThreadAddPo addthreadPo;
+	private PostAddPo addpostPo;
+	private PostReplyPo replyPo;
+	private AdminPO adminPo;
+	private PostMoveToThreadPo postMoveToThreadPo;
+
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
 		driver = SeleniumDriverUtils.getDriver();
-		LogonUITests.addTestUserToDb(driver);
-		LogonUITests.addTestTwoUserToDb(driver);
-        LogonUITests.logout(driver);
-        driver.get(URLs.HOMEPAGE);
+		driver.get(URLs.HOMEPAGE);
+		registerPo = new RegisterPo(driver);
+		loginPo = new LoginoutPo(driver);
+		addthreadPo = new ThreadAddPo(driver);
+		adminPo = new AdminPO(driver);
+		replyPo = new PostReplyPo(driver);
+		addpostPo = new PostAddPo(driver);
+		postMoveToThreadPo = new PostMoveToThreadPo(driver);
+		registerPo.register("aaron", "aaron", "");
+		loginPo.logout();
+		registerPo.register("aaron2", "aaron2", "");
+		loginPo.logout();
+		driver.get(URLs.HOMEPAGE);
 	}
 	
 	@After
 	public void destroy() {
-        LogonUITests.logout(driver);
-        driver.quit();
+		try {
+			loginPo.logout();
+		} catch (Exception e) { } 
+		driver.quit();
 	}
 	
 	@Test
 	public void shouldUseToggleAdmin() throws InterruptedException {
-	    // Arrange
-		LogonUITests.logonCorrectly(driver);
-	    WebElement adminLink = driver.findElement(By.id("admin"));
-	    
-	    // Act
-	    adminLink.click();
-        assertTrue(driver.getPageSource().contains("aaron"));
-        assertTrue(driver.getPageSource().contains("aaron2"));
-	    WebElement aaron2AdminButton = driver.findElement(By.id("aaron2_admin"));
-	    
-	    // Assert
-	    assertEquals(aaron2AdminButton.getText(), "false");
-
-	    // Act - toggle admin
-	    aaron2AdminButton.click();
-	    
-	    // Assert
-	    aaron2AdminButton = driver.findElement(By.id("aaron2_admin"));
-	    assertEquals(aaron2AdminButton.getText(), "true");
-
-	    // Act - de toggle admin
-	    aaron2AdminButton = driver.findElement(By.id("aaron2_admin"));
-	    aaron2AdminButton.click();
-
-	    // Assert
-	    aaron2AdminButton = driver.findElement(By.id("aaron2_admin"));
-	    assertEquals(aaron2AdminButton.getText(), "false");
-	}
-
+		loginPo
+			.login("aaron", "aaron");
+		adminPo.gotoAdminPage()
+			.isAdmin("aaron2", false)
+			.adminToggle("aaron2")
+			.isAdmin("aaron2", true)
+			.adminToggle("aaron2")
+			.isAdmin("aaron2", false);
+	}	
+	
 	@Test
 	public void shouldSeeMoveToNewThreadAfterAdmin() throws InterruptedException {
-	    // Assert
-	    LogonUITests.logonCorrectly(driver); // Login as admin
-	    AddThreadUITests.fromHomepageAddAndGotoThread(driver, "sub", "cont", null);
-	    AddPostToThreadUITests.shouldAddPost("new post", driver);
-	    String threadUrl = driver.getCurrentUrl();
-	    // Assert - login as normal user and check we don't see move to new thread
-	    LogonUITests.logout(driver);
-	    LogonUITests.logonCorrectlyAsUserTwo(driver);
-	    driver.get(threadUrl);
-	    assertFalse("Can't see move to thread", driver.getPageSource().toLowerCase().contains("move to new thread"));
-
-	    // Act - make user2 an admin
-	    LogonUITests.logout(driver);
-	    LogonUITests.logonCorrectly(driver); // Login as admin
-	    driver.findElement(By.id("admin")).click();
-	    driver.findElement(By.id("aaron2_admin")).click();
-	    driver.get(threadUrl);
-	    LogonUITests.logout(driver);
-	    LogonUITests.logonCorrectlyAsUserTwo(driver);
-	    
-	    // Assert - now we can see move to thread
-	    assertTrue("Can't see move to thread", driver.getPageSource().toLowerCase().contains("move to new thread"));
+		// Add post as admin
+		loginPo
+			.login("aaron", "aaron");
+		addthreadPo
+			.add("sub", "ccc", "")
+			.gotoThread(0);
+		addpostPo
+			.add("xxx");
+        String url = driver.getCurrentUrl();
+        driver.navigate().back();
+        // Ensure we can't see move to thread as normal user
+		loginPo
+			.logout()
+			.login("aaron2", "aaron2");
+	    driver.get(url);
+	    postMoveToThreadPo
+	    	.canSeeMoveLink(1, false);
+	    // Make normal user admin
+        driver.navigate().back();
+		loginPo
+			.logout()
+			.login("aaron", "aaron");
+		adminPo.gotoAdminPage()
+			.adminToggle("aaron2")
+			.isAdmin("aaron2", true);
+	    driver.get(URLs.HOMEPAGE);
+		loginPo
+			.logout()
+			.login("aaron2", "aaron2");
+	    driver.get(url);
+	    postMoveToThreadPo
+	    	.canSeeMoveLink(2, false);
 	}
-	*/
-
 }
