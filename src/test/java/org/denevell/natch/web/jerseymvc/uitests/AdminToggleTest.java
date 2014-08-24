@@ -4,7 +4,6 @@ import org.denevell.natch.web.jerseymvc.uitests.pageobjects.AdminPO;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostMoveToThreadPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostReplyPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
@@ -22,7 +21,6 @@ public class AdminToggleTest {
 	private LoginoutPo loginPo;
 	private ThreadAddPo addthreadPo;
 	private PostAddPo addpostPo;
-	private PostReplyPo replyPo;
 	private AdminPO adminPo;
 	private PostMoveToThreadPo postMoveToThreadPo;
 
@@ -35,7 +33,6 @@ public class AdminToggleTest {
 		loginPo = new LoginoutPo(driver);
 		addthreadPo = new ThreadAddPo(driver);
 		adminPo = new AdminPO(driver);
-		replyPo = new PostReplyPo(driver);
 		addpostPo = new PostAddPo(driver);
 		postMoveToThreadPo = new PostMoveToThreadPo(driver);
 		registerPo.register("aaron", "aaron", "");
