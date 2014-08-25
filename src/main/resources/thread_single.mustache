@@ -43,15 +43,18 @@
 	           		<a id="link" href="/post/{{id}}">link</a> 
    		            {{#loggedInCorrectly}}
 	           			| <a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">delete</a>
-        			{{/loggedInCorrectly}}
+        			    {{/loggedInCorrectly}}
    		            {{#isAdmin}}
 	           			| <a id="move_to_thread_{{iterate}}" href="/post/movetothread/{{id}}?thread={{parentThreadId}}">move to new thread</a>
-        			{{/isAdmin}}
+            			{{/isAdmin}}
+   		            {{#hasEditThreadText}}
+	           			| <a id="thread_edit" href="/thread/edit/{{parentThreadId}}">edit thread</a>
+            			{{/hasEditThreadText}}
 	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
-	           		{{#editedByAdmin}}
+	             		{{#editedByAdmin}}
 	           			<br />
 	           			edited by an admin
-	           		{{/editedByAdmin}}
+	            		{{/editedByAdmin}}
 				</li>
 			{{/posts}}
 		</ul>
