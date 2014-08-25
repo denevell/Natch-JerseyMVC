@@ -11,7 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
-public class EditThreadUITests {
+public class ThreadEditUITests {
 
 	private WebDriver driver;
 	private RegisterPo registerPo;
