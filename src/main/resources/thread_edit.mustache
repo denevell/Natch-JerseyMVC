@@ -1,0 +1,32 @@
+<html>
+        <form 
+          action="EditThread"
+          style="width:50%"
+          method="post">
+          <div>
+            <input name="subject" 
+              value="{{subject}}" />
+          </div>  
+          <div>
+            <textarea name="content" 
+              cols="50" rows="6">{{content}}</textarea>
+          </div>
+          <div>
+            <input name="tags" 
+              value="{{tags}}" />
+          </div>
+          <div>
+            <input type="submit" 
+               id="editpost_submit_input"
+               {{^loggedIn}}
+                disabled="disabled"
+                value="please login to edit"
+               {{/loggedIn}}
+               {{#loggedIn}}
+                value="edit"
+               {{/loggedIn}}
+            />
+          </div>
+        </form>     
+  </body>
+</html> 

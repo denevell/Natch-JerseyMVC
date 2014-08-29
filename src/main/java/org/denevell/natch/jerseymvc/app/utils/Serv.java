@@ -22,6 +22,11 @@ public class Serv {
 		}
 	}
 
+	/**
+	 * If response doesn't return a body, just a response code, use this.
+	 * @param r
+	 * @return
+	 */
 	public static Serv serv(ResponseRunnable r) {
 		try {
 			Response resp = r.run();
