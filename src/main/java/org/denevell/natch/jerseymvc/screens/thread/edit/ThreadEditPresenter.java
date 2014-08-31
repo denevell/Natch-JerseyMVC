@@ -7,21 +7,30 @@ import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.SessionUtils;
+import org.denevell.natch.jerseymvc.app.services.PostSingleService;
+import org.denevell.natch.jerseymvc.app.services.ThreadEditService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 
 public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditView>  {
   
-  //private SomeController mController;
-  //public SomeService mSomeService = new SomeService();
+  private ThreadEditController mController;
+  public ThreadEditService mThreadEditService = new ThreadEditService();
+	private PostSingleService mPostService = new PostSingleService();
   
   public ThreadEditPresenter(ThreadEditController controller) throws Exception {
     super(ThreadEditView.class);
-    //mController = controller;
+    mController = controller;
   }
 
   @Override
   public ThreadEditView onGet(HttpServletRequest request) throws Exception {
     super.onGet(request);
+
+		mPostService.fetchPost(new Object(), mController.postEditId);
+		mView.content = mPostService.getPost().getContent();
+		mView.username = mPostService.getPost().getUsername();
+		mView.subject = mPostService.getPost().getSubject();
+		mView.tags = mPostService.getPost().getTagsString();
     
     // Logged in info
     mView.loggedIn = SessionUtils.isLoggedIn(request);
@@ -34,9 +43,6 @@ public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditVi
   @Override
   public Response onPost(HttpServletRequest request) throws Exception {
     super.onPost(request);
-
-    //mSomeService.doSomething(request, null);
-    //mView.someValue= mSomeService.someValue();
 
     String url = request.getRequestURL()+"?"+request.getQueryString(); 
     return Response.seeOther(new URI(url)).build();

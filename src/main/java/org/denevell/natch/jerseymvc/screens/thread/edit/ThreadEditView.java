@@ -7,5 +7,8 @@ public class ThreadEditView {
   
   public boolean loggedIn;
   public boolean isAdmin;
-
+  public String content;
+  public String username;
+  public String tags;
+  public String subject;
 }

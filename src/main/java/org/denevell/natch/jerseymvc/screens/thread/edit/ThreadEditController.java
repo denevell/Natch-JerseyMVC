@@ -6,6 +6,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -24,17 +25,17 @@ public class ThreadEditController extends TemplateController {
   public int limit;
   public String somePostActive;
   public String somePostValue;
-  public String threadEditId;
+  public int postEditId;
 
     @GET
-    @Path(value="{thread_edit}")
+    @Path("{post_edit}")
     @Template
     public Viewable index(
-        @QueryParam("thread_edit") String threadEditId,
+        @PathParam("post_edit") int postEditId,
         @QueryParam("start") @DefaultValue("0") int start,
         @QueryParam("limit") @DefaultValue("10") int limit
         ) throws Exception {
-    this.threadEditId = threadEditId;
+    this.postEditId = postEditId;
     this.start = start;
     this.limit = limit;
       return createTemplate(
@@ -43,18 +44,18 @@ public class ThreadEditController extends TemplateController {
   }
 
     @POST
-    @Path(value="{thread_edit}")
+    @Path(value="{post_edit}")
     @Template
     public Response indexPost(
         @Context UriInfo uriInfo,
-        @QueryParam("thread_edit") String threadEditId,
+        @QueryParam("post_edit") int postEditId,
         @QueryParam("start") @DefaultValue("0") int start,
         @QueryParam("limit") @DefaultValue("10") int limit,
         @FormParam("somepost_active") final String somePostActive,
         @FormParam("somepost_value") final String somePostValue 
         ) throws Exception {
 
-    this.threadEditId = threadEditId;
+    this.postEditId = postEditId;
     this.start = start;
     this.limit = limit;
     this.somePostActive = somePostActive;
