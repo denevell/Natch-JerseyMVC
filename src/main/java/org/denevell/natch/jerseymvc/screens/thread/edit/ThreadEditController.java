@@ -23,9 +23,9 @@ public class ThreadEditController extends TemplateController {
   @Context UriInfo mUriInfo;
   public int start;
   public int limit;
-  public String somePostActive;
-  public String somePostValue;
   public int postEditId;
+  public String content;
+  public String subject;
 
     @GET
     @Path("{post_edit}")
@@ -51,15 +51,15 @@ public class ThreadEditController extends TemplateController {
         @QueryParam("post_edit") int postEditId,
         @QueryParam("start") @DefaultValue("0") int start,
         @QueryParam("limit") @DefaultValue("10") int limit,
-        @FormParam("somepost_active") final String somePostActive,
-        @FormParam("somepost_value") final String somePostValue 
+        @FormParam("subject") final String subject,
+        @FormParam("content") final String content 
         ) throws Exception {
 
     this.postEditId = postEditId;
     this.start = start;
     this.limit = limit;
-    this.somePostActive = somePostActive;
-    this.somePostValue = somePostValue;
+    this.subject = subject;
+    this.content = content;
     return new ThreadEditPresenter(this).onPost(mRequest);
   }
     

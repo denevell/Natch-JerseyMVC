@@ -43,7 +43,10 @@ public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditVi
   @Override
   public Response onPost(HttpServletRequest request) throws Exception {
     super.onPost(request);
-
+    
+    mThreadEditService.fetch(new Object(), request, mController.subject, mController.content);
+    // If no error, redirect to thread
+    // If error, set some kind of error field
     String url = request.getRequestURL()+"?"+request.getQueryString(); 
     return Response.seeOther(new URI(url)).build();
   }
