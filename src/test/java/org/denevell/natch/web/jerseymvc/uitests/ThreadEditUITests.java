@@ -61,46 +61,52 @@ public class ThreadEditUITests {
       .hasEditThreadMarker(0, true)
       .hasEditThreadMarker(1, false);
   }
+
+  @Test
+  public void shouldntShowEditThreadLinkOnLoggedOut() throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("pooost");
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout();
+    driver.get(url);
+    threadEditPo.hasEditThreadMarker(0, false);
+  }
+
+  @Test
+  public void shouldntShowEditThreadLinkOnDifferentUser() throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("pooost");
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout().login("aaron2", "aaron2");
+    driver.get(url);
+    threadEditPo.hasEditThreadMarker(0, false);
+  }
+
+  @Test
+  public void shouldntSeeEditThreadIconOnPagesAfterFirst() throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya").addPageOfPosts();
+    threadEditPo.hasEditThreadMarker(0, false);
+  }
+
+  @Test
+  public void shouldSeeEditAsAdmin() throws InterruptedException {
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout().login("aaron", "aaron");
+    driver.get(url);
+    threadEditPo.hasEditThreadMarker(0, true);
+  }
+
   /*
-   * 
-   * @Test public void shouldntShowEditThreadLinkOnLoggedOut() throws
-   * InterruptedException { // Arrange LogonUITests.logonCorrectly(driver);
-   * 
-   * // Act AddThreadUITests.fromHomepageAddAndGotoThread(driver, "a", "b",
-   * "c"); String currUrl = driver.getCurrentUrl(); LogonUITests.logout(driver);
-   * driver.get(currUrl);
-   * 
-   * // Assert assertFalse("Cannot see edit thread link",
-   * driver.getPageSource().contains("Edit thread")); }
-   * 
-   * @Test public void shouldntShowEditThreadLinkOnDifferentUser() throws
-   * InterruptedException { // Arrange LogonUITests.logonCorrectly(driver);
-   * 
-   * // Act AddThreadUITests.fromHomepageAddAndGotoThread(driver, "a", "b",
-   * "c"); String currUrl = driver.getCurrentUrl(); LogonUITests.logout(driver);
-   * LogonUITests.logonCorrectlyAsUserTwo(driver); driver.get(currUrl);
-   * 
-   * // Assert assertFalse("Cannot see edit thread link",
-   * driver.getPageSource().contains("Edit thread")); }
-   * 
-   * @Test public void shouldntSeeEditThreadIconOnPagesAfterFirst() throws
-   * InterruptedException { // Arrange - add posts to go onto second page
-   * LogonUITests.logonCorrectly(driver);
-   * AddThreadUITests.fromHomepageAddAndGotoThread(driver, "sub", "ccc", "");
-   * AddPostToThreadUITests.shouldAddPost("xxx", driver);
-   * AddPostToThreadUITests.shouldAddPost("xxx", driver);
-   * AddPostToThreadUITests.shouldAddPost("xxx", driver);
-   * AddPostToThreadUITests.shouldAddPost("xxx", driver);
-   * assertTrue("Page two doesn't contain delete thread",
-   * driver.getPageSource().toLowerCase().contains("edit thread"));
-   * AddPostToThreadUITests.shouldAddPost("seconpage", driver); WebElement
-   * nextText = driver.findElement(By.id("next"));
-   * 
-   * // Add final post nextText.click();
-   * 
-   * // Assert assertTrue("Page two doesn't contain delete thread",
-   * !driver.getPageSource().toLowerCase().contains("edit thread")); }
-   * 
    * @Test public void shouldEditThread() throws InterruptedException { //
    * Arrange LogonUITests.logonCorrectly(driver); // Arrange - Add post
    * AddThreadUITests.fromHomepageAddAndGotoThread(driver, "ax", "bx", "cx");
