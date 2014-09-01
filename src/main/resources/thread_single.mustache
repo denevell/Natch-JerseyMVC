@@ -48,7 +48,7 @@
 	           			| <a id="move_to_thread_{{iterate}}" href="/post/movetothread/{{id}}?thread={{parentThreadId}}">move to new thread</a>
             			{{/isAdmin}}
    		            {{#hasEditThreadText}}
-	           			| <a id="thread_edit" href="/thread/edit/{{id}}">edit thread</a>
+	           			| <a id="thread_edit" href="/thread/edit/{{id}}?thread={{parentThreadId}}">edit thread</a>
             			{{/hasEditThreadText}}
 	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
 	             		{{#editedByAdmin}}

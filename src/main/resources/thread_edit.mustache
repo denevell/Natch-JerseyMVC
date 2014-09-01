@@ -1,8 +1,14 @@
 <html>
+       {{#error}}
+               {{.}}
+       {{/error}}
         <form 
-          action="EditThread"
+          action="/thread/edit/{{postId}}?thread={{thread}}"
           style="width:50%"
           method="post">
+            <input name="thread" 
+              type="hidden"
+              value="{{thread}}" />
           <div>
             <input name="subject" 
               value="{{subject}}" />

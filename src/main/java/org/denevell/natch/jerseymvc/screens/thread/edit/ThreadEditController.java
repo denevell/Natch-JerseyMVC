@@ -1,7 +1,6 @@
 package org.denevell.natch.jerseymvc.screens.thread.edit;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -21,23 +20,20 @@ public class ThreadEditController extends TemplateController {
   
   @Context HttpServletRequest mRequest;
   @Context UriInfo mUriInfo;
-  public int start;
-  public int limit;
   public int postEditId;
   public String content;
   public String subject;
+  public String threadId;
 
     @GET
     @Path("{post_edit}")
     @Template
     public Viewable index(
-        @PathParam("post_edit") int postEditId,
-        @QueryParam("start") @DefaultValue("0") int start,
-        @QueryParam("limit") @DefaultValue("10") int limit
+        @QueryParam("thread") String threadId,
+        @PathParam("post_edit") int postEditId
         ) throws Exception {
-    this.postEditId = postEditId;
-    this.start = start;
-    this.limit = limit;
+      this.postEditId = postEditId;
+      this.threadId = threadId;
       return createTemplate(
           new ThreadEditPresenter(this).onGet(mRequest)
       );
@@ -48,16 +44,13 @@ public class ThreadEditController extends TemplateController {
     @Template
     public Response indexPost(
         @Context UriInfo uriInfo,
-        @QueryParam("post_edit") int postEditId,
-        @QueryParam("start") @DefaultValue("0") int start,
-        @QueryParam("limit") @DefaultValue("10") int limit,
+        @QueryParam("thread") String threadId,
+        @PathParam("post_edit") int postEditId,
         @FormParam("subject") final String subject,
         @FormParam("content") final String content 
         ) throws Exception {
-
     this.postEditId = postEditId;
-    this.start = start;
-    this.limit = limit;
+    this.threadId = threadId;
     this.subject = subject;
     this.content = content;
     return new ThreadEditPresenter(this).onPost(mRequest);

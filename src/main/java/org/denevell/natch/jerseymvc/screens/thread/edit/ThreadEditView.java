@@ -11,4 +11,7 @@ public class ThreadEditView {
   public String username;
   public String tags;
   public String subject;
+  public String error;
+  public String thread;
+  public int postId;
 }

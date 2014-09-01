@@ -23,17 +23,21 @@ public class ThreadEditService {
 	public boolean fetch(Object trueObject, 
 			final HttpServletRequest serv,
 			final String subject,
-			final String content) {
+			final String content,
+			final int id) {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
 		  ThreadEditInput entity = new ThreadEditInput();
 		  entity.setContent(content);
 		  entity.setSubject(subject);
 			mOutput = sService
-				.target("http://localhost:8080/url/")
-				.path("path").path("path").request()
-				.header("Key", (String) serv.getSession(true).getAttribute("authkey"))
+				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+				.path("rest").path("post").path("editthread").path(String.valueOf(id)).request()
+				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.post(Entity.json(entity), ThreadEditOutput.class);
+			if(mOutput.getError()!=null) {
+			  mOutput.setErrorMessage(mOutput.getError());
+			}
 			}})
 		._403(new Runnable() { @Override public void run() {
 			mOutput.setErrorMessage("You're not logged in");
