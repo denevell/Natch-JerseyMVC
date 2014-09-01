@@ -24,4 +24,39 @@ public class ThreadEditPo {
     
   }
 
+  public ThreadEditPo pressEditThread() {
+    WebElement view = driver.findElement(By.id("post_0"));
+    view.findElement(By.partialLinkText("edit thread")).click();
+    return this;
+  }
+
+  public ThreadEditPo editAsContent(String subject, String content) {
+    WebElement sub = driver.findElement(By.name("subject"));
+    sub.clear();
+    sub.sendKeys(subject);
+    WebElement cont = driver.findElement(By.name("content"));
+    cont.clear();
+    cont.sendKeys(content);
+    driver.findElement(By.id("editpost_submit_input")).click();
+    return this;
+  }
+
+  public ThreadEditPo shouldSeeErrorValue(boolean b) {
+    if(b) {
+      WebElement error = driver.findElement(By.id("error"));
+      boolean errorExists = error.getText().trim().length()>0;
+      org.junit.Assert.assertTrue(errorExists);
+      org.junit.Assert.assertTrue(errorExists);
+    } else {
+      try {
+        WebElement error = driver.findElement(By.id("error"));
+        boolean errorExists = error.getText().trim().length()>0;
+        org.junit.Assert.assertFalse(errorExists);
+      } catch (Exception e) {
+        // Fine
+      }
+    }
+    return this;
+  }
+
 }

@@ -106,43 +106,46 @@ public class ThreadEditUITests {
     threadEditPo.hasEditThreadMarker(0, true);
   }
 
-  /*
-   * @Test public void shouldEditThread() throws InterruptedException { //
-   * Arrange LogonUITests.logonCorrectly(driver); // Arrange - Add post
-   * AddThreadUITests.fromHomepageAddAndGotoThread(driver, "ax", "bx", "cx");
-   * AddPostToThreadUITests.shouldAddPost("xxx", driver);
-   * 
-   * // Act driver.findElement(By.linkText("[Edit thread]")).click();
-   * driver.findElement(By.name("content")).sendKeys("EDITEDC");
-   * driver.findElement(By.name("subject")).sendKeys("SUBJECTS");
-   * driver.findElement(By.name("tags")).sendKeys("TAGS");
-   * driver.findElement(By.id("editpost_submit_input")).click();
-   * 
-   * // Assert String pageText = driver.getPageSource(); boolean post =
-   * pageText.contains("EDITEDC"); boolean subject =
-   * pageText.contains("SUBJECTS"); boolean author = pageText.contains("aaron");
-   * assertTrue("Expected post", post); assertTrue("Expected subject", subject);
-   * assertTrue("Expected author", author); }
-   * 
-   * @Test public void shouldEditAsAdminAndSeeText() throws InterruptedException
-   * { // Arrange - login as non admin, add a thread and post
-   * LogonUITests.logonCorrectlyAsUserTwo(driver);
-   * AddThreadUITests.fromHomepageAddAndGotoThread(driver, "suuub", "cccon",
-   * "taaag");
-   * 
-   * // Act - login as admin and see delete markers LogonUITests.logout(driver);
-   * LogonUITests.logonCorrectly(driver);
-   * driver.findElement(By.linkText("[Edit thread]")).click();
-   * editWhileOnEditPage(driver, "New Subject", "Admin edited", "New tag");
-   * 
-   * // Assert boolean hasOldText =
-   * driver.getPageSource().toLowerCase().contains("suuub".toLowerCase());
-   * boolean edited =
-   * driver.getPageSource().toLowerCase().contains("New Subject".toLowerCase());
-   * boolean editedByAdmin =
-   * driver.getPageSource().toLowerCase().contains("Edited by an admin"
-   * .toLowerCase()); assertFalse("No longer has previously added text",
-   * hasOldText); assertTrue("Has edited post", edited);
-   * assertTrue("See admin edited statement", editedByAdmin); }
-   */
+   @Test 
+   public void shouldEditThread() throws InterruptedException { 
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    threadEditPo.pressEditThread().editAsContent("new subject", "new content");
+    addpostPo.hasPost(0, "new content")
+    .hasCorrectPageTitle("new subject")
+    .hasAuthor(0, "aaron2");
+   }
+
+   @Test 
+   public void shouldEditAsAdminAndSeeText() throws InterruptedException { 
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout().login("aaron", "aaron");
+    driver.get(url);
+    threadEditPo.pressEditThread().editAsContent("new subject", "new content");
+    addpostPo.hasPost(0, "new content")
+    .hasCorrectPageTitle("new subject")
+    .hasAuthor(0, "aaron2")
+    .hasEditedByAdminFlag(0);
+   }
+
+   @Test 
+   public void shouldFailThenSucceedToEdit() throws InterruptedException { 
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    threadEditPo.pressEditThread()
+    .shouldSeeErrorValue(false)
+    .editAsContent("", "new content")
+    .shouldSeeErrorValue(true)
+    .editAsContent("new subject", "new content")
+    .shouldSeeErrorValue(false);
+    addpostPo.hasPost(0, "new content")
+    .hasCorrectPageTitle("new subject")
+    .hasAuthor(0, "aaron2");
+   }
 }

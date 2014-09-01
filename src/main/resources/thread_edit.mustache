@@ -1,6 +1,8 @@
 <html>
        {{#error}}
+         <div id="error">
                {{.}}
+         </div>
        {{/error}}
         <form 
           action="/thread/edit/{{postId}}?thread={{thread}}"
