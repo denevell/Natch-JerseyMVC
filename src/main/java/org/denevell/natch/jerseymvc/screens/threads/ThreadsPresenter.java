@@ -57,7 +57,7 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
     	mView.next = mPagination.getNext().toString();
     	mView.prev = mPagination.getPrev().toString();
     	
-    	Presenter.Utils.clearViewStateFromSEssion(request, ThreadView.class);
+    	Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
 

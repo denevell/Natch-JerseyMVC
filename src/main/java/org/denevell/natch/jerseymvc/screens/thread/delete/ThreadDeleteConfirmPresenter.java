@@ -26,7 +26,7 @@ public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<Thr
 		super.onGet(request);
 		mView.id = Integer.valueOf(mController.getDeleteThreadId()); 
 		mView.loggedIn = request.getSession(true).getAttribute("loggedin")!=null;
-    	Presenter.Utils.clearViewStateFromSEssion(request, ThreadView.class);
+    	Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
 

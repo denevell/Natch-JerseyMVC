@@ -40,7 +40,7 @@ public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditVi
     mView.loggedIn = SessionUtils.isLoggedIn(request);
     mView.isAdmin = request.getSession(true).getAttribute("admin")!=null;
 
-    Presenter.Utils.clearViewStateFromSEssion(request, ThreadEditView.class);
+    Presenter.Utils.clearViewStateFromSession(request, ThreadEditView.class);
     return mView;
   }
 

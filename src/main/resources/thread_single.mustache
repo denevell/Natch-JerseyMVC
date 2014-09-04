@@ -50,6 +50,9 @@
    		            {{#hasEditThreadText}}
 	           			| <a id="thread_edit" href="/thread/edit/{{id}}?thread={{parentThreadId}}">edit thread</a>
             			{{/hasEditThreadText}}
+   		            {{#hasEditPostText}}
+	           			| <a id="thread_edit" href="/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">edit post</a>
+            			{{/hasEditPostText}}
 	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
 	             		{{#editedByAdmin}}
 	           			<br />

@@ -34,7 +34,7 @@ public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView
 		mView.threadId = mController.threadId;
 		mView.getLastModifiedDateWithTime = mService.getPost().getLastModifiedDateWithTime();
 		mView.loggedIn = SessionUtils.isLoggedIn(request);
-    	Presenter.Utils.clearViewStateFromSEssion(request, PostReplyView.class);
+    	Presenter.Utils.clearViewStateFromSession(request, PostReplyView.class);
 		return mView;
 	}
 

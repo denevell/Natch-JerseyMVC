@@ -30,7 +30,7 @@ public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMo
 		mView.username = mPostSingleService.getPost().getUsername();
 		mView.postId = mController.postId;
 		mView.isAdmin = SessionUtils.isAdmin(request);
-		Presenter.Utils.clearViewStateFromSEssion(request, PostMoveToThreadView.class);
+		Presenter.Utils.clearViewStateFromSession(request, PostMoveToThreadView.class);
 		return mView;
 	}
 

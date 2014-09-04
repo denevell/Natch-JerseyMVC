@@ -1,0 +1,29 @@
+<html>
+       {{#error}}
+         <div id="error">
+               {{.}}
+         </div>
+       {{/error}}
+        <form 
+          style="width: 50%"
+          action="/post/edit/{{postId}}?thread={{thread}}&start={{start}}&limit={{limit}}"
+          method="post">
+          <div>
+            <textarea name="content" cols="50" rows="6">{{content}}</textarea>
+          </div>
+          <div>
+            <input type="submit" 
+               id="editpost_submit_input"
+               {{^loggedIn}}
+                disabled="disabled"
+                value="please login to edit"
+               {{/loggedIn}}
+               {{#loggedIn}}
+                value="edit"
+               {{/loggedIn}}
+            />
+          </div>
+        </form>     
+
+  </body>
+</html> 

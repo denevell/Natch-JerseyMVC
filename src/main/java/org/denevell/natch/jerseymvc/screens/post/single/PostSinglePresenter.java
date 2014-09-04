@@ -26,7 +26,7 @@ public class PostSinglePresenter extends SessionSavingViewPresenter<PostSingleVi
 		mView.htmlContent = mPostService.getPost().getHtmlContent();
 		mView.username = mPostService.getPost().getUsername();
 		mView.backUrl = new ThreadUrlGenerator().createThreadUrl(mPostService.mPostOutput.getThreadId());
-    	Presenter.Utils.clearViewStateFromSEssion(request, PostSingleView.class);
+    	Presenter.Utils.clearViewStateFromSession(request, PostSingleView.class);
 		return mView;
 	}
 

@@ -41,7 +41,7 @@ public class AdminPresenter extends SessionSavingViewPresenter<AdminView>  {
     				userOutput.isAdmin()));
 		}
     	
-    	Presenter.Utils.clearViewStateFromSEssion(request, AdminView.class);
+    	Presenter.Utils.clearViewStateFromSession(request, AdminView.class);
 		return mView;
 	}
 

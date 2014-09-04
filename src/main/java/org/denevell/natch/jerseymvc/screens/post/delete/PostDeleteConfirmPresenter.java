@@ -30,7 +30,7 @@ public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostD
 		mView.parentThreadId = mController.getParentThreadId();
 		mView.start = mController.getStart();
 		mView.limit = mController.getLimit();
-    	Presenter.Utils.clearViewStateFromSEssion(request, ThreadView.class);
+    	Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
 

@@ -31,7 +31,9 @@ public class ThreadView {
 		public int returnToThreadFromDeletePostStartParam;
 		public int returnToThreadFromDeletePostLimitParam;
 		public int returnToThreadFromReplyStartParam;
+    public int returnToThreadFromEditStartParam;
 		public boolean hasEditThreadText;
+    public boolean hasEditPostText;
 
 		public Post(String username, String htmlContent, int id, int iterate, String lastModifiedDate) {
 			this.username = username;

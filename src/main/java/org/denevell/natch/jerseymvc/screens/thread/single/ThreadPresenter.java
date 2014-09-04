@@ -50,16 +50,23 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			Post e = new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime());
 			e.parentThreadId = mModel.getId();
 			e.loggedInCorrectly = mView.loggedInCorrectly;
-			e.returnToThreadFromDeletePostStartParam = mController.start;
+			e.isAdmin = SessionUtils.isAdmin(request);
+
+			e.returnToThreadFromDeletePostLimitParam = mController.limit; 
 			e.returnToThreadFromReplyStartParam = mController.start;
-			if(i==0 && mController.start==0 && mView.loggedInCorrectly) {
-			  e.hasEditThreadText = true;
-			}
+			e.returnToThreadFromEditStartParam = mController.start;
+			e.returnToThreadFromDeletePostStartParam = mController.start;
 			if(postsSize==1 && mModel.getNumPosts() > postsSize) {
 				e.returnToThreadFromDeletePostStartParam -= 10;
 			}
-			e.returnToThreadFromDeletePostLimitParam = mController.limit; 
-			e.isAdmin = SessionUtils.isAdmin(request);
+			
+			// Can edit thread via this post
+			if(i==0 && mController.start==0 && mView.loggedInCorrectly) {
+			  e.hasEditThreadText = true;
+			}
+			if(i!=0 && mView.loggedInCorrectly) {
+			  e.hasEditPostText = true;
+			}
 			e.editedByAdmin = p.isAdminEdited();
 			mView.posts.add(e); 
 		}
@@ -71,7 +78,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 		mView.prev = pagination.getPrev().toString();
 		mView.pages = pagination.getPages().toString();
 		
-    	Presenter.Utils.clearViewStateFromSEssion(request, ThreadView.class);
+    	Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
 

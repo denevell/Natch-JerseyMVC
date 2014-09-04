@@ -30,7 +30,7 @@ public class PostEditService {
 		  entity.setContent(content);
 			mOutput = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
-				.path("rest").path("post").path("editt").path(String.valueOf(id)).request()
+				.path("rest").path("post").path("editpost").path(String.valueOf(id)).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.post(Entity.json(entity), PostEditOutput.class);
 			if(mOutput.getError()!=null) {

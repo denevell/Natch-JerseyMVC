@@ -12,7 +12,7 @@ public interface Presenter<TemplateOutput> {
 			request.getSession(true).setAttribute("view", o);
 		}
 
-		public static <View> void  clearViewStateFromSEssion(HttpServletRequest request, Class<View> c) throws Exception {
+		public static <View> void  clearViewStateFromSession(HttpServletRequest request, Class<View> c) throws Exception {
 			View o = (View) c.newInstance();
 			request.getSession(true).setAttribute("view", o);
 		}

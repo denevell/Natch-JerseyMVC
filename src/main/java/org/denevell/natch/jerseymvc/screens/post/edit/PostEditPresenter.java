@@ -7,16 +7,16 @@ import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.SessionUtils;
-import org.denevell.natch.jerseymvc.app.models.ThreadEditOutput;
+import org.denevell.natch.jerseymvc.app.models.PostEditOutput;
+import org.denevell.natch.jerseymvc.app.services.PostEditService;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
-import org.denevell.natch.jerseymvc.app.services.ThreadEditService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
 
 public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView>  {
   
   private PostEditController mController;
-  public ThreadEditService mThreadEditService = new ThreadEditService();
+  public PostEditService mPostEditService = new PostEditService();
 	private PostSingleService mPostService = new PostSingleService();
   
   public PostEditPresenter(PostEditController controller) throws Exception {
@@ -30,9 +30,6 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
 
 		mPostService.fetchPost(new Object(), mController.postEditId);
 		mView.content = mPostService.getPost().getContent();
-		mView.username = mPostService.getPost().getUsername();
-		mView.subject = mPostService.getPost().getSubject();
-		mView.tags = mPostService.getPost().getTagsString();
 		mView.thread= mController.threadId;
 		mView.postId = mController.postEditId;
     
@@ -40,7 +37,7 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
     mView.loggedIn = SessionUtils.isLoggedIn(request);
     mView.isAdmin = request.getSession(true).getAttribute("admin")!=null;
 
-    Presenter.Utils.clearViewStateFromSEssion(request, PostEditView.class);
+    Presenter.Utils.clearViewStateFromSession(request, PostEditView.class);
     return mView;
   }
 
@@ -48,10 +45,10 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
   public Response onPost(HttpServletRequest request) throws Exception {
     super.onPost(request);
     
-    mThreadEditService.fetch(new Object(), request, 
+    mPostEditService.fetch(new Object(), request, 
         mController.content, 
         mController.postEditId);
-    ThreadEditOutput output = mThreadEditService.getOutput();
+    PostEditOutput output = mPostEditService.getOutput();
     if(output.getErrorMessage()==null || output.getErrorMessage().trim().length()==0) {
       String url = new ThreadUrlGenerator().createThreadUrl(mController.threadId);
       return Response.seeOther(new URI(url)).build();
