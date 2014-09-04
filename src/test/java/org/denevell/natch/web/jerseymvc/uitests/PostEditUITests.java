@@ -2,14 +2,15 @@ package org.denevell.natch.web.jerseymvc.uitests;
 
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostEditPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadEditPo;
 import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.TestUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
 public class PostEditUITests {
@@ -19,7 +20,7 @@ public class PostEditUITests {
   private LoginoutPo loginPo;
   private ThreadAddPo addthreadPo;
   private PostAddPo addpostPo;
-  private ThreadEditPo threadEditPo;
+  private PostEditPo postEditPo;
 
   @Before
   public void setup() throws Exception {
@@ -30,7 +31,7 @@ public class PostEditUITests {
     loginPo = new LoginoutPo(driver);
     addthreadPo = new ThreadAddPo(driver);
     addpostPo = new PostAddPo(driver);
-    threadEditPo = new ThreadEditPo(driver);
+    postEditPo = new PostEditPo(driver);
     registerPo.register("aaron", "aaron", "");
     loginPo.logout();
     registerPo.register("aaron2", "aaron2", "");
@@ -46,58 +47,56 @@ public class PostEditUITests {
     driver.quit();
   }
 
-	/*
-	@Test
-	public void shouldNotSeeEditMarksWhenNotLoggedInOrLoggedInAsAnother() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        
-		// Act  - add posts
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        
-        // Assert Edit is there when logged in 
-        String pageText = driver.getPageSource();
-        assertTrue(pageText.toLowerCase().contains("[Edit]".toLowerCase()));
-        
-        // Act - logout
-        String currentUrl = driver.getCurrentUrl();
-        LogonUITests.logout(driver);
-        driver.get(currentUrl);
-        
-        // Assert - Delete is not there when logged out 
-        pageText = driver.getPageSource();
-        assertFalse(pageText.toLowerCase().contains("[Edit]".toLowerCase()));
-        
-        // Act - login as someone else and go back and check for marks
-        LogonUITests.logout(driver);
-		LogonUITests.logonCorrectlyAsUserTwo(driver);
-        driver.get(currentUrl);
-        
-        // Assert - Delete is not there when logged out 
-        pageText = driver.getPageSource();
-        assertFalse(pageText.toLowerCase().contains("[Edit]".toLowerCase()));
-	}
+  @Test
+  public void shouldShowEditThreadLink() throws InterruptedException {
+    loginPo
+      .login("aaron", "aaron");
+    addthreadPo
+      .add("s", "b", "c")
+      .gotoThread(0);
+    addpostPo
+      .add("pooost");
+    postEditPo
+      .hasEditPostMarker(0, false)
+      .hasEditPostMarker(1, true);
+  }
 
-	@Test
-	public void shouldSeeEditMarksWhenAdmin() throws InterruptedException {
-		// Arrange - login as non admin, add a thread and post
-		LogonUITests.logonCorrectlyAsUserTwo(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        
-        // Act - login as admin and see delete markers
-        LogonUITests.logout(driver);
-		LogonUITests.logonCorrectly(driver);
-        String pageText = driver.getPageSource();
-        boolean edit = pageText.toLowerCase().contains("[Edit]".toLowerCase());
-        boolean editthread = pageText.toLowerCase().contains("[Edit thread]".toLowerCase());
-        
-        // Assert
-        assertTrue(edit);
-        assertTrue(editthread);
-	}	
-	
+  @Test
+  public void shouldntShowEditThreadLinkOnLoggedOut() throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("pooost");
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout();
+    driver.get(url);
+    postEditPo.hasEditPostMarker(1, false);
+  }
+
+  @Test
+  public void shouldntShowEditThreadLinkOnDifferentUser() throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("pooost");
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout().login("aaron2", "aaron2");
+    driver.get(url);
+    postEditPo.hasEditPostMarker(1, false);
+  }
+
+  @Test
+  public void shouldSeeEditAsAdmin() throws InterruptedException {
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout().login("aaron", "aaron");
+    driver.get(url);
+    postEditPo.hasEditPostMarker(1, true);
+  }
+  /*
 	@Test
 	public void shouldSeeEditPageWithSubjectTagsHidden() throws InterruptedException {
 		// Arrange

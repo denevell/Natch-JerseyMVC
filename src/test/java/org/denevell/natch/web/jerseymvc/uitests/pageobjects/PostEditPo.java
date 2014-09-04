@@ -30,10 +30,7 @@ public class PostEditPo {
     return this;
   }
 
-  public PostEditPo editAsContent(String subject, String content) {
-    WebElement sub = driver.findElement(By.name("subject"));
-    sub.clear();
-    sub.sendKeys(subject);
+  public PostEditPo editAsContent(String content) {
     WebElement cont = driver.findElement(By.name("content"));
     cont.clear();
     cont.sendKeys(content);
