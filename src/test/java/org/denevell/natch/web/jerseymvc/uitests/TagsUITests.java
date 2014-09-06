@@ -50,16 +50,9 @@ public class TagsUITests {
 	
 	@Test
 	public void shouldSeeAddedTagsOnMainPage() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "omgatag,andanotheromgomg").gotoThread(0);
 		
-		// Act 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "omgatag,andanotheromgomg";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        driver.get(URLs.HOMEPAGE);
-        
         // Assert
         String pageText = driver.getPageSource();
         boolean tag1 = pageText.contains("omgatag");
@@ -70,15 +63,9 @@ public class TagsUITests {
 
 	@Test
 	public void shouldSeeTagsInThread () throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "omgatag,andanotheromgomg").gotoThread(0);
 		
-		// Act - Add thread 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "omgatag,andanotheromgomg";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        
         // Assert
         String pageText = driver.getPageSource();
         boolean tag1 = pageText.contains("omgatag");
@@ -89,15 +76,9 @@ public class TagsUITests {
 	
 	@Test
 	public void shouldSeeEditedTagsDelete() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "omgatag,andanotheromgomg").gotoThread(0);
 		
-		// Arrange - Add thread 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "omgatag,andanotheromgomg";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        
         // Act
 		driver.findElement(By.linkText("[Edit thread]")).click();
 		driver.findElement(By.name("content")).sendKeys("EDITEDC");
@@ -117,16 +98,9 @@ public class TagsUITests {
 	
 	@Test
 	public void shouldSeeEditedTagsAdd() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "omgatag,andanotheromgomg").gotoThread(0);
 		
-		// Arrange - Add thread 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "omgatag,andanotheromgomg";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        
-        // Act
 		driver.findElement(By.linkText("[Edit thread]")).click();
 		driver.findElement(By.name("content")).sendKeys("EDITEDC");
 		driver.findElement(By.name("subject")).sendKeys("SUBJECTS");
@@ -147,19 +121,12 @@ public class TagsUITests {
 
 	@Test
 	public void shouldClickOnTagOnSingleThreadPage() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo
+    .add("s", "b", "omgatag1")
+    .add("s", "b", "tag2")
+    .gotoThread(1);
 		
-		// Act - Add threads 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "tag1";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-		subject = "othersubject";
-        content = "othercontent";
-        tags = "tag2";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        
         // Act - click on tag
         driver.findElement(By.linkText("tag2")).click();
         
@@ -177,20 +144,11 @@ public class TagsUITests {
 	
 	@Test
 	public void shouldClickOnTagOnThreadsList() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo
+    .add("s", "b", "tag1")
+    .add("s", "b", "tag2").gotoThread(1);
 		
-		// Act - Add threads 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "tag1";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-		subject = "othersubject";
-        content = "othercontent";
-        tags = "tag2";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        driver.get(URLs.HOMEPAGE);
-        
         // Act - click on tag
         driver.findElement(By.linkText("tag2")).click();
         
@@ -219,15 +177,9 @@ public class TagsUITests {
 	
 	@Test
 	public void shouldOnlySeeThreeTagsOnMainPage() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "tag1,tag2,tag3,tag4").gotoThread(0);
 		
-		// Act - Add threads 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "tag1,tag2,tag3,tag4";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        
         // Act - click on other tag
         driver.get(URLs.HOMEPAGE);
         
@@ -245,15 +197,9 @@ public class TagsUITests {
 	
 	@Test
 	public void shouldOnlySee15charactersPerTagOnMainPage() throws InterruptedException {
-		// Arrange - logon
-		LogonUITests.logonCorrectly(driver);
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "#####|||||!!!!!$").gotoThread(0);
 		
-		// Act - Add threads 
-		String subject = "subjy";
-        String content = "cccont";
-        String tags = "#####|||||!!!!!$";
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, subject, content, tags);
-        
         // Act - click on other tag
         driver.get(URLs.HOMEPAGE);
         
