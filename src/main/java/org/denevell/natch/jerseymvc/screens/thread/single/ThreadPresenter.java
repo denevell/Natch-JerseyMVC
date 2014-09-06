@@ -64,7 +64,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			if(i==0 && mController.start==0 && mView.loggedInCorrectly) {
 			  e.hasEditThreadText = true;
 			}
-			if(i!=0 && mView.loggedInCorrectly) {
+			if((i!=0 || mController.start>1) && mView.loggedInCorrectly) {
 			  e.hasEditPostText = true;
 			}
 			e.editedByAdmin = p.isAdminEdited();

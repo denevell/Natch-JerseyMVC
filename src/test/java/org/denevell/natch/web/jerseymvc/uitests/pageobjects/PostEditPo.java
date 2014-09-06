@@ -24,8 +24,8 @@ public class PostEditPo {
     
   }
 
-  public PostEditPo pressEditPost() {
-    WebElement view = driver.findElement(By.id("post_0"));
+  public PostEditPo pressEditPost(int num) {
+    WebElement view = driver.findElement(By.id("post_"+num));
     view.findElement(By.partialLinkText("edit post")).click();
     return this;
   }
@@ -52,6 +52,22 @@ public class PostEditPo {
         // Fine
       }
     }
+    return this;
+  }
+
+  public PostEditPo hasEditContent(String content, boolean b) {
+    WebElement contentInput = null; 
+		try {
+      contentInput = driver.findElement(By.name("content"));
+    } catch (Exception e) {
+      org.junit.Assert.assertTrue("Can't find content element", false);
+      return this;
+    }
+		if(b) {
+		  org.junit.Assert.assertTrue("Can see content", contentInput.getText().contains(content));
+		} else {
+		  org.junit.Assert.assertFalse("Can see content", contentInput.getText().contains(content));
+		}
     return this;
   }
 

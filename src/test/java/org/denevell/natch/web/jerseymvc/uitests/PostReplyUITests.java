@@ -48,7 +48,7 @@ public class PostReplyUITests {
 	}
 	
 	@Test
-	public void shouldReplyToPost() throws InterruptedException {
+	public void shouldReplyToPostWithMarkdown() throws InterruptedException {
 		loginPo
 			.login("aaron", "aaron");
 		addthreadPo

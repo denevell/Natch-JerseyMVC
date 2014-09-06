@@ -96,63 +96,48 @@ public class PostEditUITests {
     driver.get(url);
     postEditPo.hasEditPostMarker(1, true);
   }
-  /*
+
 	@Test
-	public void shouldSeeEditPageWithSubjectTagsHidden() throws InterruptedException {
-		// Arrange
-		LogonUITests.logonCorrectly(driver);
-		
-		// Act
-		AddThreadUITests.fromHomepageAddAndGotoThread(driver, "ax", "bx", "cx");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-		driver.findElement(By.linkText("[Edit]")).click();
-		
-		// Assert 
-		WebElement contentIntput = driver.findElement(By.name("content"));
-		assertNotNull(contentIntput);
-		assertTrue("Can see edit thread submit button", driver.getPageSource().contains("Edit"));
-		
-		assertTrue("Can see content", driver.getPageSource().contains("xxx"));
+	public void shouldSeeEditPage() throws InterruptedException {
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    postEditPo.pressEditPost(1).hasEditContent("hiya", true);
 	}	
 	
 	@Test
-	public void shouldEditPost() throws InterruptedException {
-		// Arrange
-		LogonUITests.logonCorrectly(driver);
-		// Arrange - Add post 
-		AddThreadUITests.fromHomepageAddAndGotoThread(driver, "ax", "bx", "cx");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        String oldUrl = driver.getCurrentUrl();
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        AddPostToThreadUITests.shouldAddPost("**pagetwo**", driver);
-        String secondPageUrl = driver.getCurrentUrl();
-        assertNotEquals("Gone to second page", oldUrl, secondPageUrl);
-		
-        // Act 
-		driver.findElement(By.linkText("[Edit]")).click();
-
-		// Assert - can see text to edit
-        Pattern p = Pattern.compile(".*\\*\\*pagetwo\\*\\*.*", Pattern.DOTALL);
-        String pageSource = driver.getPageSource();
-		Matcher m = p.matcher(pageSource);
-        boolean b = m.matches();
-        assertTrue("Can see markdown in edit box, not html", b);
-
-        // Act - submit edited text
-		editWhileOnEditPage(driver, "EDITEDC");		
-        
-        // Assert
-        String currentUrl = driver.getCurrentUrl();
-        assertEquals("Gone to second page", currentUrl, secondPageUrl);
-        String pageText = driver.getPageSource();
-        boolean post = pageText.contains("EDITEDC");
-        boolean author = pageText.contains("aaron");
-        assertTrue("Expected post", post);
-        assertTrue("Expected author", author);        
+	public void shouldEditPostAndGoBackToPaginatedPage() throws InterruptedException {
+    // Add a page and two posts of data
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    String pageOneUrl = driver.getCurrentUrl();
+    addpostPo.addPagePlusOneOfPosts();
+    String pageTwoUrl = driver.getCurrentUrl();
+		org.junit.Assert.assertNotEquals("Gone to second page", pageOneUrl, pageTwoUrl);
+    // Act - submit edited text
+    postEditPo.pressEditPost(0).editAsContent("hiyaXQQ");
+    addpostPo.hasPost(0, "hiyaXQQ");
+    addpostPo.hasAuthor(0, "aaron");
+    // Are on second page still
+		String currentUrl = driver.getCurrentUrl();
+		org.junit.Assert.assertEquals("Gone to second page", currentUrl, pageTwoUrl);
 	}
 
+	@Test
+	public void shouldEditPostAndSeeMarkdown() throws InterruptedException {
+    // Add a page and two posts of data
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("**hi**");
+    addpostPo.hasPost(1, "hi", true);
+    addpostPo.hasPost(1, "**hi**", false);
+    // Act - submit edited text
+    postEditPo.pressEditPost(1).hasEditContent("**hi**", true).editAsContent("**there**");
+    addpostPo.hasPost(1, "there", true);
+    addpostPo.hasPost(1, "**there**", false);
+	}
+	
+	/*
 	@Test
 	public void shouldFailThenSucceedToEditPost() throws InterruptedException {
 		// Arrange

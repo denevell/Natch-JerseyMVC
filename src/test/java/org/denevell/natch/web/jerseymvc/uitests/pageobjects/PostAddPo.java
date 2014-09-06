@@ -28,11 +28,19 @@ public class PostAddPo {
         return this;
 	}
 
-	public PostAddPo hasPost(int i, String string) {
+	public PostAddPo hasPost(int i, String string) { 
+	  return hasPost(i,  string, true);
+	}
+
+	public PostAddPo hasPost(int i, String string, boolean b) {
 		WebElement thread = driver.findElement(By.id("post_" + i));
         WebElement title = thread.findElement(By.id("post_content"));
         String text = title.getText();
-		org.junit.Assert.assertTrue("Should have post", text.contains(string));
+        if(b) {
+          org.junit.Assert.assertTrue("Should have post", text.contains(string));
+        } else {
+          org.junit.Assert.assertFalse("Shouldn't have post", text.contains(string));
+        }
 		return this;
 	}
 

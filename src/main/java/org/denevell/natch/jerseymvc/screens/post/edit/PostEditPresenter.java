@@ -32,6 +32,8 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
 		mView.content = mPostService.getPost().getContent();
 		mView.thread= mController.threadId;
 		mView.postId = mController.postEditId;
+		mView.start = mController.start;
+		mView.limit = mController.limit;
     
     // Logged in info
     mView.loggedIn = SessionUtils.isLoggedIn(request);
@@ -50,7 +52,7 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
         mController.postEditId);
     PostEditOutput output = mPostEditService.getOutput();
     if(output.getErrorMessage()==null || output.getErrorMessage().trim().length()==0) {
-      String url = new ThreadUrlGenerator().createThreadUrl(mController.threadId);
+      String url = new ThreadUrlGenerator().createThreadUrl(mController.threadId, mController.start, mController.limit);
       return Response.seeOther(new URI(url)).build();
     } else {
       mView.error = output.getErrorMessage();
