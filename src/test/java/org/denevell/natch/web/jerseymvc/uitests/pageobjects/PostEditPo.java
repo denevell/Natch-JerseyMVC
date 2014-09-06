@@ -71,4 +71,15 @@ public class PostEditPo {
     return this;
   }
 
+  public PostEditPo submitButtonDisabled(boolean b) {
+    WebElement submit = driver.findElement(By.id("editpost_submit_input"));
+    String attribute = submit.getAttribute("disabled");
+    if(b) {
+      org.junit.Assert.assertTrue("Submit button should be disabled", attribute.equals("true"));
+    } else {
+      org.junit.Assert.assertFalse("Submit button should be disabled", attribute.equals("true"));
+    }
+    return this;
+  }
+
 }

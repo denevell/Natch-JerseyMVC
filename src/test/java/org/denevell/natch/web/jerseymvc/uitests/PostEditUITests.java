@@ -137,79 +137,41 @@ public class PostEditUITests {
     addpostPo.hasPost(1, "**there**", false);
 	}
 	
-	/*
 	@Test
 	public void shouldFailThenSucceedToEditPost() throws InterruptedException {
-		// Arrange
-		LogonUITests.logonCorrectly(driver);
-		// Arrange - Add post 
-		AddThreadUITests.fromHomepageAddAndGotoThread(driver, "ax", "bx", "cx");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-		
-        // Act 
-		driver.findElement(By.linkText("[Edit]")).click();
-		driver.findElement(By.name("content")).clear();
-		driver.findElement(By.name("content")).sendKeys(" ");
-        driver.findElement(By.id("editpost_submit_input")).click();		
-        
-        // Assert
-        assertTrue(driver.getCurrentUrl().startsWith(URLs.EDITPOST));
-        
-        // Act - try again
-		driver.findElement(By.name("content")).sendKeys("blar");
-        driver.findElement(By.id("editpost_submit_input")).click();		
-        
-        // Assert
-        String pageText = driver.getPageSource();
-        boolean post = pageText.contains("blar");
-        boolean author = pageText.contains("aaron");
-        assertTrue("Expected post", post);
-        assertTrue("Expected author", author);     
-	}			
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    postEditPo.pressEditPost(1).editAsContent("").shouldSeeErrorValue(true);
+    postEditPo.editAsContent("hiya33");
+    addpostPo.hasPost(1, "hiya33");
+    addpostPo.hasAuthor(1, "aaron");
+	}
 
 	@Test
 	public void shouldEditAsAdminAndSeeText() throws InterruptedException {
-		// Arrange - login as non admin, add a thread and post
-		LogonUITests.logonCorrectlyAsUserTwo(driver);
-        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "s", "b", "c");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-        
-        // Act - login as admin and see delete markers
-        LogonUITests.logout(driver);
-		LogonUITests.logonCorrectly(driver);
-        driver.findElement(By.linkText("[Edit]")).click();
-        editWhileOnEditPage(driver, "Admin edited");
- 
-        // Assert
-        boolean hasOldText = driver.getPageSource().toLowerCase().contains("xxx".toLowerCase());
-        boolean edited = driver.getPageSource().toLowerCase().contains("Admin edited".toLowerCase());
-        boolean editedByAdmin = driver.getPageSource().toLowerCase().contains("Edited by an admin".toLowerCase());
-        assertFalse("No longer has previously added text", hasOldText);
-        assertTrue("Has edited post", edited);
-        assertTrue("See admin edited statement", editedByAdmin);
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout().login("aaron", "aaron");
+    addthreadPo.gotoThread(0);
+    postEditPo.pressEditPost(1).editAsContent("aaaadddmmmiin");
+    addpostPo.hasPost(1, "aaaadddmmmiin").hasAuthor(1, "aaron2");
+    addpostPo.hasEditedByAdminFlag(1);
 	}	
 	
 	@Test
 	public void shouldntBeAbleToEditWhenNotLoggedIn() throws InterruptedException {
-		// Arrange
-		LogonUITests.logonCorrectly(driver);
-		
-		// Act
-		AddThreadUITests.fromHomepageAddAndGotoThread(driver, "ax", "bx", "cx");
-        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-		driver.findElement(By.linkText("[Edit]")).click();
-		
-        // Act - logout
-        String currentUrl = driver.getCurrentUrl();
-        LogonUITests.logout(driver);
-        driver.get(currentUrl);		
-		
-		// Assert 
-		WebElement submit = driver.findElement(By.id("editpost_submit_input"));
-        String attribute = submit.getAttribute("disabled");
-		assertTrue("Submit should be disabled", attribute.equals("true"));
-        assertTrue(driver.getPageSource().contains("please login"));
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    postEditPo.pressEditPost(1);
+    String url = driver.getCurrentUrl();
+    driver.get(URLs.HOMEPAGE);
+    loginPo.logout();
+    driver.get(url);
+    postEditPo.submitButtonDisabled(true);
 	}		
-	*/
 
 }

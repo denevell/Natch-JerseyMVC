@@ -58,12 +58,12 @@ public class PostAddPo {
 		return this;
 	}
 
-	public PostAddPo  submitButtonIsDisabled() {
-        WebElement submit = driver.findElement(By.id("addpost_form_submit"));
-        String attribute = submit.getAttribute("disabled");
-		org.junit.Assert.assertTrue("Submit button should be disabled", attribute.equals("true"));
-		return this;
-	}
+  public PostAddPo submitButtonIsDisabled() {
+    WebElement submit = driver.findElement(By.id("addpost_form_submit"));
+    String attribute = submit.getAttribute("disabled");
+    org.junit.Assert.assertTrue("Submit button should be disabled", attribute.equals("true"));
+    return this;
+  }
 
 	public PostAddPo hasPleaseLogonToAddPost() {
         String source = driver.getPageSource();
