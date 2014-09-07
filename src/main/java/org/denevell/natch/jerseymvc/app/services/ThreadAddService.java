@@ -25,6 +25,7 @@ public class ThreadAddService {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
 			ThreadAddInput entity = new ThreadAddInput(subject, content);
+			entity.setTags(tags);
 			mAddThread = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
 				.path("rest").path("post").path("addthread").request()

@@ -23,6 +23,11 @@
 	        <input type="submit" id="delete_thread_form_submit" value="delete thread" />
 		</form>
 		{{/loggedInCorrectly}}
+	 	<div id="tags">
+	 	 {{#tags}}
+	 	   <span class="tag">{{.}}</span>
+	 	 {{/tags}}
+		</div>
 	 	<h3 id="thread_subject">
 	           {{subject}}
 		</h3>

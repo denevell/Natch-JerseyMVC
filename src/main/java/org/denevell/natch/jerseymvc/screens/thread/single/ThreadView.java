@@ -12,6 +12,7 @@ public class ThreadView {
 	public boolean loggedInCorrectly;
 	public int rootPostId;
 	public String subject;
+  public List<String> tags;
 	public List<Post> posts = new ArrayList<>();
 	public String next;
 	public String prev;

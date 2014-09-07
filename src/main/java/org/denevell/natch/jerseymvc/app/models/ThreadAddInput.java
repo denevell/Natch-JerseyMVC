@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.app.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -64,9 +65,13 @@ public class ThreadAddInput {
 		return tags;
 	}
 
-    @XmlElement(name="tags")
+  @XmlElement(name="tags")
 	public void setTags(List<String> tags) {
 		this.tags = tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = Arrays.asList(tags.split(","));
 	}
 
 }

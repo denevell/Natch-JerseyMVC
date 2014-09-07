@@ -119,9 +119,44 @@ public class ThreadAddPo {
 		return this;
 	}
 
-	public void seeEmptyThreadsMessage() {
-        boolean emptyText = driver.getPageSource().contains("No content as yet!");
-        org.junit.Assert.assertTrue(emptyText);
-	}
+  public ThreadAddPo seeEmptyThreadsMessage() {
+    boolean emptyText = driver.getPageSource().contains("No content as yet!");
+    org.junit.Assert.assertTrue(emptyText);
+    return this;
+  }
+
+  public ThreadAddPo hasTag(int i, String string, boolean b) {
+    WebElement thread = driver.findElement(By.id("thread_" + i));
+    WebElement tags = thread.findElement(By.id("tags"));
+    if (b) {
+      org.junit.Assert.assertTrue("Should see tag", tags.getText().contains(string));
+    } else {
+      org.junit.Assert.assertFalse("Shouldn't see tag", tags.getText().contains(string));
+    }
+    return this;
+  }
+
+  public ThreadAddPo numberOfTags(int threadNum, int tagsNum) {
+    WebElement thread = driver.findElement(By.id("thread_" + threadNum));
+    WebElement tags = thread.findElement(By.id("tags"));
+    org.junit.Assert.assertEquals(tagsNum, tags.findElements(By.className("tag")).size());
+    return this;
+  }
+
+  public ThreadAddPo hasTagInThreadPage(int i, String string, boolean b) {
+    WebElement tags = driver.findElement(By.id("tags"));
+    if (b) {
+      org.junit.Assert.assertTrue("Should see tag", tags.getText().contains(string));
+    } else {
+      org.junit.Assert.assertFalse("Shouldn't see tag", tags.getText().contains(string));
+    }
+    return this;
+  }
+
+  public ThreadAddPo numberOfTagsInThreadPage(int threadNum, int tagsNum) {
+    WebElement tags = driver.findElement(By.id("tags"));
+    org.junit.Assert.assertEquals(tagsNum, tags.findElements(By.className("tag")).size());
+    return this;
+  }
 
 }

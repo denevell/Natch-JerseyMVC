@@ -33,6 +33,7 @@ public class ThreadsView {
 		public String subject;
 		public String author;
 		public String lastModifiedDate;
+    public List<String> tags;
 	}
 
 }

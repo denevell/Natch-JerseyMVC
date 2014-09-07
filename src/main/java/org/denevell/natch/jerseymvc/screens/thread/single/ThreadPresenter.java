@@ -26,22 +26,23 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 		mController = controller;
 	}
 
-	@Override
-	public ThreadView onGet(HttpServletRequest request) throws Exception {
-		super.onGet(request);
-		
-		// Model call
-		mModel = new ThreadService(mController.start, mController.limit, mController.threadId).model();
-		
-		// Get logged in user
-    	mView.loggedInCorrectly = getCorrectlyLoggedIn(request);
-    	mView.loggedIn = SessionUtils.isLoggedIn(request);
-		
-		// Root post id
-    	mView.rootPostId = (int) mModel.getRootPostId();
-		
-		// Get subject
-    	mView.subject = mModel.getSubject();
+  @Override
+  public ThreadView onGet(HttpServletRequest request) throws Exception {
+    super.onGet(request);
+
+    // Model call
+    mModel = new ThreadService(mController.start, mController.limit, mController.threadId).model();
+
+    // Get logged in user
+    mView.loggedInCorrectly = getCorrectlyLoggedIn(request);
+    mView.loggedIn = SessionUtils.isLoggedIn(request);
+
+    // Root post id
+    mView.rootPostId = (int) mModel.getRootPostId();
+
+    // Get subject
+    mView.subject = mModel.getSubject();
+    mView.tags = mModel.getTags();
 
 		// Set posts in template
 		int postsSize = mModel.getPosts().size();
@@ -49,9 +50,13 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			PostOutput p = mModel.getPosts().get(i);
 			Post e = new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime());
 			e.parentThreadId = mModel.getId();
+			e.editedByAdmin = p.isAdminEdited();
+			  
+			// Logged in info
 			e.loggedInCorrectly = mView.loggedInCorrectly;
 			e.isAdmin = SessionUtils.isAdmin(request);
 
+			// Pagination
 			e.returnToThreadFromDeletePostLimitParam = mController.limit; 
 			e.returnToThreadFromReplyStartParam = mController.start;
 			e.returnToThreadFromEditStartParam = mController.start;
@@ -67,7 +72,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			if((i!=0 || mController.start>1) && mView.loggedInCorrectly) {
 			  e.hasEditPostText = true;
 			}
-			e.editedByAdmin = p.isAdminEdited();
+
 			mView.posts.add(e); 
 		}
     	
