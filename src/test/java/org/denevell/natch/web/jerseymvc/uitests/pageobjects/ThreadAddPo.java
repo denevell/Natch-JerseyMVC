@@ -143,7 +143,7 @@ public class ThreadAddPo {
     return this;
   }
 
-  public ThreadAddPo hasTagInThreadPage(int i, String string, boolean b) {
+  public ThreadAddPo hasTagInThreadPage(String string, boolean b) {
     WebElement tags = driver.findElement(By.id("tags"));
     if (b) {
       org.junit.Assert.assertTrue("Should see tag", tags.getText().contains(string));
@@ -153,7 +153,7 @@ public class ThreadAddPo {
     return this;
   }
 
-  public ThreadAddPo numberOfTagsInThreadPage(int threadNum, int tagsNum) {
+  public ThreadAddPo numberOfTagsInThreadPage(int tagsNum) {
     WebElement tags = driver.findElement(By.id("tags"));
     org.junit.Assert.assertEquals(tagsNum, tags.findElements(By.className("tag")).size());
     return this;

@@ -5,6 +5,7 @@ import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostEditPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadEditPo;
 import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.TestUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
@@ -22,6 +23,7 @@ public class TagsUITests {
   private ThreadAddPo addthreadPo;
   private PostAddPo addpostPo;
   private PostEditPo postEditPo;
+  private ThreadEditPo threadEditPo;
 
   @Before
   public void setup() throws Exception {
@@ -33,6 +35,7 @@ public class TagsUITests {
     addthreadPo = new ThreadAddPo(driver);
     addpostPo = new PostAddPo(driver);
     postEditPo = new PostEditPo(driver);
+    threadEditPo = new ThreadEditPo(driver);
     registerPo.register("aaron", "aaron", "");
     loginPo.logout();
     registerPo.register("aaron2", "aaron2", "");
@@ -61,8 +64,8 @@ public class TagsUITests {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "xomgatag,xandanotheromgomg").gotoThread(0);
 		
-    addthreadPo.hasTagInThreadPage(0, "xomgatag", true).hasTagInThreadPage(0, "xandanotheromgomg", true);
-    addthreadPo.numberOfTagsInThreadPage(0, 2);
+    addthreadPo.hasTagInThreadPage("xomgatag", true).hasTagInThreadPage("xandanotheromgomg", true);
+    addthreadPo.numberOfTagsInThreadPage(2);
 	}		
 	
 	@Test
@@ -82,52 +85,34 @@ public class TagsUITests {
     addthreadPo.hasTag(0, "#####|||||!!!!!...", true);
     addthreadPo.numberOfTags(0, 1);
 	}			
-  /*
-	
+
 	@Test
 	public void shouldSeeEditedTagsDelete() throws InterruptedException {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "omgatag,andanotheromgomg").gotoThread(0);
-		
-        // Act
-		driver.findElement(By.linkText("[Edit thread]")).click();
-		driver.findElement(By.name("content")).sendKeys("EDITEDC");
-		driver.findElement(By.name("subject")).sendKeys("SUBJECTS");
-		driver.findElement(By.name("tags")).clear();
-		driver.findElement(By.name("tags")).sendKeys("omgatag");
-	    driver.findElement(By.id("editpost_submit_input")).click();		        
-        driver.get(URLs.HOMEPAGE);
-
-        // Assert
-        String pageText = driver.getPageSource();
-        boolean tag1 = pageText.contains("omgatag");
-        boolean tag2 = !pageText.contains("andanotheromgomg");
-        assertTrue("Expected tag1", tag1);
-        assertTrue("Expected missing tag2", tag2);
+    threadEditPo.pressEditThread();
+    threadEditPo.editAsContent("Sub", "Cont", "omgatag");
+    addthreadPo.hasTagInThreadPage("omgatag", true);
+    addthreadPo.numberOfTagsInThreadPage(1);
+    driver.get(URLs.HOMEPAGE);
+    addthreadPo.hasTag(0, "omgatag", true);
+    addthreadPo.numberOfTags(0, 1);   
 	}
 	
 	@Test
 	public void shouldSeeEditedTagsAdd() throws InterruptedException {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "omgatag,andanotheromgomg").gotoThread(0);
-		
-		driver.findElement(By.linkText("[Edit thread]")).click();
-		driver.findElement(By.name("content")).sendKeys("EDITEDC");
-		driver.findElement(By.name("subject")).sendKeys("SUBJECTS");
-		driver.findElement(By.name("tags")).clear();
-		driver.findElement(By.name("tags")).sendKeys("omgatag,andanotheromgomg,tag");
-	    driver.findElement(By.id("editpost_submit_input")).click();		        
-        driver.get(URLs.HOMEPAGE);
-
-        // Assert
-        String pageText = driver.getPageSource();
-        boolean tag1 = pageText.contains("omgatag");
-        boolean tag2 = pageText.contains("andanotheromgomg");
-        boolean tag3 = pageText.contains("tag");
-        assertTrue("Expected tag1", tag1);
-        assertTrue("Expected tag2", tag2);
-        assertTrue("Expected tag2", tag3);
+    threadEditPo.pressEditThread();
+    threadEditPo.editAsContent("Sub", "Cont", "omgatag,andanotheromgomg,yeah");
+    addthreadPo.hasTagInThreadPage("yeah", true);
+    addthreadPo.numberOfTagsInThreadPage(3);
+    driver.get(URLs.HOMEPAGE);
+    addthreadPo.hasTag(0, "yeah", true);
+    addthreadPo.numberOfTags(0, 3);   
 	}	
+
+	/*
 
 	@Test
 	public void shouldClickOnTagOnSingleThreadPage() throws InterruptedException {

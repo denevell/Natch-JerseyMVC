@@ -31,12 +31,21 @@ public class ThreadEditPo {
   }
 
   public ThreadEditPo editAsContent(String subject, String content) {
+    return editAsContent(subject, content, null);
+  }
+
+  public ThreadEditPo editAsContent(String subject, String content, String tags) {
     WebElement sub = driver.findElement(By.name("subject"));
     sub.clear();
     sub.sendKeys(subject);
     WebElement cont = driver.findElement(By.name("content"));
     cont.clear();
     cont.sendKeys(content);
+    if(tags!=null) {
+      WebElement tagsEle = driver.findElement(By.name("tags"));
+      tagsEle.clear();
+      tagsEle.sendKeys(tags);
+    }
     driver.findElement(By.id("editpost_submit_input")).click();
     return this;
   }
@@ -58,5 +67,6 @@ public class ThreadEditPo {
     }
     return this;
   }
+
 
 }
