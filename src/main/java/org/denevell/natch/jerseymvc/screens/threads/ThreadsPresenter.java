@@ -1,6 +1,9 @@
 package org.denevell.natch.jerseymvc.screens.threads;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
@@ -41,7 +44,9 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
 		for(int i = 0; i<mThreadsService.mThreads.getThreads().size(); i++) {
 			ThreadOutput t = mThreadsService.mThreads.getThreads().get(i);
 			ThreadsView.Thread e = new ThreadsView.Thread(t.getSubject(), t.getAuthor(), t.getLastModifiedDateWithTime(), t.getId(), i);
-			e.tags = t.getTags();
+			List<String> tags = formatTagsList(t);
+      e.tags = tags;
+
       mView.threads.add(e);
 		}
 
@@ -92,5 +97,23 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
     	return Response.seeOther(new URI(url)).build();
 	}
 
+  private List<String> formatTagsList(ThreadOutput t) {
+    List<String> tags = t.getTags();
+    for (int i = 0; i < tags.size(); i++) {
+      String s = tags.get(i);
+      if(s.length()>15) {
+        tags.set(i, s.substring(0, 15)+"...");
+      }
+    }
+    Collections.sort(tags, new Comparator<String>() {
+      @Override public int compare(String o1, String o2) {
+        return o1.compareTo(o2);
+      }
+    });
+    if(tags.size()>3) {
+      tags = tags.subList(0, 3);
+    }
+    return tags;
+  }
 
 }

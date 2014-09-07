@@ -64,41 +64,25 @@ public class TagsUITests {
     addthreadPo.hasTagInThreadPage(0, "xomgatag", true).hasTagInThreadPage(0, "xandanotheromgomg", true);
     addthreadPo.numberOfTagsInThreadPage(0, 2);
 	}		
-  /*
 	
 	@Test
 	public void shouldOnlySeeThreeTagsOnMainPage() throws InterruptedException {
     loginPo.login("aaron", "aaron");
-    addthreadPo.add("s", "b", "tag1,tag2,tag3,tag4").gotoThread(0);
-		
-        // Act - click on other tag
-        driver.get(URLs.HOMEPAGE);
-        
-        // Assert - See all threads 
-        String pageText = driver.getPageSource();
-        boolean tag1 = pageText.contains("tag1");
-        boolean tag2 = pageText.contains("tag2");
-        boolean tag3 = pageText.contains("tag3");
-        boolean tag4 = pageText.contains("tag4");
-        assertTrue("Should see tag", tag1);
-        assertTrue("Should see tag", tag2);
-        assertTrue("Should see tag", tag3);
-        assertFalse("Shouldnt see tag", tag4);
+    addthreadPo.add("s", "b", "tag1,tag2,tag3,tag4,x");
+    addthreadPo.hasTag(0, "tag1", true);
+    addthreadPo.hasTag(0, "tag2", true);
+    addthreadPo.hasTag(0, "tag3", true);
+    addthreadPo.numberOfTags(0, 3);
 	}	
 	
 	@Test
 	public void shouldOnlySee15charactersPerTagOnMainPage() throws InterruptedException {
     loginPo.login("aaron", "aaron");
-    addthreadPo.add("s", "b", "#####|||||!!!!!$").gotoThread(0);
-		
-        // Act - click on other tag
-        driver.get(URLs.HOMEPAGE);
-        
-        // Assert - See all threads 
-        String pageText = driver.getPageSource();
-        boolean tag1 = pageText.contains("#####|||||!!!!!...");
-        assertTrue("Should see truncated tag", tag1);
+    addthreadPo.add("s", "b", "#####|||||!!!!!$");
+    addthreadPo.hasTag(0, "#####|||||!!!!!...", true);
+    addthreadPo.numberOfTags(0, 1);
 	}			
+  /*
 	
 	@Test
 	public void shouldSeeEditedTagsDelete() throws InterruptedException {
