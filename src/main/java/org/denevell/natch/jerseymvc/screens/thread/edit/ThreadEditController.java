@@ -24,6 +24,7 @@ public class ThreadEditController extends TemplateController {
   public String content;
   public String subject;
   public String threadId;
+  public String tags;
 
     @GET
     @Path("{post_edit}")
@@ -47,10 +48,12 @@ public class ThreadEditController extends TemplateController {
         @QueryParam("thread") String threadId,
         @PathParam("post_edit") int postEditId,
         @FormParam("subject") final String subject,
+        @FormParam("tags") final String tags,
         @FormParam("content") final String content 
         ) throws Exception {
     this.postEditId = postEditId;
     this.threadId = threadId;
+    this.tags = tags;
     this.subject = subject;
     this.content = content;
     return new ThreadEditPresenter(this).onPost(mRequest);

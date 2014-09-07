@@ -50,7 +50,8 @@ public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditVi
     
     mThreadEditService.fetch(new Object(), request, 
         mController.subject, 
-        mController.content, 
+        mController.content,
+        mController.tags,
         mController.postEditId);
     ThreadEditOutput output = mThreadEditService.getOutput();
     if(output.getErrorMessage()==null || output.getErrorMessage().trim().length()==0) {

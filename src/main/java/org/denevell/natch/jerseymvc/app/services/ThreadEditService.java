@@ -2,6 +2,8 @@ package org.denevell.natch.jerseymvc.app.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
@@ -24,12 +26,14 @@ public class ThreadEditService {
 			final HttpServletRequest serv,
 			final String subject,
 			final String content,
+			final String tags, 
 			final int id) {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
 		  ThreadEditInput entity = new ThreadEditInput();
 		  entity.setContent(content);
 		  entity.setSubject(subject);
+		  entity.setTags(Arrays.asList(tags.split(",")));
 			mOutput = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
 				.path("rest").path("post").path("editthread").path(String.valueOf(id)).request()
