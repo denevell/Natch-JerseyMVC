@@ -19,14 +19,26 @@ public class ThreadsService {
 		return (int) mThreads.getNumOfThreads();
 	}
 
-	public ThreadsOutput fetchThreads(int start, int limit) {
+	public void fetchThreads(int start, int limit) {
+	    fetchThreads(start, limit, null);
+	}
+
+  public void fetchThreads(int start, int limit, String tag) {
+    if(tag==null || tag.length()==0) {
         mThreads = sService
                 .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
                 .path("rest").path("threads").path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	
-        return mThreads;
-	}
+    } else {
+        mThreads = sService
+                .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+                .path("rest").path("threads").path(tag).path(String.valueOf(start)).path(String.valueOf(limit))
+                .request()
+                .get(ThreadsOutput.class); 	
+      
+    }
+  }
 	
 
 }

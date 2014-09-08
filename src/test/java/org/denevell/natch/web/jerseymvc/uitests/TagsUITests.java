@@ -2,7 +2,6 @@ package org.denevell.natch.web.jerseymvc.uitests;
 
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostEditPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadEditPo;
@@ -22,7 +21,6 @@ public class TagsUITests {
   private LoginoutPo loginPo;
   private ThreadAddPo addthreadPo;
   private PostAddPo addpostPo;
-  private PostEditPo postEditPo;
   private ThreadEditPo threadEditPo;
 
   @Before
@@ -34,7 +32,6 @@ public class TagsUITests {
     loginPo = new LoginoutPo(driver);
     addthreadPo = new ThreadAddPo(driver);
     addpostPo = new PostAddPo(driver);
-    postEditPo = new PostEditPo(driver);
     threadEditPo = new ThreadEditPo(driver);
     registerPo.register("aaron", "aaron", "");
     loginPo.logout();

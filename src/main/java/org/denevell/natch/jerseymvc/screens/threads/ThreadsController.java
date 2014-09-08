@@ -34,15 +34,18 @@ public class ThreadsController extends TemplateController {
 	public String logoutActive;
 	public String resetPwActive;
 	public String resetPwEmail;
+  public String tag;
 
     @GET
     @Template
     public Viewable index(
     		@QueryParam("start") @DefaultValue("0") int start,
-    		@QueryParam("limit") @DefaultValue("10") int limit
+    		@QueryParam("limit") @DefaultValue("10") int limit,
+    		@QueryParam("tag") String tag 
     		) throws Exception {
 		this.start = start;
 		this.limit = limit;
+		this.tag = tag;
     	return createTemplate(
     			new ThreadsPresenter(this).onGet(mRequest)
     	);

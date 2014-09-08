@@ -40,10 +40,15 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
 		super.onGet(request);
 		
 		// Threads
-		mThreadsService.fetchThreads(mController.start, mController.limit);
+		mThreadsService.fetchThreads(mController.start, mController.limit, mController.tag);
 		for(int i = 0; i<mThreadsService.mThreads.getThreads().size(); i++) {
 			ThreadOutput t = mThreadsService.mThreads.getThreads().get(i);
-			ThreadsView.Thread e = new ThreadsView.Thread(t.getSubject(), t.getAuthor(), t.getLastModifiedDateWithTime(), t.getId(), i);
+			ThreadsView.Thread e = new ThreadsView.Thread(
+			    t.getSubject(), 
+			    t.getAuthor(), 
+			    t.getLastModifiedDateWithTime(), 
+			    t.getId(), 
+			    i);
 			List<String> tags = formatTagsList(t);
       e.tags = tags;
 
