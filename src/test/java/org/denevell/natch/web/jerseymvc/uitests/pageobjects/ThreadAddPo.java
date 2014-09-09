@@ -51,10 +51,11 @@ public class ThreadAddPo {
 		return this;
 	}
 
-	public void gotoThread(int i) {
+	public ThreadAddPo gotoThread(int i) {
 		WebElement thread = driver.findElement(By.id("thread_" + i));
         WebElement link = thread.findElement(By.id("thread_subject"));
         link.click();
+        return this;
 	}
 
 	public ThreadAddPo hasPost(int i, String string) {
@@ -156,6 +157,11 @@ public class ThreadAddPo {
   public ThreadAddPo numberOfTagsInThreadPage(int tagsNum) {
     WebElement tags = driver.findElement(By.id("tags"));
     org.junit.Assert.assertEquals(tagsNum, tags.findElements(By.className("tag")).size());
+    return this;
+  }
+
+  public ThreadAddPo clickOnTag(String tagName) {
+    driver.findElement(By.linkText(tagName)).click();
     return this;
   }
 

@@ -71,7 +71,9 @@ Reset password?
                         <span id="thread_author">{{author}}</span> - 
                         <span id="thread_date">{{lastModifiedDate}}</span>
                         <div id="tags">
-                          {{#tags}} <span class="tag">{{.}}</span> {{/tags}}
+                          {{#tags}} 
+                    	 	   <span class="tag"><a href="?start=0&limit=10&tag={{.}}">{{.}}</a></span>
+                          {{/tags}}
                         </div>
                 </li>
         {{/threads}}

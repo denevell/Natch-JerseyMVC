@@ -1,10 +1,10 @@
 package org.denevell.natch.web.jerseymvc.uitests;
 
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
-import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadEditPo;
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadsListPo;
 import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.TestUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
@@ -20,8 +20,8 @@ public class TagsUITests {
   private RegisterPo registerPo;
   private LoginoutPo loginPo;
   private ThreadAddPo addthreadPo;
-  private PostAddPo addpostPo;
   private ThreadEditPo threadEditPo;
+  private ThreadsListPo threadsListPo;
 
   @Before
   public void setup() throws Exception {
@@ -31,8 +31,8 @@ public class TagsUITests {
     registerPo = new RegisterPo(driver);
     loginPo = new LoginoutPo(driver);
     addthreadPo = new ThreadAddPo(driver);
-    addpostPo = new PostAddPo(driver);
     threadEditPo = new ThreadEditPo(driver);
+    threadsListPo = new ThreadsListPo(driver);
     registerPo.register("aaron", "aaron", "");
     loginPo.logout();
     registerPo.register("aaron2", "aaron2", "");
@@ -51,8 +51,8 @@ public class TagsUITests {
 	@Test
 	public void shouldSeeAddedTagsOnMainPage() throws InterruptedException {
     loginPo.login("aaron", "aaron");
-    addthreadPo.add("s", "b", "omgatag,andanotheromgomg");
-    addthreadPo.hasTag(0, "omgatag", true).hasTag(0, "andanotheromgomg", true);
+    addthreadPo.add("s", "b", "omgatag,andanother");
+    addthreadPo.hasTag(0, "omgatag", true).hasTag(0, "andanother", true);
     addthreadPo.numberOfTags(0, 2);
 	}
 
@@ -109,62 +109,35 @@ public class TagsUITests {
     addthreadPo.numberOfTags(0, 3);   
 	}	
 
-	/*
-
 	@Test
 	public void shouldClickOnTagOnSingleThreadPage() throws InterruptedException {
     loginPo.login("aaron", "aaron");
     addthreadPo
-    .add("s", "b", "omgatag1")
-    .add("s", "b", "tag2")
-    .gotoThread(1);
-		
-        // Act - click on tag
-        driver.findElement(By.linkText("tag2")).click();
+    .add("s1", "b", "omgatag1")
+    .add("s2", "b", "tag2").gotoThread(0)
+    .clickOnTag("tag2");
         
-        // Assert
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue("Am now on homepage", currentUrl.startsWith(URLs.HOMEPAGE));
-        String pageText = driver.getPageSource();
-        boolean tag1 = pageText.contains("tag2");
-        boolean subjectIsThere = pageText.contains("othersubject");
-        boolean otherSubjectIsThere = pageText.contains("subjy");
-        assertTrue("Expected tag", tag1);
-        assertTrue("Expected subject", subjectIsThere);
-        assertFalse("Expected other subjet isn't there", otherSubjectIsThere);
+    String currentUrl = driver.getCurrentUrl();
+    org.junit.Assert.assertTrue("Am now on homepage", currentUrl.startsWith(URLs.HOMEPAGE));
+
+    addthreadPo.hasTag(0, "tag2", true);
+    addthreadPo.hasTitle(0, "s2");
+    threadsListPo.hasText("s1", false);
 	}		
-	
+
 	@Test
 	public void shouldClickOnTagOnThreadsList() throws InterruptedException {
     loginPo.login("aaron", "aaron");
     addthreadPo
-    .add("s", "b", "tag1")
-    .add("s", "b", "tag2").gotoThread(1);
-		
-        // Act - click on tag
-        driver.findElement(By.linkText("tag2")).click();
+    .add("s1", "b", "omgatag1")
+    .add("s2", "b", "tag2")
+    .clickOnTag("tag2");
         
-        // Assert - See only that thread
-        String pageText = driver.getPageSource();
-        boolean tag1 = pageText.contains("tag2");
-        boolean subjectIsThere = pageText.contains("othersubject");
-        boolean otherSubjectIsThere = pageText.contains("subjy");
-        assertTrue("Expected tag", tag1);
-        assertTrue("Expected subject", subjectIsThere);
-        assertFalse("Expected other subjet isn't there", otherSubjectIsThere);
+    String currentUrl = driver.getCurrentUrl();
+    org.junit.Assert.assertTrue("Am now on homepage", currentUrl.startsWith(URLs.HOMEPAGE));
 
-        // Act - click on other tag
-        driver.get(URLs.HOMEPAGE);
-        driver.findElement(By.linkText("tag1")).click();
-        
-        // Assert - See only that thread
-        pageText = driver.getPageSource();
-        tag1 = pageText.contains("tag1");
-        subjectIsThere = pageText.contains("subjy");
-        otherSubjectIsThere = pageText.contains("othersubject");
-        assertTrue("Expected tag", tag1);
-        assertTrue("Expected subject", subjectIsThere);
-        assertFalse("Expected other subjet isn't there", otherSubjectIsThere);
+    addthreadPo.hasTag(0, "tag2", true);
+    addthreadPo.hasTitle(0, "s2");
+    threadsListPo.hasText("s1", false);
 	}		
-	*/
 }
