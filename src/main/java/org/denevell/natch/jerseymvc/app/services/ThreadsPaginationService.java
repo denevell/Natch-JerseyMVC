@@ -46,8 +46,8 @@ public class ThreadsPaginationService {
 		}
     	for (int i = 0; i < pages; i++) {
     		String s = createUriForPagination(mRequestUri, i*(mLimit), mLimit).toString();
-    		String startP = "<a id=\"page"+(i+1)+"\" href=\""+s+"\">";
-    		String endP = "</a> | ";
+    		String startP = "<li><a id=\"page"+(i+1)+"\" href=\""+s+"\">";
+    		String endP = "</a></li>";
     		numbers.append(startP + String.valueOf(i+1) + endP);
 		}
     	return numbers.toString();

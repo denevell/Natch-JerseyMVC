@@ -18,6 +18,10 @@ Todo
 * No next icon when no next page
 * Test what happens on 0 start and limit
 * Goto end of thread on replying.
+* Pagination disabled states
+* Disabled add thread button
+* Disabled next / prev button
+* Code that does pagination - hard coded html
 ~~
 
 Backlog

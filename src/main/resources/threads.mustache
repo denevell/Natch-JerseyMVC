@@ -3,9 +3,10 @@
   <head>
       <title>Android Manchester</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta charset="UTF-8" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">      
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       <script src="https://code.jquery.com/jquery-1.11.1.js"></script>      
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
       <style>
 
       html {
@@ -19,7 +20,7 @@
       }
 
       .smaller-input {
-        width: 110px;
+        width: 110px !important;
       }
 
       .nav>li>a {
@@ -170,23 +171,54 @@
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right" style="margin-left: auto; margin-right: auto; float: none;">
-        <li><a style="padding:0px" href="https://play.google.com/store/apps/details?id=com.newfivefour.android.manchester"><img src="res/Android_Market.png" /></a></li>
+        <li><a style="padding:0px" href="https://play.google.com/store/apps/details?id=com.newfivefour.android.manchester"><img src="/res/Android_Market.png" /></a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" style="margin-left: auto; margin-right: auto; float: none;">
+        {{^loggedIn}}
         <li><a href="Register" id="reg_link">Register</a></li>
+        {{/loggedIn}}
+        {{#loggedIn}}
+        <form action="" method="post" class="" style="block:inline">
+          <input name="logout_active" value="yeah" type="hidden" /> 
+          <li>
+            <button id="logout" class="linkButton" type="submit" id="logout_form_submit">Logout</button>
+          </li>
+        </form>
+        {{/loggedIn}}
       </ul>
       <div class="navbar-form navbar-right form-inline" >
+         {{^loggedIn}}
           <form action="" method="post">
             <div class="form-group">
-            <input placeholder="username" value="" class="form-control smaller-input" name="username" tabindex="1"/> 
+              <input 
+                placeholder="username" 
+                value="" 
+                id="login_username_input" 
+                class="form-control smaller-input" 
+                name="username" 
+                tabindex="1"/> 
             </div>
             <div class="form-group">
-            <input type="password" placeholder="password" value="" class="form-control smaller-input" name="password" tabindex="2" /> 
+              <input 
+                type="password" 
+                placeholder="password" 
+                value="" 
+                id="login_password_input" 
+                class="form-control smaller-input" 
+                name="password" 
+                tabindex="2" /> 
             </div>
+            <input name="login_active" type="hidden" /> 
             <div class="form-group">
-            <input class="form-control" type="submit" value="logon" id="logon_submit_input" tabindex="3"/>
+              <input 
+                class="form-control" 
+                type="submit" 
+                value="login" 
+                id="login_form_submit" 
+                tabindex="3"/>
             </div>
           </form>         
+          {{/loggedIn}}
       </div>
     </div> 
 
@@ -210,18 +242,6 @@
         {{#loginErrorMessage}}
                 {{.}} ?<br />
         {{/loginErrorMessage}}
-        <form method="post" action="">
-                <input name="username" type="text" id="login_username_input" />
-                <input name="password" type="text" id="login_password_input" /> 
-                <input name="login_active" type="hidden" /> 
-                <input type="submit" id="login_form_submit" value="login" />
-        </form>
-{{/loggedIn}}
-{{#loggedIn}}
-        <form method="post" action="">
-                <input name="logout_active" value="yeah" type="hidden" /> 
-                <input type="submit" id="logout_form_submit" value="logout" />
-        </form>
 {{/loggedIn}}
 {{#isAdmin}}
 		<a href="/admin" id="admin">admin</a>
@@ -246,17 +266,6 @@ Reset password?
 {{#addThreadErrorMessage}}
         {{.}}
 {{/addThreadErrorMessage}}
-        
-<form method="post" action="">
-        <input name="subject" type="text" id="threads_subject_input" />
-        <br />
-        <input name="content" type="text" id="threads_content_input" /> 
-        <br />
-        <input name="tags" type="text" id="threads_tags_input" /> 
-        <br />
-        <input name="addthread_active" type="hidden" /> 
-        <input type="submit" id="addthread_form_submit" value="add thread" />
-</form>
 
 <ul>
         {{#threads}}
@@ -276,9 +285,49 @@ Reset password?
         {{/threads}}
 </ul>
 
+<ul class="pagination" style="padding-top:15px;">
+            <li class=""><a id="prev" href="{{{prev}}}">«</a></li>
+            {{{pages}}}
+            <li class=""><a id="next" href="{{{next}}}">»</a></li>
+</ul>      
+
+<h3>
+    Add thread
+</h3>
+
+<form role="form" action="" method="post" style="width:30%;min-width:350px;">
+        <input 
+          placeholder="subject" 
+          value="" 
+          id="threads_subject_input" 
+          class="form-control form-bottom-margin" 
+          name="subject" 
+          type="text">
         <div>
-                <a id="prev" href="{{{prev}}}">prev<a> | <a id="next" href="{{{next}}}">next</a>
+          <textarea 
+            placeholder="content" 
+            class="form-control form-bottom-margin" 
+            name="content" 
+            rows="6" 
+            id="threads_content_input"
+            cols="50"></textarea>
         </div>
-        {{{pages}}}
-  </body>
+        <input 
+          placeholder="tags" 
+          value="" 
+          class="form-bottom-margin form-control" 
+          name="tags" 
+          id="threads_tags_input"
+          type="text">
+        <input name="addthread_active" type="hidden" /> 
+        <div>
+          <input 
+            value="add thread" 
+            class="form-control" 
+            id="addthread_form_submit" 
+            type="submit">
+        </div>
+</form>
+
+</body>
 </html>
