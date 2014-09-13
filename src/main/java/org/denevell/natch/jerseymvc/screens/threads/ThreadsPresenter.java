@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.threads;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -50,6 +51,7 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
 			    t.getId(), 
 			    i);
 			List<String> tags = formatTagsList(t);
+			e.numPages = getPagesPerThread(t);
       e.tags = tags;
 
       mView.threads.add(e);
@@ -72,6 +74,15 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
     	Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
+
+  private List<Integer> getPagesPerThread(ThreadOutput t) {
+    ArrayList<Integer> num = new ArrayList<Integer>();
+    int latestPage = t.getLatestPage(5);
+    for (int i = 0; i < latestPage; i++) {
+      num.add(808);
+    }
+    return num;
+  }
 
 	@Override
 	public Response onPost(HttpServletRequest request) throws Exception {

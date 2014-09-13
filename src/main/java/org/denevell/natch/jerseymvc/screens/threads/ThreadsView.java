@@ -29,6 +29,7 @@ public class ThreadsView {
 			this.iterate = iterate;
 		}
 		public int iterate;
+		public List<Integer> numPages;
 		public String id;
 		public String subject;
 		public String author;
