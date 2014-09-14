@@ -14,6 +14,7 @@ import org.denevell.natch.jerseymvc.app.services.ThreadAddService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
+import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
 public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView>  {
@@ -36,8 +37,8 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 		super.onGet(request);
 		
 		// Logged in info
-		mView.loggedIn = SessionUtils.isLoggedIn(request);
-		mView.isAdmin = request.getSession(true).getAttribute("admin")!=null;
+		boolean loggedIn = SessionUtils.isLoggedIn(request);
+    mView.hasauthkey = loggedIn;
     	
 		Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
@@ -47,12 +48,17 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 	public Response onPost(HttpServletRequest request) throws Exception {
 		super.onPost(request);
 		
-    	// Register
     	mRegister.register(mController.registerActive, request, mController.username, mController.password, mController.recoveryEmail);
     	mView.registerErrorMessage = mRegister.mRegister.getErrorMessage();
 
-    	String url = request.getRequestURL()+"?"+request.getQueryString(); 
-    	return Response.seeOther(new URI(url)).build();
+    	// Redirect back to the main page, statically.
+    	if(mView.registerErrorMessage!=null && mView.registerErrorMessage.trim().length()!=0) {
+    	  String url = request.getRequestURL()+"?"+request.getQueryString(); 
+    	  return Response.seeOther(new URI(url)).build();
+    	} else {
+    	  String url = new MainPageUrlGenerator().build().toString();
+    	  return Response.seeOther(new URI(url)).build();
+    	}
 	}
 
 }

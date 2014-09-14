@@ -13,7 +13,7 @@ import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
 
-@Path("index")
+@Path("register")
 public class RegisterController extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;

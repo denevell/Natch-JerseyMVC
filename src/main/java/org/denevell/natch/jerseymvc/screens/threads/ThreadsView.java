@@ -9,7 +9,6 @@ import org.denevell.natch.jerseymvc.app.template.TemplateName;
 public class ThreadsView {
 	
 	public boolean loggedIn;
-	public String registerErrorMessage;
 	public String loginErrorMessage;
 	public String addThreadErrorMessage;
 	public boolean resetPasswordError;

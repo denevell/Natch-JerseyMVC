@@ -8,27 +8,39 @@
                 <span style="color: red">{{.}}</span><br />
         {{/registerErrorMessage}}
 
-      {{#noauthkey}}
+      {{^hasauthkey}}
         <form 
           style="width: 40%;min-width:350px;"
           action="" method="post" style="display:inline">
-          <input class="form-control form-bottom-margin" 
-            id="register_username_input"
-            placeholder="username" name="username" />
-          <input class="form-control form-bottom-margin" 
-            id="register_password_input"
-            type="password" placeholder="password" name="password" />
-          <input name="register_active" type="hidden" /> 
-          <input class="form-control form-bottom-margin" 
-            id="register_recovery_input"
-            type="input" placeholder="optional recovery email address" name="recoveryEmail" />
-          <input class="form-control form-bottom-margin" 
-            type="hidden" name="registering" value="true" />
-          <input class="form-control form-bottom-margin" 
-            id="register_form_submit"
-            type="submit" value="register"/>
+          <div>
+                  <input class="form-control form-bottom-margin" 
+                    id="register_username_input"
+                    placeholder="username" name="username" />
+          </div>
+          <div>
+                  <input class="form-control form-bottom-margin" 
+                    id="register_password_input"
+                    type="password" placeholder="password" name="password" />
+          </div>
+          <div>
+                  <input name="register_active" type="hidden" /> 
+          </div>
+          <div>
+                  <input class="form-control form-bottom-margin" 
+                    id="register_recovery_input"
+                    type="input" placeholder="optional recovery email address" name="recoveryEmail" />
+          </div>
+          <div>
+                  <input class="form-control form-bottom-margin" 
+                    type="hidden" name="registering" value="true" />
+          </div>
+          <div>
+                  <input class="form-control form-bottom-margin" 
+                    id="register_form_submit"
+                    type="submit" value="register"/>
+          </div>
         </form>
-      {{/noauthkey}}
+      {{/hasauthkey}}
 
       {{#hasauthkey}}
           <div>
