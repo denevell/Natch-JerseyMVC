@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Register - Android Manchester</title>
+  </head>
+  <body class="container">
+
+        {{#registerErrorMessage}}
+                <span style="color: red">{{.}}</span><br />
+        {{/registerErrorMessage}}
+
+      {{#noauthkey}}
+        <form 
+          style="width: 40%;min-width:350px;"
+          action="" method="post" style="display:inline">
+          <input class="form-control form-bottom-margin" 
+            id="register_username_input"
+            placeholder="username" name="username" />
+          <input class="form-control form-bottom-margin" 
+            id="register_password_input"
+            type="password" placeholder="password" name="password" />
+          <input name="register_active" type="hidden" /> 
+          <input class="form-control form-bottom-margin" 
+            id="register_recovery_input"
+            type="input" placeholder="optional recovery email address" name="recoveryEmail" />
+          <input class="form-control form-bottom-margin" 
+            type="hidden" name="registering" value="true" />
+          <input class="form-control form-bottom-margin" 
+            id="register_form_submit"
+            type="submit" value="register"/>
+        </form>
+      {{/noauthkey}}
+
+      {{#hasauthkey}}
+          <div>
+            You're already registered and logged in!
+          </div> 
+      {{/hasauthkey}}
+
+  </body>
+</html>

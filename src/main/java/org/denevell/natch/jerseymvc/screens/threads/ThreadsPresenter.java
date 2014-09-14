@@ -93,10 +93,6 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView>  {
     	mLogin.login(mController.loginActive, request, mController.username, mController.password);
     	mView.loginErrorMessage = mLogin.getLogin().getErrorMessage();
 
-    	// Register
-    	mRegister.register(mController.registerActive, request, mController.username, mController.password, mController.recoveryEmail);
-    	mView.registerErrorMessage = mRegister.mRegister.getErrorMessage();
-
     	// Add thread
     	mAddThread.add(mController.addthreadActive, request, mController.subject, mController.content, mController.tags);
     	mView.addThreadErrorMessage = mAddThread.getAddThread().getErrorMessage();

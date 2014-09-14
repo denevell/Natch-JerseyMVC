@@ -24,13 +24,11 @@ public class ThreadsController extends TemplateController {
 	public int limit;
 	public String username;
 	public String password;
-	public String recoveryEmail;
 	public String subject;
 	public String content;
 	public String tags;
 	public String addthreadActive;
 	public String loginActive;
-	public String registerActive;
 	public String logoutActive;
 	public String resetPwActive;
 	public String resetPwEmail;
@@ -59,13 +57,11 @@ public class ThreadsController extends TemplateController {
     		@QueryParam("limit") @DefaultValue("10") int limit,
     		@FormParam("username") final String username,
     		@FormParam("password") final String password,
-    		@FormParam("recovery_email") final String recoveryEmail,
     		@FormParam("subject") final String subject,
     		@FormParam("content") final String content,
     		@FormParam("tags") final String tags,
     		@FormParam("addthread_active") final String addthreadActive,
     		@FormParam("login_active") final String loginActive,
-    		@FormParam("register_active") final String registerActive,
     		@FormParam("logout_active") final String logoutActive,
     		@FormParam("resetpw_active") final String resetPwActive,
     		@FormParam("resetpw_email") final String resetPwEmail
@@ -75,13 +71,11 @@ public class ThreadsController extends TemplateController {
 		this.limit = limit;
 		this.username = username;
 		this.password = password;
-		this.recoveryEmail = recoveryEmail;
 		this.subject = subject;
 		this.content = content;
 		this.tags = tags;
 		this.addthreadActive = addthreadActive;
 		this.loginActive = loginActive;
-		this.registerActive = registerActive;
 		this.logoutActive = logoutActive;
 		this.resetPwActive = resetPwActive;
 		this.resetPwEmail = resetPwEmail;
