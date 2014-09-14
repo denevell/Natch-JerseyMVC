@@ -1,6 +1,6 @@
 <html>
 	{{errorMessage}}
-    <form method="post" action="delete?delete_thread_id={{id}}">
+    <form method="post" action="/app/delete?delete_thread_id={{id}}">
         <input name="delete_post_id" value="{{id}}" type="hidden" /> 
         {{#loggedIn}}
 	        <input type="submit" id="delete_thread_form_submit" value="delete thread?" />

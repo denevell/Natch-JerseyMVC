@@ -18,19 +18,20 @@ public class RegisterUITests {
 	private AdminPO adminPo;
 	private LoginoutPo loginPo;
 
-	@Before
-	public void setup() throws Exception {
-		TestUtils.deleteTestDb();
-		driver = SeleniumDriverUtils.getDriver();
-        loginPo = new LoginoutPo(driver);
-		registerPo = new RegisterPo(driver);
-		adminPo = new AdminPO(driver);
-        registerPo.registerFromHomepage("aaron", "aaron", "");
-        loginPo.logout();
-        registerPo.registerFromHomepage("aaron2", "aaron2", "");
-        loginPo.logout();
-		driver.get(URLs.HOMEPAGE);
-	}
+  @Before
+  public void setup() throws Exception {
+    TestUtils.deleteTestDb();
+    driver = SeleniumDriverUtils.getDriver();
+    loginPo = new LoginoutPo(driver);
+    registerPo = new RegisterPo(driver);
+    adminPo = new AdminPO(driver);
+    driver.get(URLs.HOMEPAGE);
+    //registerPo.registerFromHomepage("aaron", "aaron", "");
+    //loginPo.logout();
+    //registerPo.registerFromHomepage("aaron2", "aaron2", "");
+    //loginPo.logout();
+    //driver.get(URLs.HOMEPAGE);
+  }
 	
 	@After
 	public void destroy() {
@@ -51,10 +52,7 @@ public class RegisterUITests {
 	@Test
 	public void shouldRegisterWithOptionalEmailRecovery() throws InterruptedException {
 		registerPo
-			.register("aaron3", "aaron3", "a@b.com");
-		loginPo
-			.logout()
-			.loginFromHomepage("aaron", "aaron");
+			.registerFromHomepage("aaron3", "aaron3", "a@b.com");
 		adminPo
 			.gotoAdminPage()
 			.checkRecoveryEmailExists("aaron3", "a@b.com");
@@ -63,7 +61,9 @@ public class RegisterUITests {
 	@Test
 	public void shouldntRegisterWithDupUsernames() throws InterruptedException {
 		registerPo
-			.register("aaron", "aaron", "")
+			.registerFromHomepage("aaron3", "aaron3", "");
+		loginPo.logout();
+	  registerPo.registerFromHomepage("aaron3", "aaron3", "")
 			.shouldSeeUsernameAlreadyExists()
 			.shouldSeeRegisterLink();
 	}		
@@ -71,8 +71,10 @@ public class RegisterUITests {
 	@Test
 	public void shouldSeeErrorOnExistingRegisterAndThenRegSuccess() throws InterruptedException {
 		registerPo
-			.register("aaron", "", "")
-			.shouldSeeBlanksError()
+			.registerFromHomepage("aaron3", "aaron3", "");
+		loginPo.logout();
+	  registerPo.registerFromHomepage("aaron3", "aaron3", "")
+			.shouldSeeUsernameAlreadyExists()
 			.register("aaronnew", "aaronnew", "")
 			.shouldntSeeRegisterLink();
 	}			
@@ -80,8 +82,8 @@ public class RegisterUITests {
 	@Test
 	public void shouldSeeErrorOnEnterOfBlankUsername() throws InterruptedException {
 		registerPo
-			.register(" ", "aaron", "")
-			.shouldSeeBlanksError()
+			.registerFromHomepage("", "aaron3", "")
+			.shouldSeeBlanksError(true)
 			.shouldSeeRegisterLink();
 	}
 	

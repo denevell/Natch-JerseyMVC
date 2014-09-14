@@ -25,7 +25,7 @@
 		{{/loggedInCorrectly}}
 	 	<div id="tags">
 	 	 {{#tags}}
-	 	   <span class="tag"><a href="/index?start=0&limit=10&tag={{.}}">{{.}}</a></span>
+	 	   <span class="tag"><a href="/app/index?start=0&limit=10&tag={{.}}">{{.}}</a></span>
 	 	 {{/tags}}
 		</div>
 	 	<h3 id="thread_subject">
@@ -45,20 +45,20 @@
 	           		<span id="post_date">
 	           			{{lastModifiedDate}}
 	           		</span>
-	           		<a id="link" href="/post/{{id}}">link</a> 
+	           		<a id="link" href="/app//post/{{id}}">link</a> 
    		            {{#loggedInCorrectly}}
-	           			| <a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">delete</a>
+	           			| <a id="delete_{{iterate}}" href="/app/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">delete</a>
         			    {{/loggedInCorrectly}}
    		            {{#isAdmin}}
-	           			| <a id="move_to_thread_{{iterate}}" href="/post/movetothread/{{id}}?thread={{parentThreadId}}">move to new thread</a>
+	           			| <a id="move_to_thread_{{iterate}}" href="/app/post/movetothread/{{id}}?thread={{parentThreadId}}">move to new thread</a>
             			{{/isAdmin}}
    		            {{#hasEditThreadText}}
-	           			| <a id="thread_edit" href="/thread/edit/{{id}}?thread={{parentThreadId}}">edit thread</a>
+	           			| <a id="thread_edit" href="/app/thread/edit/{{id}}?thread={{parentThreadId}}">edit thread</a>
             			{{/hasEditThreadText}}
    		            {{#hasEditPostText}}
-	           			| <a id="thread_edit" href="/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">edit post</a>
+	           			| <a id="thread_edit" href="/app/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">edit post</a>
             			{{/hasEditPostText}}
-	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
+	           			| <a id="reply_{{iterate}}" href="/app/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
 	             		{{#editedByAdmin}}
 	           			<br />
 	           			edited by an admin

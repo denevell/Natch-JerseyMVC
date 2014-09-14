@@ -4,11 +4,11 @@ package org.denevell.natch.jerseymvc.app.urls;
 public class ThreadUrlGenerator {
 
 	public String createThreadUrl(String threadId) {
-		return "/thread/"+threadId;
+		return "/app/thread/"+threadId;
 	}
 
 	public String createThreadUrl(String threadId, int start, int limit) {
-		return "/thread/"+threadId+"?start="+start+"&limit="+limit;
+		return "/app/thread/"+threadId+"?start="+start+"&limit="+limit;
 	}
 
 

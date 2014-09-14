@@ -50,6 +50,7 @@ public class RegisterController extends TemplateController {
 
     this.username = username;
     this.password = password;
+    this.recoveryEmail = recoveryEmail;
     this.registerActive = registerActive;
     return new RegisterPresenter(this).onPost(mRequest);
   }
