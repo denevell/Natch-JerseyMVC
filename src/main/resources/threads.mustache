@@ -224,7 +224,6 @@
 
   </nav> 
 
-
 {{^loggedIn}}
         {{#loginErrorMessage}}
                 {{.}} ?<br />
@@ -243,9 +242,12 @@
         Password reset request sent. Check email later.
 {{/resetPassword}}
 
+<div style="color: red;float: right">
 {{#showResetForm}}
-<a href="pwreset">Request reset password?</a>
+  Incorrect username or password.
+  <a href="pwrequest">Request reset password?</a> 
 {{/showResetForm}}
+</div>
 
 {{#addThreadErrorMessage}}
         {{.}}

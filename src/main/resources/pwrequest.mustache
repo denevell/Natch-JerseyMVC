@@ -2,17 +2,21 @@
 	<head>
 		<title>Reset password - Android Manchester</title>
 	</head>
-	<body class="container">
-	
-			   		<form action="" method="post" style="width:50%">
-			      		<div class="form-group">
-							<input type="input" placeholder="Recovery email address" class="form-control" name="resetpw_email" /> 
-              <input name="resetpw_active" type="hidden" /> 
-			      		</div>
-			      		<div class="form-group">
-							<input class="form-control" type="submit" value="Request password reset" id="resetpw_form_submit" />
-			      		</div>
-					</form>					
-
-	</body>
+<body class="container">
+        {{#resetPasswordError}}
+          Problem requesting a reset. Is your email correct?
+        {{/resetPasswordError}}
+        {{#resetPassword}}
+          Password reset request sent. Please now bug @Zain_ or @NameAaronNewell
+        {{/resetPassword}}
+        <form action="" method="post" style="width:50%">
+                <div class="form-group">
+                        <input type="input" placeholder="Recovery email address" class="form-control" name="resetpw_email" /> 
+                        <input name="resetpw_active" type="hidden" /> 
+                </div>
+                <div class="form-group">
+                        <input class="form-control" type="submit" value="Request password reset" id="resetpw_form_submit" />
+                </div>
+        </form>					
+</body>
 </html>
