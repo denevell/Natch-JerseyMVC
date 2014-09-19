@@ -1,4 +1,11 @@
 <html>
+	<head>
+		<title>Reset password - Android Manchester</title>
+    {{{common_header_elements}}}
+	</head>
+  <body class="container">
+
+  {{{nav_bar}}}
 	{{errorMessage}}
     <form method="post" action="/app/post/delete/?thread={{parentThreadId}}&limit={{limit}}&start={{start}}">
         <input name="delete_post_id" value="{{id}}" type="hidden" /> 
@@ -9,4 +16,5 @@
 	        <input type="submit" id="delete_post_form_submit" disabled="disabled" value="you must be logged in" />
         {{/loggedIn}}
 	</form>
+	</body>
 </html>

@@ -1,4 +1,9 @@
 <html>
+      <head>
+      {{{common_header_elements}}}
+      </head>
+      <body class="container">
+    {{{nav_bar}}}
 	{{errorMessage}}
     <form method="post" action="/app/delete?delete_thread_id={{id}}">
         <input name="delete_post_id" value="{{id}}" type="hidden" /> 
@@ -9,4 +14,5 @@
 	        <input type="submit" id="delete_thread_form_submit" disabled="disabled" value="you must be logged in" />
         {{/loggedIn}}
 	</form>
+	</body>
 </html>

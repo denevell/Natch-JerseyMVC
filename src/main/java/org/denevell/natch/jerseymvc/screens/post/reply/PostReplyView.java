@@ -1,9 +1,10 @@
 package org.denevell.natch.jerseymvc.screens.post.reply;
 
+import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/post_reply.mustache")
-public class PostReplyView {
+public class PostReplyView extends BaseView {
 	public boolean loggedIn;
 	public int id;
 	public String replyError = null;

@@ -3,10 +3,11 @@ package org.denevell.natch.jerseymvc.screens.threads;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/threads.mustache")
-public class ThreadsView {
+public class ThreadsView extends BaseView {
 	
 	public boolean loggedIn;
 	public String loginErrorMessage;

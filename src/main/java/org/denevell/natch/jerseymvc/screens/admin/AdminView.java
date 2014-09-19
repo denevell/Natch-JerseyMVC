@@ -3,10 +3,11 @@ package org.denevell.natch.jerseymvc.screens.admin;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/admin.mustache")
-public class AdminView {
+public class AdminView extends BaseView {
 	
 	public boolean pwChangeProcessed;
 	public boolean pwChangeError;

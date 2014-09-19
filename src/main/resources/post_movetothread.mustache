@@ -1,4 +1,11 @@
 <html>
+	<head>
+		<title>Reset password - Android Manchester</title>
+    {{{common_header_elements}}}
+	</head>
+  <body class="container">
+
+  {{{nav_bar}}}
 	{{moveError}}
 		<p>As user: {{username}}</p>
  		<form action="/app/post/movetothread/{{postId}}" method="post">
@@ -20,4 +27,5 @@
 				{{/isAdmin}}
 			/>
  		</form>
+	</body>
 </html>

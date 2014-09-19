@@ -1,0 +1,72 @@
+  <nav class="navbar navbar-default" role="navigation">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="." id="homelink">Android Manchester</a>    
+    </div>
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right" style="margin-left: auto; margin-right: auto; float: none;">
+        <li><a style="padding:0px" href="https://play.google.com/store/apps/details?id=com.newfivefour.android.manchester"><img src="/res/Android_Market.png" /></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" style="margin-left: auto; margin-right: auto; float: none;">
+        {{^loggedIn}}
+        <li><a href="register" id="reg_link">Register</a></li>
+        {{/loggedIn}}
+        {{#loggedIn}}
+        <form action="" method="post" class="" style="block:inline">
+          <input name="logout_active" value="yeah" type="hidden" /> 
+          <li>
+            <button id="logout" class="linkButton" type="submit" id="logout_form_submit">Logout</button>
+          </li>
+        </form>
+        {{/loggedIn}}
+      </ul>
+      {{#isAdmin}}
+      <ul class="nav navbar-right">
+          <form action="/app/admin" method="get" class="" style="block:inline">
+            <li><button id="admin" class="linkButton" type="submit">Admin</button></li>
+          </form>
+      </ul>
+      {{/isAdmin}}
+      <div class="navbar-form navbar-right form-inline" >
+         {{^loggedIn}}
+          <form action="" method="post">
+            <div class="form-group">
+              <input 
+                placeholder="username" 
+                value="" 
+                id="login_username_input" 
+                class="form-control smaller-input" 
+                name="username" 
+                tabindex="1"/> 
+            </div>
+            <div class="form-group">
+              <input 
+                type="password" 
+                placeholder="password" 
+                value="" 
+                id="login_password_input" 
+                class="form-control smaller-input" 
+                name="password" 
+                tabindex="2" /> 
+            </div>
+            <input name="login_active" type="hidden" /> 
+            <div class="form-group">
+              <input 
+                class="form-control" 
+                type="submit" 
+                value="login" 
+                id="login_form_submit" 
+                tabindex="3"/>
+            </div>
+          </form>         
+          {{/loggedIn}}
+      </div>
+    </div> 
+
+  </nav> 
