@@ -186,6 +186,13 @@
         </form>
         {{/loggedIn}}
       </ul>
+      {{#isAdmin}}
+      <ul class="nav navbar-right">
+          <form action="/app/admin" method="get" class="" style="block:inline">
+            <li><button id="admin" class="linkButton" type="submit">Admin</button></li>
+          </form>
+      </ul>
+      {{/isAdmin}}
       <div class="navbar-form navbar-right form-inline" >
          {{^loggedIn}}
           <form action="" method="post">
@@ -229,11 +236,6 @@
                 {{.}} ?<br />
         {{/loginErrorMessage}}
 {{/loggedIn}}
-{{#isAdmin}}
-    <div>
-		<a href="/app/admin" id="admin">admin</a>
-    </div>
-{{/isAdmin}}
 
 {{#resetPasswordError}}
         Error reseting password. Correct email?
