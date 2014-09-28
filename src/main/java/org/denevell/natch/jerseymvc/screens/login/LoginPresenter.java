@@ -24,10 +24,13 @@ public class LoginPresenter extends SessionSavingViewPresenter<LoginView> {
 
     mLogin.login(new Object(), request, mController.username, mController.password);
     mView.loginErrorMessage = mLogin.getLogin().getErrorMessage();
-    // TODO: Save the state to the session
-    // TODO: Find the url to redirect to from the query or post params
-    String url = request.getRequestURL() + "?" + request.getQueryString();
-    return Response.seeOther(new URI(url)).build();
+
+    //if(mLogin.getLogin().getErrorMessage()!=null || mResetPwModule.isError()) {
+    //		mView.showResetForm = true;
+    //}
+
+    request.getSession(true).setAttribute("temp_session_state_var", mView);
+    return Response.seeOther(new URI(mController.redirect)).build();
   }
 
 }

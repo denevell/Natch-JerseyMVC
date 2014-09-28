@@ -18,8 +18,7 @@
         <li><a href="register" id="reg_link">Register</a></li>
         {{/loggedIn}}
         {{#loggedIn}}
-        <form action="" method="post" class="" style="block:inline">
-          <input name="logout_active" value="yeah" type="hidden" /> 
+        <form action="/app/logout?redirect={{redirect_to}}" method="post" class="" style="block:inline">
           <li>
             <button id="logout" class="linkButton" type="submit" id="logout_form_submit">Logout</button>
           </li>
@@ -35,7 +34,7 @@
       {{/isAdmin}}
       <div class="navbar-form navbar-right form-inline" >
          {{^loggedIn}}
-          <form action="" method="post">
+          <form action="/app/login?redirect={{redirect_to}}" method="post">
             <div class="form-group">
               <input 
                 placeholder="username" 
@@ -55,7 +54,6 @@
                 name="password" 
                 tabindex="2" /> 
             </div>
-            <input name="login_active" type="hidden" /> 
             <div class="form-group">
               <input 
                 class="form-control" 

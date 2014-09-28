@@ -19,7 +19,7 @@ public interface Presenter<TemplateOutput> {
 
 		public static Object restoreViewFromSession(HttpServletRequest request, Object o) {
 			Object view = request.getSession(true).getAttribute("view");
-			if(view!=null && view.getClass().isInstance(o)) {
+			if(view!=null && view.getClass() == o.getClass()) {
             	return view;
 			} else {
 				return o;

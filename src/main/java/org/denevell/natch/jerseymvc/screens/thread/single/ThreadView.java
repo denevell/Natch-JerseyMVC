@@ -10,7 +10,6 @@ import org.denevell.natch.jerseymvc.app.template.TemplateName;
 public class ThreadView extends BaseView {
 	
 	public String addPostError;
-	public boolean loggedInCorrectly;
 	public int rootPostId;
 	public String subject;
   public List<String> tags;
@@ -18,7 +17,6 @@ public class ThreadView extends BaseView {
 	public String next;
 	public String prev;
 	public String pages;
-	public boolean loggedIn;
 
 	public static class Post {
 		public int iterate;
