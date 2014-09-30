@@ -25,7 +25,8 @@ public class TemplateController {
   private void restoreVariablesSetInSession(HttpServletRequest request, Object templateObject) {
     Object ob = request.getSession(true).getAttribute("temp_state");
 		if(ob!=null && ob instanceof HashMap) {
-		  HashMap<String, Object> hm = (HashMap) ob;
+		  @SuppressWarnings({ "rawtypes", "unchecked" })
+      HashMap<String, Object> hm = (HashMap) ob;
 		  Set<String> keys = hm.keySet();
 		  for (String key: keys) {
 		    String value = (String) hm.get(key);
