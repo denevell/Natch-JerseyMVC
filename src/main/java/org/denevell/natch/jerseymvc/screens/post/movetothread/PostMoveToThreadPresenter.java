@@ -19,7 +19,7 @@ public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMo
 	private PostFromThreadService mPostFromThreadService = new PostFromThreadService();
 	
 	public PostMoveToThreadPresenter(PostMoveToThreadController controller) throws Exception {
-		super(PostMoveToThreadView.class);
+		super(new PostMoveToThreadView(controller.mRequest));
 		mController = controller;
 	}
 

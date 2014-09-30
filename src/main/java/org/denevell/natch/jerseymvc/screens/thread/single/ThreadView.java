@@ -3,13 +3,19 @@ package org.denevell.natch.jerseymvc.screens.thread.single;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/thread_single.mustache")
 public class ThreadView extends BaseView {
 	
-	public String addPostError;
+	public ThreadView(HttpServletRequest request) {
+    super(request);
+  }
+
+  public String addPostError;
 	public int rootPostId;
 	public String subject;
   public List<String> tags;

@@ -40,7 +40,7 @@ public class PostReplyController extends TemplateController {
     	this.start = start;
     	this.limit = limit;
     	this.threadId = threadId;
-		return createTemplate(new PostReplyPresenter(this).onGet(mRequest));
+		return createTemplate(mRequest, new PostReplyPresenter(this).onGet(mRequest));
 	}
 
     @POST

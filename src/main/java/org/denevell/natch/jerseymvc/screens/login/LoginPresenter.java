@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.login;
 
 import java.net.URI;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
@@ -14,7 +15,7 @@ public class LoginPresenter extends SessionSavingViewPresenter<LoginView> {
   public LoginLogoutService mLogin = new LoginLogoutService();
 
   public LoginPresenter(LoginController controller) throws Exception {
-    super(LoginView.class);
+		super(new LoginView(controller.mRequest));
     mController = controller;
   }
 
@@ -24,12 +25,9 @@ public class LoginPresenter extends SessionSavingViewPresenter<LoginView> {
 
     mLogin.login(new Object(), request, mController.username, mController.password);
     mView.loginErrorMessage = mLogin.getLogin().getErrorMessage();
-
-    //if(mLogin.getLogin().getErrorMessage()!=null || mResetPwModule.isError()) {
-    //		mView.showResetForm = true;
-    //}
-
-    request.getSession(true).setAttribute("temp_session_state_var", mView);
+    HashMap<String, Object> value = new HashMap<String, Object>();
+    request.getSession(true).setAttribute("temp_state", value);
+    value.put("loginErrorMessage", mView.loginErrorMessage);
     return Response.seeOther(new URI(mController.redirect)).build();
   }
 

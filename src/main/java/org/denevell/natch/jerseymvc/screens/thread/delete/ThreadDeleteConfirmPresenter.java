@@ -17,7 +17,7 @@ public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<Thr
 	private ThreadDeleteService mModel = new ThreadDeleteService();
 	
 	public ThreadDeleteConfirmPresenter(ThreadDeleteConfirmationController controller) throws Exception {
-		super(ThreadDeleteConfirmView.class);
+		super(new ThreadDeleteConfirmView(controller.mRequest));
 		mController = controller;
 	}
 

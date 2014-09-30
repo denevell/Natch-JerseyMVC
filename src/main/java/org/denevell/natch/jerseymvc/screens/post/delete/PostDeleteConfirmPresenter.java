@@ -18,7 +18,7 @@ public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostD
 	private PostDeleteService mModel = new PostDeleteService();
 	
 	public PostDeleteConfirmPresenter(PostDeleteConfirmationController controller) throws Exception {
-		super(PostDeleteConfirmView.class);
+		super(new PostDeleteConfirmView(controller.mRequest));
 		mController = controller;
 	}
 

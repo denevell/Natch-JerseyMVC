@@ -16,7 +16,7 @@ public class LogoutPresenter extends SessionSavingViewPresenter<BaseView> {
   private LogoutController mController;
 
   public LogoutPresenter(LogoutController controller) throws Exception {
-    super(BaseView.class);
+		super(new BaseView(controller.mRequest));
     mController = controller;
   }
 

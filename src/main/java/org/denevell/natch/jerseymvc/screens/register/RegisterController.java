@@ -37,7 +37,9 @@ public class RegisterController extends TemplateController {
   @GET
   @Template
   public Viewable index() throws Exception {
-    return createTemplate(new RegisterPresenter(this).onGet(mRequest));
+    return createTemplate(
+        mRequest, 
+        new RegisterPresenter(this).onGet(mRequest));
   }
 
   @POST

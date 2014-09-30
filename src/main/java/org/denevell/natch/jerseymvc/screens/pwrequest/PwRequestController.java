@@ -25,7 +25,8 @@ public class PwRequestController extends TemplateController {
     @Template
     public Viewable index() throws Exception {
     	return createTemplate(
-    			new PwRequestPresenter(this).onGet(mRequest)
+        mRequest, 
+        new PwRequestPresenter(this).onGet(mRequest)
     	);
 	}
 

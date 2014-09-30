@@ -23,7 +23,7 @@ public class PostSingleController extends TemplateController {
     @Template
     public Viewable index(@PathParam("postId") int postId ) throws Exception { 
     	this.postId = postId;
-    	return createTemplate(new PostSinglePresenter(this).onGet(mRequest)); 
+    	return createTemplate(mRequest, new PostSinglePresenter(this).onGet(mRequest)); 
     }
     
     public int getPostId() {

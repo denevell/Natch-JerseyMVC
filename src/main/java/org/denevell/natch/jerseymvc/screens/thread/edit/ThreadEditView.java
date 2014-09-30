@@ -1,11 +1,16 @@
 package org.denevell.natch.jerseymvc.screens.thread.edit;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/thread_edit.mustache")
 public class ThreadEditView extends BaseView {
   
+  public ThreadEditView(HttpServletRequest request) {
+    super(request);
+  }
   public boolean loggedIn;
   public boolean isAdmin;
   public String content;

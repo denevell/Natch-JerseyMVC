@@ -20,7 +20,7 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
 	private PostSingleService mPostService = new PostSingleService();
   
   public PostEditPresenter(PostEditController controller) throws Exception {
-    super(PostEditView.class);
+		super(new PostEditView(controller.mRequest));
     mController = controller;
   }
 

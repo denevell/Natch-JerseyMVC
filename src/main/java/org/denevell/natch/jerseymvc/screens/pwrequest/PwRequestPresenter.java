@@ -26,7 +26,7 @@ public class PwRequestPresenter extends SessionSavingViewPresenter<PwRequestView
 	public ThreadsService mThreadsService = new ThreadsService();
 	
 	public PwRequestPresenter(PwRequestController controller) throws Exception {
-		super(PwRequestView.class);
+		super(new PwRequestView(controller.mRequest));
 		mController = controller;
 	}
 

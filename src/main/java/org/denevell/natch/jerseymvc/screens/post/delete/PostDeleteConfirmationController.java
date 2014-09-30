@@ -41,6 +41,7 @@ public class PostDeleteConfirmationController extends TemplateController {
 		this.start = start;
 		this.limit = limit;
     	return createTemplate(
+    	    mRequest,
     			new PostDeleteConfirmPresenter(this).onGet(mRequest)
     			);
 	}

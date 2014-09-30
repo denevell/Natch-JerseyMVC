@@ -20,7 +20,7 @@ public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditVi
 	private PostSingleService mPostService = new PostSingleService();
   
   public ThreadEditPresenter(ThreadEditController controller) throws Exception {
-    super(ThreadEditView.class);
+		super(new ThreadEditView(controller.mRequest));
     mController = controller;
   }
 

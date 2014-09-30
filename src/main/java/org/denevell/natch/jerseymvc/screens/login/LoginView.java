@@ -3,13 +3,18 @@ package org.denevell.natch.jerseymvc.screens.login;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/threads.mustache")
 public class LoginView extends BaseView {
 	
-	public boolean loggedIn;
+	public LoginView(HttpServletRequest request) {
+    super(request);
+  }
+  public boolean loggedIn;
 	public String loginErrorMessage;
 	public String addThreadErrorMessage;
 	public boolean resetPasswordError;

@@ -3,16 +3,19 @@ package org.denevell.natch.jerseymvc.screens.threads;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.template.TemplateName;
 
 @TemplateName("/threads.mustache")
 public class ThreadsView extends BaseView {
 	
-	public String addThreadErrorMessage;
-	public boolean resetPasswordError;
-	public boolean resetPassword;
-	public boolean showResetForm;
+	public ThreadsView(HttpServletRequest request) {
+    super(request);
+  }
+
+  public String addThreadErrorMessage;
 	public String next;
 	public String prev;
 	public String pages;

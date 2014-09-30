@@ -22,16 +22,10 @@ public class ThreadsController extends TemplateController {
 	@Context UriInfo mUriInfo;
 	public int start;
 	public int limit;
-	public String username;
-	public String password;
 	public String subject;
 	public String content;
 	public String tags;
 	public String addthreadActive;
-	public String loginActive;
-	public String logoutActive;
-	public String resetPwActive;
-	public String resetPwEmail;
   public String tag;
 
     @GET
@@ -44,8 +38,10 @@ public class ThreadsController extends TemplateController {
 		this.start = start;
 		this.limit = limit;
 		this.tag = tag;
-    	return createTemplate(
-    			new ThreadsPresenter(this).onGet(mRequest)
+    ThreadsView onGet = new ThreadsPresenter(this).onGet(mRequest);
+      return createTemplate(
+          mRequest, 
+    			onGet
     	);
 	}
 
@@ -55,30 +51,18 @@ public class ThreadsController extends TemplateController {
     		@Context UriInfo uriInfo,
     		@QueryParam("start") @DefaultValue("0") int start,
     		@QueryParam("limit") @DefaultValue("10") int limit,
-    		@FormParam("username") final String username,
-    		@FormParam("password") final String password,
     		@FormParam("subject") final String subject,
     		@FormParam("content") final String content,
     		@FormParam("tags") final String tags,
-    		@FormParam("addthread_active") final String addthreadActive,
-    		@FormParam("login_active") final String loginActive,
-    		@FormParam("logout_active") final String logoutActive,
-    		@FormParam("resetpw_active") final String resetPwActive,
-    		@FormParam("resetpw_email") final String resetPwEmail
+    		@FormParam("addthread_active") final String addthreadActive
     		) throws Exception {
 
     	this.start = start;
 		this.limit = limit;
-		this.username = username;
-		this.password = password;
 		this.subject = subject;
 		this.content = content;
 		this.tags = tags;
 		this.addthreadActive = addthreadActive;
-		this.loginActive = loginActive;
-		this.logoutActive = logoutActive;
-		this.resetPwActive = resetPwActive;
-		this.resetPwEmail = resetPwEmail;
 		return new ThreadsPresenter(this).onPost(mRequest);
 	}
     

@@ -40,6 +40,7 @@ public class ThreadController extends TemplateController{
     	this.threadId = threadId;
 
     	return createTemplate(
+    	    mRequest,
     			new ThreadPresenter(this).onGet(mRequest)
     	);
 	}

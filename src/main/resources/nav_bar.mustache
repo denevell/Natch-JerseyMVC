@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="." id="homelink">Android Manchester</a>    
+      <a class="navbar-brand" href="/app/index/" id="homelink">Android Manchester</a>    
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -68,3 +68,13 @@
     </div> 
 
   </nav> 
+
+{{^loggedIn}}
+<div style="color: red;float: right">
+{{#loginErrorMessage}}
+  Incorrect username or password.
+  <a href="pwrequest">Request reset password?</a> 
+{{/loginErrorMessage}}
+</div>
+{{/loggedIn}}
+

@@ -7,11 +7,6 @@
   <body class="container">
 
   {{{nav_bar}}}
-{{^loggedIn}}
-        {{#loginErrorMessage}}
-                {{.}} ?<br />
-        {{/loginErrorMessage}}
-{{/loggedIn}}
 
 {{#resetPasswordError}}
         Error reseting password. Correct email?
@@ -19,13 +14,6 @@
 {{#resetPassword}}
         Password reset request sent. Check email later.
 {{/resetPassword}}
-
-<div style="color: red;float: right">
-{{#showResetForm}}
-  Incorrect username or password.
-  <a href="pwrequest">Request reset password?</a> 
-{{/showResetForm}}
-</div>
 
         {{#threads}}
                 <div id="thread_{{iterate}}">

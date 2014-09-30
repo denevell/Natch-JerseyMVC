@@ -35,7 +35,7 @@ public class PostMoveToThreadController extends TemplateController {
     		@PathParam("post") int postId) throws Exception {
     	this.postId = postId;
     	this.threadId = threadId;
-		return createTemplate(new PostMoveToThreadPresenter(this).onGet(mRequest));
+		return createTemplate(mRequest, new PostMoveToThreadPresenter(this).onGet(mRequest));
 	}
 
     @POST

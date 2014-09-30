@@ -18,7 +18,6 @@ import org.denevell.natch.jerseymvc.app.services.ThreadAddService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.app.utils.UriEncoding;
 import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
 public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
@@ -31,7 +30,7 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
   public ThreadsService mThreadsService = new ThreadsService();
 
   public ThreadsPresenter(ThreadsController controller) throws Exception {
-    super(ThreadsView.class);
+		super(new ThreadsView(controller.mRequest));
     mController = controller;
   }
 
@@ -65,9 +64,6 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
     mView.next = mPagination.getNext().toString();
     mView.prev = mPagination.getPrev().toString();
 
-    mView.redirect_to = UriEncoding.encode(request.getRequestURL() + "?"
-        + request.getQueryString(), null);
-
     Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
     return mView;
   }
@@ -85,16 +81,9 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
   public Response onPost(HttpServletRequest request) throws Exception {
     super.onPost(request);
 
-    // Add thread
     mAddThread.add(mController.addthreadActive, request, mController.subject,
         mController.content, mController.tags);
     mView.addThreadErrorMessage = mAddThread.getAddThread().getErrorMessage();
-
-    // Reset pw
-    mResetPwModule.reset(mController.resetPwActive, request,
-        mController.resetPwEmail);
-    mView.resetPasswordError = mResetPwModule.isError();
-    mView.resetPassword = mResetPwModule.isProcessed();
 
     String url = request.getRequestURL() + "?" + request.getQueryString();
     return Response.seeOther(new URI(url)).build();

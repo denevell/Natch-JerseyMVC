@@ -12,10 +12,9 @@ public class PostSinglePresenter extends SessionSavingViewPresenter<PostSingleVi
 	
 	private PostSingleController mController;
 	private PostSingleService mPostService = new PostSingleService();
-	private PostSingleView mView = new PostSingleView();
 	
 	public PostSinglePresenter(PostSingleController controller) throws Exception {
-		super(PostSingleView.class);
+		super(new PostSingleView(controller.mRequest));
 		mController = controller;
 	}
 

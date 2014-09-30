@@ -23,7 +23,7 @@ public class AdminPresenter extends SessionSavingViewPresenter<AdminView>  {
 	public AdminToggleService mAdminToggleService = new AdminToggleService();
 	
 	public AdminPresenter(AdminController controller) throws Exception {
-		super(AdminView.class);
+		super(new AdminView(controller.mRequest));
 		mController = controller;
 	}
 

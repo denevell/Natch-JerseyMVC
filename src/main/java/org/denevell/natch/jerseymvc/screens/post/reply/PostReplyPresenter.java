@@ -18,7 +18,7 @@ public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView
 	private PostSingleService mService = new PostSingleService();
 	
 	public PostReplyPresenter(PostReplyController controller) throws Exception {
-		super(PostReplyView.class);
+		super(new PostReplyView(controller.mRequest));
 		mController = controller;
 	}
 

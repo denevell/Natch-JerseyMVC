@@ -22,7 +22,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 	private ThreadController mController;
 	
 	public ThreadPresenter(ThreadController controller) throws Exception {
-		super(ThreadView.class);
+		super(new ThreadView(controller.mRequest));
 		mController = controller;
 	}
 

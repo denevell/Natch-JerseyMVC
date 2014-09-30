@@ -36,6 +36,7 @@ public class ThreadEditController extends TemplateController {
       this.postEditId = postEditId;
       this.threadId = threadId;
       return createTemplate(
+    	    mRequest,
           new ThreadEditPresenter(this).onGet(mRequest)
       );
   }

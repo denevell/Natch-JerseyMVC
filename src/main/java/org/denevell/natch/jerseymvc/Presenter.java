@@ -12,9 +12,8 @@ public interface Presenter<TemplateOutput> {
 			request.getSession(true).setAttribute("view", o);
 		}
 
-		public static <View> void  clearViewStateFromSession(HttpServletRequest request, Class<View> c) throws Exception {
-			View o = (View) c.newInstance();
-			request.getSession(true).setAttribute("view", o);
+		public static <View> void  clearViewStateFromSession(HttpServletRequest request, View c) throws Exception {
+			request.getSession(true).setAttribute("view", new Object());
 		}
 
 		public static Object restoreViewFromSession(HttpServletRequest request, Object o) {

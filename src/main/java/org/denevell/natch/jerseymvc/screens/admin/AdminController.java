@@ -27,7 +27,7 @@ public class AdminController extends TemplateController {
     @GET
     @Template
     public Viewable index() throws Exception {
-    	return createTemplate(new AdminPresenter(this).onGet(mRequest));
+    	return createTemplate(mRequest, new AdminPresenter(this).onGet(mRequest));
     }
 
     @POST

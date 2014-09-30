@@ -28,7 +28,7 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 	public ThreadsService mThreadsService = new ThreadsService();
 	
 	public RegisterPresenter(RegisterController controller) throws Exception {
-		super(RegisterView.class);
+		super(new RegisterView(controller.mRequest));
 		mController = controller;
 	}
 
