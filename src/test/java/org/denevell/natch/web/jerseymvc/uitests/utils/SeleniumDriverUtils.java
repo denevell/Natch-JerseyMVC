@@ -1,8 +1,11 @@
 package org.denevell.natch.web.jerseymvc.uitests.utils;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class SeleniumDriverUtils {
@@ -13,9 +16,10 @@ public class SeleniumDriverUtils {
 			//return pjs;
 			return null;
 		} else {
-			//HtmlUnitDriver fd = new HtmlUnitDriver(false);
+			FirefoxBinary binary = new FirefoxBinary(new File("/home/user/bin/firefox-32/firefox-bin"));
+      //HtmlUnitDriver fd = new HtmlUnitDriver(false);
 			//fd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-			FirefoxDriver fd = new FirefoxDriver();
+			FirefoxDriver fd = new FirefoxDriver(binary, null);
 			fd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 			return fd;
 		}

@@ -8,6 +8,8 @@ import org.denevell.natch.jerseymvc.app.utils.UriEncoding;
 
 public class BaseView {
   
+  public static String arg_loginErrorMessage = "loginErrorMessage";
+  
   public BaseView(HttpServletRequest request) {
      redirect_to = UriEncoding.encode(request.getRequestURL() + "?" + request.getQueryString(), null);
   }

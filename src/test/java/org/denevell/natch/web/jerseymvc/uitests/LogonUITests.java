@@ -56,21 +56,21 @@ public class LogonUITests {
 	public void shouldntLogonWithBlankUsername() {
         loginPo
         	.loginFromHomepage(" ", "xxx")
-        	.shouldSeeBlankUsernameOrPassError();
+        	.shouldSeeLoginIncorrectError();
 	}	
 	
 	@Test
 	public void shouldntLogonWithBlankPassword() {
         loginPo
         	.loginFromHomepage("xxx", " ")
-        	.shouldSeeBlankUsernameOrPassError();
+        	.shouldSeeLoginIncorrectError();
 	}		
 	
 	@Test
 	public void shouldntLogonWithBlanks() {
         loginPo
         	.loginFromHomepage(" ", " ")
-        	.shouldSeeBlankUsernameOrPassError();
+        	.shouldSeeLoginIncorrectError();
 	}			
 
 }

@@ -79,7 +79,7 @@ public class LoginoutPo {
 
   public LoginoutPo canSeeLogout() {
     try {
-      driver.findElement(By.id("logout_form_submit"));
+      driver.findElement(By.id("logout"));
     } catch (NoSuchElementException e) {
       org.junit.Assert.assertTrue("Wanted to see logout", false);
     }

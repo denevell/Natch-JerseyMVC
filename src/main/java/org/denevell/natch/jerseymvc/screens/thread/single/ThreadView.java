@@ -39,6 +39,7 @@ public class ThreadView extends BaseView {
 		public int returnToThreadFromReplyStartParam;
     public int returnToThreadFromEditStartParam;
 		public boolean hasEditThreadText;
+		public boolean hasMoveToThreadText;
     public boolean hasEditPostText;
 
 		public Post(String username, String htmlContent, int id, int iterate, String lastModifiedDate) {

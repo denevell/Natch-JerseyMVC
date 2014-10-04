@@ -13,7 +13,7 @@ public class ForgottenPasswordPo {
 	}
 
 	public ForgottenPasswordPo requestReset(String email) {
-	    WebElement input = driver.findElement(By.id("resetpw_input"));
+	    WebElement input = driver.findElement(By.name("resetpw_email"));
 	    input.sendKeys(email);
 	    WebElement button = driver.findElement(By.id("resetpw_form_submit"));
 	    button.click();
@@ -24,9 +24,14 @@ public class ForgottenPasswordPo {
 		if(t) {
 			org.junit.Assert.assertTrue(driver.getPageSource().toLowerCase().contains("password reset request"));
 		} else if(!t){
-			org.junit.Assert.assertTrue(driver.getPageSource().toLowerCase().contains("error reseting password"));
+			org.junit.Assert.assertTrue(driver.getPageSource().toLowerCase().contains("problem requesting"));
 		}
 		return this;
 	}
+
+  public ForgottenPasswordPo pressRequestLink() {
+	  driver.findElement(By.id("pwrequest")).click();
+    return this;
+  }
 
 }

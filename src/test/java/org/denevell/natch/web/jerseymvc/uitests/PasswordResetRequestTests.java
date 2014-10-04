@@ -59,11 +59,13 @@ public class PasswordResetRequestTests {
 		loginoutPo
 			.login("aaron2", "incorrect");
 		forgottenPwPo
+		  .pressRequestLink()
 			.requestReset("incorrect@b.com")
 			.hasRequestedSuccessfully(false);
 		loginoutPo
 			.login("aaron2", "incorrect");
 		forgottenPwPo
+		  .pressRequestLink()
 			.requestReset("a@b.com")
 			.hasRequestedSuccessfully(true);
         driver.get(URLs.HOMEPAGE);

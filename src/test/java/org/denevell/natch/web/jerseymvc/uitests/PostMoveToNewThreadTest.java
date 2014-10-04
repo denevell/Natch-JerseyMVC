@@ -56,7 +56,7 @@ public class PostMoveToNewThreadTest {
 		addthreadPo
 			.add("s", "b", "c")
 			.gotoThread(0);
-        addpostPo.add("one");
+        addpostPo.add("rrrraaaaarrr");
         String originalThread = driver.getCurrentUrl();
         // Go back as admin
         driver.get(URLs.HOMEPAGE);
@@ -72,12 +72,12 @@ public class PostMoveToNewThreadTest {
 			.pressConfirm();
 		addpostPo
 			.hasCorrectPageTitle("new thread innit")
-			.hasPost(0, "one")
+			.hasPost(0, "rrrraaaaarrr")
 			.hasEditedByAdminFlag(0);
         // Gone from old thread
 		driver.get(originalThread);
         org.junit.Assert.assertFalse("Can't see moved post", 
-        		driver.getPageSource().toLowerCase().contains("one"));
+        		driver.getPageSource().toLowerCase().contains("rrrraaaaarrr"));
 	}
 
 	@Test
