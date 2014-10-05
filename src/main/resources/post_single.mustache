@@ -1,16 +1,22 @@
 <html>
 	<head>
-		<title>Reset password - Android Manchester</title>
+		<title>Single post - Android Manchester</title>
     {{{common_header_elements}}}
 	</head>
 <body class="container">
   {{{nav_bar}}}
-	<a id="parent-thread-link" href="{{backUrl}}">Back to thread</a>
-	<div id="post_content">
-        {{{htmlContent}}}
-	</div>
-	<div id="post_username">
-        By {{username}}
-	</div>
+	
+          <div><b>From thread: <a id="parent-thread-link" href="{{backUrl}}">{{subject}}</a></b></div>
+          <br />
+          <div style="width: 50%">
+            <div class="post" id="post_content">
+              <p>{{{htmlContent}}}</p>
+            </div>
+            <div class="post-authorline" style="padding-top:10px">
+              <span id="post_username">By {{username}}</span> | Last modified: 21 Sep 2014, 4:02:37 PM</i>
+            </div>      
+          </div>
+          	
+	
 	</body>
 </html>

@@ -14,5 +14,6 @@ public class PostSingleView extends BaseView {
   public String htmlContent;
 	public String username;
 	public String backUrl;
+  public String subject;
 
 }
