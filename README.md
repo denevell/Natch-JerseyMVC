@@ -24,9 +24,6 @@ Todo
 * Code that does pagination - hard coded html
 * Test page indicators
 * Test for reply going to next page
-~~
-* Admin indicator on main page
-* Request reset functionality still working
 
 Backlog
 -------

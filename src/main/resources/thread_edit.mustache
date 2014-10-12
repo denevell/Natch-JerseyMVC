@@ -1,12 +1,13 @@
 <html>
       <head>
+      <title>Edit Thread - Android Manchester</title>
       {{{common_header_elements}}}
       </head>
       <body class="container">
     {{{nav_bar}}}
 
        {{#error}}
-         <div id="error">
+         <div style="color: red;float: right" id="error">
                {{.}}
          </div>
        {{/error}}
@@ -19,18 +20,23 @@
               value="{{thread}}" />
           <div>
             <input name="subject" 
+              class="form-control form-bottom-margin" 
               value="{{subject}}" />
           </div>  
           <div>
             <textarea name="content" 
+              class="form-control form-bottom-margin" 
               cols="50" rows="6">{{content}}</textarea>
           </div>
           <div>
-            <input name="tags" value="{{tags}}" />
+            <input name="tags" 
+            class="form-control form-bottom-margin" 
+            value="{{tags}}" />
           </div>
           <div>
             <input type="submit" 
                id="editpost_submit_input"
+              class="form-control form-bottom-margin" 
                {{^loggedIn}}
                 disabled="disabled"
                 value="please login to edit"
@@ -41,5 +47,7 @@
             />
           </div>
         </form>     
+        
+
   </body>
 </html> 
