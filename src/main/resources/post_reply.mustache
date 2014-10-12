@@ -1,25 +1,33 @@
 <html>
 	<head>
-		<title>Reset password - Android Manchester</title>
+		<title>Reply to post- Android Manchester</title>
     {{{common_header_elements}}}
 	</head>
   <body class="container">
 
   {{{nav_bar}}}
+  
+    <div style="color: red;float: right">
 				{{errorMessage}}
-				<form action="/app//post/reply/{{id}}?start={{start}}&limit={{limit}}" 
+   </div>
+  
+				<form action="/app/post/reply/{{id}}?start={{start}}&limit={{limit}}" 
+          style="width:50%;min-width:350px;"
 					method="post">
 					<div>
-						<textarea name="content"  cols="50" rows="12">
+						<textarea 
+						  name="content"  
+              class="form-control form-bottom-margin" 
+						  cols="50" rows="12">
 > *{{username}} said on {{getLastModifiedDateWithTime}}*
 {{htmlContent}}
-
-
 </textarea>
 					</div>
+
 					<div>
 						<input type="hidden" value="{{threadId}}" name="thread" />
 						<input type="submit" name="submit" 
+                class="form-control form-bottom-margin" 
         					{{^loggedIn}}
 								disabled="disabled"
 								value="please login to reply"
@@ -29,9 +37,11 @@
         					{{/loggedIn}}
 						/>
 					</div>
+
+				</form>
 					<p style="color: #aaa">
 						When replying, ensure you leave a new line between the quoted text and your reply for formatting goodness.
 					</p>
-				</form>
+
 	</body>
 </html>

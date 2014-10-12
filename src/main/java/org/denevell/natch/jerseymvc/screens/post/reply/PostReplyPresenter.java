@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.post.reply;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
@@ -9,8 +10,8 @@ import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.SessionUtils;
 import org.denevell.natch.jerseymvc.app.services.PostAddService;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
+import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
 
 public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView>  {
 	
@@ -46,17 +47,29 @@ public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView
     			mController.content, 
     			mController.threadId);
 		if (addPostModule.getAddpost().getErrorMessage()==null) {
-			return Response.seeOther(new URI(
-					new ThreadUrlGenerator()
-						.createThreadUrl(
-								mController.threadId,
-								mController.start, 
-								mController.limit))).build();
+		  int numPosts = addPostModule.getAddpost().getThread().getNumPosts();
+      ThreadsPaginationService pagination = getPagination(request, numPosts);
+      String url = request.getRequestURL() + "?" + request.getQueryString();
+      if (numPosts > mController.start + mController.limit) {
+        return Response.seeOther(pagination.getNext()).build();
+      } else {
+        return Response.seeOther(new URI(url)).build();
+      }
 		} else {
 			mView.errorMessage = addPostModule.getAddpost().getErrorMessage();
 			String url = request.getRequestURL() + "?" + request.getQueryString();
 			return Response.seeOther(new URI(url)).build();
 		}
+	}
+
+	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
+		ThreadsPaginationService pagination = new ThreadsPaginationService();
+		pagination.calculatePagination(
+				request.getRequestURL()+"?"+request.getQueryString(), 
+				mController.start, 
+				mController.limit, 
+				numPosts);
+		return pagination;
 	}
 
 }
