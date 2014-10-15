@@ -1,20 +1,34 @@
 <html>
 	<head>
-		<title>Reset password - Android Manchester</title>
+		<title>Delete post - Android Manchester</title>
     {{{common_header_elements}}}
 	</head>
   <body class="container">
 
   {{{nav_bar}}}
+
+  <div style="color: red;float: right">
 	{{errorMessage}}
-    <form method="post" action="/app/post/delete/?thread={{parentThreadId}}&limit={{limit}}&start={{start}}">
-        <input name="delete_post_id" value="{{id}}" type="hidden" /> 
+  </div>
+
+    <div>Sure you want to delete the post?</div>
+    <div>There's no going back.</div>
+    <form method="post" 
+      action="/app/post/delete/?thread={{parentThreadId}}&limit={{limit}}&start={{start}}"
+      style="width:50%">
+        <input 
+        name="delete_post_id" value="{{id}}" type="hidden" /> 
         {{#loggedIn}}
-	        <input type="submit" id="delete_post_form_submit" value="delete post?" />
+	        <input type="submit" 
+        class="form-control form-bottom-margin" 
+	        id="delete_post_form_submit" value="Delete post? Forever?" />
         {{/loggedIn}}
         {{^loggedIn}}
-	        <input type="submit" id="delete_post_form_submit" disabled="disabled" value="you must be logged in" />
+	        <input type="submit" 
+          class="form-control form-bottom-margin" 
+	        id="delete_post_form_submit" disabled="disabled" value="you must be logged in" />
         {{/loggedIn}}
 	</form>
+	
 	</body>
 </html>

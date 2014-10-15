@@ -16,11 +16,14 @@
           action="/app/post/edit/{{postId}}?thread={{thread}}&start={{start}}&limit={{limit}}"
           method="post">
           <div>
-            <textarea name="content" cols="50" rows="6">{{content}}</textarea>
+            <textarea name="content" cols="50" 
+            class="form-control form-bottom-margin" 
+            rows="6">{{content}}</textarea>
           </div>
           <div>
             <input type="submit" 
                id="editpost_submit_input"
+               class="form-control form-bottom-margin"
                {{^loggedIn}}
                 disabled="disabled"
                 value="please login to edit"

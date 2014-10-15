@@ -5,13 +5,25 @@
       <body class="container">
     {{{nav_bar}}}
 	{{errorMessage}}
-    <form method="post" action="/app/delete?delete_thread_id={{id}}">
+	
+	  <div>Sure you want to delete the entire thread?</div>
+    <div>There's no going back.</div>
+    <br />
+    <form method="post" 
+    action="/app/delete?delete_thread_id={{id}}"
+    style="width: 50%"
+    >
         <input name="delete_post_id" value="{{id}}" type="hidden" /> 
         {{#loggedIn}}
-	        <input type="submit" id="delete_thread_form_submit" value="delete thread?" />
+	        <input type="submit" 
+          class="form-control form-bottom-margin" 
+          value="Delete the entire thread. Forever." 
+	        id="delete_thread_form_submit" />
         {{/loggedIn}}
         {{^loggedIn}}
-	        <input type="submit" id="delete_thread_form_submit" disabled="disabled" value="you must be logged in" />
+	        <input type="submit" 
+          class="form-control form-bottom-margin" 
+	        id="delete_thread_form_submit" disabled="disabled" value="you must be logged in" />
         {{/loggedIn}}
 	</form>
 	</body>
