@@ -10,10 +10,11 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 -----
 * Store the auth id in cookies
+* Delete post error message
+~~
 * Don't show move to thread on first post in thread
 * Don't show delete post on first post
 * Shouldn't see delete icon after first page
-* Delete post error message
 * Test go back to homepage from single thread page
 * Test content in single thread page
 * No next icon when no next page
@@ -24,6 +25,7 @@ Todo
 * Code that does pagination - hard coded html
 * Test page indicators
 * Test for reply going to next page
+* Keep old add thread data or don't allow when not logged in
 
 Backlog
 -------

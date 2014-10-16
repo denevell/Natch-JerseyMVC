@@ -1,16 +1,24 @@
 <html>
 	<head>
-		<title>Reset password - Android Manchester</title>
+		<title>Move post to thread - Android Manchester</title>
     {{{common_header_elements}}}
 	</head>
   <body class="container">
 
   {{{nav_bar}}}
+
+  <div style="color: red;float: right">
 	{{moveError}}
-		<p>As user: {{username}}</p>
- 		<form action="/app/post/movetothread/{{postId}}" method="post">
+  </div>
+	
+		<p class="form-bottom-margin black-colour">As user: {{username}}</p>
+ 		<form 
+ 		  action="/app/post/movetothread/{{postId}}" 
+ 	    class="max-form-width"	
+ 		method="post">
  			<input 
  				id="move_to_thread_subject"
+ 				class="form-control form-bottom-margin"
  				type="text" 
  				name="subject" 
  				/>
@@ -18,6 +26,7 @@
  			<input type="hidden" name="userId" value="{{username}}"/>
 			<input type="submit" 
 				id="move_to_thread_submit"
+				class="form-control"
 				{{^isAdmin}}
 					disabled="disabled"
 					value="please logon to move post" 
