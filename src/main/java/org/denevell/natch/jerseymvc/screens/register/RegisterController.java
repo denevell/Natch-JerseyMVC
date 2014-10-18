@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.register;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -18,6 +19,7 @@ public class RegisterController extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;
 	@Context UriInfo mUriInfo;
+  @Context public HttpServletResponse mResponse;
 	public int start;
 	public int limit;
 	public String username;

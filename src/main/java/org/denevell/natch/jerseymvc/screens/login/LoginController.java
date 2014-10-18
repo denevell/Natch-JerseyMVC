@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.login;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,6 +17,7 @@ import org.glassfish.jersey.server.mvc.Template;
 public class LoginController extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;
+	@Context public HttpServletResponse mResponse;
 	@Context UriInfo mUriInfo;
 	public String username;
 	public String password;

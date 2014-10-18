@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.logout;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
@@ -15,6 +16,7 @@ import org.glassfish.jersey.server.mvc.Template;
 public class LogoutController extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;
+  @Context public HttpServletResponse mResponse;
 	@Context UriInfo mUriInfo;
 	public String username;
 	public String password;

@@ -9,7 +9,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* Store the auth id in cookies
 * Delete post error message
 ~~
 * Don't show move to thread on first post in thread

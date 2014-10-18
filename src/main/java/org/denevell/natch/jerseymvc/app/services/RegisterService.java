@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.app.services;
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.models.RegisterInput;
@@ -23,6 +24,7 @@ public class RegisterService {
 
 	public boolean register(Object trueObject, 
 			final HttpServletRequest serv,
+			final HttpServletResponse resp,
 			final String username, 
 			final String password,
 			final String recoveryEmail) {
@@ -41,7 +43,7 @@ public class RegisterService {
 			if (mRegister.getError() != null && mRegister.getError().trim().length() > 0) {
 				mRegister.setErrorMessage(mRegister.getError()); // Hack...
 			} else {
-				new LoginLogoutService().login(new Object(), serv, username, password);
+				new LoginLogoutService().login(new Object(), serv, resp, username, password);
 			}
 			}})
 		._403(new Runnable() { @Override public void run() {

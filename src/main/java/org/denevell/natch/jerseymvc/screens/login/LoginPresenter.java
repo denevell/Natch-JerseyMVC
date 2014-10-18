@@ -23,7 +23,7 @@ public class LoginPresenter extends SessionSavingViewPresenter<Object> {
   @Override
   public Response onPost(HttpServletRequest request) throws Exception {
     super.onPost(request);
-    mLogin.login(new Object(), request, mController.username, mController.password);
+    mLogin.login(new Object(), request, mController.mResponse, mController.username, mController.password);
     HashMap<String, Object> value = new HashMap<String, Object>();
     request.getSession(true).setAttribute("temp_state", value);
     value.put(BaseView.arg_loginErrorMessage, mLogin.getLogin().getErrorMessage());

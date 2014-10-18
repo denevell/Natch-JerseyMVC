@@ -48,7 +48,7 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 	public Response onPost(HttpServletRequest request) throws Exception {
 		super.onPost(request);
 		
-    	mRegister.register(mController.registerActive, request, mController.username, mController.password, mController.recoveryEmail);
+    	mRegister.register(mController.registerActive, request, mController.mResponse, mController.username, mController.password, mController.recoveryEmail);
     	mView.registerErrorMessage = mRegister.mRegister.getErrorMessage();
 
     	// Redirect back to the main page, statically.

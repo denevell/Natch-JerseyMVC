@@ -24,7 +24,7 @@ public class LogoutPresenter extends SessionSavingViewPresenter<BaseView> {
   public Response onPost(HttpServletRequest request) throws Exception {
     super.onPost(request);
 
-    mLogin.logout(new Object(), request);
+    mLogin.logout(new Object(), request, mController.mResponse);
 
     Presenter.Utils.clearViewStateFromSession(request, BaseView.class);
     return Response.seeOther(new URI(mController.redirect)).build();

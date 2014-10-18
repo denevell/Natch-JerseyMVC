@@ -48,5 +48,8 @@
     <listener>
       <listener-class>org.denevell.natch.jerseymvc.app.ManifestVarsListener</listener-class>
     </listener>
+    <listener>
+      <listener-class>org.denevell.natch.jerseymvc.app.SessionFromCookiesRequestListener</listener-class>
+    </listener>
 
 </web-app>
