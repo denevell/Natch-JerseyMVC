@@ -9,7 +9,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* Style tag on single thread page
 * When no next page, next item goes to current
 * When no prev page, prev item goes to current
 * Should see number of paginationed posts on new posts

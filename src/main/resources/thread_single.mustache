@@ -13,15 +13,16 @@
         {{/addPostError}}
   </div>
   
+	 	<div id="tags">
+	 	 {{#tags}}
+	 	   <span class="tag"><a class="label label-success"  href="/app/index?start=0&limit=10&tag={{.}}">{{.}}</a></span>
+	 	 {{/tags}}
+		</div>
+  
     <div class="thread-header-line">
         <h3 class="thread-header" id="thread_subject">{{subject}}</h3> 
     </div> 
 
-	 	<div id="tags">
-	 	 {{#tags}}
-	 	   <span class="tag"><a href="/app/index?start=0&limit=10&tag={{.}}">{{.}}</a></span>
-	 	 {{/tags}}
-		</div>
     
 
     <div>
