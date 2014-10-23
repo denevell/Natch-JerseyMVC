@@ -47,6 +47,7 @@ public class PostDeleteConfirmationController extends TemplateController {
 	}
 
     @POST
+    @Path("{delete_post_id}")
     @Template
     public Response indexPost(
     		@FormParam("delete_post_id") final String deleteThreadId,

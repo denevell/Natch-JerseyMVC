@@ -7,14 +7,14 @@
 
   {{{nav_bar}}}
 
-  <div style="color: red;float: right">
+  <div style="color: red;" id="error_message">
 	{{errorMessage}}
   </div>
 
     <div>Sure you want to delete the post?</div>
     <div>There's no going back.</div>
     <form method="post" 
-      action="/app/post/delete/?thread={{parentThreadId}}&limit={{limit}}&start={{start}}"
+      action="/app/post/delete/{{id}}?thread={{parentThreadId}}&limit={{limit}}&start={{start}}"
       style="width:50%">
         <input 
         name="delete_post_id" value="{{id}}" type="hidden" /> 

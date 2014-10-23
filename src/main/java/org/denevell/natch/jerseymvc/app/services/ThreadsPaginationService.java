@@ -28,6 +28,10 @@ public class ThreadsPaginationService {
 		return createUriForPagination(mRequestUri, mStart, mLimit);
 	}
 
+	public URI getCurrent() throws URISyntaxException {
+		return createUriForPagination(mRequestUri, mStart, mLimit);
+	}
+
 	public URI getPrev() throws URISyntaxException {
 		mStart -= mLimit;
 		if(mStart<0) {

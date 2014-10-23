@@ -37,6 +37,7 @@ public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostD
 	@Override
 	public Response onPost(HttpServletRequest request) throws Exception {
 		super.onPost(request);
+		mView.id = Integer.valueOf(mController.getDeletePostId()); 
 		mModel.delete(new Object(), request, mController.getDeletePostId());
 		if (mModel.mPostDelete.isSuccessful()) {
 			return Response.seeOther(new URI(

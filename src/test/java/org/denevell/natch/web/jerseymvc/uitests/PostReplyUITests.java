@@ -58,11 +58,10 @@ public class PostReplyUITests {
 			.addPageOfPosts()
 			.add("**secondpage**");
 		replyPo
-			.clickReply(0)
-			.canSeeRegexText(".*&gt;.*aaron.*&gt;.*secondpage.*", true)
-        	.canSeeRegexText(".*\\*\\*secondpage\\*\\*.*", true)
-        	.enterReplyText("\n\nsome more text")
-        	.canSeeRegexText(".*aaron.*secondpage.*some more text.*", true);
+			.clickReply(0);
+		replyPo.canSeeRegexText(".*&gt;.*aaron.*&gt;.*secondpage.*", true);
+    replyPo.enterReplyText("\n\nsome more text");
+    replyPo.canSeeRegexText(".*aaron.*secondpage.*some more text.*", true);
 	}	
 	
 	@Test

@@ -45,6 +45,7 @@ public class Serv {
 	private int errorCode;
 	private Runnable _500;
 	private Runnable _403;
+	private Runnable _405;
 	private Runnable _400;
 	private Runnable _exception;
 	private Runnable _401;
@@ -66,9 +67,13 @@ public class Serv {
 		return this;
 	}
 	public Serv _400(Runnable r) {
-		_400 = r;
+		_405 = r;
 		return this;
 	}
+  public Serv _405(Runnable runnable) {
+		_405 = runnable;
+		return this;
+  }
 	public Serv _exception(Runnable r) {
 		_exception = r;
 		return this;
@@ -90,6 +95,9 @@ public class Serv {
 			case 403:
 				_403.run();
 				break;
+			case 405:
+				_405.run();
+				break;
 			default:
 				_exception.run();
 				break;
@@ -100,5 +108,6 @@ public class Serv {
 			return false;
 		}
 	}
+
 
 }

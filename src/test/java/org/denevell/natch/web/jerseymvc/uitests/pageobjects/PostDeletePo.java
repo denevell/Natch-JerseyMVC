@@ -2,6 +2,7 @@ package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class PostDeletePo {
 
@@ -39,6 +40,12 @@ public class PostDeletePo {
 		}
 		return this;
 	}
+
+  public PostDeletePo canSeeErrorText() {
+    WebElement element = driver.findElement(By.id("error_message"));
+    org.junit.Assert.assertTrue("Can see error text", element.getText().trim().length()>0);
+    return this;
+  }
 
 	public PostDeletePo canPressConfirmLink(boolean b) {
         boolean enabled = driver.findElement(By.id("delete_post_form_submit")).isEnabled();

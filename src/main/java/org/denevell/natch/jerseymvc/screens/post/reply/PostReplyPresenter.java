@@ -12,6 +12,7 @@ import org.denevell.natch.jerseymvc.app.services.PostAddService;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
+import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
 
 public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView>  {
 	
@@ -48,12 +49,11 @@ public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView
     			mController.threadId);
 		if (addPostModule.getAddpost().getErrorMessage()==null) {
 		  int numPosts = addPostModule.getAddpost().getThread().getNumPosts();
-      ThreadsPaginationService pagination = getPagination(request, numPosts);
-      String url = request.getRequestURL() + "?" + request.getQueryString();
+      ThreadsPaginationService pagination = getPagination(numPosts);
       if (numPosts > mController.start + mController.limit) {
         return Response.seeOther(pagination.getNext()).build();
       } else {
-        return Response.seeOther(new URI(url)).build();
+        return Response.seeOther(pagination.getCurrent()).build();
       }
 		} else {
 			mView.errorMessage = addPostModule.getAddpost().getErrorMessage();
@@ -62,10 +62,11 @@ public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView
 		}
 	}
 
-	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
+	private ThreadsPaginationService getPagination(int numPosts) throws URISyntaxException {
+    String url = new ThreadUrlGenerator().createThreadUrl(mController.threadId);
 		ThreadsPaginationService pagination = new ThreadsPaginationService();
 		pagination.calculatePagination(
-				request.getRequestURL()+"?"+request.getQueryString(), 
+		    url,
 				mController.start, 
 				mController.limit, 
 				numPosts);

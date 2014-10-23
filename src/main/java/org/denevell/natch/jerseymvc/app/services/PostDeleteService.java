@@ -28,9 +28,18 @@ public class PostDeleteService {
 				.path("rest").path("post").path("del").path(postId).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.delete(PostDeleteOutput.class);
+			if(mPostDelete.getError()!=null) {
+			  mPostDelete.setErrorMessage(mPostDelete.getError());
+			}
 			}})
 		._403(new Runnable() { @Override public void run() {
 			mPostDelete.setErrorMessage("You're not logged in");
+			}})
+		._405(new Runnable() { @Override public void run() {
+			mPostDelete.setErrorMessage("Unable to delete");
+			}})
+		._500(new Runnable() { @Override public void run() {
+			mPostDelete.setErrorMessage("Unable to delete");
 			}})
 		._401(new Runnable() { @Override public void run() {
 			mPostDelete.setErrorMessage("You're not logged in");

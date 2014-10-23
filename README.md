@@ -9,21 +9,19 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* Delete post error message
-~~
+~~* Delete post error message~~
+~~* Test for reply going to next page~~
+* Test shouldn't see delete icon after first page
+
 * Don't show move to thread on first post in thread
 * Don't show delete post on first post
-* Shouldn't see delete icon after first page
 * Test go back to homepage from single thread page
 * Test content in single thread page
 * No next icon when no next page
 * Test what happens on 0 start and limit
-* Pagination disabled states
 * Disabled add thread button
 * Disabled next / prev button
-* Code that does pagination - hard coded html
 * Test page indicators
-* Test for reply going to next page
 * Keep old add thread data or don't allow when not logged in
 
 Backlog

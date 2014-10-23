@@ -34,7 +34,7 @@ public class PostReplyPo {
 	public PostReplyPo canSeeRegexText(String string, boolean b) {
         Pattern p = Pattern.compile(string, Pattern.DOTALL);
         String pageSource = driver.getPageSource();
-		Matcher m = p.matcher(pageSource);
+        Matcher m = p.matcher(pageSource);
         boolean matches = m.matches();
         if(b) {
         	org.junit.Assert.assertTrue("Can see regex", matches);
@@ -47,9 +47,9 @@ public class PostReplyPo {
 	public PostReplyPo enterReplyText(String string) {
 		WebElement content = driver.findElement(By.name("content"));
 		content.sendKeys(string);
-        WebElement submit= driver.findElement(By.name("submit"));
-        submit.click();        
-        return this;
+    WebElement submit= driver.findElement(By.id("post_reply_submit"));
+    submit.click();        
+    return this;
 	}
 
 	public PostReplyPo submitIsDisabled(boolean b) {

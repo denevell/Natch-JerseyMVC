@@ -61,7 +61,7 @@ public class PostDeleteUITests {
         secondPageUrl);
     addpostPo.canSeePostOnSecondPage(true);
 
-    postDeletePo.pressDeleteLink(0).pressConfirmDelete();
+    postDeletePo.pressDeleteLink(1).pressConfirmDelete();
 
     // Assert first post gone
     String currentUrl = driver.getCurrentUrl();
@@ -81,7 +81,7 @@ public class PostDeleteUITests {
     loginPo.logout().login("aaron", "aaron");
     addthreadPo.gotoThread(0);
 
-    postDeletePo.pressDeleteLink(0).pressConfirmDelete();
+    postDeletePo.pressDeleteLink(1).pressConfirmDelete();
     addpostPo.cantSeePost("pooost");
   }
 
@@ -91,7 +91,7 @@ public class PostDeleteUITests {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "c").gotoThread(0);
     addpostPo.add("pooost");
-    postDeletePo.canSeeDeleteLink(0, true);
+    postDeletePo.canSeeDeleteLink(1, true);
     String deletePage = driver.getCurrentUrl();
 
     // Logout, shouldn't be active
@@ -107,7 +107,7 @@ public class PostDeleteUITests {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "c").gotoThread(0);
     addpostPo.add("pooost");
-    postDeletePo.canSeeDeleteLink(0, true);
+    postDeletePo.canSeeDeleteLink(1, true);
     String deletePage = driver.getCurrentUrl();
 
     // Logout, shouldn't be active
@@ -118,11 +118,11 @@ public class PostDeleteUITests {
   }
 
   @Test
-  public void shouldSeeErrorWhenLoggedOut() throws InterruptedException {
+  public void shouldSeeDisableButtoWhenLoggedOut() throws InterruptedException {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "c").gotoThread(0);
     addpostPo.add("hiya");
-    postDeletePo.pressDeleteLink(0).canPressConfirmLink(true);
+    postDeletePo.pressDeleteLink(1).canPressConfirmLink(true);
     String deletePage = driver.getCurrentUrl();
 
     // Logout and come back
@@ -130,6 +130,18 @@ public class PostDeleteUITests {
     loginPo.logout();
     driver.get(deletePage);
     postDeletePo.canPressConfirmLink(false);
+  }
+
+  @Test
+  public void shouldSeeDeletPostError() throws Exception {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("hiya");
+    postDeletePo.pressDeleteLink(1);
+    postDeletePo.pressConfirmDelete();
+    driver.navigate().back();
+    postDeletePo.pressConfirmDelete();
+    postDeletePo.canSeeErrorText();
   }
 
   @Test
