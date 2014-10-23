@@ -11,7 +11,11 @@ public class BaseView {
   public static String arg_loginErrorMessage = "loginErrorMessage";
   
   public BaseView(HttpServletRequest request) {
-     redirect_to = UriEncoding.encode(request.getRequestURL() + "?" + request.getQueryString(), null);
+    String qs = "";
+    if(request.getQueryString()!=null && request.getQueryString().trim().length()>0) {
+      qs = "?" + request.getQueryString();
+    }
+    redirect_to = UriEncoding.encode(request.getRequestURL() + qs, null);
   }
   
   @TemplateInclude(file="/common_header_elements.mustache", name="common_header_elements")
