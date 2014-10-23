@@ -57,6 +57,16 @@ public class PostsListsInThreadUITests {
 			.hasAuthor(0, "aaron")
 			.hasTodaysDate(0);
 	}
+
+	@Test
+	public void shouldGoBackToHomeViaHeader() throws InterruptedException {
+		loginPo.loginFromHomepage("aaron", "aaron");
+		addthreadPo
+			.add("suby0", "cont0", "tagx")
+			.gotoThread(0)
+			.clickOnHeader()
+			.amOnHomepage();
+	}		
 	
 	@Test
 	public void shouldClickOnPageTwoLinkThenPageOneLink() throws InterruptedException {

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -115,6 +116,12 @@ public class ThreadAddPo {
 		return this;
 	}
 
+	public ThreadAddPo amOnHomepage() {
+		String uri = driver.getCurrentUrl();
+		org.junit.Assert.assertTrue("Url is for correct page", uri.equals(URLs.HOMEPAGE+"/"));
+		return this;
+	}
+
 	public ThreadAddPo clickOnPage(int page) {
         driver.findElement(By.id("page"+page)).click();
 		return this;
@@ -163,6 +170,12 @@ public class ThreadAddPo {
   public ThreadAddPo clickOnTag(String tagName) {
     driver.findElement(By.linkText(tagName)).click();
     return this;
+  }
+
+  public ThreadAddPo clickOnHeader() {
+    driver.findElement(By.id("homelink")).click();
+    return this;
+    
   }
 
 }
