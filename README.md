@@ -9,11 +9,11 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 
 Todo
 -----
-* When no next page, next item goes to current
-* When no prev page, prev item goes to current
+* When no prev page, prev item goes to current in posts
+* Should see number of paginationed posts on new threads 
 
-* Should see number of paginationed posts on new posts
-* Test what happens on 0 start and limit
+* Should see number of paginationed posts on new posts. 
+* Test what happens on 0 start and limit -- null thing.
 * Keep old add thread data or don't allow when not logged in
 
 Backlog

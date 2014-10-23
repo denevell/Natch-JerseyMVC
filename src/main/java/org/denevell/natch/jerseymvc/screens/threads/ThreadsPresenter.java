@@ -57,8 +57,14 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
     mView.isAdmin = request.getSession(true).getAttribute("admin") != null;
 
     // Pagination
+    String requestUri = "";
+    if(request.getQueryString()!=null && request.getQueryString().trim().length()>0) {
+      requestUri = "?" + request.getQueryString();
+    } else {
+      requestUri = "";
+    }
     mPagination.calculatePagination(
-        request.getRequestURL() + "?" + request.getQueryString(),
+        request.getRequestURL() + requestUri,
         mController.start, mController.limit, mThreadsService.getNumThreads());
     mView.pages = mPagination.getPages();
     mView.next = mPagination.getNext().toString();

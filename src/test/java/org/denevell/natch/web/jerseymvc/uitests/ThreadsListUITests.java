@@ -73,6 +73,26 @@ public class ThreadsListUITests {
 			.amOnPageByUrl(1)
 			.hasPost(0, "suby0");
 	}	
+
+	@Test
+	public void shouldStayOnSamePageOnNextWithOnePageOfThreads() throws Exception {
+		loginPo.loginFromHomepage("aaron", "aaron");
+		addthreadPo.add("hi", "hi", "hi");
+	  addthreadPo.clickOnPage(1);
+		String addr = driver.getCurrentUrl();
+	  addthreadPo.clickOnPrev();
+		String addr1 = driver.getCurrentUrl();
+		org.junit.Assert.assertTrue("Url didn't change on prev button", addr.equals(addr1));
+	  addthreadPo.clickOnNext();
+		addr1 = driver.getCurrentUrl();
+		org.junit.Assert.assertTrue("Url didn't change on next button", addr.equals(addr1));
+
+	}
+
+	@Test
+	public void shouldSeeNumberOfPaginatedThreads() throws Exception {
+
+	}
 	
 	@Test
 	public void shouldSeeNoThreadsMessage() {
