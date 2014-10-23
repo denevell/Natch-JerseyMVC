@@ -11,12 +11,9 @@ Todo
 -----
 * When no next page, next item goes to current
 * When no prev page, prev item goes to current
-* Should see number of paginationed posts on new posts
 
-* Test content in single thread page
+* Should see number of paginationed posts on new posts
 * Test what happens on 0 start and limit
-* Disabled add thread button
-* Disabled next / prev button
 * Keep old add thread data or don't allow when not logged in
 
 Backlog

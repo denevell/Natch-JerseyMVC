@@ -80,7 +80,13 @@
         <input name="addthread_active" type="hidden" /> 
         <div>
           <input 
+          {{#loggedIn}}
             value="add thread" 
+          {{/loggedIn}}
+          {{^loggedIn}}
+            disabled="disabled"
+            value="please login to add thread" 
+          {{/loggedIn}}
             class="form-control" 
             id="addthread_form_submit" 
             type="submit">
