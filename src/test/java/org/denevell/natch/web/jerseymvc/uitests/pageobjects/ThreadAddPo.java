@@ -178,4 +178,13 @@ public class ThreadAddPo {
     
   }
 
+  public ThreadAddPo seeNumberOfPaginatedPages(int i) {
+			try {
+				driver.findElement(By.id("page1"));
+			} catch (Exception e) {
+				org.junit.Assert.assertTrue("Couldn't find that page", false);
+			}
+			return this;
+  }
+
 }

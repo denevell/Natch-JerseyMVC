@@ -100,6 +100,20 @@ public class PostsListsInThreadUITests {
 	}			
 
 	@Test
+	public void shouldSeeNumberOfPaginatedThreads() throws Exception {
+		loginPo.loginFromHomepage("aaron", "aaron");
+		addthreadPo
+			.add("suby0", "cont0", "tagx")
+			.gotoThread(0);
+		addpostPo
+			.add("hi")
+			.seeNumberOfPaginatedPages(1)
+			.addPagePlusOneOfPosts()
+			.seeNumberOfPaginatedPages(2);
+	}
+
+
+	@Test
 	public void shouldStayOnSamePageOnNextWithOnePageOfPosts() throws Exception {
 		loginPo.loginFromHomepage("aaron", "aaron");
 		addthreadPo

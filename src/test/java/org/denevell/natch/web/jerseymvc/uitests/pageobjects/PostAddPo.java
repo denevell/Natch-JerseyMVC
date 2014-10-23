@@ -188,8 +188,17 @@ public class PostAddPo {
 	public PostAddPo hasEditedByAdminFlag(int i) {
 		WebElement post = driver.findElement(By.id("post_" + i));
 		boolean edited = post.getText().toLowerCase().contains("edited by an admin");
-        org.junit.Assert.assertTrue(edited);
+    org.junit.Assert.assertTrue(edited);
 		return this;
 	}
+
+  public PostAddPo seeNumberOfPaginatedPages(int i) {
+			try {
+				driver.findElement(By.id("page1"));
+			} catch (Exception e) {
+				org.junit.Assert.assertTrue("Couldn't find that page", false);
+			}
+			return this;
+  }
 
 }

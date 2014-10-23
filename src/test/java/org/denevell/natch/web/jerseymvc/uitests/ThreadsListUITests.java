@@ -89,8 +89,13 @@ public class ThreadsListUITests {
 	}
 
 	@Test
-	public void shouldSeeNumberOfPaginatedThreads() throws Exception {
-
+	public void shouldSeeNumberOfPaginatedPosts() throws Exception {
+		loginPo.loginFromHomepage("aaron", "aaron");
+		addthreadPo
+			.add("hi", "hi", "hi")
+			.seeNumberOfPaginatedPages(1)
+			.addPagePlusOneOfThreads()
+			.seeNumberOfPaginatedPages(2);
 	}
 	
 	@Test
