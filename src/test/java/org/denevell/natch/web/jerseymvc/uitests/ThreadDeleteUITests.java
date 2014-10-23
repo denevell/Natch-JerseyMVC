@@ -1,5 +1,6 @@
 package org.denevell.natch.web.jerseymvc.uitests;
 
+import org.denevell.natch.web.jerseymvc.uitests.pageobjects.PostAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadAddPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadDeletePo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.ThreadsListPo;
@@ -21,6 +22,7 @@ public class ThreadDeleteUITests {
 	private ThreadAddPo addThreadPo;
 	private ThreadDeletePo deleteThreadPo;
 	private ThreadsListPo listThreadPo;
+  private PostAddPo addpostPo;
 
 	@Before
 	public void setup() throws Exception {
@@ -30,6 +32,7 @@ public class ThreadDeleteUITests {
 		deleteThreadPo = new ThreadDeletePo(driver);
 		registerPo = new RegisterPo(driver);
 		addThreadPo = new ThreadAddPo(driver);
+		addpostPo = new PostAddPo(driver);
 		loginPo = new LoginoutPo(driver);
 		driver.get(URLs.HOMEPAGE);
 		registerPo.register("aaron", "aaron", null);
@@ -105,6 +108,18 @@ public class ThreadDeleteUITests {
 		deleteThreadPo
 			.canSeeDeleteLink(false);
 	}
+
+	@Test
+	public void shouldntSeeDeleteThreadPageMoreThanOne() throws InterruptedException {
+		loginPo
+			.login("aaron2", "aaron");
+		addThreadPo
+			.add("subjectt", "conttt", "c")
+			.gotoThread(0);
+		addpostPo.addPageOfPosts().add("yoooooooooooooooooonubian");
+		deleteThreadPo
+			.canSeeDeleteLink(false);
+	}
 	
 	@Test
 	public void shouldntSeeDeleteThreadWhenLoggedInAsSomeoneElse() throws InterruptedException {
@@ -124,25 +139,5 @@ public class ThreadDeleteUITests {
 		deleteThreadPo
 			.canSeeDeleteLink(false);
 	}	
-//	
-//	@Test
-//	public void shouldntSeeDeleteThreadIconOnPagesAfterFirst() throws InterruptedException {
-//		// Arrange - add posts to go onto second page 
-//		LogonUITests.logonCorrectly(driver);
-//        AddThreadUITests.fromHomepageAddAndGotoThread(driver, "sub", "ccc", "");
-//        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-//        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-//        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-//        AddPostToThreadUITests.shouldAddPost("xxx", driver);
-//        assertTrue("Page two doesn't contain delete thread", driver.getPageSource().toLowerCase().contains("delete thread"));		
-//        AddPostToThreadUITests.shouldAddPost("seconpage", driver);
-//        WebElement nextText = driver.findElement(By.id("next"));
-//
-//        // Add final post
-//        nextText.click();        
-//        
-//        // Assert
-//        assertTrue("Page two doesn't contain delete thread", !driver.getPageSource().toLowerCase().contains("delete thread"));		
-//	}		
 
 }

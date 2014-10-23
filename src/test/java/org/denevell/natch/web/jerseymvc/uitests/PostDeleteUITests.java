@@ -98,7 +98,7 @@ public class PostDeleteUITests {
     driver.get(URLs.HOMEPAGE);
     loginPo.logout();
     driver.get(deletePage);
-    postDeletePo.canSeeDeleteLink(0, false);
+    postDeletePo.canSeeDeleteLink(1, false);
   }
 
   @Test
@@ -114,6 +114,15 @@ public class PostDeleteUITests {
     driver.get(URLs.HOMEPAGE);
     loginPo.logout().login("aaron2", "aaron2");
     driver.get(deletePage);
+    postDeletePo.canSeeDeleteLink(1, false);
+  }
+
+  @Test
+  public void shouldNotSeeDeleteOnFirstPost()
+      throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "c").gotoThread(0);
+    addpostPo.add("pooost");
     postDeletePo.canSeeDeleteLink(0, false);
   }
 
