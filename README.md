@@ -8,13 +8,17 @@ You currently need the rest services (See and run Natch-Runner) running on local
 You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in the base dir.
 
 Todo
------
-* When no prev page, prev item goes to current in posts
-* Should see number of paginationed posts on new threads 
+====
 
+* Should see number of paginationed posts on new threads 
 * Should see number of paginationed posts on new posts. 
-* Test what happens on 0 start and limit -- null thing.
+
+* Null on login with no query strings from single thread
 * Keep old add thread data or don't allow when not logged in
 
-Backlog
--------
+Later
+=====
+
+* Delete tag?
+* Separate pagination class?
+* Remove pagination html from codebase

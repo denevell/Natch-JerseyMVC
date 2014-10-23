@@ -116,8 +116,14 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 
 	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
 		ThreadsPaginationService pagination = new ThreadsPaginationService();
+    String requestUri = "";
+    if(request.getQueryString()!=null && request.getQueryString().trim().length()>0) {
+      requestUri = "?" + request.getQueryString();
+    } else {
+      requestUri = "";
+    }
 		pagination.calculatePagination(
-				request.getRequestURL()+"?"+request.getQueryString(), 
+				request.getRequestURL()+requestUri,
 				mController.start, 
 				mController.limit, 
 				numPosts);

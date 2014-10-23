@@ -86,7 +86,6 @@ public class ThreadsListUITests {
 	  addthreadPo.clickOnNext();
 		addr1 = driver.getCurrentUrl();
 		org.junit.Assert.assertTrue("Url didn't change on next button", addr.equals(addr1));
-
 	}
 
 	@Test

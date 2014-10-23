@@ -98,5 +98,21 @@ public class PostsListsInThreadUITests {
 			.cantSeePost("c10")
 			.hasPost(1, "c0");
 	}			
+
+	@Test
+	public void shouldStayOnSamePageOnNextWithOnePageOfPosts() throws Exception {
+		loginPo.loginFromHomepage("aaron", "aaron");
+		addthreadPo
+			.add("suby0", "cont0", "tagx")
+			.gotoThread(0);
+		addpostPo.clickOnPageLink("1");
+		String addr = driver.getCurrentUrl();
+		addpostPo.clickPrev();
+		String addr1 = driver.getCurrentUrl();
+		org.junit.Assert.assertTrue("Url didn't change on prev button", addr.equals(addr1));
+		addpostPo.clickNext();
+		addr1 = driver.getCurrentUrl();
+		org.junit.Assert.assertTrue("Url didn't change on next button", addr.equals(addr1));
+	}
 	
 }
