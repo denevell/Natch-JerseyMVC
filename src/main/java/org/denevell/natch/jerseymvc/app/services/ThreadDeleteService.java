@@ -21,6 +21,9 @@ public class ThreadDeleteService {
 				.path("rest").path("post").path("del").path(id).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.delete(PostDeleteOutput.class);
+			if(!mDeleteThread.isSuccessful()) {
+			  getDeleteThread().setErrorMessage(mDeleteThread.getError());
+			}
 			}})
 		._403(new Runnable() { @Override public void run() {
 			getDeleteThread().setErrorMessage("You're not logged in");

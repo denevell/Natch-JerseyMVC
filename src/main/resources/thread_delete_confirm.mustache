@@ -1,16 +1,20 @@
 <html>
       <head>
       {{{common_header_elements}}}
+      <title>Delete thread | Android Manchester</title>
       </head>
       <body class="container">
     {{{nav_bar}}}
-	{{errorMessage}}
+
+    <div id="error_message" style="color: red">
+	   {{errorMessage}}
+	  </div>
 	
 	  <div>Sure you want to delete the entire thread?</div>
     <div>There's no going back.</div>
     <br />
     <form method="post" 
-    action="/app/delete?delete_thread_id={{id}}"
+    action="/app/thread/delete?delete_thread_id={{id}}"
     style="width: 50%"
     >
         <input name="delete_post_id" value="{{id}}" type="hidden" /> 

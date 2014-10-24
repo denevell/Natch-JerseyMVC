@@ -48,7 +48,7 @@ public class ThreadAddPo {
 
 	public ThreadAddPo showsInputError() {
         boolean inputError= driver.getPageSource().contains(Strings.getPostFieldsCannotBeBlank());
-        org.junit.Assert.assertTrue(inputError);
+        org.junit.Assert.assertTrue("Should see error", inputError);
 		return this;
 	}
 

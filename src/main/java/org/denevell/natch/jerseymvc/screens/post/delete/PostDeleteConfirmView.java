@@ -12,7 +12,6 @@ public class PostDeleteConfirmView extends BaseView {
     super(request);
   }
   public String errorMessage;
-	public boolean loggedIn;
 	public int id;
 	public String parentThreadId;
 	public int start;

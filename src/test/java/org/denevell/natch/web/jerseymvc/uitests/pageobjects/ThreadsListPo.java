@@ -12,11 +12,11 @@ public class ThreadsListPo {
 
 	public ThreadsListPo hasText(String content, boolean b) {
         String pageText = driver.getPageSource();
-        boolean title = pageText.contains(content);
+        boolean title = pageText.toLowerCase().contains(content);
         if(b) {
-        	org.junit.Assert.assertTrue("Not expected", title);
+        	org.junit.Assert.assertTrue("Expected text", title);
         } else {
-        	org.junit.Assert.assertFalse("Not expected", title);
+        	org.junit.Assert.assertFalse("Not expected text", title);
         }
 		return this;
 	}

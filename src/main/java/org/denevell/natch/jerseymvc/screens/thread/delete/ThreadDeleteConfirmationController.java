@@ -25,17 +25,14 @@ public class ThreadDeleteConfirmationController extends TemplateController {
 
     @GET
     @Template
-    public Viewable index(@QueryParam("delete_thread_id") final String deleteThreadId) throws Exception {
+    public Viewable index(@QueryParam("delete_thread_id") String deleteThreadId) throws Exception {
     	this.deleteThreadId = deleteThreadId;
-    	return createTemplate(
-    	    mRequest,
-    			new ThreadDeleteConfirmPresenter(this).onGet(mRequest)
-    			);
+    	return createTemplate( mRequest, new ThreadDeleteConfirmPresenter(this).onGet(mRequest));
 	}
 
     @POST
     @Template
-    public Response indexPost(@FormParam("delete_thread_id") final String deleteThreadId) throws Exception {
+    public Response indexPost(@FormParam("delete_post_id") String deleteThreadId) throws Exception {
     	this.deleteThreadId = deleteThreadId;
     	return new ThreadDeleteConfirmPresenter(this).onPost(mRequest);
     }

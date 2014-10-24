@@ -12,6 +12,5 @@ public class ThreadDeleteConfirmView extends BaseView {
     super(request);
   }
   public String errorMessage;
-	public boolean loggedIn;
 	public int id;
 }

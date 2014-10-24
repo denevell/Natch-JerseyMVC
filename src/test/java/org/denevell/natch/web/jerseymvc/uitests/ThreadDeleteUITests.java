@@ -55,6 +55,7 @@ public class ThreadDeleteUITests {
 		loginPo
 			.login("aaron", "aaron");
 		addThreadPo
+			.add("sup", "yeah", "yeah")
 			.add("subjectt", "conttt", "c")
 			.gotoThread(0);
 		
@@ -63,7 +64,8 @@ public class ThreadDeleteUITests {
 			.pressConfirmDelete();
 		
 		listThreadPo
-			.hasAuthor("aaron", false)
+			.hasSubject("sup", true)
+			.hasContent("yeah", true)
 			.hasSubject("subjectt", false)
 			.hasContent("conttt", false);
 	}
