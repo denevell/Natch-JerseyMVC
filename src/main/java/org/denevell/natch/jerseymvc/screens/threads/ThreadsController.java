@@ -25,7 +25,6 @@ public class ThreadsController extends TemplateController {
   public String subject;
   public String content;
   public String tags;
-  public String addthreadActive;
   public String tag;
 
   @GET
@@ -37,8 +36,7 @@ public class ThreadsController extends TemplateController {
     this.start = start;
     this.limit = limit;
     this.tag = tag;
-    ThreadsView onGet = new ThreadsPresenter(this).onGet(mRequest);
-    return createTemplate(mRequest, onGet);
+    return createTemplate(mRequest, new ThreadsPresenter(this).onGet(mRequest));
   }
 
   @POST
@@ -46,18 +44,14 @@ public class ThreadsController extends TemplateController {
   public Response indexPost(
       @QueryParam("start") @DefaultValue("0") int start,
       @QueryParam("limit") @DefaultValue("10") int limit,
-      @FormParam("subject") final String subject,
-      @FormParam("content") final String content,
-      @FormParam("tags") final String tags,
-      @FormParam("addthread_active") final String addthreadActive)
-      throws Exception {
-
+      @FormParam("subject") String subject,
+      @FormParam("content") String content,
+      @FormParam("tags") String tags) throws Exception {
     this.start = start;
     this.limit = limit;
     this.subject = subject;
     this.content = content;
     this.tags = tags;
-    this.addthreadActive = addthreadActive;
     return new ThreadsPresenter(this).onPost(mRequest);
   }
 

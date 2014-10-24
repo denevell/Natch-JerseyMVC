@@ -15,31 +15,27 @@ import org.glassfish.jersey.server.mvc.Viewable;
 
 @Path("pwrequest")
 public class PwRequestController extends TemplateController {
-	
-	@Context HttpServletRequest mRequest;
-	@Context UriInfo mUriInfo;
-	public String resetPwActive;
-	public String resetPwEmail;
 
-    @GET
-    @Template
-    public Viewable index() throws Exception {
-    	return createTemplate(
-        mRequest, 
-        new PwRequestPresenter(this).onGet(mRequest)
-    	);
-	}
+  @Context HttpServletRequest mRequest;
+  @Context UriInfo mUriInfo;
+  public String resetPwActive;
+  public String resetPwEmail;
 
-    @POST
-    @Template
-    public Response indexPost(
-    		@Context UriInfo uriInfo,
-    		@FormParam("resetpw_active") final String resetPwActive,
-    		@FormParam("resetpw_email") final String resetPwEmail
-    		) throws Exception {
-		this.resetPwActive = resetPwActive;
-		this.resetPwEmail = resetPwEmail;
-		return new PwRequestPresenter(this).onPost(mRequest);
-	}
-    
+  @GET
+  @Template
+  public Viewable index() throws Exception {
+    return createTemplate(mRequest, new PwRequestPresenter(this).onGet(mRequest));
+  }
+
+  @POST
+  @Template
+  public Response indexPost(
+      @Context UriInfo uriInfo,
+      @FormParam("resetpw_active") String resetPwActive,
+      @FormParam("resetpw_email") String resetPwEmail) throws Exception {
+    this.resetPwActive = resetPwActive;
+    this.resetPwEmail = resetPwEmail;
+    return new PwRequestPresenter(this).onPost(mRequest);
+  }
+
 }

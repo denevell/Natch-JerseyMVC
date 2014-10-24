@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
-import org.denevell.natch.jerseymvc.SessionUtils;
 import org.denevell.natch.jerseymvc.app.models.ThreadOutput;
 import org.denevell.natch.jerseymvc.app.services.PwResetService;
 import org.denevell.natch.jerseymvc.app.services.RegisterService;
@@ -83,7 +82,7 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
   public Response onPost(HttpServletRequest request) throws Exception {
     super.onPost(request);
 
-    mAddThread.add(mController.addthreadActive, request, mController.subject,
+    mAddThread.add(new Object(), request, mController.subject,
         mController.content, mController.tags);
     mView.addThreadErrorMessage = mAddThread.getAddThread().getErrorMessage();
 

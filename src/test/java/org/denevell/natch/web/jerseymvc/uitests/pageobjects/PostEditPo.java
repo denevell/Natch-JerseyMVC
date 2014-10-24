@@ -15,10 +15,10 @@ public class PostEditPo {
   public PostEditPo hasEditPostMarker(int num, boolean b) {
 		if(!b) {
 		    WebElement view = driver.findElement(By.id("post_"+num));
-				org.junit.Assert.assertFalse("Can find edit text marker", view.getText().toLowerCase().contains("edit"));
+				org.junit.Assert.assertFalse("Can't find edit text marker", view.getText().toLowerCase().contains("[edit]"));
 		} else {
 				WebElement view = driver.findElement(By.id("post_"+num));
-				org.junit.Assert.assertTrue("Can find edit text marker", view.getText().toLowerCase().contains("edit"));
+				org.junit.Assert.assertTrue("Can find edit text marker", view.getText().toLowerCase().contains("[edit]"));
 		}
 		return this;
     

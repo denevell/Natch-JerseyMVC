@@ -10,11 +10,8 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-~~ shouldDeletePost
-~~ shouldSeeEditAsAdmin 
-~~ shouldSeeEditAsAdmin
+Delete thread.
 
-shouldShowEditThreadLink
 shouldSeeErrorOnEnterOfBlankUsername
 
 shouldSeeErrorPageOnBlankInput
@@ -24,6 +21,15 @@ shouldSeeEditedTagsDelete
 shouldSeePaginationAndTitlesAndMarkdown
 ThreadAddUITests > shouldShowInputError
 * There's a stray null in a schema somewhere
+
+Code generation
+===============
+
+* Make a servlet that does the same job as PwRequestController
+  * Register a servlet programmatically
+  * Find out how to do the return mustache from java
+* Test
+* Generate the code for that servlet from the Jersey post
 
 Later
 =====

@@ -18,7 +18,7 @@ import org.glassfish.jersey.server.mvc.Viewable;
 
 @Path("thread/edit")
 public class ThreadEditController extends TemplateController {
-  
+
   @Context HttpServletRequest mRequest;
   @Context UriInfo mUriInfo;
   public int postEditId;
@@ -27,33 +27,29 @@ public class ThreadEditController extends TemplateController {
   public String threadId;
   public String tags;
 
-    @GET
-    @Path("{post_edit}")
-    @Template
-    public Viewable index(
-        @QueryParam("thread") String threadId,
-        @PathParam("post_edit") int postEditId
-        ) throws Exception {
-      this.postEditId = postEditId;
-      this.threadId = threadId;
-      return createTemplate(
-    	    mRequest,
-          new ThreadEditPresenter(this).onGet(mRequest)
-      );
+  @GET
+  @Path("{post_edit}")
+  @Template
+  public Viewable index(
+      @QueryParam("thread") String threadId,
+      @PathParam("post_edit") int postEditId) throws Exception {
+    this.postEditId = postEditId;
+    this.threadId = threadId;
+    return createTemplate(mRequest,
+        new ThreadEditPresenter(this).onGet(mRequest));
   }
 
-    @POST
-    @Path(value="{post_edit}")
-    @Template
-    @ParameterGetter
-    public Response indexPost(
-        @Context UriInfo uriInfo,
-        @QueryParam("thread") String threadId,
-        @PathParam("post_edit") int postEditId,
-        @FormParam("subject") final String subject,
-        @FormParam("tags") final String tags,
-        @FormParam("content") final String content 
-        ) throws Exception {
+  @POST
+  @Path(value = "{post_edit}")
+  @Template
+  @ParameterGetter
+  public Response indexPost(
+      @Context UriInfo uriInfo,
+      @QueryParam("thread") String threadId,
+      @PathParam("post_edit") int postEditId,
+      @FormParam("subject") final String subject,
+      @FormParam("tags") final String tags,
+      @FormParam("content") final String content) throws Exception {
     this.postEditId = postEditId;
     this.threadId = threadId;
     this.tags = tags;
@@ -61,5 +57,5 @@ public class ThreadEditController extends TemplateController {
     this.content = content;
     return new ThreadEditPresenter(this).onPost(mRequest);
   }
-    
+
 }
