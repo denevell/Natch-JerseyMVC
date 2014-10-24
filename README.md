@@ -10,15 +10,17 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-shouldSeeErrorPageOnBlankInput
-shouldDeletePost
-shouldSeeEditAsAdmin shouldShowEditThreadLink
-shouldSeePaginationAndTitlesAndMarkdown
+~~ shouldDeletePost
+~~ shouldSeeEditAsAdmin 
+~~ shouldSeeEditAsAdmin
+
+shouldShowEditThreadLink
 shouldSeeErrorOnEnterOfBlankUsername
+
+shouldSeeErrorPageOnBlankInput
+shouldSeePaginationAndTitlesAndMarkdown
 shouldSeeEditedTagsAdd
 shouldSeeEditedTagsDelete
-shouldSeeEditAsAdmin
-shouldShowEditThreadLink
 shouldSeePaginationAndTitlesAndMarkdown
 ThreadAddUITests > shouldShowInputError
 * There's a stray null in a schema somewhere

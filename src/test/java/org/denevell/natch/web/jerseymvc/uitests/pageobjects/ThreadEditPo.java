@@ -15,10 +15,10 @@ public class ThreadEditPo {
   public ThreadEditPo hasEditThreadMarker(int num, boolean b) {
 		if(!b) {
 		    WebElement view = driver.findElement(By.id("post_"+num));
-				org.junit.Assert.assertFalse(view.getText().contains("edit thread"));
+				org.junit.Assert.assertFalse("hasn't edit thread text", view.getText().toLowerCase().contains("edit thread"));
 		} else {
 				WebElement view = driver.findElement(By.id("post_"+num));
-				org.junit.Assert.assertTrue(view.getText().contains("edit thread"));
+				org.junit.Assert.assertTrue("has edit thread text", view.getText().toLowerCase().contains("edit thread"));
 		}
 		return this;
     

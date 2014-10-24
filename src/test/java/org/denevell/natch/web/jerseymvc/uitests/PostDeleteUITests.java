@@ -61,7 +61,7 @@ public class PostDeleteUITests {
         secondPageUrl);
     addpostPo.canSeePostOnSecondPage(true);
 
-    postDeletePo.pressDeleteLink(1).pressConfirmDelete();
+    postDeletePo.pressDeleteLink(0).pressConfirmDelete();
 
     // Assert first post gone
     String currentUrl = driver.getCurrentUrl();
