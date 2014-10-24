@@ -18,66 +18,46 @@ import org.glassfish.jersey.server.mvc.Viewable;
 
 @Path("post/delete")
 public class PostDeleteConfirmationController extends TemplateController {
-	
-	@Context HttpServletRequest mRequest;
-	@Context HttpServletResponse mResponse;
-	@Context UriInfo mUriInfo;
-	private String deletePostId;
-	private String parentThreadId;
-	private int start;
-	private int limit;
 
-    @GET
-    @Path("{delete_post_id}")
-    @Template
-    public Viewable index(
-    		@PathParam("delete_post_id") final String deletePostId,
-    		@QueryParam("thread") final String parentThreadId,
-    		@QueryParam("start") final int start,
-    		@QueryParam("limit") final int limit 
-    		) throws Exception {
-    	this.deletePostId = deletePostId;
-		this.parentThreadId = parentThreadId;
-		this.start = start;
-		this.limit = limit;
-    	return createTemplate(
-    	    mRequest,
-    			new PostDeleteConfirmPresenter(this).onGet(mRequest)
-    			);
-	}
+  @Context HttpServletRequest mRequest;
+  @Context HttpServletResponse mResponse;
+  @Context UriInfo mUriInfo;
+  public String deletePostId;
+  public String parentThreadId;
+  public int start;
+  public int limit;
 
-    @POST
-    @Path("{delete_post_id}")
-    @Template
-    public Response indexPost(
-    		@FormParam("delete_post_id") final String deleteThreadId,
-    		@QueryParam("thread") final String parentThreadId,
-    		@QueryParam("start") final int start,
-    		@QueryParam("limit") final int limit 
-    		) throws Exception {
-    	this.deletePostId = deleteThreadId;
-    	this.parentThreadId = parentThreadId;
-		this.start = start;
-		this.limit = limit;
-    	return new PostDeleteConfirmPresenter(this).onPost(mRequest);
-    }
-    
-    // Getters
-    
-    public int getStart() {
-		return start;
-	}
-    
-    public int getLimit() {
-		return limit;
-	}
+  @GET
+  @Path("{delete_post_id}")
+  @Template
+  public Viewable index(
+      @PathParam("delete_post_id") String deletePostId,
+      @QueryParam("thread") String parentThreadId,
+      @QueryParam("start") int start, 
+      @QueryParam("limit") int limit)
+      throws Exception {
+    this.deletePostId = deletePostId;
+    this.parentThreadId = parentThreadId;
+    this.start = start;
+    this.limit = limit;
+    return createTemplate(mRequest,
+        new PostDeleteConfirmPresenter(this).onGet(mRequest));
+  }
 
-	public String getDeletePostId() {
-		return deletePostId;
-	}
-	
-	public String getParentThreadId() {
-		return parentThreadId;
-	}
+  @POST
+  @Path("{delete_post_id}")
+  @Template
+  public Response indexPost(
+      @FormParam("delete_post_id") String deleteThreadId,
+      @QueryParam("thread") String parentThreadId,
+      @QueryParam("start") int start, 
+      @QueryParam("limit") int limit)
+      throws Exception {
+    this.deletePostId = deleteThreadId;
+    this.parentThreadId = parentThreadId;
+    this.start = start;
+    this.limit = limit;
+    return new PostDeleteConfirmPresenter(this).onPost(mRequest);
+  }
 
 }

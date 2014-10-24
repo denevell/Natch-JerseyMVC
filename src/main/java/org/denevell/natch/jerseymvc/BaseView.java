@@ -16,6 +16,8 @@ public class BaseView {
       qs = "?" + request.getQueryString();
     }
     redirect_to = UriEncoding.encode(request.getRequestURL() + qs, null);
+		loggedIn = SessionUtils.isLoggedIn(request);
+    isAdmin = request.getSession(true).getAttribute("admin") != null;
   }
   
   @TemplateInclude(file="/common_header_elements.mustache", name="common_header_elements")

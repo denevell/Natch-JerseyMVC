@@ -10,7 +10,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* There's a stray null in a schema somewhere
 shouldSeeErrorPageOnBlankInput
 shouldDeletePost
 shouldSeeEditAsAdmin shouldShowEditThreadLink
@@ -22,6 +21,7 @@ shouldSeeEditAsAdmin
 shouldShowEditThreadLink
 shouldSeePaginationAndTitlesAndMarkdown
 ThreadAddUITests > shouldShowInputError
+* There's a stray null in a schema somewhere
 
 Later
 =====

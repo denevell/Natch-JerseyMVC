@@ -35,7 +35,6 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 
     // Get logged in user
     mView.loggedInCorrectly = getCorrectlyLoggedIn(request);
-    mView.loggedIn = SessionUtils.isLoggedIn(request);
 
     // Root post id
     mView.rootPostId = (int) mModel.getRootPostId();

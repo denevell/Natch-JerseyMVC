@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
-import org.denevell.natch.jerseymvc.SessionUtils;
 import org.denevell.natch.jerseymvc.app.services.PostDeleteService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
 import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
@@ -25,27 +24,26 @@ public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostD
 	@Override
 	public PostDeleteConfirmView onGet(HttpServletRequest request) throws Exception {
 		super.onGet(request);
-		mView.id = Integer.valueOf(mController.getDeletePostId()); 
-		mView.loggedIn = SessionUtils.isLoggedIn(request);
-		mView.parentThreadId = mController.getParentThreadId();
-		mView.start = mController.getStart();
-		mView.limit = mController.getLimit();
-    	Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
+		mView.id = Integer.valueOf(mController.deletePostId); 
+		mView.parentThreadId = mController.parentThreadId;
+		mView.start = mController.start;
+		mView.limit = mController.limit;
+    Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
 
 	@Override
 	public Response onPost(HttpServletRequest request) throws Exception {
 		super.onPost(request);
-		mView.id = Integer.valueOf(mController.getDeletePostId()); 
-		mModel.delete(new Object(), request, mController.getDeletePostId());
+		mView.id = Integer.valueOf(mController.deletePostId); 
+		mModel.delete(new Object(), request, mController.deletePostId);
 		if (mModel.mPostDelete.isSuccessful()) {
 			return Response.seeOther(new URI(
 					new ThreadUrlGenerator()
 						.createThreadUrl(
-								mController.getParentThreadId(),
-								mController.getStart(), 
-								mController.getLimit()))).build();
+								mController.parentThreadId,
+								mController.start, 
+								mController.limit))).build();
 		} else {
 			mView.errorMessage = mModel.mPostDelete.getErrorMessage();
 			String url = request.getRequestURL() + "?" + request.getQueryString();
