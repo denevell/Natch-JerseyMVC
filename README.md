@@ -10,7 +10,7 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* There's a stray null in a schema somewhere
+* Keep old add thread data or don't allow when not logged in
 
 Code generation
 ===============
@@ -27,4 +27,3 @@ Later
 * Delete tag?
 * Separate pagination class?
 * Remove pagination html from codebase
-* Keep old add thread data or don't allow when not logged in

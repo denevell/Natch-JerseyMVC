@@ -37,7 +37,11 @@ public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<Thr
 			return Response.seeOther(new MainPageUrlGenerator().build()).build();
 		} else {
 			mView.errorMessage = mModel.getDeleteThread().getErrorMessage();
-			String url = request.getRequestURL() + "?" + request.getQueryString();
+      String qs = "";
+      if (request.getQueryString() != null && request.getQueryString().trim().length() > 0) {
+        qs = "?" + request.getQueryString();
+      }
+			String url = request.getRequestURL() + qs;
 			return Response.seeOther(new URI(url)).build();
 		}
 	}

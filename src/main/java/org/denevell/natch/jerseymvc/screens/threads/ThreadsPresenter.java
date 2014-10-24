@@ -86,7 +86,12 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
         mController.content, mController.tags);
     mView.addThreadErrorMessage = mAddThread.getAddThread().getErrorMessage();
 
-    String url = request.getRequestURL() + "?" + request.getQueryString();
+    String qs = "";
+    if (request.getQueryString() != null
+        && request.getQueryString().trim().length() > 0) {
+      qs = "?" + request.getQueryString();
+    }
+    String url = request.getRequestURL() + qs;
     return Response.seeOther(new URI(url)).build();
   }
 
