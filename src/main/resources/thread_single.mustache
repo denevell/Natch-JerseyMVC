@@ -38,7 +38,7 @@
 	           			<a id="delete_{{iterate}}" href="/app/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">[Delete]</a>
         			    {{/hasEditPostText}}
    		            {{#hasEditThreadText}}
-                  <a href="/app/thread/delete?delete_thread_id=2558">[Delete thread]</a>
+                  <a id="delete_thread_form_submit" href="/app/thread/delete?delete_thread_id=2558">[Delete thread]</a>
         			    {{/hasEditThreadText}}
    		            {{#hasMoveToThreadText}}
 	           			<a id="move_to_thread_{{iterate}}" href="/app/post/movetothread/{{id}}?thread={{parentThreadId}}">[Move to new thread]</a>
@@ -47,7 +47,7 @@
 	           			<a id="thread_edit" href="/app/thread/edit/{{id}}?thread={{parentThreadId}}">[Edit thread]</a>
             			{{/hasEditThreadText}}
    		            {{#hasEditPostText}}
-	           			<a id="thread_edit" href="/app/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">[Edit]</a>
+	           			<a id="post_edit" href="/app/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">[Edit]</a>
             			{{/hasEditPostText}}
 	           		<i id="post_author">
 	           			By {{username}} | <i>{{lastModifiedDate}}</i>
@@ -83,8 +83,7 @@
                 <input type="submit" class="form-control form-bottom-margin" id="addpost_form_submit" value="add post" />
         {{/loggedIn}}
         {{^loggedIn}}
-                <input type="submit" class="form-control form-bottom-margin" id="addpost_form_submit" value="add post" disabled="disabled" />
-                        <div>please login to add post</div>
+                <input type="submit" class="form-control form-bottom-margin" id="addpost_form_submit" value="please login to add post" disabled="disabled" />
         {{/loggedIn}}
         </form>
 

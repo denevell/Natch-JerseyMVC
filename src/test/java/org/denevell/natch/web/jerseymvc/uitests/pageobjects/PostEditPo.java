@@ -26,7 +26,7 @@ public class PostEditPo {
 
   public PostEditPo pressEditPost(int num) {
     WebElement view = driver.findElement(By.id("post_"+num));
-    view.findElement(By.partialLinkText("edit post")).click();
+    view.findElement(By.id("post_edit")).click();
     return this;
   }
 

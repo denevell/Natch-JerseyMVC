@@ -11,6 +11,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.denevell.natch.jerseymvc.app.template.ParameterGetter;
 import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -44,6 +45,7 @@ public class ThreadEditController extends TemplateController {
     @POST
     @Path(value="{post_edit}")
     @Template
+    @ParameterGetter
     public Response indexPost(
         @Context UriInfo uriInfo,
         @QueryParam("thread") String threadId,

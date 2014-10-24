@@ -20,7 +20,7 @@ public class SeleniumDriverUtils {
       //HtmlUnitDriver fd = new HtmlUnitDriver(false);
 			//fd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 			FirefoxDriver fd = new FirefoxDriver(binary, null);
-			fd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			fd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 			return fd;
 		}
 	}

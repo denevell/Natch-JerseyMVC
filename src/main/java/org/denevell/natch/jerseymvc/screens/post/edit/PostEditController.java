@@ -17,45 +17,40 @@ import org.glassfish.jersey.server.mvc.Viewable;
 
 @Path("post/edit")
 public class PostEditController extends TemplateController {
-  
-  @Context HttpServletRequest mRequest;
-  @Context UriInfo mUriInfo;
+
+  @Context
+  HttpServletRequest mRequest;
+  @Context
+  UriInfo mUriInfo;
   public int postEditId;
   public String content;
   public String threadId;
   public int limit;
   public int start;
 
-    @GET
-    @Path("{post_edit}")
-    @Template
-    public Viewable index(
-        @QueryParam("start") int start,
-        @QueryParam("limit") int limit,
-        @QueryParam("thread") String threadId,
-        @PathParam("post_edit") int postEditId
-        ) throws Exception {
-      this.start = start;
-      this.limit = limit;
-      this.postEditId = postEditId;
-      this.threadId = threadId;
-      return createTemplate(
-          mRequest,
-          new PostEditPresenter(this).onGet(mRequest)
-      );
+  @GET
+  @Path("{post_edit}")
+  @Template
+  public Viewable index(
+      @QueryParam("start") int start,
+      @QueryParam("limit") int limit, 
+      @QueryParam("thread") String threadId,
+      @PathParam("post_edit") int postEditId) throws Exception {
+    this.start = start;
+    this.limit = limit;
+    this.postEditId = postEditId;
+    this.threadId = threadId;
+    return createTemplate(mRequest, new PostEditPresenter(this).onGet(mRequest));
   }
 
-    @POST
-    @Path(value="{post_edit}")
-    @Template
-    public Response indexPost(
-        @Context UriInfo uriInfo,
-        @QueryParam("start") int start,
-        @QueryParam("limit") int limit,
-        @QueryParam("thread") String threadId,
-        @PathParam("post_edit") int postEditId,
-        @FormParam("content") final String content 
-        ) throws Exception {
+  @POST
+  @Path(value = "{post_edit}")
+  @Template
+  public Response indexPost(
+      @QueryParam("start") int start, @QueryParam("limit") int limit,
+      @QueryParam("thread") String threadId,
+      @PathParam("post_edit") int postEditId,
+      @FormParam("content") final String content) throws Exception {
     this.start = start;
     this.limit = limit;
     this.postEditId = postEditId;
@@ -63,5 +58,5 @@ public class PostEditController extends TemplateController {
     this.content = content;
     return new PostEditPresenter(this).onPost(mRequest);
   }
-    
+
 }

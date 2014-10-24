@@ -26,7 +26,7 @@ public class ThreadEditPo {
 
   public ThreadEditPo pressEditThread() {
     WebElement view = driver.findElement(By.id("post_0"));
-    view.findElement(By.partialLinkText("edit thread")).click();
+    view.findElement(By.id("thread_edit")).click();
     return this;
   }
 

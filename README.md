@@ -10,15 +10,18 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Null on login with no query strings from single thread
-* Keep old add thread data or don't allow when not logged in
-
-Next
-===
-
-* Look up annotation processor to create code
-* Move a controller to a getter / setter generated class
-* Move rest of them
+* There's a stray null in a schema somewhere
+shouldSeeErrorPageOnBlankInput
+shouldDeletePost
+shouldSeeEditAsAdmin shouldShowEditThreadLink
+shouldSeePaginationAndTitlesAndMarkdown
+shouldSeeErrorOnEnterOfBlankUsername
+shouldSeeEditedTagsAdd
+shouldSeeEditedTagsDelete
+shouldSeeEditAsAdmin
+shouldShowEditThreadLink
+shouldSeePaginationAndTitlesAndMarkdown
+ThreadAddUITests > shouldShowInputError
 
 Later
 =====
@@ -26,3 +29,4 @@ Later
 * Delete tag?
 * Separate pagination class?
 * Remove pagination html from codebase
+* Keep old add thread data or don't allow when not logged in
