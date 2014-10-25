@@ -58,7 +58,7 @@ public class ThreadController extends TemplateController{
     	this.limit = limit;
     	this.content = content;
     	
-		return new ThreadPresenter(this).onPost(mRequest);
+		return new ThreadPresenter(this).onPost(mRequest, null);
     }
     
 }

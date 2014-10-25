@@ -28,7 +28,7 @@ public class LogoutController extends TemplateController {
         @Context UriInfo uriInfo,
     		@QueryParam("redirect") final String redirect) throws Exception {
       this.redirect = redirect;
-		return new LogoutPresenter(this).onPost(mRequest);
+		return new LogoutPresenter(this).onPost(mRequest, null);
 	}
     
 }

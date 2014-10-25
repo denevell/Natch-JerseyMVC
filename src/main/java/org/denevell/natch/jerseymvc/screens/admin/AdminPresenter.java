@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -28,7 +29,7 @@ public class AdminPresenter extends SessionSavingViewPresenter<AdminView>  {
 	}
 
 	@Override
-	public AdminView onGet(HttpServletRequest request) throws Exception {
+	public AdminView onGet(HttpServletRequest request) {
 		super.onGet(request);
 		
     	mAdmin.getUsers((String)request.getSession(true).getAttribute("authkey"));
@@ -46,8 +47,8 @@ public class AdminPresenter extends SessionSavingViewPresenter<AdminView>  {
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
 
 		mAdminToggleService
 			.toggle(mController.adminToggleActive, 

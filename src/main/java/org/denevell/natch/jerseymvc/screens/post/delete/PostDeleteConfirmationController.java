@@ -57,7 +57,7 @@ public class PostDeleteConfirmationController extends TemplateController {
     this.parentThreadId = parentThreadId;
     this.start = start;
     this.limit = limit;
-    return new PostDeleteConfirmPresenter(this).onPost(mRequest);
+    return new PostDeleteConfirmPresenter(this).onPost(mRequest, null);
   }
 
 }

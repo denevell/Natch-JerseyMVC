@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.thread.edit;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -25,7 +26,7 @@ public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditVi
   }
 
   @Override
-  public ThreadEditView onGet(HttpServletRequest request) throws Exception {
+  public ThreadEditView onGet(HttpServletRequest request) {
     super.onGet(request);
 
 		mPostService.fetchPost(new Object(), mController.postEditId);
@@ -45,8 +46,8 @@ public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditVi
   }
 
   @Override
-  public Response onPost(HttpServletRequest request) throws Exception {
-    super.onPost(request);
+  public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+    super.onPost(request, resp);
     
     mThreadEditService.fetch(new Object(), request, 
         mController.subject, 

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.BaseView;
@@ -21,8 +22,8 @@ public class LoginPresenter extends SessionSavingViewPresenter<Object> {
   }
 
   @Override
-  public Response onPost(HttpServletRequest request) throws Exception {
-    super.onPost(request);
+  public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+    super.onPost(request, resp);
     mLogin.login(new Object(), request, mController.mResponse, mController.username, mController.password);
     HashMap<String, Object> value = new HashMap<String, Object>();
     request.getSession(true).setAttribute("temp_state", value);

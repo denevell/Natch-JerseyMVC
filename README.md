@@ -10,15 +10,18 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
+* Null in request post code thing
 * Keep old add thread data or don't allow when not logged in
 
-Code generation
-===============
+* Test the code generation with javawrite on using the command line
 
-* Make a servlet that does the same job as PwRequestController
-  * Register a servlet programmatically
-  * Find out how to do the return mustache from java
-* Test
+~~ * Make an annotations jar ~~
+~~ * Add the code generation to Eclipse ~~
+~~ * Add the code generation source to Eclipse from the Thing annotation ~~
+~~ * Generate the servlet class staticially ~~
+* Add to real project
+* Create the generated source using Gradle
+* Test with new generated servlet
 * Generate the code for that servlet from the Jersey post
 
 Later

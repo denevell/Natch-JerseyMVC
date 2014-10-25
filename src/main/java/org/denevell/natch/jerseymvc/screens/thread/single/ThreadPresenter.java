@@ -1,9 +1,9 @@
 package org.denevell.natch.jerseymvc.screens.thread.single;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -27,7 +27,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 	}
 
   @Override
-  public ThreadView onGet(HttpServletRequest request) throws Exception {
+  public ThreadView onGet(HttpServletRequest request) {
     super.onGet(request);
 
     // Model call
@@ -90,8 +90,8 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
 
 		// Model call
     	PostAddService addPostModule = new PostAddService();
@@ -113,7 +113,7 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
     	}
 	}
 
-	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
+	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) {
 		ThreadsPaginationService pagination = new ThreadsPaginationService();
     String requestUri = "";
     if(request.getQueryString()!=null && request.getQueryString().trim().length()>0) {

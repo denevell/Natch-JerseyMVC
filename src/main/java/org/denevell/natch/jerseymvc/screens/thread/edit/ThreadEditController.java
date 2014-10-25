@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.thread.edit;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,7 +12,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.denevell.natch.jerseymvc.app.template.ParameterGetter;
 import org.denevell.natch.jerseymvc.app.template.TemplateController;
 import org.glassfish.jersey.server.mvc.Template;
 import org.glassfish.jersey.server.mvc.Viewable;
@@ -20,6 +20,7 @@ import org.glassfish.jersey.server.mvc.Viewable;
 public class ThreadEditController extends TemplateController {
 
   @Context HttpServletRequest mRequest;
+  @Context HttpServletResponse mResponse;
   @Context UriInfo mUriInfo;
   public int postEditId;
   public String content;
@@ -42,7 +43,6 @@ public class ThreadEditController extends TemplateController {
   @POST
   @Path(value = "{post_edit}")
   @Template
-  @ParameterGetter
   public Response indexPost(
       @Context UriInfo uriInfo,
       @QueryParam("thread") String threadId,
@@ -55,7 +55,7 @@ public class ThreadEditController extends TemplateController {
     this.tags = tags;
     this.subject = subject;
     this.content = content;
-    return new ThreadEditPresenter(this).onPost(mRequest);
+    return new ThreadEditPresenter(this).onPost(mRequest, mResponse);
   }
 
 }

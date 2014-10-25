@@ -56,7 +56,7 @@ public class PostEditController extends TemplateController {
     this.postEditId = postEditId;
     this.threadId = threadId;
     this.content = content;
-    return new PostEditPresenter(this).onPost(mRequest);
+    return new PostEditPresenter(this).onPost(mRequest, null);
   }
 
 }

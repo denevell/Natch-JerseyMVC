@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -34,7 +35,7 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
   }
 
   @Override
-  public ThreadsView onGet(HttpServletRequest request) throws Exception {
+  public ThreadsView onGet(HttpServletRequest request) {
     super.onGet(request);
 
     // Threads
@@ -79,8 +80,8 @@ public class ThreadsPresenter extends SessionSavingViewPresenter<ThreadsView> {
   }
 
   @Override
-  public Response onPost(HttpServletRequest request) throws Exception {
-    super.onPost(request);
+  public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+    super.onPost(request, resp);
 
     mAddThread.add(new Object(), request, mController.subject,
         mController.content, mController.tags);

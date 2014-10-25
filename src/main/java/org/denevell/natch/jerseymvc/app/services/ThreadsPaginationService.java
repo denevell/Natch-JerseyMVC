@@ -14,14 +14,14 @@ public class ThreadsPaginationService {
 	private int mLimit;
 	private int mNumPosts;
 
-	public void calculatePagination(String requestUri, int start, int limit, int numPosts) throws URISyntaxException {
+	public void calculatePagination(String requestUri, int start, int limit, int numPosts) {
 		mRequestUri = requestUri;
 		mStart = start;
 		mLimit = limit;
 		mNumPosts = numPosts;
 	}
 
-	public URI getNext() throws URISyntaxException {
+	public URI getNext() {
 		if(!(mStart+mLimit > mNumPosts)) {
 			mStart += mLimit;
 		}
@@ -32,7 +32,7 @@ public class ThreadsPaginationService {
 		return createUriForPagination(mRequestUri, mStart, mLimit);
 	}
 
-	public URI getPrev() throws URISyntaxException {
+	public URI getPrev() {
 		mStart -= mLimit;
 		if(mStart<0) {
 			mStart=0;
@@ -40,7 +40,7 @@ public class ThreadsPaginationService {
 		return createUriForPagination(mRequestUri, mStart, mLimit);
 	}
 	
-	public String getPages() throws URISyntaxException {
+	public String getPages() {
 		if(mRequestUri==null) return null;
     	StringBuffer numbers = new StringBuffer();
 		float pagesFloat = ((float) mNumPosts/ (float) mLimit);
@@ -57,12 +57,17 @@ public class ThreadsPaginationService {
     	return numbers.toString();
 	}
 
-	private URI createUriForPagination(String requestUri, int start, int limit) throws URISyntaxException {
+	private URI createUriForPagination(String requestUri, int start, int limit) {
 		if(requestUri==null) return null;
-		URI uri = new URIBuilder(requestUri)
-			.setParameter("start", String.valueOf(start))
-			.setParameter("limit", String.valueOf(limit))
-			.build();
+		URI uri;
+    try {
+      uri = new URIBuilder(requestUri)
+      	.setParameter("start", String.valueOf(start))
+      	.setParameter("limit", String.valueOf(limit))
+      	.build();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
 		return uri;
 	}
 

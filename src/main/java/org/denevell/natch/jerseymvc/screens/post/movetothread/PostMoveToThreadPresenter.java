@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.post.movetothread;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -24,7 +25,7 @@ public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMo
 	}
 
 	@Override
-	public PostMoveToThreadView onGet(HttpServletRequest request) throws Exception {
+	public PostMoveToThreadView onGet(HttpServletRequest request) {
 		super.onGet(request);
 		mPostSingleService.fetchPost(new Object(), mController.postId);
 		mView.username = mPostSingleService.getPost().getUsername();
@@ -35,8 +36,8 @@ public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMo
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
 		if(mController.subject==null || mController.subject.trim().length()==0) {
 			mView.moveError="Must supply a subject";
 			String url = request.getRequestURL() + "?" + request.getQueryString();

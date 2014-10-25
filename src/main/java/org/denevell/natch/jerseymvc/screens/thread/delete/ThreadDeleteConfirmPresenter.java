@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.thread.delete;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -22,7 +23,7 @@ public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<Thr
 	}
 
 	@Override
-	public ThreadDeleteConfirmView onGet(HttpServletRequest request) throws Exception {
+	public ThreadDeleteConfirmView onGet(HttpServletRequest request) {
 		super.onGet(request);
 		mView.id = Integer.valueOf(mController.getDeleteThreadId()); 
     Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
@@ -30,8 +31,8 @@ public class ThreadDeleteConfirmPresenter extends SessionSavingViewPresenter<Thr
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
 		mModel.delete(request, mController.getDeleteThreadId());
 		if (mModel.getDeleteThread().isSuccessful()) {
 			return Response.seeOther(new MainPageUrlGenerator().build()).build();

@@ -44,7 +44,7 @@ public class AdminController extends TemplateController {
 		this.changePwActive = changePwActive;
 		this.adminToggleByUsername = adminToggleUsername;
 		this.adminToggleActive = adminToggleActive;
-		return new AdminPresenter(this).onPost(mRequest);
+		return new AdminPresenter(this).onPost(mRequest, null);
     }
     
     public String getChangePwActive() {

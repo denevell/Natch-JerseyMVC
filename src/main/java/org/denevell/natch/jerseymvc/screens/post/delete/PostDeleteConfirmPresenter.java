@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.post.delete;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -22,7 +23,7 @@ public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostD
 	}
 
 	@Override
-	public PostDeleteConfirmView onGet(HttpServletRequest request) throws Exception {
+	public PostDeleteConfirmView onGet(HttpServletRequest request) {
 		super.onGet(request);
 		mView.id = Integer.valueOf(mController.deletePostId); 
 		mView.parentThreadId = mController.parentThreadId;
@@ -33,8 +34,8 @@ public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostD
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
 		mView.id = Integer.valueOf(mController.deletePostId); 
 		mModel.delete(new Object(), request, mController.deletePostId);
 		if (mModel.mPostDelete.isSuccessful()) {

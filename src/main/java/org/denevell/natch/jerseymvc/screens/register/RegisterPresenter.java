@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.register;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -33,7 +34,7 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 	}
 
 	@Override
-	public RegisterView onGet(HttpServletRequest request) throws Exception {
+	public RegisterView onGet(HttpServletRequest request) {
 		super.onGet(request);
 		
 		// Logged in info
@@ -45,8 +46,8 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
 		
     	mRegister.register(mController.registerActive, request, mController.mResponse, mController.username, mController.password, mController.recoveryEmail);
     	mView.registerErrorMessage = mRegister.mRegister.getErrorMessage();

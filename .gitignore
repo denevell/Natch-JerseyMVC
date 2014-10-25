@@ -6,3 +6,4 @@ build/
 .gradle
 .project
 .idea
+/.apt_generated/

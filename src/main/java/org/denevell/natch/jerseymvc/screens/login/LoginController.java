@@ -36,7 +36,7 @@ public class LoginController extends TemplateController {
     this.redirect = redirect;
 		this.username = username;
 		this.password = password;
-		return new LoginPresenter(this).onPost(mRequest);
+		return new LoginPresenter(this).onPost(mRequest, null);
 	}
     
 }

@@ -34,7 +34,7 @@ public class ThreadDeleteConfirmationController extends TemplateController {
     @Template
     public Response indexPost(@FormParam("delete_post_id") String deleteThreadId) throws Exception {
     	this.deleteThreadId = deleteThreadId;
-    	return new ThreadDeleteConfirmPresenter(this).onPost(mRequest);
+    	return new ThreadDeleteConfirmPresenter(this).onPost(mRequest, mResponse);
     }
     
     // Getters

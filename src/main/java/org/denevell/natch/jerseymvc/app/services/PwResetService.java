@@ -18,7 +18,7 @@ public class PwResetService {
 	private boolean mError = false;
 	private boolean mProcessed = false;
 	
-	public boolean reset(String trueObject, HttpServletRequest mRequest, final String resetPwEmail) {
+	public boolean reset(Object trueObject, HttpServletRequest mRequest, final String resetPwEmail) {
 		if(trueObject==null) return true;
 		return serv(new ResponseRunnable() { @Override public Response run() {
 			Response response = sService 

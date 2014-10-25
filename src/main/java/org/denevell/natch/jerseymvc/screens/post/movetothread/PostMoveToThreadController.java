@@ -51,7 +51,7 @@ public class PostMoveToThreadController extends TemplateController {
     	this.threadId = threadId;
     	this.content = content;
     	this.subject = subject;
-    	return new PostMoveToThreadPresenter(this).onPost(mRequest);
+    	return new PostMoveToThreadPresenter(this).onPost(mRequest, null);
     }
     
 }

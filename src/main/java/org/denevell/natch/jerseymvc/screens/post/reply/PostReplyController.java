@@ -57,7 +57,7 @@ public class PostReplyController extends TemplateController {
     	this.postId = postId;
     	this.threadId = threadId;
     	this.content = content;
-    	return new PostReplyPresenter(this).onPost(mRequest);
+    	return new PostReplyPresenter(this).onPost(mRequest, null);
     }
     
 }

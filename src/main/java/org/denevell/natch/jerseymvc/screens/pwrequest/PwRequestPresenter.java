@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.pwrequest;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -17,7 +18,7 @@ import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
 public class PwRequestPresenter extends SessionSavingViewPresenter<PwRequestView>  {
 	
-	private PwRequestController mController;
+	private PwRequestVars mController;
 	public RegisterService mRegister = new RegisterService();
 	public LoginLogoutService mLogin = new LoginLogoutService();
 	public ThreadAddService mAddThread = new ThreadAddService();
@@ -25,23 +26,23 @@ public class PwRequestPresenter extends SessionSavingViewPresenter<PwRequestView
 	public ThreadsPaginationService mPagination = new ThreadsPaginationService();
 	public ThreadsService mThreadsService = new ThreadsService();
 	
-	public PwRequestPresenter(PwRequestController controller) throws Exception {
-		super(new PwRequestView(controller.mRequest));
+	public PwRequestPresenter(PwRequestVars controller, HttpServletRequest request) {
+		super(new PwRequestView(request));
 		mController = controller;
 	}
 
 	@Override
-	public PwRequestView onGet(HttpServletRequest request) throws Exception {
+	public PwRequestView onGet(HttpServletRequest request) {
 		super.onGet(request);
     Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
     	// Reset pw
-    	mResetPwModule.reset(mController.resetPwActive, request, mController.resetPwEmail);
+    	mResetPwModule.reset(new Object(), request, mController.getRestPwEmail());
     	mView.resetPasswordError = mResetPwModule.isError();
     	mView.resetPassword = mResetPwModule.isProcessed();
     	if(mLogin.getLogin().getErrorMessage()!=null || mResetPwModule.isError()) {
@@ -49,6 +50,8 @@ public class PwRequestPresenter extends SessionSavingViewPresenter<PwRequestView
     	}
 
     	String url = request.getRequestURL()+"?"+request.getQueryString(); 
+    	resp.addHeader("Location", new URI(url).toString());
+    	resp.sendError(303);
     	return Response.seeOther(new URI(url)).build();
 	}
 

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -25,7 +26,7 @@ public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView
 	}
 
 	@Override
-	public PostReplyView onGet(HttpServletRequest request) throws Exception {
+	public PostReplyView onGet(HttpServletRequest request) {
 		super.onGet(request);
 		mService.fetchPost(new Object(), mController.postId);
 		mView.start = mController.start;
@@ -41,8 +42,8 @@ public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request) throws Exception {
-		super.onPost(request);
+	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		super.onPost(request, resp);
     	PostAddService addPostModule = new PostAddService();
     	addPostModule.add(new Object(), request, 
     			mController.content, 

@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens.post.edit;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
@@ -25,7 +26,7 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
   }
 
   @Override
-  public PostEditView onGet(HttpServletRequest request) throws Exception {
+  public PostEditView onGet(HttpServletRequest request) {
     super.onGet(request);
 
 		mPostService.fetchPost(new Object(), mController.postEditId);
@@ -44,8 +45,8 @@ public class PostEditPresenter extends SessionSavingViewPresenter<PostEditView> 
   }
 
   @Override
-  public Response onPost(HttpServletRequest request) throws Exception {
-    super.onPost(request);
+  public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+    super.onPost(request, resp);
     
     mPostEditService.fetch(new Object(), request, 
         mController.content, 

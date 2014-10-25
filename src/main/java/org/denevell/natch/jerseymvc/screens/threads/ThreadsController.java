@@ -52,7 +52,7 @@ public class ThreadsController extends TemplateController {
     this.subject = subject;
     this.content = content;
     this.tags = tags;
-    return new ThreadsPresenter(this).onPost(mRequest);
+    return new ThreadsPresenter(this).onPost(mRequest, null);
   }
 
 }

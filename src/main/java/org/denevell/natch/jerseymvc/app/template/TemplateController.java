@@ -1,12 +1,14 @@
 package org.denevell.natch.jerseymvc.app.template;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -20,6 +22,21 @@ public class TemplateController {
 	  setTemplateIncludesOnTemplateObject(templateObject, fields);
 		String name = templateObject.getClass().getAnnotation(TemplateName.class).value();
     return new Viewable(name, templateObject);
+	}
+
+	public void createRawTemplate(HttpServletRequest request, HttpServletResponse resp, Object templateObject) {
+    try {
+      restoreVariablesSetInSession(request, templateObject);
+      Field[] fields = templateObject.getClass().getFields();
+      setTemplateIncludesOnTemplateObject(templateObject, fields);
+      String name = templateObject.getClass().getAnnotation(TemplateName.class).value();
+      PrintWriter writer = new PrintWriter(resp.getOutputStream());
+      new DefaultMustacheFactory()
+        .compile(name)
+        .execute(writer, templateObject).flush();
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
 	}
 
   private void restoreVariablesSetInSession(HttpServletRequest request, Object templateObject) {
