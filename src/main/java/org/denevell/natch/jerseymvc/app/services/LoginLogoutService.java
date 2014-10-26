@@ -24,12 +24,11 @@ public class LoginLogoutService {
 		return mLogin;
 	}
 	
-	public boolean login(final Object trueObject, 
+	public boolean login(
 			final HttpServletRequest request, 
 			final HttpServletResponse mResponse, 
 			final String username, 
 			final String password) {
-		if(trueObject==null) return true;
 		return serv(new Runnable() { @Override public void run() {
 			mLogin = sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
@@ -65,8 +64,7 @@ public class LoginLogoutService {
 			}}).go();
 	}
 
-	public boolean logout( Object trueObject, final HttpServletRequest request, final HttpServletResponse resp) {
-		if(trueObject==null) return true;
+	public boolean logout(final HttpServletRequest request, final HttpServletResponse resp) {
 		return serv(new Runnable() { @Override public void run() {
 			sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")

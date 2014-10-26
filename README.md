@@ -14,10 +14,10 @@ Todo
 ~~ * Test project again
 ~~ * Use new repo as a dependency
 ~~ * Use new servlet generator on register
+~~ * Use new servlet generator on logout
+~~ * Use new servlet generator on login
 * Use new servlet generator on threads
 * Use new servlet generator on thread delete
-* Use new servlet generator on logout
-* Use new servlet generator on login
 * Look at implementing the path param
 
 * Keep old add thread data or don't allow when not logged in
@@ -32,3 +32,4 @@ Later
 * Remove pagination html from codebase
 * Error messages for annotation processing
 * Maybe put mustache file on servlet geneator annotation
+* Sort out redirect parsing

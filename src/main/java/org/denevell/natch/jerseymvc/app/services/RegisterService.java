@@ -42,7 +42,7 @@ public class RegisterService {
 			if (mRegister.getError() != null && mRegister.getError().trim().length() > 0) {
 				mRegister.setErrorMessage(mRegister.getError()); // Hack...
 			} else {
-				new LoginLogoutService().login(new Object(), serv, resp, username, password);
+				new LoginLogoutService().login(serv, resp, username, password);
 			}
 			}})
 		._403(new Runnable() { @Override public void run() {
