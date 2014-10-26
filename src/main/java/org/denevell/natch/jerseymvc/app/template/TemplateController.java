@@ -24,15 +24,18 @@ public class TemplateController {
     return new Viewable(name, templateObject);
 	}
 
-	public void createRawTemplate(HttpServletRequest request, HttpServletResponse resp, Object templateObject) {
+	public void createRawTemplate(
+	    HttpServletRequest request, 
+	    HttpServletResponse resp, 
+	    Object templateObject, 
+	    String templateName) {
     try {
       restoreVariablesSetInSession(request, templateObject);
       Field[] fields = templateObject.getClass().getFields();
       setTemplateIncludesOnTemplateObject(templateObject, fields);
-      String name = templateObject.getClass().getAnnotation(TemplateName.class).value();
       PrintWriter writer = new PrintWriter(resp.getOutputStream());
       new DefaultMustacheFactory()
-        .compile(name)
+        .compile(templateName)
         .execute(writer, templateObject).flush();
     } catch (Exception e) {
       throw new RuntimeException(e);

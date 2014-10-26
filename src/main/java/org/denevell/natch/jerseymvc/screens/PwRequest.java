@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.services.PwResetService;
-import org.denevell.natch.jerseymvc.app.template.TemplateName;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.PwRequest.PwRequestView;
 
@@ -14,6 +13,7 @@ import com.yeah.ServletGenerator;
 @ServletGenerator(
     path = "/app/pwrequest", 
     viewClass = PwRequestView.class,
+    template = "/pwrequest.mustache",
     params = { "resetpw_email" })
 public class PwRequest {
 
@@ -30,7 +30,6 @@ public class PwRequest {
     Responses.send303(req, resp);
   }
 
-  @TemplateName("/pwrequest.mustache")
   public static class PwRequestView extends BaseView {
     public PwRequestView(HttpServletRequest request) {
       super(request);

@@ -22,13 +22,12 @@ public class RegisterService {
 		return mRegister;
 	}
 
-	public boolean register(Object trueObject, 
-			final HttpServletRequest serv,
+	public boolean register(
+	    final HttpServletRequest serv,
 			final HttpServletResponse resp,
 			final String username, 
 			final String password,
 			final String recoveryEmail) {
-		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
 			RegisterInput entity;
 			if (recoveryEmail != null && recoveryEmail.trim().length() > 0) {

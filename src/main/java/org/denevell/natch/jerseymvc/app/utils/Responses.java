@@ -10,4 +10,9 @@ public class Responses {
     resp.sendError(303);
   }
 
+  public static void send303(HttpServletResponse resp, String url) throws Exception {
+    resp.addHeader("Location", url);
+    resp.sendError(303);
+  }
+
 }
