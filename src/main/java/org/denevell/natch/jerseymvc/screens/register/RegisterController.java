@@ -18,23 +18,10 @@ import org.glassfish.jersey.server.mvc.Viewable;
 public class RegisterController extends TemplateController {
 	
 	@Context HttpServletRequest mRequest;
-	@Context UriInfo mUriInfo;
   @Context public HttpServletResponse mResponse;
-	public int start;
-	public int limit;
 	public String username;
 	public String password;
 	public String recoveryEmail;
-	public String subject;
-	public String content;
-	public String tags;
-	public String addthreadActive;
-	public String loginActive;
-	public String registerActive;
-	public String logoutActive;
-	public String resetPwActive;
-	public String resetPwEmail;
-  public String tag;
 
   @GET
   @Template
@@ -49,13 +36,12 @@ public class RegisterController extends TemplateController {
   public Response indexPost(@Context UriInfo uriInfo,
       @FormParam("username") final String username,
       @FormParam("password") final String password,
-      @FormParam("recovery_email") final String recoveryEmail,
-      @FormParam("register_active") final String registerActive) throws Exception {
+      @FormParam("recovery_email") final String recoveryEmail
+      ) throws Exception {
 
     this.username = username;
     this.password = password;
     this.recoveryEmail = recoveryEmail;
-    this.registerActive = registerActive;
     return new RegisterPresenter(this).onPost(mRequest, mResponse);
   }
     

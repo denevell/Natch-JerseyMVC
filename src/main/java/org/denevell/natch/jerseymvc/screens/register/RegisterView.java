@@ -11,6 +11,5 @@ public class RegisterView extends BaseView {
 	public RegisterView(HttpServletRequest request) {
     super(request);
   }
-  public boolean hasauthkey;
 	public String registerErrorMessage;
 }

@@ -18,8 +18,7 @@ public class PwResetService {
 	private boolean mError = false;
 	private boolean mProcessed = false;
 	
-	public boolean reset(Object trueObject, HttpServletRequest mRequest, final String resetPwEmail) {
-		if(trueObject==null) return true;
+	public boolean reset(HttpServletRequest mRequest, final String resetPwEmail) {
 		return serv(new ResponseRunnable() { @Override public Response run() {
 			Response response = sService 
 				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")

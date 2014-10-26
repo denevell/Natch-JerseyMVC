@@ -10,7 +10,7 @@
                 <span style="color: red">{{.}}</span><br />
         {{/registerErrorMessage}}
 
-      {{^hasauthkey}}
+      {{^loggedIn}}
         <form 
           style="width: 40%;min-width:350px;"
           action="" method="post" style="display:inline">
@@ -42,13 +42,13 @@
                     type="submit" value="register"/>
           </div>
         </form>
-      {{/hasauthkey}}
+      {{/loggedIn}}
 
-      {{#hasauthkey}}
+      {{#loggedIn}}
           <div>
             You're already registered and logged in!
           </div> 
-      {{/hasauthkey}}
+      {{/loggedIn}}
 
   </body>
 </html>

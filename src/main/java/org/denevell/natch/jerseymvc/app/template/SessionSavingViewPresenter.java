@@ -6,13 +6,13 @@ import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
 
-public class SessionSavingViewPresenter<View> implements Presenter<View> {
+public class SessionSavingViewPresenter<View> implements Presenter {
   protected View mView;
 
   public SessionSavingViewPresenter(View view) {
     mView = view;
   }
-
+  
   @SuppressWarnings("unchecked")
   @Override
   public View onGet(HttpServletRequest request) {

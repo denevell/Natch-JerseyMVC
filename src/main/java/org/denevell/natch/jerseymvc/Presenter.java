@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
-public interface Presenter<TemplateOutput> {
-	TemplateOutput onGet(HttpServletRequest request) throws Exception;
+public interface Presenter {
+	Object onGet(HttpServletRequest request) throws Exception;
 	Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception;
 	
 	public static class Utils {

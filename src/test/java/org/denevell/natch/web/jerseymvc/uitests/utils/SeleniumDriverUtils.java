@@ -3,7 +3,6 @@ package org.denevell.natch.web.jerseymvc.uitests.utils;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;

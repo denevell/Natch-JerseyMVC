@@ -10,19 +10,19 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Null in request post code thing
+~~ * Upload the annotation processor repo
+~~ * Test project again
+~~ * Use new repo as a dependency
+* Use new servlet generator on register
+* Use new servlet generator on threads
+* Use new servlet generator on thread delete
+* Use new servlet generator on logout
+* Use new servlet generator on login
+* Look at implementing the path param
+
 * Keep old add thread data or don't allow when not logged in
-
-* Test the code generation with javawrite on using the command line
-
-~~ * Make an annotations jar ~~
-~~ * Add the code generation to Eclipse ~~
-~~ * Add the code generation source to Eclipse from the Thing annotation ~~
-~~ * Generate the servlet class staticially ~~
-* Add to real project
-* Create the generated source using Gradle
-* Test with new generated servlet
-* Generate the code for that servlet from the Jersey post
+* Admin stays on after logout
+* Register doesn't work when you have a slash at the end of the url 
 
 Later
 =====
@@ -30,3 +30,4 @@ Later
 * Delete tag?
 * Separate pagination class?
 * Remove pagination html from codebase
+* Error messages for annotation processing

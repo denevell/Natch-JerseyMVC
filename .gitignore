@@ -2,8 +2,10 @@ bin/
 build/
 .classpath
 *.jar
+.factorypath
 .settings
 .gradle
+logs/
 .project
 .idea
 /.apt_generated/

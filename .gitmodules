@@ -1,0 +1,3 @@
+[submodule "ServletGenerator"]
+	path = ServletGenerator
+	url = https://github.com/denevell/ServletGenerator

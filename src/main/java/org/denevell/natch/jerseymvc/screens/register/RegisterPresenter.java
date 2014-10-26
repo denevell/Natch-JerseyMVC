@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.Presenter;
-import org.denevell.natch.jerseymvc.SessionUtils;
 import org.denevell.natch.jerseymvc.app.services.LoginLogoutService;
 import org.denevell.natch.jerseymvc.app.services.PwResetService;
 import org.denevell.natch.jerseymvc.app.services.RegisterService;
@@ -36,11 +35,6 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 	@Override
 	public RegisterView onGet(HttpServletRequest request) {
 		super.onGet(request);
-		
-		// Logged in info
-		boolean loggedIn = SessionUtils.isLoggedIn(request);
-    mView.hasauthkey = loggedIn;
-    	
 		Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
@@ -49,7 +43,7 @@ public class RegisterPresenter extends SessionSavingViewPresenter<RegisterView> 
 	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
 		super.onPost(request, resp);
 		
-    	mRegister.register(mController.registerActive, request, mController.mResponse, mController.username, mController.password, mController.recoveryEmail);
+    	mRegister.register(new Object(), request, mController.mResponse, mController.username, mController.password, mController.recoveryEmail);
     	mView.registerErrorMessage = mRegister.mRegister.getErrorMessage();
 
     	// Redirect back to the main page, statically.
