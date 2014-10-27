@@ -18,14 +18,12 @@ public class PostDeleteService {
 		return mPostDelete;
 	}
 	
-	public boolean delete(Object trueObject, 
-			final HttpServletRequest serv,
-			final String postId) {
-		if (trueObject == null) return true;
+	public boolean delete(final HttpServletRequest serv,
+			final int postId) {
 		return serv(new Runnable() { @Override public void run() {
 			mPostDelete = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
-				.path("rest").path("post").path("del").path(postId).request()
+				.path("rest").path("post").path("del").path(String.valueOf(postId)).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.delete(PostDeleteOutput.class);
 			if(mPostDelete.getError()!=null) {

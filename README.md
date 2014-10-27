@@ -10,17 +10,8 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-~~ * Use new servlet generator on thread delete
-~~ * Allow params to have types
-~~ * Allow params to have defaults
-~~ * Remove old threads code
-~~ * Test threads
-~~ * Test all site again 
-~~ * Look at implementing the path param
-~~ * Convert thread edit
-* Thread edit thread
-* Test all again
-* Convert post delete 
+~~ * Test all again
+~~ * Convert post delete 
 * Convert post edit
 * Convert post move to thread
 * Convert post reply
