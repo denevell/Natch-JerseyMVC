@@ -10,12 +10,16 @@ import org.denevell.natch.jerseymvc.app.services.LoginLogoutService;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 
 import com.yeah.ServletGenerator;
+import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
     path = "/app/login", 
     viewClass = Void.class, 
     template = "",
-    params = { "username", "password", "redirect" })
+    params = {
+      @Param(name = "username"),
+      @Param(name = "password"),
+      @Param(name = "redirect")})
 public class Login {
 
   public LoginLogoutService mLogin = new LoginLogoutService();

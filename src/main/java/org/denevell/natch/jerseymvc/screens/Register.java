@@ -10,12 +10,16 @@ import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.Register.RegisterView;
 
 import com.yeah.ServletGenerator;
+import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
     path = "/app/register", 
     viewClass = RegisterView.class, 
     template = "/register.mustache",
-    params = { "username", "password", "recovery_email" })
+    params = {
+      @Param(name = "username"),
+      @Param(name = "password"),
+      @Param(name = "recovery_email")})
 public class Register {
 
   public RegisterService mRegister = new RegisterService();

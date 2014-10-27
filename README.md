@@ -11,15 +11,20 @@ Todo
 ====
 
 ~~ * Use new servlet generator on thread delete
-* Allow params to have types
+~~ * Allow params to have types
+* Test threads, register, login and delete thread works
 * Allow params to have defaults
-* Use new servlet generator on threads
+* Test all site again
 * Look at implementing the path param
 
-* Keep old add thread data or don't allow when not logged in
 * Admin stays on after logout
+* Admin logged out server error -- general error message
+~~
+* Sort and truncate tags in view object?
+* Pages per thread in view object?
+* Keep old add thread data or don't allow when not logged in
 * Register doesn't work when you have a slash at the end of the url 
-* Admin logged out server error
+
 
 Later
 =====
@@ -31,3 +36,4 @@ Later
 * Sort out redirect parsing
 * Memory leaks?
 * Multiple different posts to same page
+* Servlet 400s on missing params, optional params, check for bad conversion

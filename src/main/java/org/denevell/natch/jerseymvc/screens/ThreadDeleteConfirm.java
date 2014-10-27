@@ -10,12 +10,15 @@ import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.ThreadDeleteConfirm.ThreadDeleteConfirmView;
 
 import com.yeah.ServletGenerator;
+import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
     path = "/app/thread/delete", 
     viewClass = ThreadDeleteConfirmView.class,
     template = "/thread_delete_confirm.mustache",
-    params = { "delete_thread_id", "delete_thread_id_form" })
+    params = {
+      @Param(name = "delete_thread_id"),
+      @Param(name = "delete_thread_id_form")})
 public class ThreadDeleteConfirm {
 
   private ThreadDeleteService mModel = new ThreadDeleteService();

@@ -9,12 +9,14 @@ import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.PwRequest.PwRequestView;
 
 import com.yeah.ServletGenerator;
+import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
     path = "/app/pwrequest", 
     viewClass = PwRequestView.class,
     template = "/pwrequest.mustache",
-    params = { "resetpw_email" })
+    params = { 
+      @Param(name = "resetpw_email")})
 public class PwRequest {
 
   public PwResetService mResetPwModule = new PwResetService();

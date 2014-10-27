@@ -16,12 +16,18 @@ import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.Admin.AdminView;
 
 import com.yeah.ServletGenerator;
+import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
     path = "/app/admin", 
     viewClass = AdminView.class, 
     template = "/admin.mustache", 
-    params = { "changepw_username", "changepw_password", "changepw_active", "admintoggle_active", "admintoggle_username" })
+    params = { 
+      @Param(name = "changepw_username"),
+      @Param(name = "changepw_password"),
+      @Param(name = "changepw_active"),
+      @Param(name = "admintoggle_active"),
+      @Param(name = "admintoggle_username")})
 public class Admin {
 
   public AdminService mAdmin = new AdminService();
