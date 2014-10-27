@@ -22,13 +22,12 @@ public class ThreadEditService {
 		return mOutput;
 	}
 	
-	public boolean fetch(Object trueObject, 
+	public boolean fetch(
 			final HttpServletRequest serv,
 			final String subject,
 			final String content,
 			final String tags, 
 			final int id) {
-		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
 		  ThreadEditInput entity = new ThreadEditInput();
 		  entity.setContent(content);

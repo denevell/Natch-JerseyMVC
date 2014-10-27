@@ -16,7 +16,16 @@ Todo
 ~~ * Remove old threads code
 ~~ * Test threads
 ~~ * Test all site again 
-* Look at implementing the path param
+~~ * Look at implementing the path param
+~~ * Convert thread edit
+* Thread edit thread
+* Test all again
+* Convert post delete 
+* Convert post edit
+* Convert post move to thread
+* Convert post reply
+* Convert post single
+* Convert thread single`
 * Look at getting 303s
 
 * Admin stays on after logout
