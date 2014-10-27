@@ -30,8 +30,8 @@ public class ThreadsController extends TemplateController {
   @GET
   @Template
   public Viewable index(
-      @QueryParam("start") @DefaultValue("0") int start,
-      @QueryParam("limit") @DefaultValue("10") int limit,
+      @QueryParam("start") @DefaultValue("0") Integer start,
+      @QueryParam("limit") @DefaultValue("10") Integer limit,
       @QueryParam("tag") String tag) throws Exception {
     this.start = start;
     this.limit = limit;
@@ -42,8 +42,8 @@ public class ThreadsController extends TemplateController {
   @POST
   @Template
   public Response indexPost(
-      @QueryParam("start") @DefaultValue("0") int start,
-      @QueryParam("limit") @DefaultValue("10") int limit,
+      @QueryParam("start") @DefaultValue("0") Integer start,
+      @QueryParam("limit") @DefaultValue("10") Integer limit,
       @FormParam("subject") String subject,
       @FormParam("content") String content,
       @FormParam("tags") String tags) throws Exception {

@@ -18,6 +18,8 @@ Todo
 ~~ * Use new servlet generator on login
 ~~ * Use new servlet generator on admin
 ~~ * Use new servlet generator on thread delete
+* Allow params to have types
+* Allow params to have defaults
 * Use new servlet generator on threads
 * Look at implementing the path param
 
