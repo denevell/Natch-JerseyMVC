@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.app.urls;
+package org.denevell.natch.jerseymvc.app.utils;
 
 
 public class ThreadUrlGenerator {

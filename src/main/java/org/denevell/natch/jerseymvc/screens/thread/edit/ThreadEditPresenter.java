@@ -12,7 +12,7 @@ import org.denevell.natch.jerseymvc.app.models.ThreadEditOutput;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
 import org.denevell.natch.jerseymvc.app.services.ThreadEditService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
+import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 
 public class ThreadEditPresenter extends SessionSavingViewPresenter<ThreadEditView>  {
   

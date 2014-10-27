@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.services.ThreadDeleteService;
-import org.denevell.natch.jerseymvc.app.urls.MainPageUrlGenerator;
+import org.denevell.natch.jerseymvc.app.utils.MainPageUrlGenerator;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.ThreadDeleteConfirm.ThreadDeleteConfirmView;
 

@@ -13,7 +13,7 @@ import org.denevell.natch.jerseymvc.app.services.PostAddService;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
+import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 
 public class PostReplyPresenter extends SessionSavingViewPresenter<PostReplyView>  {
 	

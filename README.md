@@ -10,13 +10,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-~~ * Upload the annotation processor repo
-~~ * Test project again
-~~ * Use new repo as a dependency
-~~ * Use new servlet generator on register
-~~ * Use new servlet generator on logout
-~~ * Use new servlet generator on login
-~~ * Use new servlet generator on admin
 ~~ * Use new servlet generator on thread delete
 * Allow params to have types
 * Allow params to have defaults

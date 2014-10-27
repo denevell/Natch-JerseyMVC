@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.app.services.PostDeleteService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
+import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
 public class PostDeleteConfirmPresenter extends SessionSavingViewPresenter<PostDeleteConfirmView>  {

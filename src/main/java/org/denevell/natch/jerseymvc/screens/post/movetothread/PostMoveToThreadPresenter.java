@@ -11,7 +11,7 @@ import org.denevell.natch.jerseymvc.SessionUtils;
 import org.denevell.natch.jerseymvc.app.services.PostFromThreadService;
 import org.denevell.natch.jerseymvc.app.services.PostSingleService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
-import org.denevell.natch.jerseymvc.app.urls.ThreadUrlGenerator;
+import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 
 public class PostMoveToThreadPresenter extends SessionSavingViewPresenter<PostMoveToThreadView>  {
 	

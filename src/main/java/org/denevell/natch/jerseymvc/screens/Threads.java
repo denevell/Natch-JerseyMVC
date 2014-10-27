@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.Presenter;
 import org.denevell.natch.jerseymvc.app.models.ThreadOutput;
 import org.denevell.natch.jerseymvc.app.services.ThreadAddService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsService;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView;
-import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView;
 
 import com.yeah.ServletGenerator;
 
@@ -43,15 +41,12 @@ public class Threads {
       view.threads.add(e);
     }
 
-    // Pagination
     //mPagination.calculatePagination(
     //    Urls.getUrlWithQueryString(req),
     //    ThreadsServlet.start, ThreadsServlet.limit, mThreadsService.getNumThreads());
     view.pages = mPagination.getPages();
     view.next = mPagination.getNext().toString();
     view.prev = mPagination.getPrev().toString();
-
-    Presenter.Utils.clearViewStateFromSession(req, ThreadView.class);
     return view;
   }
 
@@ -63,7 +58,6 @@ public class Threads {
         ThreadsServlet.content, 
         ThreadsServlet.tags);
     view.addThreadErrorMessage = mAddThreadService.getAddThread().getErrorMessage();
-
     Responses.send303(req, resp);
   }
 
