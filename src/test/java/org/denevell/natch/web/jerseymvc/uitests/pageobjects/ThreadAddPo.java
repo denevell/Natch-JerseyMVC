@@ -118,7 +118,8 @@ public class ThreadAddPo {
 
 	public ThreadAddPo amOnHomepage() {
 		String uri = driver.getCurrentUrl();
-		org.junit.Assert.assertTrue("Url is for correct page", uri.equals(URLs.HOMEPAGE+"/"));
+		org.junit.Assert.assertTrue("Url is for correct page", 
+		    uri.equals(URLs.HOMEPAGE));
 		return this;
 	}
 

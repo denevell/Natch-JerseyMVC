@@ -23,7 +23,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/thread/delete_xx", 
+    path = "/app/index", 
     viewClass = ThreadsView.class,
     template = "/threads.mustache",
     params = {
@@ -120,7 +120,6 @@ public class Threads {
       public String author;
       public String lastModifiedDate;
       public List<Tag> tags;
-      
       public static class Tag {
         private String tag;
         public Tag(String tag) {

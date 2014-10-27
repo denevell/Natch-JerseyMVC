@@ -12,10 +12,12 @@ Todo
 
 ~~ * Use new servlet generator on thread delete
 ~~ * Allow params to have types
-* Test threads, register, login and delete thread works
-* Allow params to have defaults
-* Test all site again
+~~ * Allow params to have defaults
+~~ * Remove old threads code
+~~ * Test threads
+~~ * Test all site again 
 * Look at implementing the path param
+* Look at getting 303s
 
 * Admin stays on after logout
 * Admin logged out server error -- general error message
