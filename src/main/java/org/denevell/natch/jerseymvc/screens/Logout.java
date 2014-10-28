@@ -10,7 +10,7 @@ import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
-    path = "/logout", 
+    path = "/logout/*", 
     viewClass = Void.class,
     template = "",
     params = {

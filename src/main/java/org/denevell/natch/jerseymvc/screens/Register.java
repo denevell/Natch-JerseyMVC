@@ -13,7 +13,7 @@ import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
-    path = "/register", 
+    path = "/register/*", 
     viewClass = RegisterView.class, 
     template = "/register.mustache",
     params = {

@@ -10,7 +10,7 @@ import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
-    path = "/login", 
+    path = "/login/*", 
     viewClass = Object.class, 
     template = "",
     params = {

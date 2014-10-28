@@ -10,10 +10,7 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-~~ * 400 etc error page
-~~ * 400, 500 error logging
-~~ * Look at getting 303s
-* Register (and others) doesn't work when you have a slash at the end of the url 
+~~ * Register (and others) doesn't work when you have a slash at the end of the url 
 
 * Do I need the 'index' on the main page?
 * Sort out redirect parsing
