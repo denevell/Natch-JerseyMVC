@@ -1,6 +1,7 @@
 package org.denevell.natch.jerseymvc.screens.thread.single;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.denevell.natch.jerseymvc.app.services.PostAddService;
 import org.denevell.natch.jerseymvc.app.services.ThreadService;
 import org.denevell.natch.jerseymvc.app.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.app.template.SessionSavingViewPresenter;
+import org.denevell.natch.jerseymvc.app.utils.Urls;
 import org.denevell.natch.jerseymvc.screens.thread.single.ThreadView.Post;
 
 public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
@@ -27,19 +29,12 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 	}
 
   @Override
-  public ThreadView onGet(HttpServletRequest request) {
+  public ThreadView onGet(HttpServletRequest request) throws Exception {
     super.onGet(request);
 
-    // Model call
     mModel = new ThreadService(mController.start, mController.limit, mController.threadId).model();
-
-    // Get logged in user
-    mView.loggedInCorrectly = getCorrectlyLoggedIn(request);
-
-    // Root post id
+    mView.loggedInCorrectly = getCorrectlyLoggedIn(request, mModel.getAuthor());
     mView.rootPostId = (int) mModel.getRootPostId();
-
-    // Get subject
     mView.subject = mModel.getSubject();
     mView.tags = mModel.getTags();
 
@@ -78,67 +73,55 @@ public class ThreadPresenter extends SessionSavingViewPresenter<ThreadView>  {
 			mView.posts.add(e); 
 		}
     	
-    	// Pagination
+		// Pagination
 		int numPosts = mModel.getNumPosts();
 		ThreadsPaginationService pagination = getPagination(request, numPosts);
 		mView.next = pagination.getNext().toString();
 		mView.prev = pagination.getPrev().toString();
 		mView.pages = pagination.getPages().toString();
 		
-    	Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
+    Presenter.Utils.clearViewStateFromSession(request, ThreadView.class);
 		return mView;
 	}
 
 	@Override
-	public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
-		super.onPost(request, resp);
+  public Response onPost(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+    super.onPost(request, resp);
 
-		// Model call
-    	PostAddService addPostModule = new PostAddService();
-    	addPostModule.add(new Object(), request, 
-    			mController.content, 
-    			mController.threadId);
-    	
-    	// Error response
-    	mView.addPostError = addPostModule.getAddpost().getErrorMessage();
+    PostAddService addPostModule = new PostAddService();
+    addPostModule.add(new Object(), request, mController.content, mController.threadId);
 
-    	// Pagination info for Response
-		int numPosts = addPostModule.getNumPosts();
-		ThreadsPaginationService pagination = getPagination(request, numPosts);
-		String url = request.getRequestURL()+"?"+request.getQueryString();
-    	if(numPosts > mController.start+mController.limit) { 
-    		return Response.seeOther(pagination.getNext()).build();
-    	} else {
-    		return Response.seeOther(new URI(url)).build();
-    	}
-	}
-
-	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) {
-		ThreadsPaginationService pagination = new ThreadsPaginationService();
-    String requestUri = "";
-    if(request.getQueryString()!=null && request.getQueryString().trim().length()>0) {
-      requestUri = "?" + request.getQueryString();
+    mView.addPostError = addPostModule.getAddpost().getErrorMessage();
+    int numPosts = addPostModule.getNumPosts();
+    ThreadsPaginationService pagination = getPagination(request, numPosts);
+    if (numPosts > mController.start + mController.limit) {
+      return Response.seeOther(pagination.getNext()).build();
     } else {
-      requestUri = "";
+      //Responses.send303(request, resp); 
+      return Response.seeOther(new URI(Urls.getUrlWithQueryString(request))).build();
     }
+  }
+
+	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
+		ThreadsPaginationService pagination = new ThreadsPaginationService();
 		pagination.calculatePagination(
-				request.getRequestURL()+requestUri,
+		    Urls.getUrlWithQueryString(request),
 				mController.start, 
 				mController.limit, 
 				numPosts);
 		return pagination;
 	}
 	
-	private boolean getCorrectlyLoggedIn(HttpServletRequest request) {
-    	Object name = request.getSession(true).getAttribute("name");
-    	boolean correctUser;
-		if(name!=null) {
-    		correctUser = name.equals(mModel.getAuthor());
-    	} else {
-    		correctUser = false;
-    	}
-    	Object admin = request.getSession(true).getAttribute("admin");
-    	return (admin!=null && ((boolean)admin)==true) || correctUser;
-	}
+  private boolean getCorrectlyLoggedIn(HttpServletRequest request, String author) {
+    Object name = request.getSession(true).getAttribute("name");
+    boolean correctUser;
+    if (name != null) {
+      correctUser = name.equals(author);
+    } else {
+      correctUser = false;
+    }
+    Object admin = request.getSession(true).getAttribute("admin");
+    return (admin != null && ((boolean) admin) == true) || correctUser;
+  }
 
 }

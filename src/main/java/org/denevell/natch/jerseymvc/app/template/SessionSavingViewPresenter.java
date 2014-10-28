@@ -15,7 +15,7 @@ public class SessionSavingViewPresenter<View> implements Presenter {
   
   @SuppressWarnings("unchecked")
   @Override
-  public View onGet(HttpServletRequest request) {
+  public View onGet(HttpServletRequest request) throws Exception {
     mView = (View) Presenter.Utils.restoreViewFromSession(request, mView);
     return mView;
   }
