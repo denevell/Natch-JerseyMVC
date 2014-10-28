@@ -25,7 +25,7 @@ public class Logout {
 
   public void onPost(Object view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mLogin.logout(req, resp);
-    Responses.send303(resp, LoginServlet.redirect);
+    Responses.send303(resp, LogoutServlet.redirect);
   }
 
 }

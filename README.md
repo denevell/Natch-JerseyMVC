@@ -10,13 +10,14 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Look at getting 303s
+~~ * 400 etc error page
+~~ * 400, 500 error logging
+~~ * Look at getting 303s
 * Register (and others) doesn't work when you have a slash at the end of the url 
-* 400 etc error page
 
 * Do I need the 'index' on the main page?
-* Keep old add thread data or don't allow when not logged in
 * Sort out redirect parsing
+* Keep old add thread data or don't allow when not logged in
 * Basic memory leak test
 * Sort out uat script to use this project instead of natch-jsp
 

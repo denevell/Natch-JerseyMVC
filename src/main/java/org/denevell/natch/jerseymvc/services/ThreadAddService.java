@@ -14,7 +14,8 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 
 public class ThreadAddService {
 
-	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
+	private static JerseyClient sService = JerseyClientBuilder.createClient()
+	    .register(JacksonFeature.class);
 	private ThreadAddOutput mAddThread = new ThreadAddOutput();
 
 	public boolean add(Object trueObject, 
@@ -25,6 +26,7 @@ public class ThreadAddService {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
 			ThreadAddInput entity = new ThreadAddInput(subject, content);
+		  //Set<ConstraintViolation<ThreadAddInput>> validations = Validation.buildDefaultValidatorFactory().getValidator().validate(entity);
 			entity.setTags(tags);
 			mAddThread = sService
 				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
