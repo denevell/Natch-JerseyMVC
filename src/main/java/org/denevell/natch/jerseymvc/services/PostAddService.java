@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.app.utils.Strings;
-import org.denevell.natch.jerseymvc.models.ThreadAddInput;
 import org.denevell.natch.jerseymvc.models.ThreadAddOutput;
+import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddInput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;

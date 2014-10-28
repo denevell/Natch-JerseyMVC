@@ -4,12 +4,14 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import org.denevell.natch.jerseymvc.models.PostEditInput;
 import org.denevell.natch.jerseymvc.models.PostEditOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class PostEditService {
 
@@ -51,5 +53,21 @@ public class PostEditService {
 			}}).go();
 	}
 
+  @XmlRootElement
+  public class PostEditInput {
+
+    @NotEmpty
+    @NotBlank
+    private String content;
+
+    public String getContent() {
+      return content;
+    }
+
+    public void setContent(String content) {
+      this.content = content;
+    }
+
+  }
 
 }

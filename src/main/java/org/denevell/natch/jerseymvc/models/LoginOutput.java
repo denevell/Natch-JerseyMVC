@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.services;
+package org.denevell.natch.jerseymvc.models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,11 +27,11 @@ public class LoginOutput {
                 this.admin = admin;
         }
 
-		public String getErrorMessage() {
-			return errorMessage;
-		}
+    public String getErrorMessage() {
+      return errorMessage;
+    }
 
-		public void setErrorMessage(String generalError) {
-			this.errorMessage = generalError;
-		}
+    public void setErrorMessage(String generalError) {
+      this.errorMessage = generalError;
+    }
 }

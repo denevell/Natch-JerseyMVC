@@ -6,9 +6,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.denevell.natch.jerseymvc.models.LoginOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -103,5 +105,36 @@ public class LoginLogoutService {
 			}
 		}).go();
 	}
+
+  @XmlRootElement
+  public static class LoginInput {
+
+    private String username;
+    private String password;
+
+    public LoginInput(String username, String password) {
+      this.username = username;
+      this.password = password;
+    }
+
+    public LoginInput() {
+    }
+
+    public String getUsername() {
+      return username;
+    }
+
+    public void setUsername(String username) {
+      this.username = username;
+    }
+
+    public String getPassword() {
+      return password;
+    }
+
+    public void setPassword(String password) {
+      this.password = password;
+    }
+  }
 
 }

@@ -2,7 +2,8 @@ package org.denevell.natch.jerseymvc.models;
 
 public class PostEditOutput {
 
-  public PostEditOutput() {}
+  public PostEditOutput() {
+  }
 
   private boolean successful;
   private String error = "";
@@ -11,7 +12,7 @@ public class PostEditOutput {
   public boolean isSuccessful() {
     return successful;
   }
-  
+
   public void setSuccessful(boolean successful) {
     this.successful = successful;
   }
@@ -19,7 +20,7 @@ public class PostEditOutput {
   public String getError() {
     return error;
   }
-  
+
   public void setError(String error) {
     this.error = error;
   }

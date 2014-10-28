@@ -5,13 +5,15 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.denevell.natch.jerseymvc.app.utils.Strings;
-import org.denevell.natch.jerseymvc.models.RegisterInput;
 import org.denevell.natch.jerseymvc.models.RegisterOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class RegisterService {
 	
@@ -56,6 +58,57 @@ public class RegisterService {
 			}})
 		.go();
 	}
+
+  @XmlRootElement
+  public class RegisterInput {
+
+    @NotBlank
+    private String username;
+    @NotBlank
+    private String password;
+    @Email(regexp = ".+@.+\\..+")
+    private String recoveryEmail;
+
+    public RegisterInput(@NotBlank String username, @NotBlank String password) {
+      this.setUsername(username);
+      this.setPassword(password);
+    }
+
+    public RegisterInput(@NotBlank String username, @NotBlank String password,
+        @Email String recoveryEmail) {
+      this.setUsername(username);
+      this.setPassword(password);
+      this.setRecoveryEmail(recoveryEmail);
+    }
+
+    public RegisterInput() {
+    }
+
+    public String getUsername() {
+      return username;
+    }
+
+    public void setUsername(String username) {
+      this.username = username;
+    }
+
+    public String getPassword() {
+      return password;
+    }
+
+    public void setPassword(String password) {
+      this.password = password;
+    }
+
+    public String getRecoveryEmail() {
+      return recoveryEmail;
+    }
+
+    public void setRecoveryEmail(String recoveryEmail) {
+      this.recoveryEmail = recoveryEmail;
+    }
+
+  }
 
 
 }
