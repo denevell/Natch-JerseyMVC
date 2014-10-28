@@ -4,10 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.services.RegisterService;
 import org.denevell.natch.jerseymvc.app.utils.MainPageUrlGenerator;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.Register.RegisterView;
+import org.denevell.natch.jerseymvc.services.RegisterService;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;

@@ -4,12 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.models.ThreadEditOutput;
-import org.denevell.natch.jerseymvc.app.services.PostSingleService;
-import org.denevell.natch.jerseymvc.app.services.ThreadEditService;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
+import org.denevell.natch.jerseymvc.models.ThreadEditOutput;
 import org.denevell.natch.jerseymvc.screens.ThreadEdit.ThreadEditView;
+import org.denevell.natch.jerseymvc.services.PostSingleService;
+import org.denevell.natch.jerseymvc.services.ThreadEditService;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;

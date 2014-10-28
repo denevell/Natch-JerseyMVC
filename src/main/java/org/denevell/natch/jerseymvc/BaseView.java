@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateInclude;
 import org.denevell.natch.jerseymvc.app.template.TemplateIncludeObjects;
+import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
 import org.denevell.natch.jerseymvc.app.utils.UriEncoding;
 
 public class BaseView {

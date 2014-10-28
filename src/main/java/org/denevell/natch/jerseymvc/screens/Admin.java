@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.SessionUtils;
-import org.denevell.natch.jerseymvc.app.models.UserOutput;
-import org.denevell.natch.jerseymvc.app.services.AdminService;
-import org.denevell.natch.jerseymvc.app.services.AdminToggleService;
-import org.denevell.natch.jerseymvc.app.services.PwChangeService;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
+import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
+import org.denevell.natch.jerseymvc.models.UserOutput;
 import org.denevell.natch.jerseymvc.screens.Admin.AdminView;
+import org.denevell.natch.jerseymvc.services.AdminService;
+import org.denevell.natch.jerseymvc.services.AdminToggleService;
+import org.denevell.natch.jerseymvc.services.PwChangeService;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;

@@ -10,19 +10,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.glassfish.jersey.server.mvc.Viewable;
-
 import com.github.mustachejava.DefaultMustacheFactory;
 
 public class TemplateController {
-
-	public Viewable createTemplate(HttpServletRequest request, Object templateObject) throws Exception {
-		restoreVariablesSetInSession(request, templateObject);
-	  Field[] fields = templateObject.getClass().getFields();
-	  setTemplateIncludesOnTemplateObject(templateObject, fields);
-		String name = templateObject.getClass().getAnnotation(TemplateName.class).value();
-    return new Viewable(name, templateObject);
-	}
 
 	public void createRawTemplate(
 	    HttpServletRequest request, 

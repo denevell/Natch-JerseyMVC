@@ -16,8 +16,9 @@ Todo
 ~~ * Convert post move to thread
 ~~ * Convert post reply
 ~~ * Convert post single
-* Convert thread single`
+~~ * Convert thread single`
 * Look at getting 303s
+* Do I need web.xml for loggers and listeners?
 
 * Admin stays on after logout
 * Admin logged out server error -- general error message

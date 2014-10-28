@@ -17,27 +17,10 @@
      <url-pattern>/res/*.png</url-pattern>
    </servlet-mapping> 
 
-    <servlet>
-       <servlet-name>YOUR_SERVLET_NAME</servlet-name>
-       <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>javax.ws.rs.Application</param-name> <param-value>org.denevell.natch.jerseymvc.app.JerseyApplication</param-value>
-        </init-param>     
-        <init-param>
-           <param-name>jersey.config.server.provider.packages</param-name>
-           <param-value>org.denevell.natch.jerseymvc</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-       <servlet-name>YOUR_SERVLET_NAME</servlet-name>
-       <url-pattern>/app/*</url-pattern>
-    </servlet-mapping>
-
     <filter>
        <filter-name>Logging Filter</filter-name>
        <filter-class>
-       org.denevell.natch.jerseymvc.app.loggers.ExceptionLogger
+       org.denevell.natch.jerseymvc.ExceptionLogger
        </filter-class>
     </filter>
     <filter-mapping>
@@ -46,10 +29,10 @@
     </filter-mapping>
 
     <listener>
-      <listener-class>org.denevell.natch.jerseymvc.app.ManifestVarsListener</listener-class>
+      <listener-class>org.denevell.natch.jerseymvc.ManifestVarsListener</listener-class>
     </listener>
     <listener>
-      <listener-class>org.denevell.natch.jerseymvc.app.SessionFromCookiesRequestListener</listener-class>
+      <listener-class>org.denevell.natch.jerseymvc.SessionFromCookiesRequestListener</listener-class>
     </listener>
 
 </web-app>

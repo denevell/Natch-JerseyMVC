@@ -4,11 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.services.PostFromThreadService;
-import org.denevell.natch.jerseymvc.app.services.PostSingleService;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.PostMoveToThread.PostMoveToThreadView;
+import org.denevell.natch.jerseymvc.services.PostFromThreadService;
+import org.denevell.natch.jerseymvc.services.PostSingleService;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
