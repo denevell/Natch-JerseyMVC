@@ -13,8 +13,8 @@ Todo
 ~~ * Test all again
 ~~ * Convert post delete 
 ~~ * Convert post edit
-* Convert post move to thread
-* Convert post reply
+~~ * Convert post move to thread
+~~ * Convert post reply
 * Convert post single
 * Convert thread single`
 * Look at getting 303s
