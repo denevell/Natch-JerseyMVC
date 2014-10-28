@@ -20,8 +20,7 @@ public class PostFromThreadService {
 		return mThreadOutput;
 	}
 	
-	public boolean fetchPost(Object trueObject, final HttpServletRequest serv, final int postId, final String subject) {
-		if (trueObject == null) return true;
+	public boolean fetchPost(final HttpServletRequest serv, final int postId, final String subject) {
 		return serv(new Runnable() { @Override public void run() {
 			AddThreadFromPostResourceInput input = new AddThreadFromPostResourceInput();
 			input.setPostId(postId);
