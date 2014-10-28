@@ -18,7 +18,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/post/reply/{post}",
+    path = "/post/reply/{post}",
     viewClass = PostReplyView.class,
     template = "/post_reply.mustache",
     params = {

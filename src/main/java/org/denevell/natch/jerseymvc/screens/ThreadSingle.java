@@ -23,7 +23,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/thread/{threadId}",
+    path = "/thread/{threadId}",
     viewClass = ThreadView.class,
     template = "/thread_single.mustache",
     params = {

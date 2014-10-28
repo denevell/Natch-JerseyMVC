@@ -15,7 +15,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/post/movetothread/{post}",
+    path = "/post/movetothread/{post}",
     viewClass = PostMoveToThreadView.class,
     template = "/post_movetothread.mustache",
     params = {

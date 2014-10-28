@@ -10,15 +10,7 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-~~ * Test all again
-~~ * Convert post delete 
-~~ * Convert post edit
-~~ * Convert post move to thread
-~~ * Convert post reply
-~~ * Convert post single
-~~ * Convert thread single`
 * Look at getting 303s
-* Do I need web.xml for loggers and listeners?
 
 * Admin stays on after logout
 * Admin logged out server error -- general error message
@@ -32,7 +24,7 @@ Todo
 Later
 =====
 
-* Delete tag?
+* Delete single tag?
 * Separate pagination class?
 * Remove pagination html from codebase
 * Error messages for annotation processing
@@ -40,3 +32,4 @@ Later
 * Memory leaks?
 * Multiple different posts to same page
 * Servlet 400s on missing params, optional params, check for bad conversion
+* Bean validation?

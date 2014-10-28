@@ -13,7 +13,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/post/{postId}",
+    path = "/post/{postId}",
     viewClass = PostSingleView.class,
     template = "/post_single.mustache",
     params = {},

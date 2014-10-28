@@ -12,7 +12,7 @@ import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
-    path = "/app/pwrequest", 
+    path = "/pwrequest", 
     viewClass = PwRequestView.class,
     template = "/pwrequest.mustache",
     params = { 

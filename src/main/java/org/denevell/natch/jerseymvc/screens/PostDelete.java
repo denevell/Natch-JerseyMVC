@@ -14,7 +14,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/post/delete/{delete_post_id}",
+    path = "/post/delete/{delete_post_id}",
     viewClass = PostDeleteConfirmView.class,
     template = "/post_delete_confirm.mustache",
     params = {

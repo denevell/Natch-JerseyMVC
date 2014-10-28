@@ -13,7 +13,7 @@ import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
-    path = "/app/thread/delete", 
+    path = "/thread/delete", 
     viewClass = ThreadDeleteConfirmView.class,
     template = "/thread_delete_confirm.mustache",
     params = {

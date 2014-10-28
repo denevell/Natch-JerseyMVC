@@ -7,15 +7,15 @@ import java.util.jar.Manifest;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 /** 
  * Reads the war's manifest from META-INF/MANIFEST.MF on application startup.
- * 
- * Must be included as the first <listener></listener> in the web.xml file.
  */
+@WebListener
 public class ManifestVarsListener implements ServletContextListener {
 
-    private static Attributes sMainManifestAttributes;
+    public static Attributes sMainManifestAttributes;
 
     /**
      * Read the manifest from /META-INF/MANIFEST.MF

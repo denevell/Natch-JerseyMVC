@@ -23,7 +23,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/index", 
+    path = "/index", 
     viewClass = ThreadsView.class,
     template = "/threads.mustache",
     params = {

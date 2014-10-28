@@ -16,7 +16,7 @@ import com.yeah.ServletGenerator.Param;
 import com.yeah.ServletGenerator.Param.ParamType;
 
 @ServletGenerator(
-    path = "/app/post/edit/{post_edit}",
+    path = "/post/edit/{post_edit}",
     viewClass = PostEditView.class,
     template = "/post_edit.mustache",
     params = {

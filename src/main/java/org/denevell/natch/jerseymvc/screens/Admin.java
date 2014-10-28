@@ -19,7 +19,7 @@ import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
-    path = "/app/admin", 
+    path = "/admin", 
     viewClass = AdminView.class, 
     template = "/admin.mustache", 
     params = { 

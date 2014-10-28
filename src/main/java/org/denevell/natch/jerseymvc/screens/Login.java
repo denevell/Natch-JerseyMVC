@@ -13,7 +13,7 @@ import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
 
 @ServletGenerator(
-    path = "/app/login", 
+    path = "/login", 
     viewClass = Void.class, 
     template = "",
     params = {
