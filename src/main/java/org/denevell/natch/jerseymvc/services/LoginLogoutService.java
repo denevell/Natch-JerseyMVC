@@ -9,8 +9,6 @@ import javax.ws.rs.client.Entity;
 
 import org.apache.log4j.Logger;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
-import org.denevell.natch.jerseymvc.models.LoginInput;
-import org.denevell.natch.jerseymvc.models.LoginOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
