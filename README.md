@@ -11,15 +11,14 @@ Todo
 ====
 
 * Look at getting 303s
+* Register (and others) doesn't work when you have a slash at the end of the url 
+* 400 etc error page
 
-* Admin stays on after logout
-* Admin logged out server error -- general error message
-~~
-* Sort and truncate tags in view object?
-* Pages per thread in view object?
+* Do I need the 'index' on the main page?
 * Keep old add thread data or don't allow when not logged in
-* Register doesn't work when you have a slash at the end of the url 
-
+* Sort out redirect parsing
+* Basic memory leak test
+* Sort out uat script to use this project instead of natch-jsp
 
 Later
 =====
@@ -28,8 +27,8 @@ Later
 * Separate pagination class?
 * Remove pagination html from codebase
 * Error messages for annotation processing
-* Sort out redirect parsing
-* Memory leaks?
 * Multiple different posts to same page
-* Servlet 400s on missing params, optional params, check for bad conversion
 * Bean validation?
+* Sort and truncate tags in view object?
+* Pages per thread in view object?
+* Better way of concatenating mustache templates

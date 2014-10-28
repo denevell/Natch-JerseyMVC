@@ -1,30 +1,30 @@
 package org.denevell.natch.jerseymvc;
 
+import java.net.URISyntaxException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.denevell.natch.jerseymvc.app.template.TemplateInclude;
-import org.denevell.natch.jerseymvc.app.template.TemplateIncludeObjects;
 import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
 import org.denevell.natch.jerseymvc.app.utils.UriEncoding;
+import org.denevell.natch.jerseymvc.app.utils.Urls;
 
 public class BaseView {
   
-  public static String arg_loginErrorMessage = "loginErrorMessage";
-  
   public BaseView(HttpServletRequest request) {
-    String qs = "";
-    if(request.getQueryString()!=null && request.getQueryString().trim().length()>0) {
-      qs = "?" + request.getQueryString();
+    try {
+      redirect_to = UriEncoding.encode(Urls.getUrlWithQueryString(request), null);
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
     }
-    redirect_to = UriEncoding.encode(request.getRequestURL() + qs, null);
 		loggedIn = SessionUtils.isLoggedIn(request);
-    isAdmin = request.getSession(true).getAttribute("admin") != null;
+    isAdmin = SessionUtils.isAdmin(request);
+    loginErrorMessage = SessionUtils.getOneShotLoginError(request);
   }
   
-  @TemplateInclude(file="/common_header_elements.mustache", name="common_header_elements")
+  @TemplateInclude(file="/common_header_elements.mustache")
 	public String common_header_elements;
-  @TemplateInclude(file="/nav_bar.mustache", name="nav_bar")
-  @TemplateIncludeObjects(objects={"redirect_to", "isAdmin", "loggedIn", "loginErrorMessage", "loggedInCorrectly"})
+  @TemplateInclude(file="/nav_bar.mustache")
 	public String nav_bar;
 
 	public String redirect_to;

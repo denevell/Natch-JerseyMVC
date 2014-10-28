@@ -18,4 +18,14 @@ public class SessionUtils {
     	return (String)request.getSession(true).getAttribute("authkey");
 	}
 
+  public static String getOneShotLoginError(HttpServletRequest request) {
+    Object attribute = request.getSession(true).getAttribute("loginErrorMessage");
+    if(attribute!=null && attribute instanceof String) {
+      request.getSession(true).removeAttribute("loginErrorMessage");
+      return (String) attribute;
+    } else {
+      return null;
+    }
+  }
+
 }

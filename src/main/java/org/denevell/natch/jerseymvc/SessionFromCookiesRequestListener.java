@@ -28,7 +28,7 @@ public class SessionFromCookiesRequestListener implements ServletRequestListener
 					session.setAttribute("authkey", cookie.getValue());
 			    }
 			    if("admin".equals(cookie.getName())){
-					session.setAttribute("admin", cookie.getValue());
+					session.setAttribute("admin", true);
 			    }
 			}	
 		}
