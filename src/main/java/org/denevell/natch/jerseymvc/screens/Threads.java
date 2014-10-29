@@ -67,6 +67,11 @@ public class Threads {
         ThreadsServlet.content, 
         ThreadsServlet.tags);
     view.addThreadErrorMessage = mAddThreadService.getAddThread().getErrorMessage();
+    if(view.addThreadErrorMessage!=null && !view.addThreadErrorMessage.isEmpty()) {
+      view.subject = ThreadsServlet.subject;
+      view.content = ThreadsServlet.content; 
+      view.tags = ThreadsServlet.tags;
+    }
     Responses.send303(req, resp);
   }
 
@@ -100,6 +105,9 @@ public class Threads {
     public ThreadsView(HttpServletRequest request) {
       super(request);
     }
+    public String tags;
+    public String content;
+    public String subject;
     public String addThreadErrorMessage;
     public String next;
     public String prev;

@@ -35,9 +35,9 @@ public class AdminToggleTest {
 		adminPo = new AdminPO(driver);
 		addpostPo = new PostAddPo(driver);
 		postMoveToThreadPo = new PostMoveToThreadPo(driver);
-		registerPo.register("aaron", "aaron", "");
+		registerPo.registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();
-		registerPo.register("aaron2", "aaron2", "");
+		registerPo.registerFromHomepage("aaron2", "aaron2", "");
 		loginPo.logout();
 		driver.get(URLs.HOMEPAGE);
 	}

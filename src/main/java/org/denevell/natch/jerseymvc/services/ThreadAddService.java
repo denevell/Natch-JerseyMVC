@@ -15,8 +15,6 @@ import org.denevell.natch.jerseymvc.models.ThreadAddOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class ThreadAddService {
 
@@ -60,11 +58,11 @@ public class ThreadAddService {
 
   public static class ThreadAddInput {
 
-    @NotEmpty
-    @NotBlank
+    //@NotEmpty
+    //@NotBlank
     private String subject;
-    @NotEmpty
-    @NotBlank
+    //@NotEmpty
+    //@NotBlank
     private String content;
     private String threadId;
     private List<String> tags = new ArrayList<String>();

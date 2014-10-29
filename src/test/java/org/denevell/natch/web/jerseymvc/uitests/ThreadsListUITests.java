@@ -21,7 +21,7 @@ public class ThreadsListUITests {
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
-		driver = SeleniumDriverUtils.getDriver();;
+		driver = SeleniumDriverUtils.getDriver();
 		loginPo = new LoginoutPo(driver);
 		addthreadPo = new ThreadAddPo(driver);
 		registerPo = new RegisterPo(driver);

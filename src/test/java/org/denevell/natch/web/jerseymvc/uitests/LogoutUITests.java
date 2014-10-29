@@ -4,6 +4,7 @@ import org.denevell.natch.web.jerseymvc.uitests.pageobjects.LoginoutPo;
 import org.denevell.natch.web.jerseymvc.uitests.pageobjects.RegisterPo;
 import org.denevell.natch.web.jerseymvc.uitests.utils.SeleniumDriverUtils;
 import org.denevell.natch.web.jerseymvc.uitests.utils.TestUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +23,14 @@ public class LogoutUITests {
 		registerPo = new RegisterPo(driver);
 		registerPo.registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();
+	}
+
+	@After
+	public void destroy() {
+		try {
+			loginPo.logout();
+		} catch(Exception e) {}
+    driver.quit();
 	}
 	
 	@Test

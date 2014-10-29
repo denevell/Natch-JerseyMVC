@@ -31,9 +31,9 @@ public class PasswordResetRequestTests {
 		forgottenPwPo = new ForgottenPasswordPo(driver);
 		loginPo = new LoginoutPo(driver);
     driver.get(URLs.HOMEPAGE);
-		registerPo.register("aaron", "aaron", "");
+		registerPo.registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();
-		registerPo.register("aaron2", "aaron2", "a@b.com");
+		registerPo.registerFromHomepage("aaron2", "aaron2", "a@b.com");
 		loginPo.logout();
     driver.get(URLs.HOMEPAGE);
 	}

@@ -22,7 +22,7 @@ public class PostSingleUITests {
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
-		driver = SeleniumDriverUtils.getDriver();;
+		driver = SeleniumDriverUtils.getDriver();
 		loginPo = new LoginoutPo(driver);
 		addthreadPo = new ThreadAddPo(driver);
 		addpostPo = new PostAddPo(driver);
@@ -50,7 +50,7 @@ public class PostSingleUITests {
 			.clickOnSinglePost(1)
 			.hasPostInSinglePage("<em>.*cont1.*</em>")
 			.clickOnParentThreadFromSinglePostPage()
-			.hasPostWithMarkdown(1, "<em>.*cont1.*</em>");
+			.hasPostWithMarkdown("<em>.*cont1.*</em>");
 	}
 	
 }

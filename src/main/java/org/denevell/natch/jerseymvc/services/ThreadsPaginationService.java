@@ -12,11 +12,12 @@ public class ThreadsPaginationService {
 	private int mLimit;
 	private int mNumPosts;
 
-	public void calculatePagination(String requestUri, int start, int limit, int numPosts) {
+	public ThreadsPaginationService calculatePagination(String requestUri, int start, int limit, int numPosts) {
 		mRequestUri = requestUri;
 		mStart = start;
 		mLimit = limit;
 		mNumPosts = numPosts;
+		return this;
 	}
 
 	public URI getNext() {

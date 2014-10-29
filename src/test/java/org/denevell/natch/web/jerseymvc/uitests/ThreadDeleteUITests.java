@@ -34,10 +34,9 @@ public class ThreadDeleteUITests {
 		addThreadPo = new ThreadAddPo(driver);
 		addpostPo = new PostAddPo(driver);
 		loginPo = new LoginoutPo(driver);
-		driver.get(URLs.HOMEPAGE);
-		registerPo.register("aaron", "aaron", null);
+		registerPo.registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();
-		registerPo.register("aaron2", "aaron", null);
+		registerPo.registerFromHomepage("aaron2", "aaron", "");
 		loginPo.logout();
 		driver.get(URLs.HOMEPAGE);
 	}

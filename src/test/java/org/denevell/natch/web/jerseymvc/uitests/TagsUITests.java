@@ -33,9 +33,9 @@ public class TagsUITests {
     addthreadPo = new ThreadAddPo(driver);
     threadEditPo = new ThreadEditPo(driver);
     threadsListPo = new ThreadsListPo(driver);
-    registerPo.register("aaron", "aaron", "");
+    registerPo.registerFromHomepage("aaron", "aaron", "");
     loginPo.logout();
-    registerPo.register("aaron2", "aaron2", "");
+    registerPo.registerFromHomepage("aaron2", "aaron2", "");
     loginPo.logout();
     driver.get(URLs.HOMEPAGE);
   }

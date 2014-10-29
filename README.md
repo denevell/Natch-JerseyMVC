@@ -1,7 +1,7 @@
-Jersey MVC interface to android-manchester.co.uk
-================================================
+Servlet MVC interface to android-manchester.co.uk
+=================================================
  
-Work in progress. This replaces the old Jsp / SimpleTags version.
+This replaces the old Jsp / SimpleTags version, with a Jersey-esq system using annotation processing.
 
 You currently need the rest services (See and run Natch-Runner) running on localhost:8080, unless you change the urls.
 
@@ -10,9 +10,11 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Keep old add thread data or don't allow when not logged in
-
-* Basic memory leak test
+* Move into Natch-Runner
+* Leave some dependencies as provided
+* Change Natch-Runner to start this
+* Change the production urls based on manifest
+* Generate production version of site
 * Sort out uat script to use this project instead of natch-jsp
 
 Later

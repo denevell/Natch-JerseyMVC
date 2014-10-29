@@ -1,7 +1,5 @@
 package org.denevell.natch.jerseymvc.screens;
 
-import java.net.URISyntaxException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -48,28 +46,22 @@ public class PostReply {
 
   public void onPost(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mAddPostService.add(new Object(), req, PostReplyServlet.content, PostReplyServlet.thread);
-    if (mAddPostService.getAddpost().getErrorMessage() == null) {
-      int numPosts = mAddPostService.getAddpost().getThread().getNumPosts();
-      ThreadsPaginationService pagination = getPagination(numPosts);
-      if (numPosts > PostReplyServlet.start + PostReplyServlet.limit) {
-        Responses.send303(resp, pagination.getNext().toString());
-      } else {
-        Responses.send303(resp, pagination.getCurrent().toString());
-      }
-    } else {
+    if (mAddPostService.getAddpost().getErrorMessage() != null) {
       Responses.send303(req, resp);
-    }
-  }
-
-	private ThreadsPaginationService getPagination(int numPosts) throws URISyntaxException {
-    String url = new ThreadUrlGenerator().createThreadUrl(PostReplyServlet.thread);
-    ThreadsPaginationService pag = new ThreadsPaginationService();
-		pag.calculatePagination(url,
+    } else {
+      int numPosts = mAddPostService.getAddpost().getThread().getNumPosts();
+      ThreadsPaginationService pagin = new ThreadsPaginationService().calculatePagination(
+		    new ThreadUrlGenerator().createThreadUrl(PostReplyServlet.thread),
 		    PostReplyServlet.start, 
 		    PostReplyServlet.limit, 
-				numPosts);
-		return pag;
-	}
+		    numPosts);
+      if (numPosts > PostReplyServlet.start + PostReplyServlet.limit) {
+        Responses.send303(resp, pagin.getNext().toString());
+      } else {
+        Responses.send303(resp, pagin.getCurrent().toString());
+      }
+    } 
+  }
 
   public static class PostReplyView extends BaseView {
     public PostReplyView(HttpServletRequest request) {

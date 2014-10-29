@@ -56,7 +56,7 @@
 <form role="form" action="" method="post" style="width:30%;min-width:350px;">
         <input 
           placeholder="subject" 
-          value="" 
+          value="{{subject}}"
           id="threads_subject_input" 
           class="form-control form-bottom-margin" 
           name="subject" 
@@ -68,24 +68,18 @@
             name="content" 
             rows="6" 
             id="threads_content_input"
-            cols="50"></textarea>
+            cols="50">{{content}}</textarea>
         </div>
         <input 
           placeholder="tags" 
-          value="" 
+          value="{{tags}}" 
           class="form-bottom-margin form-control" 
           name="tags" 
           id="threads_tags_input"
           type="text">
         <div>
           <input 
-          {{#loggedIn}}
             value="add thread" 
-          {{/loggedIn}}
-          {{^loggedIn}}
-            disabled="disabled"
-            value="please login to add thread" 
-          {{/loggedIn}}
             class="form-control" 
             id="addthread_form_submit" 
             type="submit">

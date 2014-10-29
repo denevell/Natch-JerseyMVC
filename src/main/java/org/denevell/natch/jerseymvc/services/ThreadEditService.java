@@ -13,8 +13,6 @@ import org.denevell.natch.jerseymvc.models.ThreadEditOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class ThreadEditService {
 
@@ -62,11 +60,11 @@ public class ThreadEditService {
   @XmlRootElement
   public class ThreadEditInput {
 
-    @NotEmpty
-    @NotBlank
+    //@NotEmpty
+    //@NotBlank
     private String content;
-    @NotEmpty
-    @NotBlank
+    //@NotEmpty
+    //@NotBlank
     private String subject;
     private List<String> tags;
 

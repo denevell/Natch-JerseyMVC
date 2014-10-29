@@ -32,9 +32,9 @@ public class PostAddToThreadUITests {
 		loginPo = new LoginoutPo(driver);
 		addthreadPo = new ThreadAddPo(driver);
 		addpostPo = new PostAddPo(driver);
-		registerPo.register("aaron", "aaron", "");
+		registerPo.registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();
-		registerPo.register("aaron2", "aaron2", "");
+		registerPo.registerFromHomepage("aaron2", "aaron2", "");
 		loginPo.logout();
 	}
 

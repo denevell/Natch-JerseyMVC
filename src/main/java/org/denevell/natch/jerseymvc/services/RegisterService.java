@@ -12,8 +12,6 @@ import org.denevell.natch.jerseymvc.models.RegisterOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 public class RegisterService {
 	
@@ -62,20 +60,24 @@ public class RegisterService {
   @XmlRootElement
   public class RegisterInput {
 
-    @NotBlank
+    //@NotBlank
     private String username;
-    @NotBlank
+    //@NotBlank
     private String password;
-    @Email(regexp = ".+@.+\\..+")
+    //@Email(regexp = ".+@.+\\..+")
     private String recoveryEmail;
 
-    public RegisterInput(@NotBlank String username, @NotBlank String password) {
+    public RegisterInput(
+        /*@NotBlank*/ String username, 
+        /*@NotBlank*/ String password) {
       this.setUsername(username);
       this.setPassword(password);
     }
 
-    public RegisterInput(@NotBlank String username, @NotBlank String password,
-        @Email String recoveryEmail) {
+    public RegisterInput(
+        /*@NotBlank*/ String username, 
+        /*@NotBlank*/ String password,
+        /*@Email */ String recoveryEmail) {
       this.setUsername(username);
       this.setPassword(password);
       this.setRecoveryEmail(recoveryEmail);

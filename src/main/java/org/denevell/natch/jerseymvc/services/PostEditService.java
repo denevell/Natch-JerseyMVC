@@ -10,8 +10,6 @@ import org.denevell.natch.jerseymvc.models.PostEditOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class PostEditService {
 
@@ -56,8 +54,8 @@ public class PostEditService {
   @XmlRootElement
   public class PostEditInput {
 
-    @NotEmpty
-    @NotBlank
+    //@NotEmpty
+    //@NotBlank
     private String content;
 
     public String getContent() {

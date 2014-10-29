@@ -175,15 +175,13 @@ public class PostAddPo {
 		return this;
 	}
 
-	public PostAddPo hasPostWithMarkdown(int i, String string) {
-		WebElement thread = driver.findElement(By.id("post_" + i));
-        WebElement title = thread.findElement(By.id("post_content"));
-        String text = title.getAttribute("innerHTML");
-        Pattern p = Pattern.compile("<em>.*cont1.*</em>", Pattern.DOTALL);
-        Matcher m = p.matcher(text);
-        org.junit.Assert.assertTrue("Can see single post in larger thread with markdown", m.find());		
-        return this;
-	}
+  public PostAddPo hasPostWithMarkdown(String string) {
+    String text = driver.getPageSource();
+    Pattern p = Pattern.compile("<em>.*cont1.*</em>", Pattern.DOTALL);
+    Matcher m = p.matcher(text);
+    org.junit.Assert.assertTrue("Can see single post in larger thread with markdown", m.find());
+    return this;
+  }
 
 	public PostAddPo hasEditedByAdminFlag(int i) {
 		WebElement post = driver.findElement(By.id("post_" + i));

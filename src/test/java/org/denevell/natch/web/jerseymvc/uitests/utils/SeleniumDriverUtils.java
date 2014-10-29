@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class SeleniumDriverUtils {
 	@SuppressWarnings("unused")
@@ -15,12 +15,14 @@ public class SeleniumDriverUtils {
 			//return pjs;
 			return null;
 		} else {
+      HtmlUnitDriver h = new HtmlUnitDriver(false);
+			h.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
 			FirefoxBinary binary = new FirefoxBinary(new File("/home/user/bin/firefox-32/firefox-bin"));
-      //HtmlUnitDriver fd = new HtmlUnitDriver(false);
-			//fd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-			FirefoxDriver fd = new FirefoxDriver(binary, null);
-			fd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-			return fd;
+			//FirefoxDriver ffd = new FirefoxDriver(binary, null);
+			//ffd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
+			return h;
 		}
 	}
 }
