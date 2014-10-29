@@ -16,10 +16,6 @@ public class PostEditService {
 	protected static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	public PostEditOutput mOutput = new PostEditOutput();
 
-	public PostEditOutput getOutput() {
-		return mOutput;
-	}
-	
 	public boolean fetch(Object trueObject, 
 			final HttpServletRequest serv,
 			final String content,

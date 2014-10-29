@@ -46,7 +46,7 @@ public class PostEdit {
     mPostEditService.fetch(new Object(), req, 
         PostEditServlet.content, 
         PostEditServlet.post_edit);
-    PostEditOutput output = mPostEditService.getOutput();
+    PostEditOutput output = mPostEditService.mOutput;
     if(output.getErrorMessage()==null || output.getErrorMessage().trim().length()==0) {
       String url = new ThreadUrlGenerator().createThreadUrl(PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
 		  Responses.send303(resp, url);

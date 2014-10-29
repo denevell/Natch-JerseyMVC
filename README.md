@@ -10,8 +10,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Keep post content on error
-
 * Move into Natch-Runner
 * Leave some dependencies as provided
 * Change Natch-Runner to start this
@@ -31,3 +29,4 @@ Later
 * Error messages for annotation processing
 * Multiple different posts to same page
 * Error page for a 404 on a thread / single post
+* Keep post content on error
