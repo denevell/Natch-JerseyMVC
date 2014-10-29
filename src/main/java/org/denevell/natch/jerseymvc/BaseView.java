@@ -4,7 +4,6 @@ import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.denevell.natch.jerseymvc.app.template.TemplateInclude;
 import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
 import org.denevell.natch.jerseymvc.app.utils.UriEncoding;
 import org.denevell.natch.jerseymvc.app.utils.Urls;
@@ -22,9 +21,7 @@ public class BaseView {
     loginErrorMessage = SessionUtils.getOneShotLoginError(request);
   }
   
-  @TemplateInclude(file="/common_header_elements.mustache")
 	public String common_header_elements;
-  @TemplateInclude(file="/nav_bar.mustache")
 	public String nav_bar;
 
 	public String redirect_to;

@@ -10,18 +10,18 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
+* Keep post content on error
+
 * Move into Natch-Runner
 * Leave some dependencies as provided
 * Change Natch-Runner to start this
 * Change the production urls based on manifest
-* Generate production version of site
+* Generate production version of site using gradle
 * Sort out uat script to use this project instead of natch-jsp
 
 Later
 =====
 
-* Remove bean annotations to see if that affects ram
-* Better way of concatenating mustache templates
 * Sort and truncate tags in view object?
 * Pages per thread in view object?
 * Bean validation?
