@@ -28,7 +28,7 @@ public class Login {
   public void onPost(Object view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mLogin.login(req, resp, LoginServlet.username, LoginServlet.password);
     req.getSession(true).setAttribute("loginErrorMessage", mLogin.getLogin().getErrorMessage());
-    Responses.send303(resp, LoginServlet.redirect);
+    Responses.send303ToUnsafeRedirectString(req, resp, LoginServlet.redirect);
   }
 
 }

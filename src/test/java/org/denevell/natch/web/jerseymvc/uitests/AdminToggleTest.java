@@ -72,17 +72,16 @@ public class AdminToggleTest {
 			.gotoThread(0);
 		addpostPo
 			.add("xxx");
-        String url = driver.getCurrentUrl();
-        driver.navigate().back();
-        // Ensure we can't see move to thread as normal user
+    String url = driver.getCurrentUrl();
+    driver.navigate().back();
+    // Ensure we can't see move to thread as normal user
 		loginPo
 			.logout()
 			.login("aaron2", "aaron2");
-	    driver.get(url);
-	    postMoveToThreadPo
-	    	.canSeeMoveLink(1, false);
-	    // Make normal user admin
-        driver.navigate().back();
+	  driver.get(url);
+	  postMoveToThreadPo.canSeeMoveLink(1, false);
+	  // Make normal user admin
+    driver.navigate().back();
 		loginPo
 			.logout()
 			.login("aaron", "aaron");
@@ -93,8 +92,8 @@ public class AdminToggleTest {
 		loginPo
 			.logout()
 			.login("aaron2", "aaron2");
-	    driver.get(url);
-	    postMoveToThreadPo
+	  driver.get(url);
+	  postMoveToThreadPo
 	    	.canSeeMoveLink(2, false);
 	}
 }

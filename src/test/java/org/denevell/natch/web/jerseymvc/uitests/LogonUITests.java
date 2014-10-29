@@ -19,9 +19,9 @@ public class LogonUITests {
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
 		driver = SeleniumDriverUtils.getDriver();
-        driver.get(URLs.HOMEPAGE);
-        loginPo = new LoginoutPo(driver);
-        new RegisterPo(driver).registerFromHomepage("aaron", "aaron", "");
+    driver.get(URLs.HOMEPAGE);
+    loginPo = new LoginoutPo(driver);
+    new RegisterPo(driver).registerFromHomepage("aaron", "aaron", "");
 		loginPo.logout();
 	}
 	
@@ -30,7 +30,7 @@ public class LogonUITests {
 		try {
 			loginPo.logout();
 		} catch(Exception e) {}
-        driver.quit();
+    driver.quit();
 	}
 	
 	@Test

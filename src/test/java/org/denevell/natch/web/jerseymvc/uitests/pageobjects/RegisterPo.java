@@ -13,6 +13,12 @@ public class RegisterPo {
     this.driver = driver;
   }
 
+  public RegisterPo registerFromElsewhere(String username, String password, String recoveryEmail) {
+    driver.findElement(By.id("reg_link")).click();
+    register(username, password, recoveryEmail);
+    return this;
+  }
+
   public RegisterPo registerFromHomepage(String username, String password, String recoveryEmail) {
     driver.get(URLs.HOMEPAGE);
     driver.findElement(By.id("reg_link")).click();
@@ -21,8 +27,6 @@ public class RegisterPo {
   }
 
   public RegisterPo register(String username, String password, String recoveryEmail) {
-    driver.get(URLs.HOMEPAGE);
-    driver.findElement(By.id("reg_link")).click();
     WebElement username_input = driver.findElement(By
         .id("register_username_input"));
     WebElement password_input = driver.findElement(By
@@ -46,13 +50,13 @@ public class RegisterPo {
     return this;
   }
 
-  public RegisterPo shouldSeeRegisterLink() {
-    org.junit.Assert.assertTrue("Shouldn't see register link", driver
+  public RegisterPo shouldSeeRegisterFormSubmit() {
+    org.junit.Assert.assertTrue("Should see register link", driver
         .getPageSource().toLowerCase().contains("register_form_submit"));
     return this;
   }
 
-  public RegisterPo shouldntSeeRegisterLink() {
+  public RegisterPo shouldntSeeRegisterFormSubmit() {
     org.junit.Assert.assertFalse("Shouldn't see register link", driver
         .getPageSource().toLowerCase().contains("register_form_submit"));
     return this;
@@ -73,6 +77,20 @@ public class RegisterPo {
     } else {
       org.junit.Assert.assertFalse("Shouldn't see reg error",
           pageSource.contains("cannot be blank"));
+    }
+    return this;
+  }
+
+  public RegisterPo shouldSeeRegisterLinkText(boolean b) {
+    try {
+      driver.findElement(By.id("reg_link")).click();
+      if(!b) {
+        org.junit.Assert.assertFalse("Didn't want to see register link text", true);
+      }
+    } catch (Exception e) {
+      if(b) {
+        org.junit.Assert.assertFalse("Wanted to see register link text", true);
+      }
     }
     return this;
   }

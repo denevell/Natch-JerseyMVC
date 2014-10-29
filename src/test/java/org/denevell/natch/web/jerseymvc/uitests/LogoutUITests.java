@@ -17,7 +17,7 @@ public class LogoutUITests {
 	@Before
 	public void setup() throws Exception {
 		TestUtils.deleteTestDb();
-		driver = SeleniumDriverUtils.getDriver();;
+		driver = SeleniumDriverUtils.getDriver();
 		loginPo = new LoginoutPo(driver);
 		registerPo = new RegisterPo(driver);
 		registerPo.registerFromHomepage("aaron", "aaron", "");

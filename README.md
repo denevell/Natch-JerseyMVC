@@ -10,7 +10,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Sort out redirect parsing
 * Keep old add thread data or don't allow when not logged in
 
 * Basic memory leak test
