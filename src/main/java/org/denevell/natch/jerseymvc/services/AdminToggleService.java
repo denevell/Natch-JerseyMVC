@@ -1,5 +1,6 @@
 package org.denevell.natch.jerseymvc.services;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.SuccessOrError;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -19,7 +20,7 @@ public class AdminToggleService {
     if (active == null)
       return;
     mSuccessOrError = sService
-        .target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+        .target(ManifestVarsListener.getValue("user_service"))
         .path("rest").path("user").path("admin").path("toggle").path(username)
         .request().header("AuthKey", authKey).post(null, SuccessOrError.class);
   }

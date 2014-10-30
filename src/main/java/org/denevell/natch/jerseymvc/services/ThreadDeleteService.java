@@ -4,6 +4,7 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.PostDeleteOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -17,7 +18,7 @@ public class ThreadDeleteService {
 	public boolean delete(final HttpServletRequest serv, final String id) {
 		return serv(new Runnable() { @Override public void run() {
 			mDeleteThread = sService
-				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("del").path(id).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.delete(PostDeleteOutput.class);

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.PostEditOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -25,7 +26,7 @@ public class PostEditService {
 		  PostEditInput entity = new PostEditInput();
 		  entity.setContent(content);
 			mOutput = sService
-				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("editpost").path(String.valueOf(id)).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.post(Entity.json(entity), PostEditOutput.class);

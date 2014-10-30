@@ -1,5 +1,6 @@
 package org.denevell.natch.jerseymvc.services;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.ThreadsOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -26,13 +27,13 @@ public class ThreadsService {
   public void fetchThreads(int start, int limit, String tag) {
     if(tag==null || tag.length()==0) {
         mThreads = sService
-                .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+                .target(ManifestVarsListener.getValue("rest_service"))
                 .path("rest").path("threads").path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	
     } else {
         mThreads = sService
-                .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+                .target(ManifestVarsListener.getValue("rest_service"))
                 .path("rest").path("threads").path(tag).path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	

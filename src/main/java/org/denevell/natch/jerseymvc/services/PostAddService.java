@@ -5,6 +5,7 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.models.ThreadAddOutput;
 import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddInput;
@@ -37,7 +38,7 @@ public class PostAddService {
 			ThreadAddInput entity = new ThreadAddInput("-", content);
 			entity.setThreadId(threadId);
 			mAddPost = sService
-				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("add").request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.put(Entity.json(entity), ThreadAddOutput.class);

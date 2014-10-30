@@ -5,6 +5,7 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -19,7 +20,7 @@ public class PwResetService {
 	public boolean reset(HttpServletRequest mRequest, final String resetPwEmail) {
 		return serv(new ResponseRunnable() { @Override public Response run() {
 			Response response = sService 
-				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest").path("user").path("password_reset").path(resetPwEmail)
 				.request()
 				.post(null);

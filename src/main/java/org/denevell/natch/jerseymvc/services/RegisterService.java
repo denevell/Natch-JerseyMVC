@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.models.RegisterOutput;
 import org.glassfish.jersey.client.JerseyClient;
@@ -36,7 +37,7 @@ public class RegisterService {
 				entity = new RegisterInput(username, password);
 			}
 			mRegister = sService
-				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest").path("user").request()
 				.put(Entity.json(entity), RegisterOutput.class);
 			if (mRegister.getError() != null && mRegister.getError().trim().length() > 0) {

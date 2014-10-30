@@ -1,5 +1,6 @@
 package org.denevell.natch.jerseymvc.services;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.UserListOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -17,7 +18,7 @@ public class AdminService {
 
   public void getUsers(String authKey) {
     mUsers = sService
-        .target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+        .target(ManifestVarsListener.getValue("user_service"))
         .path("rest").path("user").path("list").request()
         .header("AuthKey", authKey).get(UserListOutput.class);
   }

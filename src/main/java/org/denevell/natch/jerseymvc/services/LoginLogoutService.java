@@ -9,6 +9,7 @@ import javax.ws.rs.client.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.models.LoginOutput;
 import org.glassfish.jersey.client.JerseyClient;
@@ -31,7 +32,7 @@ public class LoginLogoutService {
 			final String password) {
 		return serv(new Runnable() { @Override public void run() {
 			mLogin = sService 
-				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest") .path("user") .path("login")
 				.request()
 				.post(Entity.json(new LoginInput(username, password)), LoginOutput.class);
@@ -67,7 +68,7 @@ public class LoginLogoutService {
 	public boolean logout(final HttpServletRequest request, final HttpServletResponse resp) {
 		return serv(new Runnable() { @Override public void run() {
 			sService 
-				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest") .path("user") .path("logout")
 				.request()
 				.delete();

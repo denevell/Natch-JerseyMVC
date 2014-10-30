@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.ThreadEditOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -35,7 +36,7 @@ public class ThreadEditService {
 		  entity.setSubject(subject);
 		  entity.setTags(Arrays.asList(tags.split(",")));
 			mOutput = sService
-				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("editthread").path(String.valueOf(id)).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.post(Entity.json(entity), ThreadEditOutput.class);

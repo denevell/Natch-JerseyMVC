@@ -4,6 +4,7 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.PostDeleteOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -22,7 +23,7 @@ public class PostDeleteService {
 			final int postId) {
 		return serv(new Runnable() { @Override public void run() {
 			mPostDelete = sService
-				.target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("del").path(String.valueOf(postId)).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.delete(PostDeleteOutput.class);

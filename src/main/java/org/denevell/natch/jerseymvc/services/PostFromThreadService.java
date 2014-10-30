@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.ThreadAddOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -26,7 +27,7 @@ public class PostFromThreadService {
 			input.setPostId(postId);
 			input.setSubject(subject);
 			mThreadOutput = sService
-                .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+                .target(ManifestVarsListener.getValue("rest_service"))
                 .path("rest").path("thread").path("frompost")
                 .request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))

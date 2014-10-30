@@ -2,6 +2,7 @@ package org.denevell.natch.jerseymvc.services;
 
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.models.PostOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
@@ -22,7 +23,7 @@ public class PostSingleService {
     return serv(new Runnable() { @Override
       public void run() {
         mPostOutput = sService
-            .target("http://localhost:8080/Natch-REST-ForAutomatedTests/")
+            .target(ManifestVarsListener.getValue("rest_service"))
             .path("rest").path("post").path("single").path(String.valueOf(id))
             .request().get(PostOutput.class);
       }

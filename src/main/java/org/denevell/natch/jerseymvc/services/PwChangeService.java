@@ -5,6 +5,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Serv;
 import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
 import org.glassfish.jersey.client.JerseyClient;
@@ -33,13 +34,13 @@ public class PwChangeService {
 		return Serv.serv(new ResponseRunnable() { @Override public Response run() {
 			Object attribute = request.getSession(true).getAttribute("authkey");
 			Response response = sService
-				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest").path("user").path("password").path(username)
 				.request()
 				.header("AuthKey", attribute)
 				.post(Entity.json(new PasswordChangeInput(password)));
 			sService
-				.target("http://localhost:8080/CoreUserService-ForAutomatedTests/")
+				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest").path("user").path("password_reset").path("remove").path(username)
 				.request()
 				.header("AuthKey", attribute)
