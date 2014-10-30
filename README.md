@@ -16,12 +16,14 @@ Todo
 ~~ * Run test now we've changed paths
 ~~ * Run tests again when move to an empty context root
 ~~ * Choose the urls based ona a manifest entry
-* Generate production version of site using gradle
+~~ * Generate production version of site using gradle
+* Run tests over all products using uat
 * Sort out uat script to use this project instead of natch-jsp
 
 Later
 =====
 
+* Set input objects to fields not getters and setters
 * Sort and truncate tags in view object?
 * Pages per thread in view object?
 * Bean validation?

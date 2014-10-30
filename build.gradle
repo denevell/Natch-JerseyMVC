@@ -45,12 +45,12 @@ test {
 
 task jettyStop() << {
         println("Stopping Jetty based on its WAR name")
-        ["bash", "-c", "ps -aux | grep -v grep | grep 'java.* -jar.* build/libs/Natch-JerseyMvc.war' | awk '{ print \$2}' | xargs kill -9"].execute()
+        ["bash", "-c", "ps -aux | grep -v grep | grep 'java.* -jar.* Natch-JerseyMvc-ForAutomatedTests.war' | awk '{ print \$2}' | xargs kill -9"].execute()
         sleep(1000)
 }
 task jettyStopProd() << {
         println("Stopping production Jetty based on its WAR name")
-        ["bash", "-c", "ps -aux | grep -v grep | grep 'java .* -jar .* build/libs/MyProject-Production.war' | awk '{ print \$2}' | xargs kill -9"].execute()
+        ["bash", "-c", "ps -aux | grep -v grep | grep 'java .* -jar .* Natch-JerseyMvc-Production.war' | awk '{ print \$2}' | xargs kill -9"].execute()
         sleep(1000)
 }
 
@@ -67,7 +67,7 @@ task jettyStart(dependsOn: [jettyStop]) << {
 
 task jettyStartProd(dependsOn: [jettyStopProd]) << {
 	println("Starting production Jetty on port ")
-	def cmd = ["bash", "-c", "java -server -Xmx50m -jar jetty-runner-9.1.0.M0.jar --port  build/libs/Natch-JerseyMvc-Production.war &> logs/jetty-stdout-stderr.log"].execute()
+	def cmd = ["bash", "-c", "java -server -Xmx50m -jar jetty-runner-9.1.0.M0.jar --port 8081 Natch-JerseyMvc-Production.war &> logs/jetty-stdout-stderr.log"].execute()
 	cmd.in.close()
 	cmd.out.close()
 	cmd.err.close()
@@ -78,7 +78,7 @@ task jettyStartProd(dependsOn: [jettyStopProd]) << {
 
 if(project.hasProperty('PRODUCTION')) {
 	war.classifier = 'Production'
-	// Need to make the manifest point to the production wars not the testing wars
+    sourceSets.main.resources.srcDirs 'src/main/resources', 'src/prod/resources'
 } else {
 	war.classifier = 'ForAutomatedTests'
 }

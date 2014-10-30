@@ -1,2 +1,2 @@
-Manifest-Version: 1.0
-SomeVar: I AM in production!
+user_service: http://localhost:8080/CoreUserService-Production/
+rest_service: http://localhost:8080/Natch-REST-Production/
