@@ -1,6 +1,7 @@
 bin/
 build/
 .classpath
+*.war
 *.jar
 .factorypath
 .settings

@@ -10,9 +10,9 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Move into Natch-Runner
-* Leave some dependencies as provided
-* Change Natch-Runner to start this
+~~ * Move into Natch-Runner
+~~ * Leave some dependencies as provided
+~~ * Change Natch-Runner to start this
 * Change the production urls based on manifest
 * Generate production version of site using gradle
 * Sort out uat script to use this project instead of natch-jsp
