@@ -10,3 +10,4 @@ logs/
 .project
 .idea
 /.apt_generated/
+/apt_generated/
