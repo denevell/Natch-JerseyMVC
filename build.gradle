@@ -41,6 +41,7 @@ test {
         testLogging.showCauses = true
         testLogging.showExceptions = true
         testLogging.showStackTraces = true
+        testLogging.displayGranularity = -1
 }
 
 task jettyStop() << {
