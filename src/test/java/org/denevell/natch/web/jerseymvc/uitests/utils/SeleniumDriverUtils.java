@@ -1,11 +1,8 @@
 package org.denevell.natch.web.jerseymvc.uitests.utils;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class SeleniumDriverUtils {
@@ -19,7 +16,7 @@ public class SeleniumDriverUtils {
       HtmlUnitDriver h = new HtmlUnitDriver(false);
 			h.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
-			FirefoxBinary binary = new FirefoxBinary(new File("/home/user/bin/firefox-32/firefox-bin"));
+			//FirefoxBinary binary = new FirefoxBinary(new File("/home/user/bin/firefox-32/firefox-bin"));
 			//FirefoxDriver ffd = new FirefoxDriver(binary, null);
 			//ffd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
