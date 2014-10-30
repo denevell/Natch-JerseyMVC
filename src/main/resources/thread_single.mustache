@@ -15,7 +15,7 @@
   
 	 	<div id="tags">
 	 	 {{#tags}}
-	 	   <span class="tag"><a class="label label-success"  href="/?start=0&limit=10&tag={{.}}">{{.}}</a></span>
+	 	   <span class="tag"><a class="label label-success"  href="{{contextPath}}/?start=0&limit=10&tag={{.}}">{{.}}</a></span>
 	 	 {{/tags}}
 		</div>
   
@@ -35,25 +35,25 @@
               
 	            	<div class="post-authorline">
    		            {{#hasEditThreadText}}
-	           			<a id="thread_edit" href="/thread/edit/{{id}}?thread={{parentThreadId}}">[Edit thread]</a>
+	           			<a id="thread_edit" href="{{contextPath}}/thread/edit/{{id}}?thread={{parentThreadId}}">[Edit thread]</a>
             			{{/hasEditThreadText}}
    		            {{#hasEditPostText}}
-	           			<a id="post_edit" href="/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">[Edit]</a>
+	           			<a id="post_edit" href="{{contextPath}}/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">[Edit]</a>
             			{{/hasEditPostText}}
    		            {{#hasEditThreadText}}
-                  <a id="delete_thread_form_submit" href="/thread/delete?delete_thread_id={{id}}">[Delete thread]</a>
+                  <a id="delete_thread_form_submit" href="{{contextPath}}/thread/delete?delete_thread_id={{id}}">[Delete thread]</a>
         			    {{/hasEditThreadText}}
    		            {{#hasEditPostText}}
-	           			<a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">[Delete]</a>
+	           			<a id="delete_{{iterate}}" href="{{contextPath}}/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">[Delete]</a>
         			    {{/hasEditPostText}}
    		            {{#hasMoveToThreadText}}
-	           			<a id="move_to_thread_{{iterate}}" href="/post/movetothread/{{id}}">[Move to new thread]</a>
+	           			<a id="move_to_thread_{{iterate}}" href="{{contextPath}}/post/movetothread/{{id}}">[Move to new thread]</a>
             			{{/hasMoveToThreadText}}
 	           		<i id="post_author">
 	           			By {{username}} | <i id="post_date">{{lastModifiedDate}}</i>
 	           		</i>
-	           		  | <a id="link" href="/post/{{id}}">link</a> 
-	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
+	           		  | <a id="link" href="{{contextPath}}/post/{{id}}">link</a> 
+	           			| <a id="reply_{{iterate}}" href="{{contextPath}}/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
 	             		{{#editedByAdmin}}
 	           			edited by an admin
 	            		{{/editedByAdmin}}

@@ -13,6 +13,8 @@ Todo
 ~~ * Move into Natch-Runner
 ~~ * Leave some dependencies as provided
 ~~ * Change Natch-Runner to start this
+* Run test now we've changed paths
+* Run tests again when move to an empty context root
 * Change the production urls based on manifest
 * Generate production version of site using gradle
 * Sort out uat script to use this project instead of natch-jsp

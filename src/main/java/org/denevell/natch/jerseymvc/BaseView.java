@@ -18,6 +18,7 @@ public class BaseView {
     }
 		loggedIn = SessionUtils.isLoggedIn(request);
     isAdmin = SessionUtils.isAdmin(request);
+    contextPath = request.getContextPath();
     loginErrorMessage = SessionUtils.getOneShotLoginError(request);
   }
   
@@ -27,6 +28,7 @@ public class BaseView {
 	public String redirect_to;
 	public boolean isAdmin;
 	public boolean loggedIn;
+  public String contextPath;
 	public String loginErrorMessage;
 	public boolean loggedInCorrectly;
 }
