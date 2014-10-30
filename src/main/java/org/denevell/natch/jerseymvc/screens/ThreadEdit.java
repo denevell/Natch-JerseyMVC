@@ -51,7 +51,7 @@ public class ThreadEdit {
         ThreadEditServlet.post_edit);
     ThreadEditOutput output = mThreadEditService.getOutput();
     if(output.getErrorMessage()==null || output.getErrorMessage().trim().length()==0) {
-      String url = new ThreadUrlGenerator().createThreadUrl(ThreadEditServlet.thread);
+      String url = new ThreadUrlGenerator().createThreadUrl(req, ThreadEditServlet.thread);
       Responses.send303(resp, url);
     } else {
       view.error = output.getErrorMessage();

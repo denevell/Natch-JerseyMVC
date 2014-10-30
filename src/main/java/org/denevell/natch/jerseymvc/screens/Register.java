@@ -39,7 +39,7 @@ public class Register {
     if (view.registerErrorMessage != null && view.registerErrorMessage.trim().length() != 0) {
       Responses.send303(req, resp);
     } else {
-      String url = new MainPageUrlGenerator().build().toString();
+      String url = new MainPageUrlGenerator().build(req).toString();
       Responses.send303(resp, url);
     }
   }

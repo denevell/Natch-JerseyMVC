@@ -1,14 +1,16 @@
 package org.denevell.natch.jerseymvc.app.utils;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 public class ThreadUrlGenerator {
 
-	public String createThreadUrl(String threadId) {
-		return "/thread/"+threadId;
+	public String createThreadUrl(HttpServletRequest req, String threadId) {
+		return req.getContextPath()+"/thread/"+threadId;
 	}
 
-	public String createThreadUrl(String threadId, int start, int limit) {
-		return "/thread/"+threadId+"?start="+start+"&limit="+limit;
+	public String createThreadUrl(HttpServletRequest req, String threadId, int start, int limit) {
+		return req.getContextPath()+"/thread/"+threadId+"?start="+start+"&limit="+limit;
 	}
 
 

@@ -48,7 +48,7 @@ public class PostEdit {
         PostEditServlet.post_edit);
     PostEditOutput output = mPostEditService.mOutput;
     if(output.getErrorMessage()==null || output.getErrorMessage().trim().length()==0) {
-      String url = new ThreadUrlGenerator().createThreadUrl(PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
+      String url = new ThreadUrlGenerator().createThreadUrl(req, PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
 		  Responses.send303(resp, url);
     } else {
       view.error = output.getErrorMessage();

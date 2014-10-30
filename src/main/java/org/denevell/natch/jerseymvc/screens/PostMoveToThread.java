@@ -46,7 +46,7 @@ public class PostMoveToThread {
 					PostMoveToThreadServlet.subject);
 			view.moveError = mPostFromThreadService.mThreadOutput .getErrorMessage();
 			if (view.moveError == null || view.moveError.trim().length() == 0) {
-				String url = new ThreadUrlGenerator().createThreadUrl(mPostFromThreadService.mThreadOutput.getThread().getId());
+				String url = new ThreadUrlGenerator().createThreadUrl(req, mPostFromThreadService.mThreadOutput.getThread().getId());
 				Responses.send303(resp, url);
 			} else {
 				Responses.send303(req, resp);

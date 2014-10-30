@@ -51,7 +51,7 @@ public class PostReply {
     } else {
       int numPosts = mAddPostService.getAddpost().getThread().getNumPosts();
       ThreadsPaginationService pagin = new ThreadsPaginationService().calculatePagination(
-		    new ThreadUrlGenerator().createThreadUrl(PostReplyServlet.thread),
+		    new ThreadUrlGenerator().createThreadUrl(req, PostReplyServlet.thread),
 		    PostReplyServlet.start, 
 		    PostReplyServlet.limit, 
 		    numPosts);

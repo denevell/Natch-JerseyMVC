@@ -29,7 +29,7 @@ public class PostSingle {
 		view.htmlContent = mPostService.getPost().getHtmlContent();
 		view.username = mPostService.getPost().getUsername();
 		view.subject = mPostService.mPostOutput.getSubject();
-		view.backUrl = new ThreadUrlGenerator().createThreadUrl(mPostService.mPostOutput.getThreadId());
+		view.backUrl = new ThreadUrlGenerator().createThreadUrl(req, mPostService.mPostOutput.getThreadId());
 		return view;
   }
 

@@ -41,7 +41,7 @@ public class PostDelete {
 		mModel.delete(req, PostDeleteServlet.delete_post_id_form);
 		if (mModel.mPostDelete.isSuccessful()) {
 			String createThreadUrl = new ThreadUrlGenerator()
-      	.createThreadUrl(
+      	.createThreadUrl(req,
       			PostDeleteServlet.thread,
       			PostDeleteServlet.start, 
       			PostDeleteServlet.limit);
