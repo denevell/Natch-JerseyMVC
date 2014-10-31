@@ -1,32 +1,26 @@
-package org.denevell.natch.jerseymvc.models;
+package org.denevell.natch.jerseymvc.services;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.pegdown.PegDownProcessor;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class PostOutput {
 
-	private long id;
-	private String username;
-	private String errorMessage;
-	private String subject;
-	private String content;
-	private String threadId;
-	private long creation;
-	private long modification;
-	private List<String> tags;
-	private boolean adminEdited;
+  public long id;
+	public String username;
+	public String errorMessage;
+	public String subject;
+	public String content;
+	public String threadId;
+	public long creation;
+	public long modification;
+	public List<String> tags;
+	public boolean adminEdited;
 	
 	public PostOutput() {
 	}
@@ -44,25 +38,6 @@ public class PostOutput {
 	public PostOutput(PostOutput post) {
 		this(post.username, post.creation, post.modification, post.subject, post.content, post.tags, post.adminEdited);
 		this.threadId = post.threadId;
-	}
-
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
 	}
 	public String getContent() {
 		if(content==null) return null;
@@ -90,38 +65,11 @@ public class PostOutput {
 		String html = new PegDownProcessor(org.pegdown.Extensions.ALL).markdownToHtml(content);
 		return html;
     }
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public long getCreation() {
-		return creation;
-	}
-	public void setCreation(long creation) {
-		this.creation = creation;
-	}
-	public long getModification() {
-		return modification;
-	}
-	public void setModification(long modification) {
-		this.modification = modification;
-	}
-	public String getThreadId() {
-		return threadId;
-	}
-	public void setThreadId(String threadId) {
-		this.threadId = threadId;
-	}
-	public List<String> getTags() {
-		return tags;
-	}
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
-	
+
 	public String getTagsString() {
-		if(getTags()==null) return "";
-		List<String> tags = getTags();
-		String tagStrings = StringUtils.join(tags, ",");
+		if(tags==null) return "";
+		List<String> ts = this.tags;
+		String tagStrings = StringUtils.join(ts, ",");
 		return tagStrings;
 	}
 
@@ -142,20 +90,17 @@ public class PostOutput {
         return dateString;
 	}
 
-    public boolean isAdminEdited() {
-        return adminEdited;
-    }
+  public boolean isAdminEdited() {
+    return adminEdited;
+  }
 
-    public void setAdminEdited(boolean adminEdited) {
-        this.adminEdited = adminEdited;
-    }
+  public void setAdminEdited(boolean adminEdited) {
+    this.adminEdited = adminEdited;
+  }
 
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+  public String getErrorMessage() {
+    return errorMessage;
+  }
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}	
 }
 

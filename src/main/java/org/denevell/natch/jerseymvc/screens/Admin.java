@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
-import org.denevell.natch.jerseymvc.models.UserOutput;
 import org.denevell.natch.jerseymvc.screens.Admin.AdminView;
 import org.denevell.natch.jerseymvc.services.AdminService;
+import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput;
+import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput.UserOutput;
 import org.denevell.natch.jerseymvc.services.AdminToggleService;
 import org.denevell.natch.jerseymvc.services.PwChangeService;
 
@@ -35,14 +36,13 @@ public class Admin {
   public AdminToggleService mAdminToggleService = new AdminToggleService();
 
   public AdminView onGet(AdminView view, HttpServletRequest req, HttpServletResponse resp) {
-    mAdmin.getUsers((String) req.getSession(true).getAttribute("authkey"));
-    List<UserOutput> users = mAdmin.getUsers().getUsers();
-    for (UserOutput userOutput : users) {
+    UserListOutput us = mAdmin.getUsers((String) req.getSession(true).getAttribute("authkey"));
+    for (UserOutput userOutput : us.users) {
       view.users.add(new AdminView.User(
-          userOutput.getUsername(), 
-          userOutput.getRecoveryEmail(), 
-          userOutput.isResetPasswordRequest(), 
-          userOutput.isAdmin()));
+          userOutput.username, 
+          userOutput.recoveryEmail, 
+          userOutput.resetPasswordRequest, 
+          userOutput.admin));
     }
     return view;
   }

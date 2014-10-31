@@ -11,10 +11,10 @@ import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
 import org.denevell.natch.jerseymvc.app.utils.Urls;
-import org.denevell.natch.jerseymvc.models.PostOutput;
 import org.denevell.natch.jerseymvc.screens.ThreadSingle.ThreadView;
 import org.denevell.natch.jerseymvc.screens.ThreadSingle.ThreadView.Post;
 import org.denevell.natch.jerseymvc.services.PostAddService;
+import org.denevell.natch.jerseymvc.services.PostOutput;
 import org.denevell.natch.jerseymvc.services.ThreadService;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
 
@@ -40,17 +40,17 @@ public class ThreadSingle {
 
   public ThreadView onGet(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mService = new ThreadService(ThreadSingleServlet.start, ThreadSingleServlet.limit, ThreadSingleServlet.threadId);
-    view.loggedInCorrectly = getCorrectlyLoggedIn(req, mService.model().getAuthor());
+    view.loggedInCorrectly = getCorrectlyLoggedIn(req, mService.model().author);
     view.rootPostId = (int) mService.model().getRootPostId();
-    view.subject = mService.model().getSubject();
-    view.tags = mService.model().getTags();
+    view.subject = mService.model().subject;
+    view.tags = mService.model().tags;
 
 		// Set posts in template
 		int postsSize = mService.model().getPosts().size();
 		for (int i = 0; i < postsSize; i++) {
 			PostOutput p = mService.model().getPosts().get(i);
-			Post e = new Post(p.getUsername(), p.getHtmlContent(), (int)p.getId(), i, p.getLastModifiedDateWithTime());
-			e.parentThreadId = mService.model().getId();
+			Post e = new Post(p.username, p.getHtmlContent(), (int)p.id, i, p.getLastModifiedDateWithTime());
+			e.parentThreadId = mService.model().id;
 			e.editedByAdmin = p.isAdminEdited();
 			// Logged in info
 			e.loggedInCorrectly = view.loggedInCorrectly;
@@ -60,7 +60,7 @@ public class ThreadSingle {
 			e.returnToThreadFromReplyStartParam = ThreadSingleServlet.start;
 			e.returnToThreadFromEditStartParam = ThreadSingleServlet.start;
 			e.returnToThreadFromDeletePostStartParam = ThreadSingleServlet.start;
-			if(postsSize==1 && mService.model().getNumPosts() > postsSize) {
+			if(postsSize==1 && mService.model().numPosts > postsSize) {
 				e.returnToThreadFromDeletePostStartParam -= 10;
 			}
 			// Can edit thread via this post
@@ -77,7 +77,7 @@ public class ThreadSingle {
 		}
     	
 		// Pagination
-		int numPosts = mService.model().getNumPosts();
+		int numPosts = mService.model().numPosts;
 		ThreadsPaginationService pagination = getPagination(req, numPosts);
 		view.next = pagination.getNext().toString();
 		view.prev = pagination.getPrev().toString();
@@ -87,7 +87,7 @@ public class ThreadSingle {
 
   public void onPost(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     addPostService.add(new Object(), req, ThreadSingleServlet.content, ThreadSingleServlet.threadId);
-    view.addPostError = addPostService.getAddpost().getErrorMessage();
+    view.addPostError = addPostService.getAddpost().errorMessage;
     int numPosts = addPostService.getNumPosts();
     ThreadsPaginationService pagination = getPagination(req, numPosts);
     if (numPosts > ThreadSingleServlet.start + ThreadSingleServlet.limit) {

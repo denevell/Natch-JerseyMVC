@@ -31,7 +31,7 @@ public class PostMoveToThread {
 
   public PostMoveToThreadView onGet(PostMoveToThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		mPostSingleService.fetchPost(new Object(), PostMoveToThreadServlet.post);
-		view.username = mPostSingleService.getPost().getUsername();
+		view.username = mPostSingleService.getPost().username;
 		view.postId = PostMoveToThreadServlet.post;
 		return view;
   }
@@ -44,9 +44,9 @@ public class PostMoveToThread {
 			mPostFromThreadService.fetchPost( req,
 					PostMoveToThreadServlet.post, 
 					PostMoveToThreadServlet.subject);
-			view.moveError = mPostFromThreadService.mThreadOutput .getErrorMessage();
+			view.moveError = mPostFromThreadService.mThreadOutput.errorMessage;
 			if (view.moveError == null || view.moveError.trim().length() == 0) {
-				String url = new ThreadUrlGenerator().createThreadUrl(req, mPostFromThreadService.mThreadOutput.getThread().getId());
+				String url = new ThreadUrlGenerator().createThreadUrl(req, mPostFromThreadService.mThreadOutput.thread.id);
 				Responses.send303(resp, url);
 			} else {
 				Responses.send303(req, resp);

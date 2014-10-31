@@ -27,9 +27,9 @@ public class PostSingle {
   public PostSingleView onGet(PostSingleView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		mPostService.fetchPost(new Object(), PostSingleServlet.postId);
 		view.htmlContent = mPostService.getPost().getHtmlContent();
-		view.username = mPostService.getPost().getUsername();
-		view.subject = mPostService.mPostOutput.getSubject();
-		view.backUrl = new ThreadUrlGenerator().createThreadUrl(req, mPostService.mPostOutput.getThreadId());
+		view.username = mPostService.getPost().username;
+		view.subject = mPostService.mPostOutput.subject;
+		view.backUrl = new ThreadUrlGenerator().createThreadUrl(req, mPostService.mPostOutput.threadId);
 		return view;
   }
 

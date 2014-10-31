@@ -27,8 +27,6 @@ import com.yeah.ServletGenerator.Param.ParamType;
     })
 public class PostDelete {
 
-	private PostDeleteService mModel = new PostDeleteService();
-
   public PostDeleteConfirmView onGet(PostDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		view.id = PostDeleteServlet.delete_post_id; 
 		view.parentThreadId =PostDeleteServlet.thread;
@@ -38,8 +36,9 @@ public class PostDelete {
   }
 
   public void onPost(PostDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		mModel.delete(req, PostDeleteServlet.delete_post_id_form);
-		if (mModel.mPostDelete.isSuccessful()) {
+		PostDeleteService service = new PostDeleteService();
+    service.delete(req, PostDeleteServlet.delete_post_id_form);
+		if (service.mPostDelete.successful) {
 			String createThreadUrl = new ThreadUrlGenerator()
       	.createThreadUrl(req,
       			PostDeleteServlet.thread,
@@ -47,7 +46,7 @@ public class PostDelete {
       			PostDeleteServlet.limit);
 			Responses.send303(resp, createThreadUrl);
 		} else {
-		  view.errorMessage = mModel.mPostDelete.getErrorMessage();
+		  view.errorMessage = service.mPostDelete.errorMessage;
 		  Responses.send303(req, resp);
 		}
   }

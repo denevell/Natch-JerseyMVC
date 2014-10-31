@@ -38,7 +38,7 @@ public class PostReply {
 		view.limit = PostReplyServlet.limit;
 		view.id = PostReplyServlet.post;
 		view.htmlContent = mSinglePostService.getPost().getQuotedContent();
-		view.username = mSinglePostService.getPost().getUsername();
+		view.username = mSinglePostService.getPost().username;
 		view.threadId = PostReplyServlet.thread;
 		view.getLastModifiedDateWithTime = mSinglePostService.getPost().getLastModifiedDateWithTime();
 		return view;
@@ -46,10 +46,10 @@ public class PostReply {
 
   public void onPost(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mAddPostService.add(new Object(), req, PostReplyServlet.content, PostReplyServlet.thread);
-    if (mAddPostService.getAddpost().getErrorMessage() != null) {
+    if (mAddPostService.getAddpost().errorMessage != null) {
       Responses.send303(req, resp);
     } else {
-      int numPosts = mAddPostService.getAddpost().getThread().getNumPosts();
+      int numPosts = mAddPostService.getAddpost().thread.numPosts;
       ThreadsPaginationService pagin = new ThreadsPaginationService().calculatePagination(
 		    new ThreadUrlGenerator().createThreadUrl(req, PostReplyServlet.thread),
 		    PostReplyServlet.start, 

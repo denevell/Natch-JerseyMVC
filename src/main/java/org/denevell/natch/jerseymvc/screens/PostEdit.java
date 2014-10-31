@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
-import org.denevell.natch.jerseymvc.models.PostEditOutput;
 import org.denevell.natch.jerseymvc.screens.PostEdit.PostEditView;
 import org.denevell.natch.jerseymvc.services.PostEditService;
+import org.denevell.natch.jerseymvc.services.PostEditService.PostEditOutput;
 import org.denevell.natch.jerseymvc.services.PostSingleService;
 
 import com.yeah.ServletGenerator;
@@ -47,11 +47,11 @@ public class PostEdit {
         PostEditServlet.content, 
         PostEditServlet.post_edit);
     PostEditOutput output = mPostEditService.mOutput;
-    if(output.getErrorMessage()==null || output.getErrorMessage().trim().length()==0) {
+    if(output.errorMessage==null || output.errorMessage.trim().length()==0) {
       String url = new ThreadUrlGenerator().createThreadUrl(req, PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
 		  Responses.send303(resp, url);
     } else {
-      view.error = output.getErrorMessage();
+      view.error = output.errorMessage;
 		  Responses.send303(req, resp);
     }
   }

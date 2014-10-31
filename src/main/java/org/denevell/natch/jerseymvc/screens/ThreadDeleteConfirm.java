@@ -30,10 +30,10 @@ public class ThreadDeleteConfirm {
 
   public void onPost(ThreadDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mModel.delete(req, ThreadDeleteConfirmServlet.delete_thread_id_form);
-    if (mModel.getDeleteThread().isSuccessful()) {
+    if (mModel.getDeleteThread().successful) {
       Responses.send303(resp, new MainPageUrlGenerator().build(req).toString());
     } else {
-      view.errorMessage = mModel.getDeleteThread().getErrorMessage();
+      view.errorMessage = mModel.getDeleteThread().errorMessage;
       Responses.send303(req, resp);
     }
   }

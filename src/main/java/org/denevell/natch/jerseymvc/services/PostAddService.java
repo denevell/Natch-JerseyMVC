@@ -7,8 +7,8 @@ import javax.ws.rs.client.Entity;
 
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
-import org.denevell.natch.jerseymvc.models.ThreadAddOutput;
 import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddInput;
+import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -23,10 +23,10 @@ public class PostAddService {
 	}
 	
 	public int getNumPosts() {
-		if(mAddPost==null || mAddPost.getThread()==null) {
+		if(mAddPost==null || mAddPost.thread==null) {
 			return 0;
 		}
-		return mAddPost.getThread().getNumPosts();
+		return mAddPost.thread.numPosts;
 	}
 
 	public boolean add(Object trueObject, 
@@ -35,8 +35,10 @@ public class PostAddService {
 			final String threadId) {
 		if (trueObject == null) return true;
 		return serv(new Runnable() { @Override public void run() {
-			ThreadAddInput entity = new ThreadAddInput("-", content);
-			entity.setThreadId(threadId);
+			ThreadAddInput entity = new ThreadAddInput();
+			entity.subject = "-";
+			entity.content = content;
+			entity.threadId = threadId;
 			mAddPost = sService
 				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("add").request()
@@ -44,16 +46,16 @@ public class PostAddService {
 				.put(Entity.json(entity), ThreadAddOutput.class);
 			}})
 		._403(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage("You're not logged in");
+			mAddPost.errorMessage = "You're not logged in";
 			}})
 		._401(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage("You're not logged in");
+			mAddPost.errorMessage = "You're not logged in";
 			}})
 		._400(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage(Strings.getPostFieldsCannotBeBlank());
+			mAddPost.errorMessage = Strings.getPostFieldsCannotBeBlank();
 			}})
 		._exception(new Runnable() { @Override public void run() {
-			mAddPost.setErrorMessage("Whoops... erm...");
+			mAddPost.errorMessage = "Whoops... erm...";
 			}}).go();
 	}
 

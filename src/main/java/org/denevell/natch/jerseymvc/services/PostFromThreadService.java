@@ -4,17 +4,16 @@ import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.models.ThreadAddOutput;
+import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 public class PostFromThreadService {
 	
-   	public ThreadAddOutput mThreadOutput = new ThreadAddOutput();
+  public ThreadAddOutput mThreadOutput = new ThreadAddOutput();
 	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
 	
 	public ThreadAddOutput getThread() {
@@ -24,8 +23,8 @@ public class PostFromThreadService {
 	public boolean fetchPost(final HttpServletRequest serv, final int postId, final String subject) {
 		return serv(new Runnable() { @Override public void run() {
 			AddThreadFromPostResourceInput input = new AddThreadFromPostResourceInput();
-			input.setPostId(postId);
-			input.setSubject(subject);
+			input.postId = postId;
+			input.subject = subject;
 			mThreadOutput = sService
                 .target(ManifestVarsListener.getValue("rest_service"))
                 .path("rest").path("thread").path("frompost")
@@ -34,45 +33,25 @@ public class PostFromThreadService {
                 .put(Entity.json(input), ThreadAddOutput.class); 	
 			}})
 		._400(new Runnable() { @Override public void run() {
-			mThreadOutput.setErrorMessage("Whoops... erm... 400");
+			mThreadOutput.errorMessage = "Whoops... erm... 400";
 			}
 		})
 		._401(new Runnable() { @Override public void run() {
-			mThreadOutput.setErrorMessage("Whoops... erm... 401");
+			mThreadOutput.errorMessage = "Whoops... erm... 401";
 			}
 		})
 		._403(new Runnable() { @Override public void run() {
-			mThreadOutput.setErrorMessage("Whoops... erm... 403");
+			mThreadOutput.errorMessage = "Whoops... erm... 403";
 			}
 		})
 		._exception(new Runnable() { @Override public void run() {
-			mThreadOutput.setErrorMessage("Whoops... erm...");
+			mThreadOutput.errorMessage = "Whoops... erm...";
 			}}).go();
 	}
 	
-	@XmlRootElement
-	public class AddThreadFromPostResourceInput {
-
-		public AddThreadFromPostResourceInput() { }
-
-		private long postId;
-		private String subject;
-
-		public long getPostId() {
-			return postId;
-		}
-
-		public void setPostId(long postId) {
-			this.postId = postId;
-		}
-
-		public String getSubject() {
-			return subject;
-		}
-
-		public void setSubject(String subject) {
-			this.subject = subject;
-		}
+	public static class AddThreadFromPostResourceInput {
+		public long postId;
+		public String subject;
 	}
 
 }

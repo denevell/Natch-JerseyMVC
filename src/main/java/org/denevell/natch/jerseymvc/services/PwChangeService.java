@@ -3,7 +3,6 @@ package org.denevell.natch.jerseymvc.services;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Serv;
@@ -33,12 +32,14 @@ public class PwChangeService {
 		if(trueObject==null) return true;
 		return Serv.serv(new ResponseRunnable() { @Override public Response run() {
 			Object attribute = request.getSession(true).getAttribute("authkey");
-			Response response = sService
+			PasswordChangeInput entity = new PasswordChangeInput();
+			entity.password = password;
+      Response response = sService
 				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest").path("user").path("password").path(username)
 				.request()
 				.header("AuthKey", attribute)
-				.post(Entity.json(new PasswordChangeInput(password)));
+				.post(Entity.json(entity));
 			sService
 				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest").path("user").path("password_reset").path("remove").path(username)
@@ -55,21 +56,8 @@ public class PwChangeService {
 			}}).go();
 	}
 
-  @XmlRootElement
   public static class PasswordChangeInput {
-    private String password;
-
-    public PasswordChangeInput(String pass) {
-      this.password = pass;
-    }
-
-    public String getPassword() {
-      return password;
-    }
-
-    public void setPassword(String password) {
-      this.password = password;
-    }
+    public String password;
   }
 	
 

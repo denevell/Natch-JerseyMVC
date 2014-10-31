@@ -3,7 +3,6 @@ package org.denevell.natch.jerseymvc.services;
 import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
 
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.models.PostOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -30,7 +29,7 @@ public class PostSingleService {
     })._exception(new Runnable() {
       @Override
       public void run() {
-        mPostOutput.setErrorMessage("Whoops... erm...");
+        mPostOutput.errorMessage = "Whoops... erm...";
       }
     }).go();
   }

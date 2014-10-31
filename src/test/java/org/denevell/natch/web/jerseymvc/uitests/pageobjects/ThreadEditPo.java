@@ -54,13 +54,12 @@ public class ThreadEditPo {
     if(b) {
       WebElement error = driver.findElement(By.id("error"));
       boolean errorExists = error.getText().trim().length()>0;
-      org.junit.Assert.assertTrue(errorExists);
-      org.junit.Assert.assertTrue(errorExists);
+      org.junit.Assert.assertTrue("Should see erorr value", errorExists);
     } else {
       try {
         WebElement error = driver.findElement(By.id("error"));
         boolean errorExists = error.getText().trim().length()>0;
-        org.junit.Assert.assertFalse(errorExists);
+        org.junit.Assert.assertFalse("Shouldn't see error value", errorExists);
       } catch (Exception e) {
         // Fine
       }

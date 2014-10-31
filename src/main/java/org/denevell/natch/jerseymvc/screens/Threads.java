@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.app.utils.Urls;
-import org.denevell.natch.jerseymvc.models.ThreadOutput;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView.Thread.Tag;
 import org.denevell.natch.jerseymvc.services.ThreadAddService;
+import org.denevell.natch.jerseymvc.services.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.services.ThreadsService;
 
@@ -41,11 +41,11 @@ public class Threads {
 
   public ThreadsView onGet(ThreadsView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mThreadsService.fetchThreads(ThreadsServlet.start, ThreadsServlet.limit, ThreadsServlet.tag);
-    for (int i = 0; i < mThreadsService.mThreads.getThreads().size(); i++) {
-      ThreadOutput t = mThreadsService.mThreads.getThreads().get(i);
-      ThreadsView.Thread e = new ThreadsView.Thread(t.getSubject(), t.getAuthor(), t.getLastModifiedDateWithTime(), t.getId(), i);
+    for (int i = 0; i < mThreadsService.mThreads.threads.size(); i++) {
+      ThreadOutput t = mThreadsService.mThreads.threads.get(i);
+      ThreadsView.Thread e = new ThreadsView.Thread(t.subject, t.author, t.getLastModifiedDateWithTime(), t.id, i);
       e.numPages = getPagesPerThread(t);
-      e.tags = sortAndTruncateTags(t.getTags());
+      e.tags = sortAndTruncateTags(t.tags);
 
       view.threads.add(e);
     }
@@ -66,7 +66,7 @@ public class Threads {
         ThreadsServlet.subject,
         ThreadsServlet.content, 
         ThreadsServlet.tags);
-    view.addThreadErrorMessage = mAddThreadService.getAddThread().getErrorMessage();
+    view.addThreadErrorMessage = mAddThreadService.mAddThread.errorMessage;
     if(view.addThreadErrorMessage!=null && !view.addThreadErrorMessage.isEmpty()) {
       view.subject = ThreadsServlet.subject;
       view.content = ThreadsServlet.content; 

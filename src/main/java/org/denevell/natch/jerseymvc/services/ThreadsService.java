@@ -1,7 +1,9 @@
 package org.denevell.natch.jerseymvc.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.models.ThreadsOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -17,7 +19,7 @@ public class ThreadsService {
 	
 	public int getNumThreads() {
 		if(mThreads==null) return 0;
-		return (int) mThreads.getNumOfThreads();
+		return (int) mThreads.numOfThreads;
 	}
 
 	public void fetchThreads(int start, int limit) {
@@ -40,6 +42,15 @@ public class ThreadsService {
       
     }
   }
+
+  public static class ThreadsOutput {
+    public long numOfThreads;
+    public List<ThreadOutput> threads = new ArrayList<ThreadOutput>();
+    int i = 0;
+    int iterate() {
+      return i++;
+    }
+}
 	
 
 }

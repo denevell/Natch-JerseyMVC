@@ -33,7 +33,7 @@ public class Register {
         RegisterServlet.username,
         RegisterServlet.password, 
         RegisterServlet.recovery_email);
-    view.registerErrorMessage = mRegister.mRegister.getErrorMessage();
+    view.registerErrorMessage = mRegister.mRegister.errorMessage;
 
     // Redirect back to the main page
     if (view.registerErrorMessage != null && view.registerErrorMessage.trim().length() != 0) {

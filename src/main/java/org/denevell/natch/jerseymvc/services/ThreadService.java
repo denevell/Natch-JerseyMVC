@@ -1,7 +1,6 @@
 package org.denevell.natch.jerseymvc.services;
 
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.models.ThreadOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;

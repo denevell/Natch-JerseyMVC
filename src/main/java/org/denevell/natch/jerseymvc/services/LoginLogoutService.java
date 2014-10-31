@@ -6,12 +6,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
-import org.denevell.natch.jerseymvc.models.LoginOutput;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -31,37 +30,40 @@ public class LoginLogoutService {
 			final String username, 
 			final String password) {
 		return serv(new Runnable() { @Override public void run() {
-			mLogin = sService 
+			LoginInput entity = new LoginInput();
+			entity.username = username;
+			entity.password = password;
+      mLogin = sService 
 				.target(ManifestVarsListener.getValue("user_service"))
 				.path("rest") .path("user") .path("login")
 				.request()
-				.post(Entity.json(new LoginInput(username, password)), LoginOutput.class);
-			if(mLogin.getAuthKey()!=null && mLogin.getAuthKey().trim().length()>0) {
+				.post(Entity.json(entity), LoginOutput.class);
+			if(mLogin.authKey!=null && mLogin.authKey.trim().length()>0) {
 				request.getSession(true).setAttribute("loggedin", true);
-				request.getSession(true).setAttribute("authkey", mLogin.getAuthKey());
+				request.getSession(true).setAttribute("authkey", mLogin.authKey);
 				request.getSession(true).setAttribute("name", username);
 
-				Cookie authKeyCookie = new Cookie("authkey", mLogin.getAuthKey());
+				Cookie authKeyCookie = new Cookie("authkey", mLogin.authKey);
 				authKeyCookie.setMaxAge(ONE_YEAR);
 				mResponse.addCookie(authKeyCookie);
 				Cookie usernameCookie = new Cookie("name", username);
 				usernameCookie.setMaxAge(ONE_YEAR);
 				mResponse.addCookie(usernameCookie);
 			}
-			if(mLogin.isAdmin()) {
+			if(mLogin.admin) {
 				request.getSession(true).setAttribute("admin", true);
 				Cookie isAdmin = new Cookie("admin", "yeah");
 				isAdmin.setMaxAge(ONE_YEAR);
 				mResponse.addCookie(isAdmin);
 			}}})
 		._403(new Runnable() { @Override public void run() {
-			mLogin.setErrorMessage(Strings.getLogonError());
+			mLogin.errorMessage = Strings.getLogonError();
 			}})
 		._400(new Runnable() { @Override public void run() {
-			mLogin.setErrorMessage(Strings.getBlankUsernameOrPassword());
+			mLogin.errorMessage = Strings.getBlankUsernameOrPassword();
 			}})
 		._exception(new Runnable() { @Override public void run() {
-			mLogin.setErrorMessage("Whoops... erm...");
+			mLogin.errorMessage = "Whoops... erm...";
 			}}).go();
 	}
 
@@ -107,35 +109,16 @@ public class LoginLogoutService {
 		}).go();
 	}
 
-  @XmlRootElement
   public static class LoginInput {
+    public String username;
+    public String password;
+  }
 
-    private String username;
-    private String password;
-
-    public LoginInput(String username, String password) {
-      this.username = username;
-      this.password = password;
-    }
-
-    public LoginInput() {
-    }
-
-    public String getUsername() {
-      return username;
-    }
-
-    public void setUsername(String username) {
-      this.username = username;
-    }
-
-    public String getPassword() {
-      return password;
-    }
-
-    public void setPassword(String password) {
-      this.password = password;
-    }
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class LoginOutput {
+    public String authKey = "";
+    public boolean admin;
+    public String errorMessage;
   }
 
 }
