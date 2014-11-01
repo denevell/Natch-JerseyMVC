@@ -10,8 +10,6 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Sort out uat script to use this project instead of natch-jsp
-
 Later
 =====
 
