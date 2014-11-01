@@ -28,7 +28,7 @@
                         | Updated: <span id="thread_date">{{lastModifiedDate}}</span>
 				        				| 
 								        	{{#numPages}}
-										      <span class="{{.}}" title="Page indicator">☆</span>
+										      <span class="{{.}}" title="Page indicator">&#9733;</span>
 										      {{/numPages}}
                 </div>
                 <br />
@@ -40,9 +40,9 @@
         <br />
 
 <ul class="pagination" style="padding-top:15px;">
-            <li class=""><a id="prev" href="{{{prev}}}">«</a></li>
+            <li class=""><a id="prev" href="{{{prev}}}">&laquo;</a></li>
             {{{pages}}}
-            <li class=""><a id="next" href="{{{next}}}">»</a></li>
+            <li class=""><a id="next" href="{{{next}}}">&raquo;</a></li>
 </ul>      
 
 {{#addThreadErrorMessage}}
