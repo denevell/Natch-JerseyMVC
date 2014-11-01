@@ -10,8 +10,10 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
+* Find out how to force gc the project
+* Then look at memory dump some more
+* Revert back to pre fix to see if memory is less
 * Sort out context path
-* Sort out failing unicode chars
 
 Later
 =====
