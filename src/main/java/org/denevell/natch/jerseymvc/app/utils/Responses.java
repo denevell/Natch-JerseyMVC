@@ -17,8 +17,7 @@ public class Responses {
 
   public static void send303ToUnsafeRedirectString(HttpServletRequest req, HttpServletResponse resp, String redirect) throws Exception {
     String base = req.getRequestURL().toString();
-    String serv = req.getServletPath();
-    String realBase = base.substring(0, base.length()-serv.length());
+    String realBase = base.substring(0, base.length()-(req.getServletPath().length()+req.getContextPath().length()));
     if(redirect.startsWith(realBase)) {
       Responses.send303(resp, redirect);
     } else {

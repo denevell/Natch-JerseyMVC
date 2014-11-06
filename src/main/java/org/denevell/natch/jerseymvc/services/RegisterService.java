@@ -42,7 +42,7 @@ public class RegisterService {
 			}
 			mRegister = sService
 				.target(ManifestVarsListener.getValue("user_service"))
-				.path("rest").path("user").request()
+				.path("user").request()
 				.put(Entity.json(entity), RegisterOutput.class);
 			if (mRegister.error != null && mRegister.error.trim().length() > 0) {
 				mRegister.errorMessage = mRegister.error; // Hack...

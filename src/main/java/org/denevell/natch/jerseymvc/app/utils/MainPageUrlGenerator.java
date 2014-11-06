@@ -11,7 +11,7 @@ import org.apache.http.client.utils.URIBuilder;
 public class MainPageUrlGenerator {
 
 	public URI build(HttpServletRequest req) throws URISyntaxException {
-		URI uri = new URIBuilder(req.getContextPath()+"/")
+		URI uri = new URIBuilder("/")
 			.setParameter("start", String.valueOf(0))
 			.setParameter("limit", String.valueOf(10))
 			.build();

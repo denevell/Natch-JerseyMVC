@@ -19,7 +19,7 @@ public class AdminToggleService {
       return;
     mSuccessOrError = sService
         .target(ManifestVarsListener.getValue("user_service"))
-        .path("rest").path("user").path("admin").path("toggle").path(username)
+        .path("user").path("admin").path("toggle").path(username)
         .request().header("AuthKey", authKey).post(null, SuccessOrError.class);
   }
 

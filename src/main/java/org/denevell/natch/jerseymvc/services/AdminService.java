@@ -15,7 +15,7 @@ public class AdminService {
   public UserListOutput getUsers(String authKey) {
     UserListOutput users = sService
         .target(ManifestVarsListener.getValue("user_service"))
-        .path("rest").path("user").path("list").request()
+        .path("user").path("list").request()
         .header("AuthKey", authKey).get(UserListOutput.class);
     return users;
   }

@@ -35,7 +35,7 @@ public class LoginLogoutService {
 			entity.password = password;
       mLogin = sService 
 				.target(ManifestVarsListener.getValue("user_service"))
-				.path("rest") .path("user") .path("login")
+				.path("user") .path("login")
 				.request()
 				.post(Entity.json(entity), LoginOutput.class);
 			if(mLogin.authKey!=null && mLogin.authKey.trim().length()>0) {
@@ -71,7 +71,7 @@ public class LoginLogoutService {
 		return serv(new Runnable() { @Override public void run() {
 			sService 
 				.target(ManifestVarsListener.getValue("user_service"))
-				.path("rest") .path("user") .path("logout")
+				.path("user") .path("logout")
 				.request()
 				.delete();
 			request.getSession(true).setAttribute("loggedin", null);

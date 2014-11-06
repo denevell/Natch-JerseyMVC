@@ -21,7 +21,7 @@ public class PwResetService {
 		return serv(new ResponseRunnable() { @Override public Response run() {
 			Response response = sService 
 				.target(ManifestVarsListener.getValue("user_service"))
-				.path("rest").path("user").path("password_reset").path(resetPwEmail)
+				.path("user").path("password_reset").path(resetPwEmail)
 				.request()
 				.post(null);
 			mProcessed = true;

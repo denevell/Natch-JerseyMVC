@@ -20,12 +20,12 @@
         </form>
 {{/loggedin}}
 {{#loggedin}}
-        <form method="" action="{{contextPath}}/">
+        <form method="" action="/">
                 <input name="logout_active" value="yeah" type="hidden" /> 
                 <input type="submit" id="logout_form_submit" value="logout" />
         </form>
 		{{#isadmin}}
-			<a href="{{contextPath}}/admin" id="admin">admin</a>
+			<a href="/admin" id="admin">admin</a>
 		{{/isadmin}}
 {{/loggedin}}
 </body>

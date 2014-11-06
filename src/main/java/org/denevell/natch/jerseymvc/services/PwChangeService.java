@@ -36,13 +36,13 @@ public class PwChangeService {
 			entity.password = password;
       Response response = sService
 				.target(ManifestVarsListener.getValue("user_service"))
-				.path("rest").path("user").path("password").path(username)
+				.path("user").path("password").path(username)
 				.request()
 				.header("AuthKey", attribute)
 				.post(Entity.json(entity));
 			sService
 				.target(ManifestVarsListener.getValue("user_service"))
-				.path("rest").path("user").path("password_reset").path("remove").path(username)
+				.path("user").path("password_reset").path("remove").path(username)
 				.request()
 				.header("AuthKey", attribute)
 				.delete();
