@@ -33,7 +33,7 @@ public class ThreadEditService {
 		  ThreadEditInput entity = new ThreadEditInput();
 		  entity.content = content;
 		  entity.subject = subject;
-		  entity.tags = Arrays.asList(tags.split(","));
+			entity.tags = Arrays.asList(tags.split("[,\\s]+"));
 			mOutput = sService
 				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("editthread").path(String.valueOf(id)).request()

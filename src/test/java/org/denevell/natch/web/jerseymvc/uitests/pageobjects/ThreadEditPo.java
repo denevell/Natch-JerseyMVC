@@ -67,5 +67,19 @@ public class ThreadEditPo {
     return this;
   }
 
+  public ThreadEditPo shouldSee(String string, boolean b) {
+    boolean contains = driver.getPageSource().contains(string);
+    if(b && contains) {
+      return this; //yay
+    } else if(!b && !contains) {
+      return this; //yay
+    } else if(b && !contains) {
+        org.junit.Assert.assertFalse("Wanted to see text", true);
+    } else if(!b && contains) {
+        org.junit.Assert.assertFalse("Didn't want to see text", true);
+    }
+    return this;
+  }
+
 
 }

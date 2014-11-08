@@ -111,11 +111,22 @@ public class ThreadEditUITests {
     loginPo.login("aaron2", "aaron2");
     addthreadPo.add("s", "b", "c").gotoThread(0);
     addpostPo.add("hiya");
-    threadEditPo.pressEditThread().editAsContent("new subject", "new content");
-    addpostPo.hasPost(0, "new content")
-    .hasCorrectPageTitle("new subject")
+    threadEditPo.pressEditThread().editAsContent("new subject é", "new content é");
+    addpostPo.hasPost(0, "new content é")
+    .hasCorrectPageTitle("new subject é")
     .hasAuthor(0, "aaron2");
    }
+
+	@Test
+	public void shouldSeeEditThreadPreserveAccents() throws InterruptedException {
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("hiya é", "there ê", "againè").gotoThread(0);
+    threadEditPo.pressEditThread();
+    threadEditPo.shouldSee("hiya é", true);
+    threadEditPo.shouldSee("there ê", true);
+    threadEditPo.shouldSee("againè", true);
+	}	
+
 
    @Test 
    public void shouldEditAsAdminAndSeeText() throws InterruptedException { 

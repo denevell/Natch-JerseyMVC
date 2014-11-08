@@ -2,6 +2,7 @@ package org.denevell.natch.web.jerseymvc.uitests.pageobjects;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
@@ -134,6 +135,13 @@ public class ThreadAddPo {
     return this;
   }
 
+  public ThreadAddPo showsNotLoggedInError() {
+    boolean notLoggedIn = driver.getPageSource().contains("You're not logged in");
+    org.junit.Assert.assertTrue(notLoggedIn);
+    return this;
+  }
+
+
   public ThreadAddPo hasTag(int i, String string, boolean b) {
     WebElement thread = driver.findElement(By.id("thread_" + i));
     WebElement tags = thread.findElement(By.id("tags"));
@@ -153,12 +161,18 @@ public class ThreadAddPo {
   }
 
   public ThreadAddPo hasTagInThreadPage(String string, boolean b) {
-    WebElement tags = driver.findElement(By.id("tags"));
-    if (b) {
-      org.junit.Assert.assertTrue("Should see tag", tags.getText().contains(string));
-    } else {
-      org.junit.Assert.assertFalse("Shouldn't see tag", tags.getText().contains(string));
+    List<WebElement> tags = driver.findElements(By.className("tag"));
+    for (WebElement tag: tags) {
+      if(!b && tag.getText().contains(string)) {
+        org.junit.Assert.assertTrue("Didn't want to see this tag", false);
+      } else if(b && tag.getText().contains(string)) {
+        // All is good
+        return this;
+      } 
     }
+    if(b) {
+        org.junit.Assert.assertTrue("Didn't find the tag we were looking for", false);
+    } 
     return this;
   }
 

@@ -62,7 +62,8 @@ public class PostOutput {
 		return c+"\n"; // Newline is important to denote end of quoted text
 	}
 	public String getHtmlContent() {
-		String html = new PegDownProcessor(org.pegdown.Extensions.ALL).markdownToHtml(content);
+		String c = content.replace("&gt;", ">");
+		String html = new PegDownProcessor(org.pegdown.Extensions.ALL).markdownToHtml(c);
 		return html;
     }
 

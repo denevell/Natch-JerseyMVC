@@ -101,10 +101,10 @@ public class PostEditUITests {
 	public void shouldSeeEditPage() throws InterruptedException {
     loginPo.login("aaron2", "aaron2");
     addthreadPo.add("s", "b", "c").gotoThread(0);
-    addpostPo.add("hiya");
-    postEditPo.pressEditPost(1).hasEditContent("hiya", true);
+    addpostPo.add("hiya é");
+    postEditPo.pressEditPost(1).hasEditContent("hiya é", true);
 	}	
-	
+
 	@Test
 	public void shouldEditPostAndGoBackToPaginatedPage() throws InterruptedException {
     // Add a page and two posts of data
@@ -115,8 +115,8 @@ public class PostEditUITests {
     String pageTwoUrl = driver.getCurrentUrl();
 		org.junit.Assert.assertNotEquals("Gone to second page", pageOneUrl, pageTwoUrl);
     // Act - submit edited text
-    postEditPo.pressEditPost(0).editAsContent("hiyaXQQ");
-    addpostPo.hasPost(0, "hiyaXQQ");
+    postEditPo.pressEditPost(0).editAsContent("hiyaXQQ é");
+    addpostPo.hasPost(0, "hiyaXQQ é");
     addpostPo.hasAuthor(0, "aaron");
     // Are on second page still
 		String currentUrl = driver.getCurrentUrl();

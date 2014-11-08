@@ -34,10 +34,15 @@ public class ThreadAddService {
 			entity.content = content;
 		  //Set<ConstraintViolation<ThreadAddInput>> validations = Validation.buildDefaultValidatorFactory().getValidator().validate(entity);
 			entity.tags = Arrays.asList(tags.split("[,\\s]+"));
-			mAddThread = sService
+			Object authKey = serv.getSession(true).getAttribute("authkey");
+			if(authKey==null || authKey.toString().trim().length()==0) {
+			  mAddThread.errorMessage = "You're not logged in";
+			  return;
+			}
+      mAddThread = sService
 				.target(ManifestVarsListener.getValue("rest_service"))
 				.path("rest").path("post").path("addthread").request()
-				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
+				.header("AuthKey", (String) authKey)
 				.put(Entity.json(entity), ThreadAddOutput.class);
 			if(!mAddThread.successful) {
 			  mAddThread.errorMessage = mAddThread.error;

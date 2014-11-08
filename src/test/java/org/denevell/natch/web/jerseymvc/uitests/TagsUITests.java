@@ -57,9 +57,29 @@ public class TagsUITests {
 	}
 
 	@Test
+	public void shouldSeeAddedTagsBySpacesOnMainPage() throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "omgatag  andanother  three");
+    addthreadPo
+      .hasTag(0, "omgatag", true)
+      .hasTag(0, "three", true)
+      .hasTag(0, "andanother", true);
+    addthreadPo.numberOfTags(0, 3);
+	}
+
+	@Test
 	public void shouldSeeTagsInThread () throws InterruptedException {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "xomgatag,xandanotheromgomg").gotoThread(0);
+		
+    addthreadPo.hasTagInThreadPage("xomgatag", true).hasTagInThreadPage("xandanotheromgomg", true);
+    addthreadPo.numberOfTagsInThreadPage(2);
+	}		
+
+	@Test
+	public void shouldSeeTagsBySpacesInThread () throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "xomgatag  xandanotheromgomg").gotoThread(0);
 		
     addthreadPo.hasTagInThreadPage("xomgatag", true).hasTagInThreadPage("xandanotheromgomg", true);
     addthreadPo.numberOfTagsInThreadPage(2);
@@ -100,6 +120,19 @@ public class TagsUITests {
 	public void shouldSeeEditedTagsAdd() throws InterruptedException {
     loginPo.login("aaron", "aaron");
     addthreadPo.add("s", "b", "omgatag,andanotheromgomg").gotoThread(0);
+    threadEditPo.pressEditThread();
+    threadEditPo.editAsContent("Sub", "Cont", "omgatag,andanotheromgomg,yeah");
+    addthreadPo.hasTagInThreadPage("yeah", true);
+    addthreadPo.numberOfTagsInThreadPage(3);
+    driver.get(URLs.HOMEPAGE);
+    addthreadPo.hasTag(0, "yeah", true);
+    addthreadPo.numberOfTags(0, 3);   
+	}	
+
+	@Test
+	public void shouldSeeEditedTagsBySpaces() throws InterruptedException {
+    loginPo.login("aaron", "aaron");
+    addthreadPo.add("s", "b", "omgatag   andanotheromgomg").gotoThread(0);
     threadEditPo.pressEditThread();
     threadEditPo.editAsContent("Sub", "Cont", "omgatag,andanotheromgomg,yeah");
     addthreadPo.hasTagInThreadPage("yeah", true);

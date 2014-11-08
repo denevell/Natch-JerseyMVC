@@ -3,6 +3,7 @@ package org.denevell.natch.jerseymvc.screens;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
@@ -45,9 +46,9 @@ public class ThreadEdit {
 
   public void onPost(ThreadEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mThreadEditService.fetch(req, 
-        ThreadEditServlet.subject, 
-        ThreadEditServlet.content,
-        ThreadEditServlet.tags,
+        StringEscapeUtils.unescapeHtml4(ThreadEditServlet.subject), 
+        StringEscapeUtils.unescapeHtml4(ThreadEditServlet.content), 
+        StringEscapeUtils.unescapeHtml4(ThreadEditServlet.tags), 
         ThreadEditServlet.post_edit);
     ThreadEditOutput output = mThreadEditService.getOutput();
     if(output.errorMessage==null || output.errorMessage.trim().length()==0) {

@@ -41,10 +41,17 @@ public class ThreadAddUITests {
 	@Test
 	public void shouldAddThread() throws InterruptedException {
 		loginPo.login("aaron", "aaron");
-        addthreadPo
+    addthreadPo
         	.add("subjy", "cccont", "tag,tag2")
         	.hasTitle(0, "subjy")
         	.hasAuthor(0, "aaron");
+	}
+
+	@Test
+	public void shouldShowErrorOnNotLoggedIn() throws InterruptedException {
+    addthreadPo
+        	.add("subjy", "cccont", "tag,tag2")
+        	.showsNotLoggedInError();
 	}
 
 	@Test

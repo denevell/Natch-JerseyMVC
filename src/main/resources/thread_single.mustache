@@ -1,7 +1,7 @@
 <html>
       <head>
       {{> common_header_elements}}
-        <title>{{subject}} | Android Manchester</title>
+        <title>{{{subject}}} | Android Manchester</title>
       </head>
       <body class="container">
       {{> nav_bar}}
@@ -15,12 +15,12 @@
   
 	 	<div id="tags">
 	 	 {{#tags}}
-	 	   <span class="tag"><a class="label label-success"  href="/?start=0&limit=10&tag={{.}}">{{.}}</a></span>
+	 	   <span class="tag"><a class="label label-success"  href="/?start=0&limit=10&tag={{{.}}}">{{{.}}}</a></span>
 	 	 {{/tags}}
 		</div>
   
     <div class="thread-header-line">
-        <h3 class="thread-header" id="thread_subject">{{subject}}</h3> 
+        <h3 class="thread-header" id="thread_subject">{{{subject}}}</h3> 
     </div> 
 
     

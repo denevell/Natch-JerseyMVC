@@ -63,6 +63,14 @@ public class PostReplyUITests {
     replyPo.enterReplyText("\n\nsome more text");
     replyPo.canSeeRegexText(".*aaron.*secondpage.*some more text.*", true);
 	}	
+
+	@Test
+	public void shouldReplyPreserveAccents() throws InterruptedException {
+    loginPo.login("aaron2", "aaron2");
+    addthreadPo.add("s", "hiya é", "c").gotoThread(0);
+		replyPo.clickReply(0);
+		replyPo.canSeeRegexText(".*é.*", true);
+	}	
 	
 	@Test
 	public void shouldSeeReplyDisabledOnNotLoggedIn() throws InterruptedException {
@@ -73,12 +81,10 @@ public class PostReplyUITests {
 			.gotoThread(0);
 		String url = driver.getCurrentUrl();
 		driver.get(URLs.HOMEPAGE);
-		loginPo
-			.logout();
-        driver.get(url);
-        replyPo
-        	.clickReply(0)
-        	.submitIsDisabled(true)
-        	.shouldSeeLoginText(true);
+    loginPo.logout();
+    driver.get(url);
+    replyPo.clickReply(0)
+      .submitIsDisabled(true)
+      .shouldSeeLoginText(true);
    }		
 }
