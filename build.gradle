@@ -34,6 +34,9 @@ compileJava {
 	targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+tasks.withType(Compile) {
+    options.encoding = 'UTF-8'
+}
 
 test {
 	    testLogging.events = ['failed','passed']
