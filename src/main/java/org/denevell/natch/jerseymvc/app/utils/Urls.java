@@ -16,4 +16,13 @@ public class Urls {
     return new URI(url).toString();
   }
 
+  public static String getRelativeUrlWithQueryString(HttpServletRequest request) throws URISyntaxException {
+    String qs = "";
+    if(request.getQueryString()!=null && request.getQueryString().trim().length()!=0) {
+      qs = "?" + request.getQueryString();
+    }
+    String url = request.getServletPath()+request.getPathInfo() + qs; 
+    return new URI(url).toString();
+  }
+
 }

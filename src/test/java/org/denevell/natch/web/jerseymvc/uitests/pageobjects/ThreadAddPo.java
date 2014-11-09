@@ -173,7 +173,7 @@ public class ThreadAddPo {
     if(b) {
         org.junit.Assert.assertTrue("Didn't find the tag we were looking for", false);
     } 
-    return this;
+    return this; 
   }
 
   public ThreadAddPo numberOfTagsInThreadPage(int tagsNum) {

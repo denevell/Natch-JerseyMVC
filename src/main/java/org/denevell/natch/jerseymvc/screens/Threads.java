@@ -51,7 +51,7 @@ public class Threads {
     }
 
     mPagination.calculatePagination(
-        Urls.getUrlWithQueryString(req),
+        Urls.getRelativeUrlWithQueryString(req),
         ThreadsServlet.start, ThreadsServlet.limit, mThreadsService.getNumThreads());
     view.pages = mPagination.getPages();
     view.next = mPagination.getNext().toString();

@@ -100,7 +100,7 @@ public class ThreadSingle {
 	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
 		ThreadsPaginationService pagination = new ThreadsPaginationService();
 		pagination.calculatePagination(
-		    Urls.getUrlWithQueryString(request),
+		    Urls.getRelativeUrlWithQueryString(request),
 				ThreadSingleServlet.start, 
 				ThreadSingleServlet.limit, 
 				numPosts);
