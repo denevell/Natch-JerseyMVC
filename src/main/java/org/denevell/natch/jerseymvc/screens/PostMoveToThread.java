@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.BaseView;
 import org.denevell.natch.jerseymvc.app.utils.Responses;
-import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.PostMoveToThread.PostMoveToThreadView;
 import org.denevell.natch.jerseymvc.services.PostFromThreadService;
 import org.denevell.natch.jerseymvc.services.PostSingleService;
@@ -44,9 +43,9 @@ public class PostMoveToThread {
 			mPostFromThreadService.fetchPost( req,
 					PostMoveToThreadServlet.post, 
 					PostMoveToThreadServlet.subject);
-			view.moveError = mPostFromThreadService.mThreadOutput.errorMessage;
+			view.moveError = mPostFromThreadService.errorMessage;
 			if (view.moveError == null || view.moveError.trim().length() == 0) {
-				String url = new ThreadUrlGenerator().createThreadUrl(req, mPostFromThreadService.mThreadOutput.thread.id);
+				String url = null;//new ThreadUrlGenerator().createThreadUrl(req, mPostFromThreadService.mThreadOutput.thread.id);
 				Responses.send303(resp, url);
 			} else {
 				Responses.send303(req, resp);

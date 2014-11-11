@@ -1,2 +1,2 @@
-user_service: http://localhost:8080/CoreUserService-ForAutomatedTests/rest/
-rest_service: http://localhost:8080/Natch-REST-ForAutomatedTests/
+user_service: http://localhost:8084/cus/
+rest_service: http://localhost:8084/

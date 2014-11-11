@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.denevell.natch.jerseymvc.ManifestVarsListener;
 import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddInput.StringWrapper;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -20,7 +20,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 public class ThreadAddService {
 
 	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
-	public ThreadAddOutput mAddThread = new ThreadAddOutput();
+  public String errorMessage;
 
 	public boolean add(Object trueObject, 
 			final HttpServletRequest serv,
@@ -33,32 +33,32 @@ public class ThreadAddService {
 			entity.subject = subject;
 			entity.content = content;
 		  //Set<ConstraintViolation<ThreadAddInput>> validations = Validation.buildDefaultValidatorFactory().getValidator().validate(entity);
-			entity.tags = Arrays.asList(tags.split("[,\\s]+"));
+			List<String> tagStrings = Arrays.asList(tags.split("[,\\s]+"));
+			for (String string : tagStrings) {
+			  entity.tags.add(new StringWrapper(string));
+      }
 			Object authKey = serv.getSession(true).getAttribute("authkey");
 			if(authKey==null || authKey.toString().trim().length()==0) {
-			  mAddThread.errorMessage = "You're not logged in";
+			  errorMessage = "You're not logged in";
 			  return;
 			}
-      mAddThread = sService
+      sService
 				.target(ManifestVarsListener.getValue("rest_service"))
-				.path("rest").path("post").path("addthread").request()
+				.path("rest").path("thread").request()
 				.header("AuthKey", (String) authKey)
-				.put(Entity.json(entity), ThreadAddOutput.class);
-			if(!mAddThread.successful) {
-			  mAddThread.errorMessage = mAddThread.error;
-			}
+				.put(Entity.json(entity));
 			}})
 		._403(new Runnable() { @Override public void run() {
-		  mAddThread.errorMessage = "You're not logged in";
+		  errorMessage = "You're not logged in";
 			}})
 		._401(new Runnable() { @Override public void run() {
-		  mAddThread.errorMessage = "You're not logged in";
+		  errorMessage = "You're not logged in";
 			}})
 		._400(new Runnable() { @Override public void run() {
-		  mAddThread.errorMessage = Strings.getPostFieldsCannotBeBlank();
+		  errorMessage = Strings.getPostFieldsCannotBeBlank();
 			}})
 		._exception(new Runnable() { @Override public void run() {
-		  mAddThread.errorMessage = "Whoops... erm...";
+		  errorMessage = "Whoops... erm...";
 			}}).go();
 	}
 
@@ -67,13 +67,11 @@ public class ThreadAddService {
     public String content;
     @XmlElement(required = false)
     public String threadId;
-    public List<String> tags = new ArrayList<String>();
-  }
-
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class ThreadAddOutput extends SuccessOrError {
-    public ThreadOutput thread;
-    public String errorMessage;
+    public List<StringWrapper> tags = new ArrayList<>();
+    public static class StringWrapper {
+      public StringWrapper(String s) { string = s; }
+      public String string;
+    }
   }
 
 }

@@ -66,7 +66,7 @@ public class Threads {
         ThreadsServlet.subject,
         ThreadsServlet.content, 
         ThreadsServlet.tags);
-    view.addThreadErrorMessage = mAddThreadService.mAddThread.errorMessage;
+    view.addThreadErrorMessage = mAddThreadService.errorMessage;
     if(view.addThreadErrorMessage!=null && !view.addThreadErrorMessage.isEmpty()) {
       view.subject = ThreadsServlet.subject;
       view.content = ThreadsServlet.content; 

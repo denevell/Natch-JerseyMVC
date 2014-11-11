@@ -87,8 +87,8 @@ public class ThreadSingle {
 
   public void onPost(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     addPostService.add(new Object(), req, ThreadSingleServlet.content, ThreadSingleServlet.threadId);
-    view.addPostError = addPostService.getAddpost().errorMessage;
-    int numPosts = addPostService.getNumPosts();
+    view.addPostError = addPostService.errorMessage;
+    int numPosts = 0;//addPostService.getNumPosts();
     ThreadsPaginationService pagination = getPagination(req, numPosts);
     if (numPosts > ThreadSingleServlet.start + ThreadSingleServlet.limit) {
       Responses.send303(resp, pagination.getNext().toString()); 

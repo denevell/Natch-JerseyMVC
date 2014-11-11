@@ -46,10 +46,10 @@ public class PostReply {
 
   public void onPost(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     mAddPostService.add(new Object(), req, PostReplyServlet.content, PostReplyServlet.thread);
-    if (mAddPostService.getAddpost().errorMessage != null) {
+    if (mAddPostService.errorMessage != null) {
       Responses.send303(req, resp);
     } else {
-      int numPosts = mAddPostService.getAddpost().thread.numPosts;
+      int numPosts = 0;//mAddPostService.getAddpost().thread.numPosts;
       ThreadsPaginationService pagin = new ThreadsPaginationService().calculatePagination(
 		    new ThreadUrlGenerator().createThreadUrl(req, PostReplyServlet.thread),
 		    PostReplyServlet.start, 

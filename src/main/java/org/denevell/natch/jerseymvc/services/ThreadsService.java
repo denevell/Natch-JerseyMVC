@@ -30,13 +30,13 @@ public class ThreadsService {
     if(tag==null || tag.length()==0) {
         mThreads = sService
                 .target(ManifestVarsListener.getValue("rest_service"))
-                .path("rest").path("threads").path(String.valueOf(start)).path(String.valueOf(limit))
+                .path("rest").path("thread").path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	
     } else {
         mThreads = sService
                 .target(ManifestVarsListener.getValue("rest_service"))
-                .path("rest").path("threads").path(tag).path(String.valueOf(start)).path(String.valueOf(limit))
+                .path("rest").path("thread").path(tag).path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	
       
