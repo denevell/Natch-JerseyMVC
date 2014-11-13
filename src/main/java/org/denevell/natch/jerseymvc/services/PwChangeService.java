@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
-import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.app.utils.Serv;
-import org.denevell.natch.jerseymvc.app.utils.Serv.ResponseRunnable;
+import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
+import org.denevell.natch.jerseymvc.utils.Serv;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseRunnable;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -35,13 +35,13 @@ public class PwChangeService {
 			PasswordChangeInput entity = new PasswordChangeInput();
 			entity.password = password;
       Response response = sService
-				.target(ManifestVarsListener.getValue("user_service"))
+				.target(ListenerManifestVars.getValue("user_service"))
 				.path("user").path("password").path(username)
 				.request()
 				.header("AuthKey", attribute)
 				.post(Entity.json(entity));
 			sService
-				.target(ManifestVarsListener.getValue("user_service"))
+				.target(ListenerManifestVars.getValue("user_service"))
 				.path("user").path("password_reset").path("remove").path(username)
 				.request()
 				.header("AuthKey", attribute)

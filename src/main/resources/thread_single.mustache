@@ -7,11 +7,12 @@
       {{> nav_bar}}
 
 
-  <div style="color: red;float: right">
+  <div style="color: red;">
         {{#addPostError}}
         	{{.}}
         {{/addPostError}}
   </div>
+  <br />
   
 	 	<div id="tags">
 	 	 {{#tags}}
@@ -53,7 +54,7 @@
 	           			By {{username}} | <i id="post_date">{{lastModifiedDate}}</i>
 	           		</i>
 	           		  | <a id="link" href="/post/{{id}}">link</a> 
-	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}">reply</a>
+	           			| <a id="reply_{{iterate}}" href="/post/reply/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromReplyStartParam}}&numPosts={{numPosts}}">reply</a>
 	             		{{#editedByAdmin}}
 	           			edited by an admin
 	            		{{/editedByAdmin}}
@@ -78,6 +79,7 @@
         cols="50" rows="6"></textarea>
     </div>
                 <br />
+                <input name="numPosts" type="hidden" value="{{numPosts}}"/> 
                 <input name="addpost_active" type="hidden" /> 
         {{#loggedIn}}
                 <input type="submit" class="form-control form-bottom-margin" id="addpost_form_submit" value="add post" />

@@ -3,7 +3,7 @@ package org.denevell.natch.jerseymvc.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.denevell.natch.jerseymvc.ManifestVarsListener;
+import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -29,14 +29,14 @@ public class ThreadsService {
   public void fetchThreads(int start, int limit, String tag) {
     if(tag==null || tag.length()==0) {
         mThreads = sService
-                .target(ManifestVarsListener.getValue("rest_service"))
+                .target(ListenerManifestVars.getValue("rest_service"))
                 .path("rest").path("thread").path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	
     } else {
         mThreads = sService
-                .target(ManifestVarsListener.getValue("rest_service"))
-                .path("rest").path("thread").path(tag).path(String.valueOf(start)).path(String.valueOf(limit))
+                .target(ListenerManifestVars.getValue("rest_service"))
+                .path("rest").path("thread").path("bytag").path(tag).path(String.valueOf(start)).path(String.valueOf(limit))
                 .request()
                 .get(ThreadsOutput.class); 	
       

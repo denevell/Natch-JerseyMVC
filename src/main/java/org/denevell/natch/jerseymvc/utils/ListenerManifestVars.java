@@ -1,5 +1,5 @@
 
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.utils;
 
 import java.io.InputStream;
 import java.util.jar.Attributes;
@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebListener;
  * Reads the war's manifest from META-INF/MANIFEST.MF on application startup.
  */
 @WebListener
-public class ManifestVarsListener implements ServletContextListener {
+public class ListenerManifestVars implements ServletContextListener {
 
     public static Attributes sMainManifestAttributes;
 

@@ -8,15 +8,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.Responses;
-import org.denevell.natch.jerseymvc.app.utils.Urls;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView.Thread.Tag;
 import org.denevell.natch.jerseymvc.services.ThreadAddService;
 import org.denevell.natch.jerseymvc.services.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.services.ThreadsService;
+import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Urls;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -101,7 +100,7 @@ public class Threads {
     return num;
   }
   
-  public static class ThreadsView extends BaseView {
+  public static class ThreadsView extends org.denevell.natch.jerseymvc.utils.BaseView {
     public ThreadsView(HttpServletRequest request) {
       super(request);
     }

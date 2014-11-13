@@ -4,13 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.Responses;
-import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.ThreadEdit.ThreadEditView;
 import org.denevell.natch.jerseymvc.services.PostSingleService;
 import org.denevell.natch.jerseymvc.services.ThreadEditService;
-import org.denevell.natch.jerseymvc.services.ThreadEditService.ThreadEditOutput;
+import org.denevell.natch.jerseymvc.utils.BaseView;
+import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -50,12 +49,12 @@ public class ThreadEdit {
         StringEscapeUtils.unescapeHtml4(ThreadEditServlet.content), 
         StringEscapeUtils.unescapeHtml4(ThreadEditServlet.tags), 
         ThreadEditServlet.post_edit);
-    ThreadEditOutput output = mThreadEditService.getOutput();
-    if(output.errorMessage==null || output.errorMessage.trim().length()==0) {
-      String url = new ThreadUrlGenerator().createThreadUrl(req, ThreadEditServlet.thread);
+    String errorMessage = mThreadEditService.errorMessage;
+    if(errorMessage==null || errorMessage.trim().length()==0) {
+      String url = UrlGenerators.createThreadUrl(req, ThreadEditServlet.thread);
       Responses.send303(resp, url);
     } else {
-      view.error = output.errorMessage;
+      view.error = errorMessage;
       Responses.send303(req, resp);
     }
   }

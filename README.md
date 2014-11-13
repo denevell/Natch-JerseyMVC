@@ -10,7 +10,7 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
-* Sort out context path
+* Test for tags being too large
 * Remove annotations in favour of programmatic - test memory use before and after
 * Why isn't 404 a 404 on the live server?
 

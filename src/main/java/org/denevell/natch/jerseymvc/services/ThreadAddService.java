@@ -1,18 +1,19 @@
 package org.denevell.natch.jerseymvc.services;
 
-import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.app.utils.Strings;
 import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddInput.StringWrapper;
+import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
+import org.denevell.natch.jerseymvc.utils.Serv;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseRunnable;
+import org.denevell.natch.jerseymvc.utils.Strings;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -28,7 +29,7 @@ public class ThreadAddService {
 			final String content,
 			final String tags) {
 		if (trueObject == null) return true;
-		return serv(new Runnable() { @Override public void run() {
+		return Serv.serv(new ResponseRunnable() { @Override public Response run() {
 			ThreadAddInput entity = new ThreadAddInput();
 			entity.subject = subject;
 			entity.content = content;
@@ -39,11 +40,10 @@ public class ThreadAddService {
       }
 			Object authKey = serv.getSession(true).getAttribute("authkey");
 			if(authKey==null || authKey.toString().trim().length()==0) {
-			  errorMessage = "You're not logged in";
-			  return;
+			  return Response.status(401).build();
 			}
-      sService
-				.target(ManifestVarsListener.getValue("rest_service"))
+      return sService
+				.target(ListenerManifestVars.getValue("rest_service"))
 				.path("rest").path("thread").request()
 				.header("AuthKey", (String) authKey)
 				.put(Entity.json(entity));

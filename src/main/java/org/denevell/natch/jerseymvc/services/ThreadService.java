@@ -1,6 +1,6 @@
 package org.denevell.natch.jerseymvc.services;
 
-import org.denevell.natch.jerseymvc.ManifestVarsListener;
+import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -21,8 +21,8 @@ public class ThreadService {
 	public ThreadOutput model() {
 		if(mThreadsList!=null) return mThreadsList;
         mThreadsList = sService
-                .target(ManifestVarsListener.getValue("rest_service"))
-                .path("rest").path("post").path("thread")
+                .target(ListenerManifestVars.getValue("rest_service"))
+                .path("rest").path("thread")
                 .path(mThreadId)
                 .path(String.valueOf(mStart)).path(String.valueOf(mLimit))
                 .request()

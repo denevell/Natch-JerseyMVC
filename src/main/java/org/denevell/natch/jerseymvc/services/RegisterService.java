@@ -1,14 +1,14 @@
 package org.denevell.natch.jerseymvc.services;
 
-import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
+import static org.denevell.natch.jerseymvc.utils.Serv.serv;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Entity;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
+import org.denevell.natch.jerseymvc.utils.Strings;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -41,7 +41,7 @@ public class RegisterService {
 				entity.password = password;
 			}
 			mRegister = sService
-				.target(ManifestVarsListener.getValue("user_service"))
+				.target(ListenerManifestVars.getValue("user_service"))
 				.path("user").request()
 				.put(Entity.json(entity), RegisterOutput.class);
 			if (mRegister.error != null && mRegister.error.trim().length() > 0) {

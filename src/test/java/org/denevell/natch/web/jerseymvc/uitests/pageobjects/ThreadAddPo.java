@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.denevell.natch.jerseymvc.utils.Strings;
 import org.denevell.natch.web.jerseymvc.uitests.utils.URLs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

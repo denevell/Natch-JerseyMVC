@@ -4,13 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.Responses;
-import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.PostEdit.PostEditView;
 import org.denevell.natch.jerseymvc.services.PostEditService;
-import org.denevell.natch.jerseymvc.services.PostEditService.PostEditOutput;
 import org.denevell.natch.jerseymvc.services.PostSingleService;
+import org.denevell.natch.jerseymvc.utils.BaseView;
+import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -47,12 +46,12 @@ public class PostEdit {
     mPostEditService.fetch(new Object(), req, 
         StringEscapeUtils.unescapeHtml4(PostEditServlet.content), 
         PostEditServlet.post_edit);
-    PostEditOutput output = mPostEditService.mOutput;
-    if(output.errorMessage==null || output.errorMessage.trim().length()==0) {
-      String url = new ThreadUrlGenerator().createThreadUrl(req, PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
+    String errorMessage = mPostEditService.errorMessage;
+    if(errorMessage==null || errorMessage.trim().length()==0) {
+      String url = UrlGenerators.createThreadUrl(req, PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
 		  Responses.send303(resp, url);
     } else {
-      view.error = output.errorMessage;
+      view.error = errorMessage;
 		  Responses.send303(req, resp);
     }
   }

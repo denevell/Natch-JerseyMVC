@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.app.utils;
+package org.denevell.natch.jerseymvc.utils;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -9,6 +9,10 @@ public class Serv {
 	public static interface ResponseRunnable {
 		Response run();
 	}
+	public static interface ResponseObject {
+		void returned(Object o);
+	}
+
 	public static Serv serv(Runnable r) {
 		try {
 			r.run();
@@ -27,15 +31,43 @@ public class Serv {
 	 * @param r
 	 * @return
 	 */
-	public static Serv serv(ResponseRunnable r) {
+  public static <ReturnClass> Serv serv(ResponseRunnable r, Class<ReturnClass> returnClass) {
 		try {
 			Response resp = r.run();
-			if(resp==null) {
+			ReturnClass rc = null;
+			try {
+			  rc = (ReturnClass) resp.readEntity(returnClass);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      if(resp==null) {
 				throw new NullPointerException();
 			} else if(resp.getStatus()>=300 || resp.getStatus()<200) {
-				return new Serv(resp.getStatus());
+			  Serv s = new Serv(resp.getStatus());
+				s.returnType = rc; 
+				return s;
 			} else {
-				return new Serv();
+				Serv s = new Serv();
+				s.returnType = rc; 
+				return s;
+			}
+		} catch (Exception e) {
+			Logger.getLogger(Serv.class).error("Error during fetch", e);
+			return new Serv(-1);
+		}
+	}
+
+  public static <ReturnClass> Serv serv(ResponseRunnable r) {
+		try {
+			Response resp = r.run();
+      if(resp==null) {
+				throw new NullPointerException();
+			} else if(resp.getStatus()>=300 || resp.getStatus()<200) {
+			  Serv s = new Serv(resp.getStatus());
+				return s;
+			} else {
+				Serv s = new Serv();
+				return s;
 			}
 		} catch (Exception e) {
 			Logger.getLogger(Serv.class).error("Error during fetch", e);
@@ -49,6 +81,8 @@ public class Serv {
 	private Runnable _400;
 	private Runnable _exception;
 	private Runnable _401;
+  private Object returnType;
+  private ResponseObject returnTypeCallback;
 	public Serv(int i) {
 		errorCode = i;
 	}
@@ -60,6 +94,10 @@ public class Serv {
 	}
 	public Serv _403(Runnable r) {
 		_403 = r;
+		return this;
+	}
+	public Serv returnType(ResponseObject ret) {
+		returnTypeCallback = ret;
 		return this;
 	}
 	public Serv _401(Runnable r) {
@@ -82,7 +120,7 @@ public class Serv {
 		try {
 			switch (errorCode) {
 			case 0:
-				return true;
+				break;
 			case 500:
 				_500.run();
 				break;
@@ -102,7 +140,14 @@ public class Serv {
 				_exception.run();
 				break;
 			}
-			return false;
+			if(returnType!=null && returnTypeCallback!=null) {
+			  returnTypeCallback.returned(returnType);
+			}
+			if(errorCode!=0) {
+			  return false;
+			} else {
+			  return true;
+			}
 		} catch (Exception e) {
 			_exception.run();
 			return false;

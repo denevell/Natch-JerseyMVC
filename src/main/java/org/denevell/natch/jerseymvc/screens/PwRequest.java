@@ -3,10 +3,10 @@ package org.denevell.natch.jerseymvc.screens;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.Responses;
 import org.denevell.natch.jerseymvc.screens.PwRequest.PwRequestView;
 import org.denevell.natch.jerseymvc.services.PwResetService;
+import org.denevell.natch.jerseymvc.utils.BaseView;
+import org.denevell.natch.jerseymvc.utils.Responses;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;

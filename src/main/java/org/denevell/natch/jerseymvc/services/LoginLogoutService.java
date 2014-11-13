@@ -1,6 +1,6 @@
 package org.denevell.natch.jerseymvc.services;
 
-import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
+import static org.denevell.natch.jerseymvc.utils.Serv.serv;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +9,8 @@ import javax.ws.rs.client.Entity;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.denevell.natch.jerseymvc.ManifestVarsListener;
-import org.denevell.natch.jerseymvc.app.utils.Strings;
+import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
+import org.denevell.natch.jerseymvc.utils.Strings;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -34,7 +34,7 @@ public class LoginLogoutService {
 			entity.username = username;
 			entity.password = password;
       mLogin = sService 
-				.target(ManifestVarsListener.getValue("user_service"))
+				.target(ListenerManifestVars.getValue("user_service"))
 				.path("user") .path("login")
 				.request()
 				.post(Entity.json(entity), LoginOutput.class);
@@ -70,7 +70,7 @@ public class LoginLogoutService {
 	public boolean logout(final HttpServletRequest request, final HttpServletResponse resp) {
 		return serv(new Runnable() { @Override public void run() {
 			sService 
-				.target(ManifestVarsListener.getValue("user_service"))
+				.target(ListenerManifestVars.getValue("user_service"))
 				.path("user") .path("logout")
 				.request()
 				.delete();

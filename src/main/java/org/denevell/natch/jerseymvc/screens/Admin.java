@@ -6,15 +6,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.Responses;
-import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
 import org.denevell.natch.jerseymvc.screens.Admin.AdminView;
 import org.denevell.natch.jerseymvc.services.AdminService;
-import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput;
-import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput.UserOutput;
 import org.denevell.natch.jerseymvc.services.AdminToggleService;
 import org.denevell.natch.jerseymvc.services.PwChangeService;
+import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput;
+import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput.UserOutput;
+import org.denevell.natch.jerseymvc.utils.BaseView;
+import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.SessionUtils;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;

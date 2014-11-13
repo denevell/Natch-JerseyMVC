@@ -3,11 +3,11 @@ package org.denevell.natch.jerseymvc.screens;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.Responses;
-import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.PostDelete.PostDeleteConfirmView;
 import org.denevell.natch.jerseymvc.services.PostDeleteService;
+import org.denevell.natch.jerseymvc.utils.BaseView;
+import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -38,15 +38,15 @@ public class PostDelete {
   public void onPost(PostDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		PostDeleteService service = new PostDeleteService();
     service.delete(req, PostDeleteServlet.delete_post_id_form);
-		if (service.mPostDelete.successful) {
-			String createThreadUrl = new ThreadUrlGenerator()
+		if (service.errorMessage==null || service.errorMessage.trim().length()==0) {
+			String createThreadUrl = UrlGenerators
       	.createThreadUrl(req,
       			PostDeleteServlet.thread,
       			PostDeleteServlet.start, 
       			PostDeleteServlet.limit);
 			Responses.send303(resp, createThreadUrl);
 		} else {
-		  view.errorMessage = service.mPostDelete.errorMessage;
+		  view.errorMessage = service.errorMessage;
 		  Responses.send303(req, resp);
 		}
   }

@@ -1,8 +1,8 @@
 package org.denevell.natch.jerseymvc.services;
 
-import static org.denevell.natch.jerseymvc.app.utils.Serv.serv;
+import static org.denevell.natch.jerseymvc.utils.Serv.serv;
 
-import org.denevell.natch.jerseymvc.ManifestVarsListener;
+import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
 import org.glassfish.jersey.client.JerseyClient;
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -22,7 +22,7 @@ public class PostSingleService {
     return serv(new Runnable() { @Override
       public void run() {
         mPostOutput = sService
-            .target(ManifestVarsListener.getValue("rest_service"))
+            .target(ListenerManifestVars.getValue("rest_service"))
             .path("rest").path("post").path("single").path(String.valueOf(id))
             .request().get(PostOutput.class);
       }

@@ -7,16 +7,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.Responses;
-import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
-import org.denevell.natch.jerseymvc.app.utils.Urls;
 import org.denevell.natch.jerseymvc.screens.ThreadSingle.ThreadView;
 import org.denevell.natch.jerseymvc.screens.ThreadSingle.ThreadView.Post;
 import org.denevell.natch.jerseymvc.services.PostAddService;
 import org.denevell.natch.jerseymvc.services.PostOutput;
 import org.denevell.natch.jerseymvc.services.ThreadService;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
+import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.SessionUtils;
+import org.denevell.natch.jerseymvc.utils.Urls;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -27,6 +26,7 @@ import com.yeah.ServletGenerator.Param.ParamType;
     viewClass = ThreadView.class,
     template = "/thread_single.mustache",
     params = {
+      @Param(name = "numPosts", type=ParamType.INT),
       @Param(name = "start", type=ParamType.INT),
       @Param(name = "limit", type=ParamType.INT),
       @Param(name = "content")},
@@ -47,6 +47,7 @@ public class ThreadSingle {
 
 		// Set posts in template
 		int postsSize = mService.model().getPosts().size();
+		view.numPosts = postsSize;
 		for (int i = 0; i < postsSize; i++) {
 			PostOutput p = mService.model().getPosts().get(i);
 			Post e = new Post(p.username, p.getHtmlContent(), (int)p.id, i, p.getLastModifiedDateWithTime());
@@ -88,10 +89,14 @@ public class ThreadSingle {
   public void onPost(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     addPostService.add(new Object(), req, ThreadSingleServlet.content, ThreadSingleServlet.threadId);
     view.addPostError = addPostService.errorMessage;
-    int numPosts = 0;//addPostService.getNumPosts();
-    ThreadsPaginationService pagination = getPagination(req, numPosts);
-    if (numPosts > ThreadSingleServlet.start + ThreadSingleServlet.limit) {
-      Responses.send303(resp, pagination.getNext().toString()); 
+    if(view.addPostError==null || view.addPostError.trim().length()==0) {
+      int numPosts = ThreadSingleServlet.numPosts+1;
+      ThreadsPaginationService pagination = getPagination(req, numPosts);
+      if (numPosts > ThreadSingleServlet.start + ThreadSingleServlet.limit) {
+        Responses.send303(resp, pagination.getNext().toString()); 
+      } else {
+        Responses.send303(req, resp); 
+      }
     } else {
       Responses.send303(req, resp); 
     }
@@ -119,7 +124,8 @@ public class ThreadSingle {
     return (admin != null && ((boolean) admin) == true) || correctUser;
   }
 
-  public static class ThreadView extends BaseView {
+  public static class ThreadView extends org.denevell.natch.jerseymvc.utils.BaseView {
+    public int numPosts;
     public ThreadView(HttpServletRequest request) {
       super(request);
     }

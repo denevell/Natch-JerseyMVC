@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc.app.utils;
+package org.denevell.natch.jerseymvc.utils;
 
 import java.io.UnsupportedEncodingException;
 

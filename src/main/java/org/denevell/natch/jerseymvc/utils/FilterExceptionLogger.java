@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.utils;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import org.apache.log4j.Logger;
 
 @WebFilter(filterName="exception filter", urlPatterns={"/*"})
-public class ExceptionLogger implements Filter {
+public class FilterExceptionLogger implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {

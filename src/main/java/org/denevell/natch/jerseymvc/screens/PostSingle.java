@@ -3,10 +3,10 @@ package org.denevell.natch.jerseymvc.screens;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.denevell.natch.jerseymvc.BaseView;
-import org.denevell.natch.jerseymvc.app.utils.ThreadUrlGenerator;
 import org.denevell.natch.jerseymvc.screens.PostSingle.PostSingleView;
 import org.denevell.natch.jerseymvc.services.PostSingleService;
+import org.denevell.natch.jerseymvc.utils.BaseView;
+import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -29,7 +29,7 @@ public class PostSingle {
 		view.htmlContent = mPostService.getPost().getHtmlContent();
 		view.username = mPostService.getPost().username;
 		view.subject = mPostService.mPostOutput.subject;
-		view.backUrl = new ThreadUrlGenerator().createThreadUrl(req, mPostService.mPostOutput.threadId);
+		view.backUrl = UrlGenerators.createThreadUrl(req, mPostService.mPostOutput.threadId);
 		return view;
   }
 

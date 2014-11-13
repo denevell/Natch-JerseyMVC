@@ -1,4 +1,4 @@
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.utils;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @WebListener
-public class SessionFromCookiesRequestListener implements ServletRequestListener {
+public class ListenerSessionFromCookiesRequest implements ServletRequestListener {
 
 	@Override public void requestDestroyed(ServletRequestEvent sre) {}
 

@@ -1,12 +1,8 @@
-package org.denevell.natch.jerseymvc;
+package org.denevell.natch.jerseymvc.utils;
 
 import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.denevell.natch.jerseymvc.app.utils.SessionUtils;
-import org.denevell.natch.jerseymvc.app.utils.UriEncoding;
-import org.denevell.natch.jerseymvc.app.utils.Urls;
 
 public class BaseView {
   
