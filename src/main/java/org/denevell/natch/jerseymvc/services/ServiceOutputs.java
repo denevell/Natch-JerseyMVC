@@ -27,8 +27,7 @@ public class ServiceOutputs {
     public List<String> tags;
     public boolean adminEdited;
 
-    public PostOutput() {
-    }
+    public PostOutput() {}
 
     public PostOutput(String username, long created, long modified, String subject, String content, List<String> tags, boolean adminEdit) {
       this.username = username;
@@ -165,8 +164,7 @@ public class ServiceOutputs {
       this.modification = modification;
     }
 
-    public ThreadOutput() {
-    }
+    public ThreadOutput() {}
 
     public int getLatestPage(int postsPerPage) {
       double i = (double) this.numPosts / (double) postsPerPage;

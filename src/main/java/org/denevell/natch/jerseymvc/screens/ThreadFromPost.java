@@ -1,12 +1,14 @@
 package org.denevell.natch.jerseymvc.screens;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.ThreadFromPost.PostMoveToThreadView;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.AddThreadFromPostResourceInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.services.ThreadFromPostService;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
@@ -28,8 +30,8 @@ import com.yeah.ServletGenerator.Param.ParamType;
     })
 public class ThreadFromPost {
 
-	private ThreadFromPostService mPostFromThreadService = new ThreadFromPostService();
-   private PostOutput postOutput;
+  private PostOutput postOutput;
+  private String mThreadId;
 
   public PostMoveToThreadView onGet(PostMoveToThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     Services.postSingle(req, ThreadFromPostServlet.post, new ResponseObject() {
@@ -48,12 +50,15 @@ public class ThreadFromPost {
 		  view.moveError="Must supply a subject";
 			Responses.send303(req, resp);
 		} else {
-			mPostFromThreadService.fetchPost( req,
-			    ThreadFromPostServlet.post, 
-			    ThreadFromPostServlet.subject);
-			view.moveError = mPostFromThreadService.errorMessage;
+		  view.moveError = Services.threadFromPost(req, 
+		      new AddThreadFromPostResourceInput(ThreadFromPostServlet.post, ThreadFromPostServlet.subject), 
+		      new ResponseObject() {
+            @SuppressWarnings("unchecked") @Override public void returned(Object o) {
+              mThreadId = ((HashMap<String, String>)o).get("threadId");
+            }
+          });
 			if (view.moveError == null || view.moveError.trim().length() == 0) {
-				String url = UrlGenerators.createThreadUrl(req, mPostFromThreadService.threadId);
+				String url = UrlGenerators.createThreadUrl(req, mThreadId);
 				Responses.send303(resp, url);
 			} else {
 				Responses.send303(req, resp);

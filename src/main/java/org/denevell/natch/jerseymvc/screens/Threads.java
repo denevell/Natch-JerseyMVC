@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView.Thread.Tag;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadOutput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadsOutput;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.services.ThreadAddService;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
-import org.denevell.natch.jerseymvc.services.ThreadsService;
 import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 import org.denevell.natch.jerseymvc.utils.Urls;
 
 import com.yeah.ServletGenerator;
@@ -35,13 +37,21 @@ import com.yeah.ServletGenerator.Param.ParamType;
 public class Threads {
 
   public ThreadAddService mAddThreadService = new ThreadAddService();
-  public ThreadsService mThreadsService = new ThreadsService();
   public ThreadsPaginationService mPagination = new ThreadsPaginationService();
+  public ThreadsOutput mThreads;
 
   public ThreadsView onGet(ThreadsView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mThreadsService.fetchThreads(ThreadsServlet.start, ThreadsServlet.limit, ThreadsServlet.tag);
-    for (int i = 0; i < mThreadsService.mThreads.threads.size(); i++) {
-      ThreadOutput t = mThreadsService.mThreads.threads.get(i);
+    ResponseObject callback = new ResponseObject() { @Override public void returned(Object o) {
+      mThreads = (ThreadsOutput) o;
+      }
+    };
+    if(ThreadsServlet.tag==null) {
+      Services.threads(req, ThreadsServlet.start, ThreadsServlet.limit, callback);
+    } else {
+      Services.threads(req, ThreadsServlet.tag, ThreadsServlet.start, ThreadsServlet.limit, callback);
+    }
+    for (int i = 0; i < mThreads.threads.size(); i++) {
+      ThreadOutput t = mThreads.threads.get(i);
       ThreadsView.Thread e = new ThreadsView.Thread(t.subject, t.author, t.getLastModifiedDateWithTime(), t.id, i);
       e.numPages = getPagesPerThread(t);
       e.tags = sortAndTruncateTags(t.tags);
@@ -51,7 +61,7 @@ public class Threads {
 
     mPagination.calculatePagination(
         Urls.getRelativeUrlWithQueryString(req),
-        ThreadsServlet.start, ThreadsServlet.limit, mThreadsService.getNumThreads());
+        ThreadsServlet.start, ThreadsServlet.limit, (int) mThreads.numOfThreads);
     view.pages = mPagination.getPages();
     view.next = mPagination.getNext().toString();
     view.prev = mPagination.getPrev().toString();

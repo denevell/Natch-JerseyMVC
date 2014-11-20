@@ -3,11 +3,10 @@ package org.denevell.natch.jerseymvc.screens;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.denevell.natch.jerseymvc.screens.ThreadEdit.ThreadEditView;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadEditInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.services.ThreadEditService;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
@@ -31,7 +30,6 @@ import com.yeah.ServletGenerator.Param.ParamType;
     })
 public class ThreadEdit {
 
-  private ThreadEditService mThreadEditService = new ThreadEditService();
   private PostOutput postOutput;
 
   public ThreadEditView onGet(ThreadEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -51,17 +49,14 @@ public class ThreadEdit {
   }
 
   public void onPost(ThreadEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mThreadEditService.fetch(req, 
-        StringEscapeUtils.unescapeHtml4(ThreadEditServlet.subject), 
-        StringEscapeUtils.unescapeHtml4(ThreadEditServlet.content), 
-        StringEscapeUtils.unescapeHtml4(ThreadEditServlet.tags), 
-        ThreadEditServlet.post_edit);
-    String errorMessage = mThreadEditService.errorMessage;
-    if(errorMessage==null || errorMessage.trim().length()==0) {
+    view.error = Services.threadEdit(req, ThreadEditServlet.post_edit, 
+        new ThreadEditInput(ThreadEditServlet.content, 
+            ThreadEditServlet.subject, 
+            ThreadEditServlet.tags)); 
+    if(view.error==null || view.error.trim().length()==0) {
       String url = UrlGenerators.createThreadUrl(req, ThreadEditServlet.thread);
       Responses.send303(resp, url);
     } else {
-      view.error = errorMessage;
       Responses.send303(req, resp);
     }
   }

@@ -9,9 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Urls {
 
+  public static String threads(String tag, int start, int limit) {
+    return ListenerManifestVars.getValue("rest_service") + "rest/thread/bytag/"+tag+"/"+String.valueOf(start)+"/"+String.valueOf(limit);
+  }
+
+  public static String threads(int start, int limit) {
+    return ListenerManifestVars.getValue("rest_service") + "rest/thread/"+String.valueOf(start)+"/"+String.valueOf(limit);
+  }
 
   public static String thread(String threadId, int start, int limit) {
     return ListenerManifestVars.getValue("rest_service") + "rest/"+threadId+"/"+start+"/"+limit;
+  }
+
+  public static String threadFromPost() {
+    return ListenerManifestVars.getValue("rest_service") + "rest/thread/frompost";
+  }
+
+  public static String threadEdit(int id) {
+    return ListenerManifestVars.getValue("rest_service") + "rest/thread/edit/"+String.valueOf(id);
   }
 
   public static String postAdd() {
