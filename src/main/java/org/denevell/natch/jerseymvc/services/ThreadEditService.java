@@ -13,22 +13,19 @@ import javax.ws.rs.core.Response;
 import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddInput.StringWrapper;
 import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
 import org.denevell.natch.jerseymvc.utils.Serv;
-import org.glassfish.jersey.client.JerseyClient;
-import org.glassfish.jersey.client.JerseyClientBuilder;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import org.denevell.natch.jerseymvc.utils.Urls;
 
 public class ThreadEditService {
 
-	protected static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
   public String errorMessage;
 
-	public boolean fetch(
+	public void fetch(
 			final HttpServletRequest serv,
 			final String subject,
 			final String content,
 			final String tags, 
 			final int id) {
-		return serv(new Serv.ResponseRunnable() { @Override public Response run() {
+		serv(new Serv.ResponseRunnable() { @Override public Response run() {
 		  ThreadEditInput entity = new ThreadEditInput();
 		  entity.content = content;
 		  entity.subject = subject;
@@ -36,24 +33,14 @@ public class ThreadEditService {
 			for (String string : ts) {
 			  entity.tags.add(new StringWrapper(string));
       }
-			return sService
+			return Serv.service 
 				.target(ListenerManifestVars.getValue("rest_service"))
 				.path("rest").path("thread").path("edit").path(String.valueOf(id)).request()
 				.header("AuthKey", (String) serv.getSession(true).getAttribute("authkey"))
 				.post(Entity.json(entity));
-			}})
-		._403(new Runnable() { @Override public void run() {
-			errorMessage = "You're not logged in";
-			}})
-		._401(new Runnable() { @Override public void run() {
-			errorMessage = "You're not logged in";
-			}})
-		._400(new Runnable() { @Override public void run() {
-			errorMessage = "Please check the fields and try again.";
-			}})
-		._exception(new Runnable() { @Override public void run() {
-			errorMessage = "Whoops... erm...";
-			}}).go();
+			}}, Void.class)
+			.addStatusMap(Urls.threadEditErrorMessages()).go();
+			
 	}
 
   public static class ThreadEditInput {

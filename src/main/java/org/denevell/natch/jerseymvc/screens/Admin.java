@@ -7,14 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.Admin.AdminView;
-import org.denevell.natch.jerseymvc.services.AdminService;
-import org.denevell.natch.jerseymvc.services.AdminToggleService;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserOutput;
 import org.denevell.natch.jerseymvc.services.PwChangeService;
-import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput;
-import org.denevell.natch.jerseymvc.services.AdminService.UserListOutput.UserOutput;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
-import org.denevell.natch.jerseymvc.utils.SessionUtils;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -31,13 +30,16 @@ import com.yeah.ServletGenerator.Param;
       @Param(name = "admintoggle_username")})
 public class Admin {
 
-  public AdminService mAdmin = new AdminService();
   public PwChangeService mPwChange = new PwChangeService();
-  public AdminToggleService mAdminToggleService = new AdminToggleService();
+  protected ServiceOutputs.UserListOutput mUsers;
 
   public AdminView onGet(AdminView view, HttpServletRequest req, HttpServletResponse resp) {
-    UserListOutput us = mAdmin.getUsers((String) req.getSession(true).getAttribute("authkey"));
-    for (UserOutput userOutput : us.users) {
+    Services.users(req, new ResponseObject() { @Override
+      public void returned(Object o) {
+        mUsers = (ServiceOutputs.UserListOutput) o;
+      }
+    });
+    for (UserOutput userOutput : mUsers.users) {
       view.users.add(new AdminView.User(
           userOutput.username, 
           userOutput.recoveryEmail, 
@@ -48,10 +50,9 @@ public class Admin {
   }
 
   public void onPost(AdminView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mAdminToggleService.toggle(
-        AdminServlet.admintoggle_active,
-        SessionUtils.getAuthKey(req), 
-        AdminServlet.admintoggle_username);
+    if(AdminServlet.admintoggle_active!=null) {
+      Services.userAdminToggle(req, AdminServlet.admintoggle_username);
+    }
 
     mPwChange.changePw(
         AdminServlet.changepw_active, 
@@ -59,7 +60,7 @@ public class Admin {
         AdminServlet.changepw_username, 
         AdminServlet.changepw_password);
     view.pwChangeProcessed = mPwChange.getProcessed();
-    view.pwChangeError = mPwChange.getError();
+    view.pwChangeError = mPwChange.errorMessage!=null;
 
     Responses.send303(req, resp);
   }

@@ -9,6 +9,18 @@ public class SessionUtils {
     	return name !=null && name instanceof String && ((String)name).length()>0;
 	}
 
+	public static boolean getCorrectlyLoggedIn(HttpServletRequest request, String author) {
+    Object name = request.getSession(true).getAttribute("name");
+    boolean correctUser;
+    if (name != null) {
+      correctUser = name.equals(author);
+    } else {
+      correctUser = false;
+    }
+    Object admin = request.getSession(true).getAttribute("admin");
+    return (admin != null && ((boolean) admin) == true) || correctUser;
+  }
+
 	public static boolean isAdmin(HttpServletRequest request) {
     	Object name = request.getSession(true).getAttribute("admin");
     	return name!=null && name instanceof Boolean && ((boolean)name)==true;

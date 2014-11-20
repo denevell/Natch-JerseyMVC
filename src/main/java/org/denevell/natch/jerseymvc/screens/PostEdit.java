@@ -3,12 +3,13 @@ package org.denevell.natch.jerseymvc.screens;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.denevell.natch.jerseymvc.screens.PostEdit.PostEditView;
-import org.denevell.natch.jerseymvc.services.PostEditService;
-import org.denevell.natch.jerseymvc.services.PostSingleService;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.PostEditInput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
@@ -29,12 +30,16 @@ import com.yeah.ServletGenerator.Param.ParamType;
     })
 public class PostEdit {
 
-  public PostEditService mPostEditService = new PostEditService();
-	private PostSingleService mPostService = new PostSingleService();
+  private PostOutput postOutput;
 
   public PostEditView onGet(PostEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		mPostService.fetchPost(new Object(), PostEditServlet.post_edit);
-		view.content = mPostService.getPost().getContent();
+    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject() {
+      @Override
+      public void returned(Object o) {
+        postOutput = (PostOutput) o;
+      }
+    });
+		view.content = postOutput.getContent();
 		view.thread= PostEditServlet.thread;
 		view.postId = PostEditServlet.post_edit;
 		view.start = PostEditServlet.start;
@@ -43,10 +48,8 @@ public class PostEdit {
   }
 
   public void onPost(PostEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mPostEditService.fetch(new Object(), req, 
-        StringEscapeUtils.unescapeHtml4(PostEditServlet.content), 
-        PostEditServlet.post_edit);
-    String errorMessage = mPostEditService.errorMessage;
+    String errorMessage = Services.postEdit(req, PostEditServlet.post_edit, 
+        new PostEditInput(PostEditServlet.content));
     if(errorMessage==null || errorMessage.trim().length()==0) {
       String url = UrlGenerators.createThreadUrl(req, PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
 		  Responses.send303(resp, url);

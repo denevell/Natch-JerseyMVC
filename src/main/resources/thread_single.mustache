@@ -7,13 +7,6 @@
       {{> nav_bar}}
 
 
-  <div style="color: red;">
-        {{#addPostError}}
-        	{{.}}
-        {{/addPostError}}
-  </div>
-  <br />
-  
 	 	<div id="tags">
 	 	 {{#tags}}
 	 	   <span class="tag"><a class="label label-success"  href="/?start=0&limit=10&tag={{{.}}}">{{{.}}}</a></span>
@@ -70,14 +63,21 @@
         </ul>      
 										      
 
+        <div style="color: red;">
+                {{#addPostError}}
+                        {{.}}
+                {{/addPostError}}
+        </div>
+        <br />
+  
         <form method="post" action="" class="form" style="width: 40%;min-width:350px;">
-    <div>
-      <textarea placeholder="content" 
-        id="post_content_input"
-        class="form-control form-bottom-margin" 
-        name="content" 
-        cols="50" rows="6"></textarea>
-    </div>
+            <div>
+              <textarea placeholder="content" 
+                id="post_content_input"
+                class="form-control form-bottom-margin" 
+                name="content" 
+                cols="50" rows="6"></textarea>
+            </div>
                 <br />
                 <input name="numPosts" type="hidden" value="{{numPosts}}"/> 
                 <input name="addpost_active" type="hidden" /> 

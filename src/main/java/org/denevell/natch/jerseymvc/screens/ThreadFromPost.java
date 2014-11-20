@@ -4,10 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.ThreadFromPost.PostMoveToThreadView;
-import org.denevell.natch.jerseymvc.services.PostSingleService;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.services.ThreadFromPostService;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
@@ -26,12 +28,17 @@ import com.yeah.ServletGenerator.Param.ParamType;
     })
 public class ThreadFromPost {
 
-	private PostSingleService mPostSingleService = new PostSingleService();
 	private ThreadFromPostService mPostFromThreadService = new ThreadFromPostService();
+   private PostOutput postOutput;
 
   public PostMoveToThreadView onGet(PostMoveToThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		mPostSingleService.fetchPost(new Object(), ThreadFromPostServlet.post);
-		view.username = mPostSingleService.getPost().username;
+    Services.postSingle(req, ThreadFromPostServlet.post, new ResponseObject() {
+      @Override
+      public void returned(Object o) {
+        postOutput = (PostOutput) o;
+      }
+    });
+		view.username = postOutput.username;
 		view.postId = ThreadFromPostServlet.post;
 		return view;
   }

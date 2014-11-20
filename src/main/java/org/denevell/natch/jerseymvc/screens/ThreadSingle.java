@@ -1,6 +1,5 @@
 package org.denevell.natch.jerseymvc.screens;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.ThreadSingle.ThreadView;
 import org.denevell.natch.jerseymvc.screens.ThreadSingle.ThreadView.Post;
-import org.denevell.natch.jerseymvc.services.PostAddService;
-import org.denevell.natch.jerseymvc.services.PostOutput;
-import org.denevell.natch.jerseymvc.services.ThreadService;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.PostAddInput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadOutput;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 import org.denevell.natch.jerseymvc.utils.SessionUtils;
-import org.denevell.natch.jerseymvc.utils.Urls;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -35,23 +35,27 @@ import com.yeah.ServletGenerator.Param.ParamType;
     })
 public class ThreadSingle {
 
-  PostAddService addPostService = new PostAddService();
-	ThreadService mService;
+  private ThreadOutput model;
 
   public ThreadView onGet(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mService = new ThreadService(ThreadSingleServlet.start, ThreadSingleServlet.limit, ThreadSingleServlet.threadId);
-    view.loggedInCorrectly = getCorrectlyLoggedIn(req, mService.model().author);
-    view.rootPostId = (int) mService.model().getRootPostId();
-    view.subject = mService.model().subject;
-    view.tags = mService.model().tags;
+    Services.thread(req, ThreadSingleServlet.threadId, ThreadSingleServlet.limit, ThreadSingleServlet.start,
+        new ResponseObject() { @Override
+          public void returned(Object o) {
+            model = (ThreadOutput) o;
+          }
+        });
+    view.loggedInCorrectly = SessionUtils.getCorrectlyLoggedIn(req, model.author);
+    view.rootPostId = (int) model.getRootPostId();
+    view.subject = model.subject;
+    view.tags = model.tags;
 
 		// Set posts in template
-		int postsSize = mService.model().getPosts().size();
+		int postsSize = model.getPosts().size();
 		view.numPosts = postsSize;
 		for (int i = 0; i < postsSize; i++) {
-			PostOutput p = mService.model().getPosts().get(i);
+			PostOutput p = model.getPosts().get(i);
 			Post e = new Post(p.username, p.getHtmlContent(), (int)p.id, i, p.getLastModifiedDateWithTime());
-			e.parentThreadId = mService.model().id;
+			e.parentThreadId = model.id;
 			e.editedByAdmin = p.isAdminEdited();
 			// Logged in info
 			e.loggedInCorrectly = view.loggedInCorrectly;
@@ -61,7 +65,7 @@ public class ThreadSingle {
 			e.returnToThreadFromReplyStartParam = ThreadSingleServlet.start;
 			e.returnToThreadFromEditStartParam = ThreadSingleServlet.start;
 			e.returnToThreadFromDeletePostStartParam = ThreadSingleServlet.start;
-			if(postsSize==1 && mService.model().numPosts > postsSize) {
+			if(postsSize==1 && model.numPosts > postsSize) {
 				e.returnToThreadFromDeletePostStartParam -= 10;
 			}
 			// Can edit thread via this post
@@ -78,8 +82,8 @@ public class ThreadSingle {
 		}
     	
 		// Pagination
-		int numPosts = mService.model().numPosts;
-		ThreadsPaginationService pagination = getPagination(req, numPosts);
+		ThreadsPaginationService pagination = 
+		    ThreadsPaginationService.getPagination(req, model.numPosts, ThreadSingleServlet.start, ThreadSingleServlet.limit);
 		view.next = pagination.getNext().toString();
 		view.prev = pagination.getPrev().toString();
 		view.pages = pagination.getPages().toString();
@@ -87,11 +91,11 @@ public class ThreadSingle {
   }
 
   public void onPost(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    addPostService.add(new Object(), req, ThreadSingleServlet.content, ThreadSingleServlet.threadId);
-    view.addPostError = addPostService.errorMessage;
+    view.addPostError = Services.postAdd(SessionUtils.getAuthKey(req), 
+        new PostAddInput(ThreadSingleServlet.content, ThreadSingleServlet.threadId));
     if(view.addPostError==null || view.addPostError.trim().length()==0) {
       int numPosts = ThreadSingleServlet.numPosts+1;
-      ThreadsPaginationService pagination = getPagination(req, numPosts);
+      ThreadsPaginationService pagination = ThreadsPaginationService.getPagination(req, numPosts, ThreadSingleServlet.start, ThreadSingleServlet.limit);
       if (numPosts > ThreadSingleServlet.start + ThreadSingleServlet.limit) {
         Responses.send303(resp, pagination.getNext().toString()); 
       } else {
@@ -100,28 +104,6 @@ public class ThreadSingle {
     } else {
       Responses.send303(req, resp); 
     }
-  }
-
-	private ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts) throws URISyntaxException {
-		ThreadsPaginationService pagination = new ThreadsPaginationService();
-		pagination.calculatePagination(
-		    Urls.getRelativeUrlWithQueryString(request),
-				ThreadSingleServlet.start, 
-				ThreadSingleServlet.limit, 
-				numPosts);
-		return pagination;
-	}
-
-  private boolean getCorrectlyLoggedIn(HttpServletRequest request, String author) {
-    Object name = request.getSession(true).getAttribute("name");
-    boolean correctUser;
-    if (name != null) {
-      correctUser = name.equals(author);
-    } else {
-      correctUser = false;
-    }
-    Object admin = request.getSession(true).getAttribute("admin");
-    return (admin != null && ((boolean) admin) == true) || correctUser;
   }
 
   public static class ThreadView extends org.denevell.natch.jerseymvc.utils.BaseView {

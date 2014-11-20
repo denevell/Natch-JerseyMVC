@@ -3,7 +3,10 @@ package org.denevell.natch.jerseymvc.services;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.http.client.utils.URIBuilder;
+import org.denevell.natch.jerseymvc.utils.Urls;
 
 public class ThreadsPaginationService {
 	
@@ -68,6 +71,16 @@ public class ThreadsPaginationService {
       throw new RuntimeException(e);
     }
 		return uri;
+	}
+
+	public static ThreadsPaginationService getPagination(HttpServletRequest request, int numPosts, int start, int limit) throws URISyntaxException {
+		ThreadsPaginationService pagination = new ThreadsPaginationService();
+		pagination.calculatePagination(
+		    Urls.getRelativeUrlWithQueryString(request),
+				start, 
+				limit, 
+				numPosts);
+		return pagination;
 	}
 
 

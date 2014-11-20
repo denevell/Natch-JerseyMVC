@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.PwRequest.PwRequestView;
-import org.denevell.natch.jerseymvc.services.PwResetService;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
 
@@ -19,16 +19,12 @@ import com.yeah.ServletGenerator.Param;
       @Param(name = "resetpw_email")})
 public class PwRequest {
 
-  public PwResetService mResetPwModule = new PwResetService();
-
   public PwRequestView onGet(PwRequestView view, HttpServletRequest req, HttpServletResponse resp) {
     return view;
   }
 
   public void onPost(PwRequestView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mResetPwModule.reset(req, PwRequestServlet.resetpw_email);
-    view.resetPasswordError = mResetPwModule.isError();
-    view.resetPassword = mResetPwModule.isProcessed();
+    view.resetPasswordError = Services.userPwReset(req, PwRequestServlet.resetpw_email)!=null;
     Responses.send303(req, resp);
   }
 
@@ -37,7 +33,6 @@ public class PwRequest {
       super(request);
     }
     public boolean resetPasswordError;
-    public boolean resetPassword;
   }
 
 }

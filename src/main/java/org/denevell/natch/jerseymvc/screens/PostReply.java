@@ -4,11 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.PostReply.PostReplyView;
-import org.denevell.natch.jerseymvc.services.PostAddService;
-import org.denevell.natch.jerseymvc.services.PostSingleService;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.PostAddInput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
+import org.denevell.natch.jerseymvc.utils.SessionUtils;
 import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
@@ -30,25 +33,32 @@ import com.yeah.ServletGenerator.Param.ParamType;
     })
 public class PostReply {
   
-  PostSingleService mSinglePostService = new PostSingleService();
-  PostAddService mAddPostService = new PostAddService();
+  Services mAddPostService = new Services();
+  private PostOutput postOutput;
 
   public PostReplyView onGet(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		mSinglePostService.fetchPost(new Object(), PostReplyServlet.post);
+    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject() {
+      @Override
+      public void returned(Object o) {
+        postOutput = (PostOutput) o;
+      }
+    });
 		view.start = PostReplyServlet.start;
 		view.limit = PostReplyServlet.limit;
 		view.numPosts = PostReplyServlet.numPosts;
 		view.id = PostReplyServlet.post;
-		view.htmlContent = mSinglePostService.getPost().getQuotedContent();
-		view.username = mSinglePostService.getPost().username;
+		view.htmlContent = postOutput.getQuotedContent();
+		view.username = postOutput.username;
 		view.threadId = PostReplyServlet.thread;
-		view.getLastModifiedDateWithTime = mSinglePostService.getPost().getLastModifiedDateWithTime();
+		view.getLastModifiedDateWithTime = postOutput.getLastModifiedDateWithTime();
 		return view;
   }
 
   public void onPost(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mAddPostService.add(new Object(), req, PostReplyServlet.content, PostReplyServlet.thread);
-    if (mAddPostService.errorMessage != null) {
+    view.replyError = Services.postAdd(
+        SessionUtils.getAuthKey(req), 
+        new PostAddInput(PostReplyServlet.content, PostReplyServlet.thread));
+    if (view.replyError != null) {
       Responses.send303(req, resp);
     } else {
       int numPosts = PostReplyServlet.numPosts+1;

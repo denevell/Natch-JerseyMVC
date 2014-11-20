@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.PostDelete.PostDeleteConfirmView;
-import org.denevell.natch.jerseymvc.services.PostDeleteService;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
 import org.denevell.natch.jerseymvc.utils.UrlGenerators;
@@ -36,9 +36,8 @@ public class PostDelete {
   }
 
   public void onPost(PostDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		PostDeleteService service = new PostDeleteService();
-    service.delete(req, PostDeleteServlet.delete_post_id_form);
-		if (service.errorMessage==null || service.errorMessage.trim().length()==0) {
+    view.errorMessage = Services.postDelete(req, PostDeleteServlet.delete_post_id_form);
+		if (view.errorMessage==null || view.errorMessage.trim().length()==0) {
 			String createThreadUrl = UrlGenerators
       	.createThreadUrl(req,
       			PostDeleteServlet.thread,
@@ -46,7 +45,6 @@ public class PostDelete {
       			PostDeleteServlet.limit);
 			Responses.send303(resp, createThreadUrl);
 		} else {
-		  view.errorMessage = service.errorMessage;
 		  Responses.send303(req, resp);
 		}
   }

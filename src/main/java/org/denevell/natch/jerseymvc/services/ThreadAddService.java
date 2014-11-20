@@ -7,29 +7,24 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlElement;
 
 import org.denevell.natch.jerseymvc.services.ThreadAddService.ThreadAddInput.StringWrapper;
 import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
 import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseRunnable;
-import org.denevell.natch.jerseymvc.utils.Strings;
-import org.glassfish.jersey.client.JerseyClient;
-import org.glassfish.jersey.client.JerseyClientBuilder;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import org.denevell.natch.jerseymvc.utils.Urls;
 
 public class ThreadAddService {
 
-	private static JerseyClient sService = JerseyClientBuilder.createClient().register(JacksonFeature.class);
-  public String errorMessage;
+  public String errorMessage = "";
 
-	public boolean add(Object trueObject, 
+	public void add(Object trueObject, 
 			final HttpServletRequest serv,
 			final String subject, 
 			final String content,
 			final String tags) {
-		if (trueObject == null) return true;
-		return Serv.serv(new ResponseRunnable() { @Override public Response run() {
+		if (trueObject == null) return;
+		errorMessage = Serv.serv(new ResponseRunnable() { @Override public Response run() {
 			ThreadAddInput entity = new ThreadAddInput();
 			entity.subject = subject;
 			entity.content = content;
@@ -42,30 +37,18 @@ public class ThreadAddService {
 			if(authKey==null || authKey.toString().trim().length()==0) {
 			  return Response.status(401).build();
 			}
-      return sService
+      return Serv.service 
 				.target(ListenerManifestVars.getValue("rest_service"))
 				.path("rest").path("thread").request()
 				.header("AuthKey", (String) authKey)
 				.put(Entity.json(entity));
-			}})
-		._403(new Runnable() { @Override public void run() {
-		  errorMessage = "You're not logged in";
-			}})
-		._401(new Runnable() { @Override public void run() {
-		  errorMessage = "You're not logged in";
-			}})
-		._400(new Runnable() { @Override public void run() {
-		  errorMessage = Strings.getPostFieldsCannotBeBlank();
-			}})
-		._exception(new Runnable() { @Override public void run() {
-		  errorMessage = "Whoops... erm...";
-			}}).go();
+			}}, Void.class)
+			.addStatusMap(Urls.threadAddErrorMessages()).go();
 	}
 
   public static class ThreadAddInput {
     public String subject;
     public String content;
-    @XmlElement(required = false)
     public String threadId;
     public List<StringWrapper> tags = new ArrayList<>();
     public static class StringWrapper {

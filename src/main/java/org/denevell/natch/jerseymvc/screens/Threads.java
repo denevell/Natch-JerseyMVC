@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView.Thread.Tag;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.ThreadAddService;
-import org.denevell.natch.jerseymvc.services.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.services.ThreadsService;
 import org.denevell.natch.jerseymvc.utils.Responses;

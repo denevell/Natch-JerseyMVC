@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.denevell.natch.jerseymvc.screens.ThreadEdit.ThreadEditView;
-import org.denevell.natch.jerseymvc.services.PostSingleService;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
+import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.services.ThreadEditService;
 import org.denevell.natch.jerseymvc.utils.BaseView;
 import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 import org.denevell.natch.jerseymvc.utils.UrlGenerators;
 
 import com.yeah.ServletGenerator;
@@ -30,14 +32,19 @@ import com.yeah.ServletGenerator.Param.ParamType;
 public class ThreadEdit {
 
   private ThreadEditService mThreadEditService = new ThreadEditService();
-	private PostSingleService mPostService = new PostSingleService();
+  private PostOutput postOutput;
 
   public ThreadEditView onGet(ThreadEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		mPostService.fetchPost(new Object(), ThreadEditServlet.post_edit);
-		view.content = mPostService.getPost().getContent();
-		view.username = mPostService.getPost().username;
-		view.subject = mPostService.getPost().subject;
-		view.tags = mPostService.getPost().getTagsString();
+    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject() {
+      @Override
+      public void returned(Object o) {
+        postOutput = (PostOutput) o;
+      }
+    });
+		view.content = postOutput.getContent();
+		view.username = postOutput.username;
+		view.subject = postOutput.subject;
+		view.tags = postOutput.getTagsString();
 		view.thread= ThreadEditServlet.thread;
 		view.postId = ThreadEditServlet.post_edit;
     return view;
