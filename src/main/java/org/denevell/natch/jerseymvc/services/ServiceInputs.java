@@ -65,6 +65,18 @@ public class ServiceInputs {
   }
 
   public static class ThreadAddInput {
+    
+    public ThreadAddInput(String subject, String content, String threadId, String tags) {
+      if(tags!=null) {
+			List<String> tagStrings = Arrays.asList(tags.split("[,\\s]+"));
+			for (String string : tagStrings) {
+			  this.tags.add(new StringWrapper(string));
+      }
+      }
+      this.subject = subject;
+      this.content = content;
+      this.threadId = threadId;
+    }
     public String subject;
     public String content;
     public String threadId;
@@ -75,6 +87,14 @@ public class ServiceInputs {
     }
   }
 
+  public static class PasswordChangeInput {
+    public String password;
+  }
+
+  public static class LoginInput {
+    public String username;
+    public String password;
+  }
 
 
 

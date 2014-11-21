@@ -7,16 +7,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
 
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView;
 import org.denevell.natch.jerseymvc.screens.Threads.ThreadsView.Thread.Tag;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadAddInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadsOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.services.ThreadAddService;
 import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
 import org.denevell.natch.jerseymvc.utils.Responses;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
+import org.denevell.natch.jerseymvc.utils.SessionUtils;
 import org.denevell.natch.jerseymvc.utils.Urls;
 
 import com.yeah.ServletGenerator;
@@ -36,7 +38,6 @@ import com.yeah.ServletGenerator.Param.ParamType;
       @Param(name = "tag")})
 public class Threads {
 
-  public ThreadAddService mAddThreadService = new ThreadAddService();
   public ThreadsPaginationService mPagination = new ThreadsPaginationService();
   public ThreadsOutput mThreads;
 
@@ -69,13 +70,12 @@ public class Threads {
   }
 
   public void onPost(ThreadsView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    mAddThreadService.add(
-        new Object(), 
-        req, 
-        ThreadsServlet.subject,
-        ThreadsServlet.content, 
-        ThreadsServlet.tags);
-    view.addThreadErrorMessage = mAddThreadService.errorMessage;
+	  String authKey = SessionUtils.getAuthKey(req);
+    if(authKey ==null || authKey.toString().trim().length()==0) {
+			  Response.status(401).build();
+		}
+    view.addThreadErrorMessage = Services.threadAdd(req, 
+        new ThreadAddInput(ThreadsServlet.subject, ThreadsServlet.content, null, ThreadsServlet.tags));
     if(view.addThreadErrorMessage!=null && !view.addThreadErrorMessage.isEmpty()) {
       view.subject = ThreadsServlet.subject;
       view.content = ThreadsServlet.content; 

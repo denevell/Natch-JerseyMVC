@@ -29,6 +29,10 @@ public class Urls {
     return ListenerManifestVars.getValue("rest_service") + "rest/thread/edit/"+String.valueOf(id);
   }
 
+  public static String threadAdd() {
+    return ListenerManifestVars.getValue("rest_service") + "rest/thread/";
+  }
+
   public static String postAdd() {
     return ListenerManifestVars.getValue("rest_service") + "rest/post/add";
   }

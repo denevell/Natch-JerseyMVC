@@ -4,10 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
+import org.denevell.natch.jerseymvc.services.ServiceInputs.PasswordChangeInput;
 import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
 import org.denevell.natch.jerseymvc.utils.Serv;
-import org.denevell.natch.jerseymvc.utils.Urls;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseRunnable;
+import org.denevell.natch.jerseymvc.utils.Urls;
 
 public class PwChangeService {
 	
@@ -48,9 +49,6 @@ public class PwChangeService {
 			
 	}
 
-  public static class PasswordChangeInput {
-    public String password;
-  }
 	
 
 }

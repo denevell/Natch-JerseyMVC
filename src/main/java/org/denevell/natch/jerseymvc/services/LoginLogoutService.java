@@ -9,7 +9,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.LoginInput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.LoginOutput;
 import org.denevell.natch.jerseymvc.utils.ListenerManifestVars;
 import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
@@ -105,17 +106,5 @@ public class LoginLogoutService {
 			request.getSession(true).setAttribute("admin", null);
 			}}).go();
 	}
-
-  public static class LoginInput {
-    public String username;
-    public String password;
-  }
-
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class LoginOutput {
-    public String authKey = "";
-    public boolean admin;
-    public String errorMessage;
-  }
 
 }

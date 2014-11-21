@@ -223,4 +223,12 @@ public class ServiceOutputs {
     }
   }
 
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class LoginOutput {
+    public String authKey = "";
+    public boolean admin;
+    public String errorMessage;
+  }
+
+
 }
