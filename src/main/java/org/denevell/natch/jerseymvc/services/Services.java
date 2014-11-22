@@ -104,6 +104,13 @@ public class Services {
 	  .returnType(Void.class); // POST 
 	}
 
+	public static String userPwResetRequestRemove(HttpServletRequest req, int userId) {
+	  return new Serv.Build(Urls.userPwResetRequestRemove(userId))
+	  .header("AuthKey", SessionUtils.getAuthKey(req))
+	  .statusMap(Urls.threadEditErrorMessages())
+	  .returnType(Void.class); // DELETE
+	}
+
 	public static String userRegister(HttpServletRequest req, RegisterInput input, ResponseObject returnCallback) {
 	  return new Serv.Build(Urls.userRegister())
 	  .header("AuthKey", SessionUtils.getAuthKey(req))

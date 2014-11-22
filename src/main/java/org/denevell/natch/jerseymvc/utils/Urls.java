@@ -65,6 +65,10 @@ public class Urls {
     return ListenerManifestVars.getValue("user_service") + "rest/user/list";
   }
 
+  public static String userPwResetRequestRemove(int userId) {
+    return ListenerManifestVars.getValue("user_service") + "rest/user/password_reset/remove/"+userId;
+  }
+
   public static Map<Integer, String >postAddErrorMessages() {
 		HashMap<Integer, String> hm = new HashMap<Integer, String>();
 		hm.put(403, "You're not logged in");

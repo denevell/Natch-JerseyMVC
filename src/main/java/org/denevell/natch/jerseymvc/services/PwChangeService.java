@@ -34,12 +34,6 @@ public class PwChangeService {
 				.request()
 				.header("AuthKey", attribute)
 				.post(Entity.json(entity));
-      Serv.service 
-				.target(ListenerManifestVars.getValue("user_service"))
-				.path("user").path("password_reset").path("remove").path(username)
-				.request()
-				.header("AuthKey", attribute)
-				.delete();
 			if(response.getStatus()<300) {
 				mProcessed = true;
 			}
