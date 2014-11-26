@@ -7,10 +7,10 @@ import org.denevell.natch.jerseymvc.screens.PostEdit.PostEditView;
 import org.denevell.natch.jerseymvc.services.ServiceInputs.PostEditInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.utils.BaseView;
-import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
-import org.denevell.natch.jerseymvc.utils.UrlGenerators;
+import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -33,10 +33,10 @@ public class PostEdit {
   private PostOutput postOutput;
 
   public PostEditView onGet(PostEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject() {
+    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject<PostOutput>() {
       @Override
-      public void returned(Object o) {
-        postOutput = (PostOutput) o;
+      public void returned(PostOutput o) {
+        postOutput = o;
       }
     });
 		view.content = postOutput.getContent();
@@ -51,15 +51,15 @@ public class PostEdit {
     String errorMessage = Services.postEdit(req, PostEditServlet.post_edit, 
         new PostEditInput(PostEditServlet.content));
     if(errorMessage==null || errorMessage.trim().length()==0) {
-      String url = UrlGenerators.createThreadUrl(req, PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
-		  Responses.send303(resp, url);
+      String url = Urls.createThreadUrl(req, PostEditServlet.thread, PostEditServlet.start, PostEditServlet.limit);
+		  Serv.send303(resp, url);
     } else {
       view.error = errorMessage;
-		  Responses.send303(req, resp);
+		  Serv.send303(req, resp);
     }
   }
 
-  public static class PostEditView extends BaseView {
+  public static class PostEditView extends ViewBase {
     
     public PostEditView(HttpServletRequest request) {
       super(request);

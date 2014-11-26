@@ -6,13 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.ThreadFromPost.PostMoveToThreadView;
-import org.denevell.natch.jerseymvc.services.ServiceInputs.AddThreadFromPostResourceInput;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadAddFromPostResourceInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.utils.BaseView;
-import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
-import org.denevell.natch.jerseymvc.utils.UrlGenerators;
+import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -34,10 +34,10 @@ public class ThreadFromPost {
   private String mThreadId;
 
   public PostMoveToThreadView onGet(PostMoveToThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.postSingle(req, ThreadFromPostServlet.post, new ResponseObject() {
+    Services.postSingle(req, ThreadFromPostServlet.post, new ResponseObject<PostOutput>() {
       @Override
-      public void returned(Object o) {
-        postOutput = (PostOutput) o;
+      public void returned(PostOutput o) {
+        postOutput = o;
       }
     });
 		view.username = postOutput.username;
@@ -48,25 +48,25 @@ public class ThreadFromPost {
   public void onPost(PostMoveToThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		if(ThreadFromPostServlet.subject==null || ThreadFromPostServlet.subject.trim().length()==0) {
 		  view.moveError="Must supply a subject";
-			Responses.send303(req, resp);
+			Serv.send303(req, resp);
 		} else {
 		  view.moveError = Services.threadFromPost(req, 
-		      new AddThreadFromPostResourceInput(ThreadFromPostServlet.post, ThreadFromPostServlet.subject), 
-		      new ResponseObject() {
-            @SuppressWarnings("unchecked") @Override public void returned(Object o) {
-              mThreadId = ((HashMap<String, String>)o).get("threadId");
+		      new ThreadAddFromPostResourceInput(ThreadFromPostServlet.post, ThreadFromPostServlet.subject), 
+		      new ResponseObject<HashMap<String, String>>() {
+            @Override public void returned(HashMap<String, String> o) {
+              mThreadId = o.get("threadId");
             }
           });
 			if (view.moveError == null || view.moveError.trim().length() == 0) {
-				String url = UrlGenerators.createThreadUrl(req, mThreadId);
-				Responses.send303(resp, url);
+				String url = Urls.createThreadUrl(req, mThreadId);
+				Serv.send303(resp, url);
 			} else {
-				Responses.send303(req, resp);
+				Serv.send303(req, resp);
 			}
 		}
   }
 
-  public static class PostMoveToThreadView extends BaseView {
+  public static class PostMoveToThreadView extends ViewBase {
     public PostMoveToThreadView(HttpServletRequest request) {
       super(request);
     }

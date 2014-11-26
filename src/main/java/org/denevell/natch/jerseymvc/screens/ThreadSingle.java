@@ -12,10 +12,11 @@ import org.denevell.natch.jerseymvc.services.ServiceInputs.PostAddInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
-import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
-import org.denevell.natch.jerseymvc.utils.SessionUtils;
+import org.denevell.natch.jerseymvc.utils.UtilsPagination;
+import org.denevell.natch.jerseymvc.utils.UtilsPagination.PageNumInfo;
+import org.denevell.natch.jerseymvc.utils.UtilsSession;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -39,12 +40,12 @@ public class ThreadSingle {
 
   public ThreadView onGet(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     Services.thread(req, ThreadSingleServlet.threadId, ThreadSingleServlet.limit, ThreadSingleServlet.start,
-        new ResponseObject() { @Override
-          public void returned(Object o) {
-            model = (ThreadOutput) o;
+        new ResponseObject<ThreadOutput>() { @Override
+          public void returned(ThreadOutput o) {
+            model = o;
           }
         });
-    view.loggedInCorrectly = SessionUtils.getCorrectlyLoggedIn(req, model.author);
+    view.loggedInCorrectly = UtilsSession.getCorrectlyLoggedIn(req, model.author);
     view.rootPostId = (int) model.getRootPostId();
     view.subject = model.subject;
     view.tags = model.tags;
@@ -59,7 +60,7 @@ public class ThreadSingle {
 			e.editedByAdmin = p.isAdminEdited();
 			// Logged in info
 			e.loggedInCorrectly = view.loggedInCorrectly;
-			e.isAdmin = SessionUtils.isAdmin(req);
+			e.isAdmin = UtilsSession.isAdmin(req);
 			// Pagination
 			e.returnToThreadFromDeletePostLimitParam = ThreadSingleServlet.limit; 
 			e.returnToThreadFromReplyStartParam = ThreadSingleServlet.start;
@@ -82,31 +83,31 @@ public class ThreadSingle {
 		}
     	
 		// Pagination
-		ThreadsPaginationService pagination = 
-		    ThreadsPaginationService.getPagination(req, model.numPosts, ThreadSingleServlet.start, ThreadSingleServlet.limit);
-		view.next = pagination.getNext().toString();
-		view.prev = pagination.getPrev().toString();
-		view.pages = pagination.getPages().toString();
+		view.next = UtilsPagination.getNext(req, ThreadSingleServlet.start, ThreadSingleServlet.limit, model.numPosts).toString();
+		view.prev = UtilsPagination.getPrev(req, ThreadSingleServlet.start, ThreadSingleServlet.limit).toString();
+		view.pages = UtilsPagination.getPagination(req, ThreadSingleServlet.limit, model.numPosts);
     return view;
   }
 
   public void onPost(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    view.addPostError = Services.postAdd(SessionUtils.getAuthKey(req), 
+    view.addPostError = Services.postAdd(UtilsSession.getAuthKey(req), 
         new PostAddInput(ThreadSingleServlet.content, ThreadSingleServlet.threadId));
     if(view.addPostError==null || view.addPostError.trim().length()==0) {
       int numPosts = ThreadSingleServlet.numPosts+1;
-      ThreadsPaginationService pagination = ThreadsPaginationService.getPagination(req, numPosts, ThreadSingleServlet.start, ThreadSingleServlet.limit);
       if (numPosts > ThreadSingleServlet.start + ThreadSingleServlet.limit) {
-        Responses.send303(resp, pagination.getNext().toString()); 
+        Serv.send303(resp, 
+            UtilsPagination.getNext(req, 
+                ThreadSingleServlet.start, 
+                ThreadSingleServlet.limit, model.numPosts).toString());
       } else {
-        Responses.send303(req, resp); 
+        Serv.send303(req, resp); 
       }
     } else {
-      Responses.send303(req, resp); 
+      Serv.send303(req, resp); 
     }
   }
 
-  public static class ThreadView extends org.denevell.natch.jerseymvc.utils.BaseView {
+  public static class ThreadView extends org.denevell.natch.jerseymvc.utils.ViewBase {
     public int numPosts;
     public ThreadView(HttpServletRequest request) {
       super(request);
@@ -118,7 +119,7 @@ public class ThreadSingle {
     public List<Post> posts = new ArrayList<>();
     public String next;
     public String prev;
-    public String pages;
+    public List<PageNumInfo> pages;
     public static class Post {
       public int iterate;
       public String htmlContent;

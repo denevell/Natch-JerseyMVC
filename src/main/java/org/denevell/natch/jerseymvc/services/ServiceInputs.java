@@ -25,19 +25,8 @@ public class ServiceInputs {
     public String content;
   }
 
-  public static class RegisterInput {
-    public RegisterInput(String username, String password, String recoveryEmail) {
-      this.username = username;
-      this.password = password;
-      this.recoveryEmail = recoveryEmail;
-    }
-    public String username;
-    public String password;
-    public String recoveryEmail;
-  }
-
-	public static class AddThreadFromPostResourceInput {
-		public AddThreadFromPostResourceInput(long postId, String subject) {
+	public static class ThreadAddFromPostResourceInput {
+		public ThreadAddFromPostResourceInput(long postId, String subject) {
       this.postId = postId;
       this.subject = subject;
     }
@@ -65,7 +54,6 @@ public class ServiceInputs {
   }
 
   public static class ThreadAddInput {
-    
     public ThreadAddInput(String subject, String content, String threadId, String tags) {
       if(tags!=null) {
 			List<String> tagStrings = Arrays.asList(tags.split("[,\\s]+"));
@@ -87,14 +75,33 @@ public class ServiceInputs {
     }
   }
 
-  public static class PasswordChangeInput {
+  public static class UserPasswordChangeInput {
+    public UserPasswordChangeInput(String password) {
+      this.password = password;
+    }
     public String password;
   }
 
-  public static class LoginInput {
+  public static class UserLoginInput {
+    public UserLoginInput(String username, String password) {
+      this.username = username;
+      this.password = password;
+    }
     public String username;
     public String password;
   }
+
+  public static class UserRegisterInput {
+    public UserRegisterInput(String username, String password, String recoveryEmail) {
+      this.username = username;
+      this.password = password;
+      this.recoveryEmail = recoveryEmail;
+    }
+    public String username;
+    public String password;
+    public String recoveryEmail;
+  }
+
 
 
 

@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.ThreadDelete.ThreadDeleteConfirmView;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.utils.BaseView;
-import org.denevell.natch.jerseymvc.utils.Responses;
-import org.denevell.natch.jerseymvc.utils.UrlGenerators;
+import org.denevell.natch.jerseymvc.utils.Serv;
+import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -29,13 +29,13 @@ public class ThreadDelete {
   public void onPost(ThreadDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     view.errorMessage = Services.threadDelete(req, ThreadDeleteServlet.delete_thread_id_form);
     if (view.errorMessage==null || view.errorMessage.trim().length()==0) {
-      Responses.send303(resp, UrlGenerators.mainPage(req).toString());
+      Serv.send303(resp, Urls.mainPage(req).toString());
     } else {
-      Responses.send303(req, resp);
+      Serv.send303(req, resp);
     }
   }
 
-  public static class ThreadDeleteConfirmView extends BaseView {
+  public static class ThreadDeleteConfirmView extends ViewBase {
     public ThreadDeleteConfirmView(HttpServletRequest request) {
       super(request);
     }

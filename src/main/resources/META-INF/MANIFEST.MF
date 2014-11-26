@@ -1,2 +1,2 @@
 user_service: http://localhost:8084/cus/
-rest_service: http://localhost:8084/
+rest_service: http://localhost:8084/rest/

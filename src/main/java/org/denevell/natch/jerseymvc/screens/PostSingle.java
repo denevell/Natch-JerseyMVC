@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.denevell.natch.jerseymvc.screens.PostSingle.PostSingleView;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.utils.BaseView;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
-import org.denevell.natch.jerseymvc.utils.UrlGenerators;
+import org.denevell.natch.jerseymvc.utils.Urls;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -27,23 +27,23 @@ public class PostSingle {
   private PostOutput postOutput;
 
   public PostSingleView onGet(PostSingleView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.postSingle(req, PostSingleServlet.postId, new ResponseObject() {
+    Services.postSingle(req, PostSingleServlet.postId, new ResponseObject<PostOutput>() {
       @Override
-      public void returned(Object o) {
-        postOutput = (PostOutput) o;
+      public void returned(PostOutput o) {
+        postOutput = o;
       }
     });
 		view.htmlContent = postOutput.getHtmlContent();
 		view.username = postOutput.username;
 		view.subject = postOutput.subject;
-		view.backUrl = UrlGenerators.createThreadUrl(req, postOutput.threadId);
+		view.backUrl = Urls.createThreadUrl(req, postOutput.threadId);
 		return view;
   }
 
   public void onPost(PostSingleView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
   }
 
-  public static class PostSingleView extends BaseView {
+  public static class PostSingleView extends ViewBase {
     public PostSingleView(HttpServletRequest request) {
       super(request);
     }

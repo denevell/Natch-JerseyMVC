@@ -15,11 +15,11 @@ import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadAddInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadsOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
-import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
-import org.denevell.natch.jerseymvc.utils.SessionUtils;
-import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.UtilsPagination;
+import org.denevell.natch.jerseymvc.utils.UtilsPagination.PageNumInfo;
+import org.denevell.natch.jerseymvc.utils.UtilsSession;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -38,12 +38,12 @@ import com.yeah.ServletGenerator.Param.ParamType;
       @Param(name = "tag")})
 public class Threads {
 
-  public ThreadsPaginationService mPagination = new ThreadsPaginationService();
   public ThreadsOutput mThreads;
 
   public ThreadsView onGet(ThreadsView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    ResponseObject callback = new ResponseObject() { @Override public void returned(Object o) {
-      mThreads = (ThreadsOutput) o;
+    ResponseObject<ThreadsOutput> callback = new ResponseObject<ThreadsOutput>() { @Override 
+      public void returned(ThreadsOutput o) {
+      mThreads = o;
       }
     };
     if(ThreadsServlet.tag==null) {
@@ -60,17 +60,14 @@ public class Threads {
       view.threads.add(e);
     }
 
-    mPagination.calculatePagination(
-        Urls.getRelativeUrlWithQueryString(req),
-        ThreadsServlet.start, ThreadsServlet.limit, (int) mThreads.numOfThreads);
-    view.pages = mPagination.getPages();
-    view.next = mPagination.getNext().toString();
-    view.prev = mPagination.getPrev().toString();
+		view.next = UtilsPagination.getNext(req, ThreadsServlet.start, ThreadsServlet.limit, (int) mThreads.numOfThreads).toString();
+		view.prev = UtilsPagination.getPrev(req, ThreadsServlet.start, ThreadsServlet.limit).toString();
+		view.pages = UtilsPagination.getPagination(req, ThreadsServlet.limit, (int) mThreads.numOfThreads);
     return view;
   }
 
   public void onPost(ThreadsView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-	  String authKey = SessionUtils.getAuthKey(req);
+	  String authKey = UtilsSession.getAuthKey(req);
     if(authKey ==null || authKey.toString().trim().length()==0) {
 			  Response.status(401).build();
 		}
@@ -81,7 +78,7 @@ public class Threads {
       view.content = ThreadsServlet.content; 
       view.tags = ThreadsServlet.tags;
     }
-    Responses.send303(req, resp);
+    Serv.send303(req, resp);
   }
 
   private List<Tag> sortAndTruncateTags(List<String> tags) {
@@ -110,7 +107,7 @@ public class Threads {
     return num;
   }
   
-  public static class ThreadsView extends org.denevell.natch.jerseymvc.utils.BaseView {
+  public static class ThreadsView extends org.denevell.natch.jerseymvc.utils.ViewBase {
     public ThreadsView(HttpServletRequest request) {
       super(request);
     }
@@ -120,7 +117,7 @@ public class Threads {
     public String addThreadErrorMessage;
     public String next;
     public String prev;
-    public String pages;
+    public List<PageNumInfo> pages;
     public ArrayList<Thread> threads = new ArrayList<Thread>();
     public static class Thread {
       public Thread(String subject, String author, String lastModifiedDate, String id, int iterate) {

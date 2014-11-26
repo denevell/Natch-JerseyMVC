@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.http.client.utils.URIBuilder;
+
 public class Urls {
 
   public static String threads(String tag, int start, int limit) {
@@ -14,7 +16,7 @@ public class Urls {
   }
 
   public static String threads(int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "rest/thread/"+String.valueOf(start)+"/"+String.valueOf(limit);
+    return ListenerManifestVars.getValue("rest_service") + "thread/"+String.valueOf(start)+"/"+String.valueOf(limit);
   }
 
   public static String thread(String threadId, int start, int limit) {
@@ -48,8 +50,18 @@ public class Urls {
   public static String postSingle(int postId) {
     return ListenerManifestVars.getValue("rest_service") + "rest/post/single/"+postId;
   }
+  
+  // #####
+
+  public static String userLogout() {
+    return ListenerManifestVars.getValue("user_service") + "rest/user/logout";
+  }
 
   public static String userRegister() {
+    return ListenerManifestVars.getValue("user_service") + "rest/user/login";
+  }
+
+  public static String userLogin() {
     return ListenerManifestVars.getValue("user_service") + "rest/user/";
   }
 
@@ -68,6 +80,66 @@ public class Urls {
   public static String userPwResetRequestRemove(int userId) {
     return ListenerManifestVars.getValue("user_service") + "rest/user/password_reset/remove/"+userId;
   }
+
+  public static String userPwChange(String user) {
+    return ListenerManifestVars.getValue("user_service") + "rest/user/password/"+user;
+  }
+
+  public static String getUrlWithQueryString(HttpServletRequest request) throws URISyntaxException {
+    String qs = "";
+    if(request.getQueryString()!=null && request.getQueryString().trim().length()!=0) {
+      qs = "?" + request.getQueryString();
+    }
+    String url = request.getRequestURL() + qs; 
+    return new URI(url).toString();
+  }
+
+  public static String getRelativeUrlWithQueryString(HttpServletRequest request) throws URISyntaxException {
+    String qs = "";
+    if(request.getQueryString()!=null && request.getQueryString().trim().length()!=0) {
+      qs = "?" + request.getQueryString();
+    }
+    String url = request.getServletPath()+request.getPathInfo() + qs; 
+    return new URI(url).toString();
+  }
+
+	public static URI mainPage(HttpServletRequest req) throws URISyntaxException {
+		URI uri = new URIBuilder("/")
+			.setParameter("start", String.valueOf(0))
+			.setParameter("limit", String.valueOf(10))
+			.build();
+		return uri;
+	}
+
+	public static String createThreadUrl(HttpServletRequest req, String threadId) {
+		return "/thread/"+threadId;
+	}
+
+	public static String createThreadUrl(HttpServletRequest req, String threadId, int start, int limit) {
+		return "/thread/"+threadId+"?start="+start+"&limit="+limit;
+	}
+
+	public static URI addQueryStringsToUrl(HttpServletRequest req, String ...values) throws Exception {
+	  return addQueryStringsToUrl(Urls.getRelativeUrlWithQueryString(req), values);
+	}
+
+	public static URI addQueryStringsToUrl(String requestUri, String ...values) {
+		if(requestUri==null) return null;
+    try {
+      URIBuilder builder = new URIBuilder(requestUri);
+      int i=0;
+      while(i<values.length) {
+      	builder.setParameter(values[i], values[i+1]);
+      	i++;
+      	i++;
+      }
+      return builder.build();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
+	}
+  
+  // ##################
 
   public static Map<Integer, String >postAddErrorMessages() {
 		HashMap<Integer, String> hm = new HashMap<Integer, String>();
@@ -162,24 +234,6 @@ public class Urls {
 		HashMap<Integer, String> hm = new HashMap<Integer, String>();
 		hm.put(-1, "Whoops.... erm...");
 		return hm;
-  }
-
-  public static String getUrlWithQueryString(HttpServletRequest request) throws URISyntaxException {
-    String qs = "";
-    if(request.getQueryString()!=null && request.getQueryString().trim().length()!=0) {
-      qs = "?" + request.getQueryString();
-    }
-    String url = request.getRequestURL() + qs; 
-    return new URI(url).toString();
-  }
-
-  public static String getRelativeUrlWithQueryString(HttpServletRequest request) throws URISyntaxException {
-    String qs = "";
-    if(request.getQueryString()!=null && request.getQueryString().trim().length()!=0) {
-      qs = "?" + request.getQueryString();
-    }
-    String url = request.getServletPath()+request.getPathInfo() + qs; 
-    return new URI(url).toString();
   }
 
 }

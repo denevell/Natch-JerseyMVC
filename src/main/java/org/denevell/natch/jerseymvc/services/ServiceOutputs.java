@@ -115,24 +115,6 @@ public class ServiceOutputs {
 
   }
 
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class RegisterOutput {
-    public String error;
-    public String errorMessage;
-  }
-
-  public static class UserListOutput {
-    public long numUsers;
-    public List<UserOutput> users = new ArrayList<UserOutput>();
-  }
-
-  public static class UserOutput {
-    public String username;
-    public boolean admin;
-    public boolean resetPasswordRequest;
-    public String recoveryEmail;
-  }
-
   public static class ThreadOutput {
 
     public List<String> tags;
@@ -224,11 +206,30 @@ public class ServiceOutputs {
   }
 
   @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class LoginOutput {
+  public static class UserLoginOutput {
     public String authKey = "";
     public boolean admin;
     public String errorMessage;
   }
+
+  @JsonIgnoreProperties(ignoreUnknown = true)
+  public static class UserRegisterOutput {
+    public String error;
+    public String errorMessage;
+  }
+
+  public static class UserListOutput {
+    public long numUsers;
+    public List<UserOutput> users = new ArrayList<UserOutput>();
+  }
+
+  public static class UserOutput {
+    public String username;
+    public boolean admin;
+    public boolean resetPasswordRequest;
+    public String recoveryEmail;
+  }
+
 
 
 }

@@ -58,7 +58,9 @@
 
         <ul class="pagination" style="padding-top:15px;">
                     <li class=""><a id="prev" href="{{{prev}}}">&laquo;</a></li>
-                    {{{pages}}}
+                    {{#pages}}
+                      <li><a id="page{{pageNum}}" href="{{url}}">{{pageNum}}</a></li>
+                    {{/pages}}
                     <li class=""><a id="next" href="{{{next}}}">&raquo;</a></li>
         </ul>      
 										      

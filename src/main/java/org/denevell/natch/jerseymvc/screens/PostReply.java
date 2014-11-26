@@ -7,12 +7,12 @@ import org.denevell.natch.jerseymvc.screens.PostReply.PostReplyView;
 import org.denevell.natch.jerseymvc.services.ServiceInputs.PostAddInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.services.ThreadsPaginationService;
-import org.denevell.natch.jerseymvc.utils.BaseView;
-import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
-import org.denevell.natch.jerseymvc.utils.SessionUtils;
-import org.denevell.natch.jerseymvc.utils.UrlGenerators;
+import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.UtilsPagination;
+import org.denevell.natch.jerseymvc.utils.UtilsSession;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -37,10 +37,10 @@ public class PostReply {
   private PostOutput postOutput;
 
   public PostReplyView onGet(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject() {
+    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject<PostOutput>() {
       @Override
-      public void returned(Object o) {
-        postOutput = (PostOutput) o;
+      public void returned(PostOutput o) {
+        postOutput = o;
       }
     });
 		view.start = PostReplyServlet.start;
@@ -56,26 +56,28 @@ public class PostReply {
 
   public void onPost(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     view.replyError = Services.postAdd(
-        SessionUtils.getAuthKey(req), 
+        UtilsSession.getAuthKey(req), 
         new PostAddInput(PostReplyServlet.content, PostReplyServlet.thread));
     if (view.replyError != null) {
-      Responses.send303(req, resp);
+      Serv.send303(req, resp);
     } else {
       int numPosts = PostReplyServlet.numPosts+1;
-      ThreadsPaginationService pagin = new ThreadsPaginationService().calculatePagination(
-		    UrlGenerators.createThreadUrl(req, PostReplyServlet.thread),
-		    PostReplyServlet.start, 
-		    PostReplyServlet.limit, 
-		    numPosts);
       if (numPosts > PostReplyServlet.start + PostReplyServlet.limit) {
-        Responses.send303(resp, pagin.getNext().toString());
+        Serv.send303(resp, 
+            UtilsPagination.getNext(req, 
+                PostReplyServlet.start, 
+                PostReplyServlet.limit, 
+                PostReplyServlet.numPosts).toString());
       } else {
-        Responses.send303(resp, pagin.getCurrent().toString());
+        String current = Urls.addQueryStringsToUrl(req, 
+            "start", String.valueOf(PostReplyServlet.start), 
+            "limit", String.valueOf(PostReplyServlet.limit)).toString();
+        Serv.send303(resp, current); 
       }
     } 
   }
 
-  public static class PostReplyView extends BaseView {
+  public static class PostReplyView extends ViewBase {
     public int numPosts;
     public PostReplyView(HttpServletRequest request) {
       super(request);

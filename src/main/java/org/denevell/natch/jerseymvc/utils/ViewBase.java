@@ -4,18 +4,18 @@ import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class BaseView {
+public class ViewBase {
   
-  public BaseView(HttpServletRequest request) {
+  public ViewBase(HttpServletRequest request) {
     try {
       redirect_to = UriEncoding.encode(Urls.getUrlWithQueryString(request), null);
     } catch (URISyntaxException e) {
       e.printStackTrace();
     }
-		loggedIn = SessionUtils.isLoggedIn(request);
-    isAdmin = SessionUtils.isAdmin(request);
+		loggedIn = UtilsSession.isLoggedIn(request);
+    isAdmin = UtilsSession.isAdmin(request);
     contextPath = request.getContextPath();
-    loginErrorMessage = SessionUtils.getOneShotLoginError(request);
+    loginErrorMessage = UtilsSession.getOneShotLoginError(request);
   }
   
 	public String common_header_elements;

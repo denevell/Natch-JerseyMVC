@@ -7,10 +7,10 @@ import org.denevell.natch.jerseymvc.screens.ThreadEdit.ThreadEditView;
 import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadEditInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.utils.BaseView;
-import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
-import org.denevell.natch.jerseymvc.utils.UrlGenerators;
+import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -33,10 +33,10 @@ public class ThreadEdit {
   private PostOutput postOutput;
 
   public ThreadEditView onGet(ThreadEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject() {
+    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject<PostOutput>() {
       @Override
-      public void returned(Object o) {
-        postOutput = (PostOutput) o;
+      public void returned(PostOutput o) {
+        postOutput = o;
       }
     });
 		view.content = postOutput.getContent();
@@ -54,14 +54,14 @@ public class ThreadEdit {
             ThreadEditServlet.subject, 
             ThreadEditServlet.tags)); 
     if(view.error==null || view.error.trim().length()==0) {
-      String url = UrlGenerators.createThreadUrl(req, ThreadEditServlet.thread);
-      Responses.send303(resp, url);
+      String url = Urls.createThreadUrl(req, ThreadEditServlet.thread);
+      Serv.send303(resp, url);
     } else {
-      Responses.send303(req, resp);
+      Serv.send303(req, resp);
     }
   }
 
-  public static class ThreadEditView extends BaseView {
+  public static class ThreadEditView extends ViewBase {
     public ThreadEditView(HttpServletRequest request) {
       super(request);
     }

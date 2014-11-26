@@ -6,14 +6,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.denevell.natch.jerseymvc.screens.Admin.AdminView;
+import org.denevell.natch.jerseymvc.screens.UserAdmin.AdminView;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.UserPasswordChangeInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserListOutput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserOutput;
-import org.denevell.natch.jerseymvc.services.PwChangeService;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.utils.BaseView;
-import org.denevell.natch.jerseymvc.utils.Responses;
+import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -28,15 +29,14 @@ import com.yeah.ServletGenerator.Param;
       @Param(name = "changepw_active"),
       @Param(name = "admintoggle_active"),
       @Param(name = "admintoggle_username")})
-public class Admin {
+public class UserAdmin {
 
-  public PwChangeService mPwChange = new PwChangeService();
   protected ServiceOutputs.UserListOutput mUsers;
 
   public AdminView onGet(AdminView view, HttpServletRequest req, HttpServletResponse resp) {
-    Services.users(req, new ResponseObject() { @Override
-      public void returned(Object o) {
-        mUsers = (ServiceOutputs.UserListOutput) o;
+    Services.users(req, new ResponseObject<UserListOutput>() { @Override
+      public void returned(UserListOutput o) {
+        mUsers = o;
       }
     });
     for (UserOutput userOutput : mUsers.users) {
@@ -50,22 +50,18 @@ public class Admin {
   }
 
   public void onPost(AdminView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    if(AdminServlet.admintoggle_active!=null) {
-      Services.userAdminToggle(req, AdminServlet.admintoggle_username);
+    if(UserAdminServlet.admintoggle_active!=null) {
+      Services.userAdminToggle(req, UserAdminServlet.admintoggle_username);
     }
-
-    mPwChange.changePw(
-        AdminServlet.changepw_active, 
-        req,
-        AdminServlet.changepw_username, 
-        AdminServlet.changepw_password);
-    view.pwChangeProcessed = mPwChange.getProcessed();
-    view.pwChangeError = mPwChange.errorMessage!=null;
-
-    Responses.send303(req, resp);
+    if(UserAdminServlet.changepw_active!=null) {
+      view.pwChangeError =  Services.userPwChange(req, UserAdminServlet.changepw_username, 
+          new UserPasswordChangeInput(UserAdminServlet.changepw_password))!=null;
+      view.pwChangeProcessed = !view.pwChangeError;
+    }
+    Serv.send303(req, resp);
   }
 
-  public static class AdminView extends BaseView {
+  public static class AdminView extends ViewBase {
     public AdminView(HttpServletRequest request) {
       super(request);
     }

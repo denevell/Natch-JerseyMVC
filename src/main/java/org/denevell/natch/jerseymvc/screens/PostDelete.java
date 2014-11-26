@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.denevell.natch.jerseymvc.screens.PostDelete.PostDeleteConfirmView;
 import org.denevell.natch.jerseymvc.services.Services;
-import org.denevell.natch.jerseymvc.utils.BaseView;
-import org.denevell.natch.jerseymvc.utils.Responses;
-import org.denevell.natch.jerseymvc.utils.UrlGenerators;
+import org.denevell.natch.jerseymvc.utils.Serv;
+import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.ViewBase;
 
 import com.yeah.ServletGenerator;
 import com.yeah.ServletGenerator.Param;
@@ -38,18 +38,18 @@ public class PostDelete {
   public void onPost(PostDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     view.errorMessage = Services.postDelete(req, PostDeleteServlet.delete_post_id_form);
 		if (view.errorMessage==null || view.errorMessage.trim().length()==0) {
-			String createThreadUrl = UrlGenerators
+			String createThreadUrl = Urls
       	.createThreadUrl(req,
       			PostDeleteServlet.thread,
       			PostDeleteServlet.start, 
       			PostDeleteServlet.limit);
-			Responses.send303(resp, createThreadUrl);
+			Serv.send303(resp, createThreadUrl);
 		} else {
-		  Responses.send303(req, resp);
+		  Serv.send303(req, resp);
 		}
   }
 
-  public static class PostDeleteConfirmView extends BaseView {
+  public static class PostDeleteConfirmView extends ViewBase {
     public PostDeleteConfirmView(HttpServletRequest request) {
       super(request);
     }
