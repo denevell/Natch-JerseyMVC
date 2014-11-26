@@ -10,6 +10,7 @@ You can run it with gradle jettyStart but you need jetty-runner-9.1.0.M0.jar in 
 Todo
 ====
 
+* Highlight selected page
 * Test for tags being too large
 * Remove annotations in favour of programmatic - test memory use before and after
 * Why isn't 404 a 404 on the live server?
@@ -18,11 +19,8 @@ Later
 =====
 
 * Sort and truncate tags in view object?
-* Pages per thread in view object?
 * Bean validation?
 * Delete single tag?
-* Separate pagination class?
-* Remove pagination html from codebase
 * Error messages for annotation processing
 * Multiple different posts to same page
 * Error page for a 404 on a thread / single post
