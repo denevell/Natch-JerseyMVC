@@ -28,8 +28,8 @@ import com.yeah.ServletGenerator.Param.ParamType;
     template = "/thread_single.mustache",
     params = {
       @Param(name = "numPosts", type=ParamType.INT),
-      @Param(name = "start", type=ParamType.INT),
-      @Param(name = "limit", type=ParamType.INT),
+      @Param(name = "start", type=ParamType.INT, defaultValue="0"),
+      @Param(name = "limit", type=ParamType.INT, defaultValue="10"),
       @Param(name = "content")},
     pathParams = {
       @Param(name = "threadId")
@@ -39,7 +39,7 @@ public class ThreadSingle {
   private ThreadOutput model;
 
   public ThreadView onGet(ThreadView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.thread(req, ThreadSingleServlet.threadId, ThreadSingleServlet.limit, ThreadSingleServlet.start,
+    Services.thread(req, ThreadSingleServlet.threadId, ThreadSingleServlet.start, ThreadSingleServlet.limit,
         new ResponseObject<ThreadOutput>() { @Override
           public void returned(ThreadOutput o) {
             model = o;
@@ -52,7 +52,7 @@ public class ThreadSingle {
 
 		// Set posts in template
 		int postsSize = model.getPosts().size();
-		view.numPosts = postsSize;
+		view.numPosts = model.numPosts;
 		for (int i = 0; i < postsSize; i++) {
 			PostOutput p = model.getPosts().get(i);
 			Post e = new Post(p.username, p.getHtmlContent(), (int)p.id, i, p.getLastModifiedDateWithTime());
@@ -98,7 +98,7 @@ public class ThreadSingle {
         Serv.send303(resp, 
             UtilsPagination.getNext(req, 
                 ThreadSingleServlet.start, 
-                ThreadSingleServlet.limit, model.numPosts).toString());
+                ThreadSingleServlet.limit, numPosts).toString());
       } else {
         Serv.send303(req, resp); 
       }

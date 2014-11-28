@@ -33,14 +33,14 @@ public class UserRegister {
   }
 
   public void onPost(final RegisterView view, final HttpServletRequest req, final HttpServletResponse resp) throws Exception {
-    Services.userRegister(req, 
+    view.registerErrorMessage = Services.userRegister(req, 
             new UserRegisterInput(UserRegisterServlet.username,
                 UserRegisterServlet.password,
                 UserRegisterServlet.recovery_email), 
             new ResponseObject<UserRegisterOutput>() { @Override
               public void returned(UserRegisterOutput register) {
                 if (register.error != null && register.error.trim().length() > 0) {
-                  view.registerErrorMessage = register.error; // Hack...
+                  view.registerErrorMessageInRequest = register.error; // Hack...
                 } else {
                   Services.userLogin(req, new UserLoginInput(UserRegisterServlet.username, UserRegisterServlet.password), new ResponseObject<UserLoginOutput>() { @Override
                     public void returned(UserLoginOutput login) {
@@ -50,11 +50,14 @@ public class UserRegister {
                 }
               }
             });
-    if (view.registerErrorMessage != null && view.registerErrorMessage.trim().length() != 0) {
-      Serv.send303(req, resp);
-    } else {
+    if ((view.registerErrorMessage == null || 
+        view.registerErrorMessage.trim().length() == 0) &&
+        (view.registerErrorMessageInRequest == null || 
+        view.registerErrorMessageInRequest.trim().length() == 0)) {
       String url = Urls.mainPage(req).toString();
       Serv.send303(resp, url);
+    } else {
+      Serv.send303(req, resp);
     }
   }
 
@@ -62,6 +65,7 @@ public class UserRegister {
     public RegisterView(HttpServletRequest request) {
       super(request);
     }
+    public String registerErrorMessageInRequest;
     public String registerErrorMessage;
   }
 

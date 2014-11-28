@@ -95,7 +95,9 @@ public class ServiceInputs {
     public UserRegisterInput(String username, String password, String recoveryEmail) {
       this.username = username;
       this.password = password;
-      this.recoveryEmail = recoveryEmail;
+      if(recoveryEmail!=null && recoveryEmail.trim().length()!=0) {
+        this.recoveryEmail = recoveryEmail;
+      }
     }
     public String username;
     public String password;

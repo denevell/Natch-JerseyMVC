@@ -28,12 +28,13 @@ public class UserLogin {
   }
 
   public void onPost(Object view, final HttpServletRequest req, final HttpServletResponse resp) throws Exception {
-    Services.userLogin(req, new UserLoginInput(UserLoginServlet.username, UserLoginServlet.password), new ResponseObject<UserLoginOutput>() { @Override
+    String errorMessage = Services.userLogin(req, new UserLoginInput(UserLoginServlet.username, UserLoginServlet.password), new ResponseObject<UserLoginOutput>() { @Override
       public void returned(UserLoginOutput login) {
         UtilsSession.setUserAsLoggedInWithSessionAndCookies(req, resp, UserLoginServlet.username, login.authKey, login.admin);
         req.getSession(true).setAttribute("loginErrorMessage", login.errorMessage);
       }
     });
+    req.getSession(true).setAttribute("loginErrorMessage", errorMessage);
     Serv.send303ToRedirectString(req, resp, UserLoginServlet.redirect);
   }
 

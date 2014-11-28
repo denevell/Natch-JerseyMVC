@@ -12,7 +12,7 @@ import org.apache.http.client.utils.URIBuilder;
 public class Urls {
 
   public static String threads(String tag, int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "rest/thread/bytag/"+tag+"/"+String.valueOf(start)+"/"+String.valueOf(limit);
+    return ListenerManifestVars.getValue("rest_service") + "thread/bytag/"+tag+"/"+String.valueOf(start)+"/"+String.valueOf(limit);
   }
 
   public static String threads(int start, int limit) {
@@ -20,69 +20,69 @@ public class Urls {
   }
 
   public static String thread(String threadId, int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "rest/"+threadId+"/"+start+"/"+limit;
+    return ListenerManifestVars.getValue("rest_service") + "thread/"+threadId+"/"+start+"/"+limit;
   }
 
   public static String threadFromPost() {
-    return ListenerManifestVars.getValue("rest_service") + "rest/thread/frompost";
+    return ListenerManifestVars.getValue("rest_service") + "thread/frompost";
   }
 
   public static String threadEdit(int id) {
-    return ListenerManifestVars.getValue("rest_service") + "rest/thread/edit/"+String.valueOf(id);
+    return ListenerManifestVars.getValue("rest_service") + "thread/edit/"+String.valueOf(id);
   }
 
   public static String threadAdd() {
-    return ListenerManifestVars.getValue("rest_service") + "rest/thread/";
+    return ListenerManifestVars.getValue("rest_service") + "thread/";
   }
 
   public static String postAdd() {
-    return ListenerManifestVars.getValue("rest_service") + "rest/post/add";
+    return ListenerManifestVars.getValue("rest_service") + "post/add";
   }
 
   public static String postDelete(String postId) {
-    return ListenerManifestVars.getValue("rest_service") + "rest/post/del/"+postId;
+    return ListenerManifestVars.getValue("rest_service") + "post/del/"+postId;
   }
 
   public static String postEdit(int postId) {
-    return ListenerManifestVars.getValue("rest_service") + "rest/post/editpost/"+postId;
+    return ListenerManifestVars.getValue("rest_service") + "post/editpost/"+postId;
   }
 
   public static String postSingle(int postId) {
-    return ListenerManifestVars.getValue("rest_service") + "rest/post/single/"+postId;
+    return ListenerManifestVars.getValue("rest_service") + "post/single/"+postId;
   }
   
   // #####
 
   public static String userLogout() {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/logout";
+    return ListenerManifestVars.getValue("user_service") + "user/logout";
   }
 
   public static String userRegister() {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/login";
+    return ListenerManifestVars.getValue("user_service") + "user";
   }
 
   public static String userLogin() {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/";
+    return ListenerManifestVars.getValue("user_service") + "user/login";
   }
 
   public static String userAdminToggle(String username) {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/admin/toggle/"+username;
+    return ListenerManifestVars.getValue("user_service") + "user/admin/toggle/"+username;
   }
 
   public static String userPwReset(String email) {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/password_reset/"+email;
+    return ListenerManifestVars.getValue("user_service") + "user/password_reset/"+email;
   }
 
   public static String users() {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/list";
+    return ListenerManifestVars.getValue("user_service") + "user/list";
   }
 
-  public static String userPwResetRequestRemove(int userId) {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/password_reset/remove/"+userId;
+  public static String userPwResetRequestRemove(String userId) {
+    return ListenerManifestVars.getValue("user_service") + "user/password_reset/remove/"+userId;
   }
 
   public static String userPwChange(String user) {
-    return ListenerManifestVars.getValue("user_service") + "rest/user/password/"+user;
+    return ListenerManifestVars.getValue("user_service") + "user/password/"+user;
   }
 
   public static String getUrlWithQueryString(HttpServletRequest request) throws URISyntaxException {

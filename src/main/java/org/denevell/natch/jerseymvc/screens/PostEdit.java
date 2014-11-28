@@ -33,7 +33,7 @@ public class PostEdit {
   private PostOutput postOutput;
 
   public PostEditView onGet(PostEditView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject<PostOutput>() {
+    Services.postSingle(req, PostEditServlet.post_edit, new ResponseObject<PostOutput>() {
       @Override
       public void returned(PostOutput o) {
         postOutput = o;

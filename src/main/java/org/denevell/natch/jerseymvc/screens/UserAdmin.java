@@ -56,6 +56,7 @@ public class UserAdmin {
     if(UserAdminServlet.changepw_active!=null) {
       view.pwChangeError =  Services.userPwChange(req, UserAdminServlet.changepw_username, 
           new UserPasswordChangeInput(UserAdminServlet.changepw_password))!=null;
+      view.pwChangeError =  Services.userPwResetRequestRemove(req, UserAdminServlet.changepw_username)!=null;
       view.pwChangeProcessed = !view.pwChangeError;
     }
     Serv.send303(req, resp);

@@ -9,6 +9,9 @@
         {{#registerErrorMessage}}
                 <span style="color: red">{{.}}</span><br />
         {{/registerErrorMessage}}
+        {{#registerErrorMessageInRequest}}
+                <span style="color: red">{{.}}</span><br />
+        {{/registerErrorMessageInRequest}}
 
       {{^loggedIn}}
         <form 

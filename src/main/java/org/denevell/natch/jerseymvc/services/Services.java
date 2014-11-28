@@ -4,25 +4,25 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadAddFromPostResourceInput;
-import org.denevell.natch.jerseymvc.services.ServiceInputs.UserLoginInput;
-import org.denevell.natch.jerseymvc.services.ServiceInputs.UserPasswordChangeInput;
 import org.denevell.natch.jerseymvc.services.ServiceInputs.PostAddInput;
 import org.denevell.natch.jerseymvc.services.ServiceInputs.PostEditInput;
-import org.denevell.natch.jerseymvc.services.ServiceInputs.UserRegisterInput;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadAddFromPostResourceInput;
 import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadAddInput;
 import org.denevell.natch.jerseymvc.services.ServiceInputs.ThreadEditInput;
-import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserLoginOutput;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.UserLoginInput;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.UserPasswordChangeInput;
+import org.denevell.natch.jerseymvc.services.ServiceInputs.UserRegisterInput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.PostOutput;
-import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserRegisterOutput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadOutput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.ThreadsOutput;
 import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserListOutput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserLoginOutput;
+import org.denevell.natch.jerseymvc.services.ServiceOutputs.UserRegisterOutput;
 import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseType;
-import org.denevell.natch.jerseymvc.utils.UtilsSession;
 import org.denevell.natch.jerseymvc.utils.Urls;
+import org.denevell.natch.jerseymvc.utils.UtilsSession;
 
 public class Services {
 
@@ -132,7 +132,7 @@ public class Services {
 	  .returnType(UserRegisterOutput.class, ResponseType.PUT); 
 	}
 
-	public static String userPwResetRequestRemove(HttpServletRequest req, int userId) {
+	public static String userPwResetRequestRemove(HttpServletRequest req, String userId) {
 	  return new Serv.Build<Void>(Urls.userPwResetRequestRemove(userId))
 	  .header("AuthKey", UtilsSession.getAuthKey(req))
 	  .statusMap(Urls.threadEditErrorMessages())

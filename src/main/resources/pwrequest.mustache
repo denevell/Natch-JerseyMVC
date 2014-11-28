@@ -8,9 +8,9 @@
         {{#resetPasswordError}}
           Problem requesting a reset. Is your email correct?
         {{/resetPasswordError}}
-        {{^resetPasswordError}}
+        {{#pwRequestSent}}
           Password reset request sent. Please now bug @Zain_ or @NameAaronNewell
-        {{/resetPasswordError}}
+        {{/pwRequestSent}}
         <form action="" method="post" style="width:50%">
                 <div class="form-group">
                         <input type="input" placeholder="Recovery email address" class="form-control" name="resetpw_email" /> 

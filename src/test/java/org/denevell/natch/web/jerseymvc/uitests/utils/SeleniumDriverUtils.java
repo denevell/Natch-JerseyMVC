@@ -13,14 +13,18 @@ public class SeleniumDriverUtils {
 			//return pjs;
 			return null;
 		} else {
+		  //*
       HtmlUnitDriver h = new HtmlUnitDriver(false);
 			h.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-
-			//FirefoxBinary binary = new FirefoxBinary(new File("/home/user/bin/firefox-32/firefox-bin"));
-			//FirefoxDriver ffd = new FirefoxDriver(binary, null);
-			//ffd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-
 			return h;
+			//*/
+
+		  /*
+			FirefoxBinary binary = new FirefoxBinary(new File("/home/user/bin/firefox-32/firefox-bin"));
+			FirefoxDriver ffd = new FirefoxDriver(binary, null);
+			ffd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+			return ffd;
+			/*/
 		}
 	}
 }

@@ -12,12 +12,13 @@ Todo
 
 * Highlight selected page
 * Test for tags being too large
-* Remove annotations in favour of programmatic - test memory use before and after
-* Why isn't 404 a 404 on the live server?
+* Sort out registering problem
 
 Later
 =====
 
+* Why isn't 404 a 404 on the live server?
+* Remove annotations in favour of programmatic - test memory use before and after
 * Sort and truncate tags in view object?
 * Bean validation?
 * Delete single tag?

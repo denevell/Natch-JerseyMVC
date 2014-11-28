@@ -10,7 +10,6 @@ import org.denevell.natch.jerseymvc.services.Services;
 import org.denevell.natch.jerseymvc.utils.Serv;
 import org.denevell.natch.jerseymvc.utils.Serv.ResponseObject;
 import org.denevell.natch.jerseymvc.utils.Urls;
-import org.denevell.natch.jerseymvc.utils.UtilsPagination;
 import org.denevell.natch.jerseymvc.utils.UtilsSession;
 import org.denevell.natch.jerseymvc.utils.ViewBase;
 
@@ -37,7 +36,7 @@ public class PostReply {
   private PostOutput postOutput;
 
   public PostReplyView onGet(PostReplyView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    Services.postSingle(req, ThreadEditServlet.post_edit, new ResponseObject<PostOutput>() {
+    Services.postSingle(req, PostReplyServlet.post, new ResponseObject<PostOutput>() {
       @Override
       public void returned(PostOutput o) {
         postOutput = o;
@@ -64,14 +63,11 @@ public class PostReply {
       int numPosts = PostReplyServlet.numPosts+1;
       if (numPosts > PostReplyServlet.start + PostReplyServlet.limit) {
         Serv.send303(resp, 
-            UtilsPagination.getNext(req, 
-                PostReplyServlet.start, 
-                PostReplyServlet.limit, 
-                PostReplyServlet.numPosts).toString());
+            Urls.createThreadUrl(req, PostReplyServlet.thread, 
+                PostReplyServlet.start+PostReplyServlet.limit, 
+                PostReplyServlet.limit));
       } else {
-        String current = Urls.addQueryStringsToUrl(req, 
-            "start", String.valueOf(PostReplyServlet.start), 
-            "limit", String.valueOf(PostReplyServlet.limit)).toString();
+        String current = Urls.createThreadUrl(req, PostReplyServlet.thread, PostReplyServlet.start, PostReplyServlet.limit);
         Serv.send303(resp, current); 
       }
     } 

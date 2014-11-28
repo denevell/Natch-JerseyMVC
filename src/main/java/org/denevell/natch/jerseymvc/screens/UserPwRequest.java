@@ -25,6 +25,7 @@ public class UserPwRequest {
 
   public void onPost(PwRequestView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
     view.resetPasswordError = Services.userPwReset(req, UserPwRequestServlet.resetpw_email)!=null;
+    view.pwRequestSent = !view.resetPasswordError;
     Serv.send303(req, resp);
   }
 
@@ -32,6 +33,7 @@ public class UserPwRequest {
     public PwRequestView(HttpServletRequest request) {
       super(request);
     }
+    public boolean pwRequestSent;
     public boolean resetPasswordError;
   }
 
