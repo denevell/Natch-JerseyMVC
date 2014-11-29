@@ -44,7 +44,7 @@ public class UserRegister {
                 } else {
                   Services.userLogin(req, new UserLoginInput(UserRegisterServlet.username, UserRegisterServlet.password), new ResponseObject<UserLoginOutput>() { @Override
                     public void returned(UserLoginOutput login) {
-                      UtilsSession.setUserAsLoggedInWithSessionAndCookies(req, resp, UserLoginServlet.username, login.authKey, login.admin);
+                      UtilsSession.setUserAsLoggedInWithSessionAndCookies(req, resp, UserRegisterServlet.username, login.authKey, login.admin);
                       req.getSession(true).setAttribute("loginErrorMessage", login.errorMessage);
                     }});
                 }
