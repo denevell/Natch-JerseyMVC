@@ -12,35 +12,35 @@ import org.apache.http.client.utils.URIBuilder;
 public class Urls {
 
   public static String threads(String tag, int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "thread/bytag/"+tag+"/"+String.valueOf(start)+"/"+String.valueOf(limit);
+    return ListenerManifestVars.getValue("rest_service") + "threads_bytag/"+tag+"/"+String.valueOf(start)+"/"+String.valueOf(limit);
   }
 
   public static String threads(int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "thread/"+String.valueOf(start)+"/"+String.valueOf(limit);
+    return ListenerManifestVars.getValue("rest_service") + "threads/"+String.valueOf(start)+"/"+String.valueOf(limit);
   }
 
   public static String thread(String threadId, int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "thread/"+threadId+"/"+start+"/"+limit;
+    return ListenerManifestVars.getValue("rest_service") + "thread_single/"+threadId+"/"+start+"/"+limit;
   }
 
   public static String threadFromPost() {
-    return ListenerManifestVars.getValue("rest_service") + "thread/frompost";
+    return ListenerManifestVars.getValue("rest_service") + "thread_frompost";
   }
 
   public static String threadEdit(int id) {
-    return ListenerManifestVars.getValue("rest_service") + "thread/edit/"+String.valueOf(id);
+    return ListenerManifestVars.getValue("rest_service") + "thread_edit/"+String.valueOf(id);
   }
 
   public static String threadAdd() {
-    return ListenerManifestVars.getValue("rest_service") + "thread/";
+    return ListenerManifestVars.getValue("rest_service") + "thread_add";
   }
 
   public static String postAdd() {
-    return ListenerManifestVars.getValue("rest_service") + "post/add";
+    return ListenerManifestVars.getValue("rest_service") + "post_add";
   }
 
-  public static String postDelete(String postId) {
-    return ListenerManifestVars.getValue("rest_service") + "post/del/"+postId;
+  public static String postDelete(String postId, String threadId) {
+    return ListenerManifestVars.getValue("rest_service") + "post_delete/"+postId+"/"+threadId;
   }
 
   public static String postEdit(int postId) {
@@ -48,7 +48,7 @@ public class Urls {
   }
 
   public static String postSingle(int postId) {
-    return ListenerManifestVars.getValue("rest_service") + "post/single/"+postId;
+    return ListenerManifestVars.getValue("rest_service") + "post_single/"+postId;
   }
   
   // #####

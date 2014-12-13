@@ -27,7 +27,7 @@ public class ThreadDelete {
 	}
 
   public void onPost(ThreadDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    view.errorMessage = Services.threadDelete(req, ThreadDeleteServlet.delete_thread_id_form);
+    view.errorMessage = Services.threadDelete(req, ThreadDeleteServlet.delete_thread_id_form, ThreadDeleteServlet.delete_thread_id);
     if (view.errorMessage==null || view.errorMessage.trim().length()==0) {
       Serv.send303(resp, Urls.mainPage(req).toString());
     } else {

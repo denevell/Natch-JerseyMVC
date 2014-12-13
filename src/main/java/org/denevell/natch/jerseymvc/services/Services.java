@@ -33,8 +33,8 @@ public class Services {
 	  .returnType(Void.class, ResponseType.PUT);
 	}
 
-	public static String postDelete(HttpServletRequest req, int postId) {
-	  return new Serv.Build<Void>(Urls.postDelete(String.valueOf(postId)))
+	public static String postDelete(HttpServletRequest req, int postId, String threadId) {
+	  return new Serv.Build<Void>(Urls.postDelete(String.valueOf(postId), threadId))
 	  .header("AuthKey", UtilsSession.getAuthKey(req))
 	  .statusMap(Urls.postDeleteErrorMessages())
 	  .returnType(Void.class, ResponseType.DELETE);
@@ -77,8 +77,8 @@ public class Services {
 	  .returnType(Void.class, ResponseType.PUT);
 	}
 
-	public static String threadDelete(HttpServletRequest req, String postId) {
-	  return new Serv.Build<Void>(Urls.postDelete(postId))
+	public static String threadDelete(HttpServletRequest req, String postId, String threadId) {
+	  return new Serv.Build<Void>(Urls.postDelete(postId, threadId))
 	  .header("AuthKey", UtilsSession.getAuthKey(req))
 	  .statusMap(Urls.threadDeleteErrorMessages())
 	  .returnType(Void.class, ResponseType.DELETE); 

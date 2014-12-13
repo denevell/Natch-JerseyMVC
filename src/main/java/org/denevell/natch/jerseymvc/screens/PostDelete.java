@@ -36,7 +36,7 @@ public class PostDelete {
   }
 
   public void onPost(PostDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    view.errorMessage = Services.postDelete(req, PostDeleteServlet.delete_post_id_form);
+    view.errorMessage = Services.postDelete(req, PostDeleteServlet.delete_post_id_form, PostDeleteServlet.thread);
 		if (view.errorMessage==null || view.errorMessage.trim().length()==0) {
 			String createThreadUrl = Urls
       	.createThreadUrl(req,
