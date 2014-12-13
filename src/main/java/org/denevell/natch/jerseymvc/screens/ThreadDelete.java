@@ -18,16 +18,18 @@ import com.yeah.ServletGenerator.Param;
     template = "/thread_delete_confirm.mustache",
     params = {
       @Param(name = "delete_thread_id"),
-      @Param(name = "delete_thread_id_form")})
+      @Param(name = "delete_post_id"),
+      @Param(name = "delete_post_id_form")})
 public class ThreadDelete {
 
   public ThreadDeleteConfirmView onGet(ThreadDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) {
-		view.id = Integer.valueOf(ThreadDeleteServlet.delete_thread_id); 
+		view.id = Integer.valueOf(ThreadDeleteServlet.delete_post_id); 
+		view.thread = ThreadDeleteServlet.delete_thread_id; 
 		return view;
 	}
 
   public void onPost(ThreadDeleteConfirmView view, HttpServletRequest req, HttpServletResponse resp) throws Exception {
-    view.errorMessage = Services.threadDelete(req, ThreadDeleteServlet.delete_thread_id_form, ThreadDeleteServlet.delete_thread_id);
+    view.errorMessage = Services.threadDelete(req, ThreadDeleteServlet.delete_post_id, ThreadDeleteServlet.delete_thread_id);
     if (view.errorMessage==null || view.errorMessage.trim().length()==0) {
       Serv.send303(resp, Urls.mainPage(req).toString());
     } else {
@@ -41,6 +43,7 @@ public class ThreadDelete {
     }
     public String errorMessage;
     public int id;
+    public String thread;
   }
 
 }

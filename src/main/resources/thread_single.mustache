@@ -35,7 +35,7 @@
 	           			<a id="post_edit" href="/post/edit/{{id}}?thread={{parentThreadId}}&start={{returnToThreadFromEditStartParam}}&limit={{returnToThreadFromDeletePostLimitParam}}">[Edit]</a>
             			{{/hasEditPostText}}
    		            {{#hasEditThreadText}}
-                  <a id="delete_thread_form_submit" href="/thread/delete?delete_thread_id={{id}}">[Delete thread]</a>
+                  <a id="delete_thread_form_submit" href="/thread/delete?delete_thread_id={{parentThreadId}}&delete_post_id={{id}}">[Delete thread]</a>
         			    {{/hasEditThreadText}}
    		            {{#hasEditPostText}}
 	           			<a id="delete_{{iterate}}" href="/post/delete/{{id}}?thread={{parentThreadId}}&limit={{returnToThreadFromDeletePostLimitParam}}&start={{returnToThreadFromDeletePostStartParam}}">[Delete]</a>
