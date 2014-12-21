@@ -12,11 +12,27 @@ import org.apache.http.client.utils.URIBuilder;
 public class Urls {
 
   public static String threads(String tag, int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "threads_bytag/"+tag+"/"+String.valueOf(start)+"/"+String.valueOf(limit);
+    return 
+        ListenerManifestVars
+        .getValue("rest_service") + "list/ThreadEntity"
+        +"?start="+String.valueOf(start)
+        +"&limit="+String.valueOf(limit)
+        +"&count=true"
+        +"&member="+tag
+        +"&memberof=rootPost.tags"
+        +"&desc=true"
+        +"&orderby=latestPost.modified";
   }
 
   public static String threads(int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "threads/"+String.valueOf(start)+"/"+String.valueOf(limit);
+    return 
+        ListenerManifestVars
+        .getValue("rest_service") + "list/ThreadEntity"
+        +"?start="+String.valueOf(start)
+        +"&limit="+String.valueOf(limit)
+        +"&count=true"
+        +"&desc=true"
+        +"&orderby=latestPost.modified";
   }
 
   public static String thread(String threadId, int start, int limit) {
@@ -32,7 +48,7 @@ public class Urls {
   }
 
   public static String threadAdd() {
-    return ListenerManifestVars.getValue("rest_service") + "thread_add";
+    return ListenerManifestVars.getValue("rest_service") + "add/ThreadEntity%24AddInput";
   }
 
   public static String postAdd() {

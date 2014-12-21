@@ -197,8 +197,8 @@ public class ServiceOutputs {
   }
 
   public static class ThreadsOutput {
-    public long numOfThreads;
-    public List<ThreadOutput> threads = new ArrayList<ThreadOutput>();
+    public long count;
+    public List<ThreadOutput> results = new ArrayList<ThreadOutput>();
     int i = 0;
     int iterate() {
       return i++;

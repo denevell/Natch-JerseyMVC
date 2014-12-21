@@ -51,8 +51,8 @@ public class Threads {
     } else {
       Services.threads(req, ThreadsServlet.tag, ThreadsServlet.start, ThreadsServlet.limit, callback);
     }
-    for (int i = 0; i < mThreads.threads.size(); i++) {
-      ThreadOutput t = mThreads.threads.get(i);
+    for (int i = 0; i < mThreads.results.size(); i++) {
+      ThreadOutput t = mThreads.results.get(i);
       ThreadsView.Thread e = new ThreadsView.Thread(t.subject, t.author, t.getLastModifiedDateWithTime(), t.id, i);
       e.numPages = getPagesPerThread(t);
       e.tags = sortAndTruncateTags(t.tags);
@@ -60,9 +60,9 @@ public class Threads {
       view.threads.add(e);
     }
 
-		view.next = UtilsPagination.getNext(req, ThreadsServlet.start, ThreadsServlet.limit, (int) mThreads.numOfThreads).toString();
+		view.next = UtilsPagination.getNext(req, ThreadsServlet.start, ThreadsServlet.limit, (int) mThreads.count).toString();
 		view.prev = UtilsPagination.getPrev(req, ThreadsServlet.start, ThreadsServlet.limit).toString();
-		view.pages = UtilsPagination.getPagination(req, ThreadsServlet.limit, (int) mThreads.numOfThreads);
+		view.pages = UtilsPagination.getPagination(req, ThreadsServlet.limit, (int) mThreads.count);
     return view;
   }
 
