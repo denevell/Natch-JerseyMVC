@@ -36,7 +36,19 @@ public class Urls {
   }
 
   public static String thread(String threadId, int start, int limit) {
-    return ListenerManifestVars.getValue("rest_service") + "thread_single/"+threadId+"/"+start+"/"+limit;
+    //return ListenerManifestVars.getValue("rest_service") + "thread_single/"+threadId+"/"+start+"/"+limit;
+    return
+        ListenerManifestVars
+        .getValue("rest_service") + "single_pagination/ThreadEntity"
+        +"?idString="+threadId
+        +"&pageStart="+String.valueOf(start)
+        +"&pageLimit="+String.valueOf(limit)
+        +"&pageField=posts"
+        +"&pageEntity=PostEntity"
+        +"&pageOrderby=created"
+        +"&whereField=threadId"
+        +"&whereValue="+threadId
+        +"&pageDesc=false";
   }
 
   public static String threadFromPost() {

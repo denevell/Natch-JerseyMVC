@@ -121,12 +121,12 @@ public class ServiceOutputs {
     public String id;
     public String subject;
     public String author;
-    public List<PostOutput> posts;
+    public PostsOutput posts;
     public int numPosts;
     public long creation;
     public long modification;
-    public long rootPostId;
-    public long latestPostId;
+    public PostOutput rootPost;
+    public PostOutput latestPost;
     public boolean mLoggedin;
 
     public ThreadOutput(ThreadOutput tr) {
@@ -134,8 +134,8 @@ public class ServiceOutputs {
       author = tr.author;
       numPosts = tr.numPosts;
       tags = tr.tags;
-      rootPostId = tr.rootPostId;
-      latestPostId = tr.latestPostId;
+      rootPost = tr.rootPost;
+      latestPost = tr.latestPost;
     }
 
     public ThreadOutput(String subject, String author, long creation, long modification, List<String> tags) {
@@ -176,7 +176,7 @@ public class ServiceOutputs {
       if (posts != null && posts.get(0) != null) {
         return posts.get(0).id;
       } else {
-        return rootPostId;
+        return rootPost.id;
       }
     }
 
@@ -187,7 +187,7 @@ public class ServiceOutputs {
     }
 
     public List<PostOutput> getPosts() {
-      return posts;
+      return posts.results;
     }
 
     public boolean getLoggedinCorrectly() {
@@ -199,6 +199,15 @@ public class ServiceOutputs {
   public static class ThreadsOutput {
     public long count;
     public List<ThreadOutput> results = new ArrayList<ThreadOutput>();
+    int i = 0;
+    int iterate() {
+      return i++;
+    }
+  }
+
+  public static class PostsOutput {
+    public long count;
+    public List<PostOutput> results = new ArrayList<PostOutput>();
     int i = 0;
     int iterate() {
       return i++;
