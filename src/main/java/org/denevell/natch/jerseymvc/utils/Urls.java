@@ -76,7 +76,9 @@ public class Urls {
   }
 
   public static String postSingle(int postId) {
-    return ListenerManifestVars.getValue("rest_service") + "post_single/"+postId;
+   return ListenerManifestVars
+        .getValue("rest_service") + "single/PostEntity"
+        +"?idLong=" + String.valueOf(postId);
   }
   
   // #####
