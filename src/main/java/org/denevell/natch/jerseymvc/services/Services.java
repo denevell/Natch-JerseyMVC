@@ -27,10 +27,10 @@ import org.denevell.natch.jerseymvc.utils.UtilsSession;
 public class Services {
 
 	public static String postAdd(String authKey, PostAddInput entity) {
-	  return new Serv.Build<Void>(Urls.postAdd())
+	  return new Serv.Build<Void>(Urls.postAdd(entity.threadId))
 	  .header("AuthKey", authKey).entity(entity)
 	  .statusMap(Urls.postAddErrorMessages())
-	  .returnType(Void.class, ResponseType.PUT);
+	  .returnType(Void.class, ResponseType.POST);
 	}
 
 	public static String postDelete(HttpServletRequest req, int postId, String threadId) {

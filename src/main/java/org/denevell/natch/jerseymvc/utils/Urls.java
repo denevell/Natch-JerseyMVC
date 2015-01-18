@@ -63,8 +63,11 @@ public class Urls {
     return ListenerManifestVars.getValue("rest_service") + "add/ThreadEntity%24AddInput";
   }
 
-  public static String postAdd() {
-    return ListenerManifestVars.getValue("rest_service") + "post_add";
+  public static String postAdd(String threadId) {
+    return
+        ListenerManifestVars
+        .getValue("rest_service") + "update/ThreadEntity/PostEntity%24AddInput"
+        +"?idString="+threadId;
   }
 
   public static String postDelete(String postId, String threadId) {
